@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Pagination } from "antd";
 import "./Table.scss";
 import { API_ENDPOINT } from "../../../../config";
@@ -8,10 +8,15 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
   const [filterValues, setFilterValues] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+  const { location } = useLocation();
   useEffect(() => {
     fetchData({ ...filterValues, page: currentPage }).then((result) => {
       setData(result);
-      console.log(result);
+    });
+  }, [location]);
+  useEffect(() => {
+    fetchData({ ...filterValues, page: currentPage }).then((result) => {
+      setData(result);
     });
   }, [fetchData, filterValues, currentPage]);
 
@@ -24,7 +29,6 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
       ...prevFilterValues,
       [key]: value,
     }));
-    console.log(filterValues);
     setCurrentPage(1);
   };
 
@@ -81,24 +85,24 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
                       <div className="buttons">
                         {actions.edit && routes.edit && (
                           <Link to={`${routes.edit}/${item.id}`}>
-                            <button className="button edit">Edit</button>
+                            <button className="button edit">تعديل</button>
                           </Link>
                         )}
                         {actions.delete && routes.delete && (
                           <Link to={`${routes.delete}/${item.id}`}>
-                            <button className="button delete">Delete</button>
+                            <button className="button delete">حذف</button>
                           </Link>
                         )}
                         {actions.show && routes.show && (
                           <Link to={`${routes.show}/${item.id}`}>
-                            <button className="button show">Show</button>
+                            <button className="button show">عرض</button>
                           </Link>
                         )}
                         {actions.showInvoices && routes.showInvoices && (
                           <Link
-                            to={`${routes.showInvoices}/${item.id}/invoices`}
+                            to={`${routes.showInvoices}/${item.id}/show-invoices`}
                           >
-                            <button className="button show">Invoices</button>
+                            <button className="button show">فواتير</button>
                           </Link>
                         )}
                       </div>
@@ -106,16 +110,21 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
                   )}
                 </tr>
               ))}
+            {data && data.data && data.data.length ? null : (
+              <p>لا يوجد نتائج</p>
+            )}
           </tbody>
         </table>
       </div>
-      <Pagination
-      className="pagination"
-        current={currentPage}
-        onChange={handlePageChange}
-        total={data?.pagination?.total || 1}
-        showSizeChanger={false}
-      />
+      {data?.data?.length > 0 && (
+        <Pagination
+          className="pagination"
+          current={currentPage}
+          onChange={handlePageChange}
+          total={data?.pagination?.total || 1}
+          showSizeChanger={false}
+        />
+      )}
     </section>
   );
 };

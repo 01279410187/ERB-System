@@ -1,7 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import Warehouse from "./applications/warehouse/Warehouse";
-import { ShowSuppliers } from "./applications/warehouse/sections/suppliers/pages";
+import {
+  ShowSuppliers,
+  AddSupplier,
+  DeleteSupplier,
+  ShowSupplierInvoices,
+} from "./applications/warehouse/sections/suppliers/pages";
 import Suppliers from "./applications/warehouse/sections/suppliers/Suppliers";
 import Recipes from "./applications/warehouse/sections/recipes/Recipes";
 import { ShowRecipes } from "./applications/warehouse/sections/recipes/pages";
@@ -18,20 +23,20 @@ function App() {
               element={<ShowSuppliers />}
             ></Route>
             <Route
-              path="/warehouse/suppliers/add-suppliers"
-              element={<ShowSuppliers />}
+              path="/warehouse/suppliers/add-supplier"
+              element={<AddSupplier />}
             ></Route>
             <Route
               path="/warehouse/suppliers/delete-supplier/:id"
+              element={<DeleteSupplier />}
+            ></Route>
+            <Route
+              path="/warehouse/suppliers/edit-supplier/:id"
               element={<ShowSuppliers />}
             ></Route>
             <Route
-              path="/warehouse/suppliers/edit-suppliers/:id"
-              element={<ShowSuppliers />}
-            ></Route>
-            <Route
-              path="/warehouse/suppliers/edit-suppliers/:id"
-              element={<ShowSuppliers />}
+              path="/warehouse/suppliers/:id/show-invoices"
+              element={<ShowSupplierInvoices />}
             ></Route>
           </Route>
         </Route>
