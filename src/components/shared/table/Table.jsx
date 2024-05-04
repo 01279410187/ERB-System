@@ -38,6 +38,7 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
               <span>
                 <label htmlFor="">{key}</label>
                 <input
+                className="filter-input"
                   key={key}
                   type="text"
                   placeholder={filters[key]}
@@ -49,6 +50,7 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
           </div>
         )}
         <button
+        className="add-btn"
           onClick={() => {
             navigate(routes.add);
           }}
@@ -108,6 +110,7 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
         </table>
       </div>
       <Pagination
+      className="pagination"
         current={currentPage}
         onChange={handlePageChange}
         total={data?.pagination?.total || 1}
