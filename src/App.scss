@@ -7,7 +7,10 @@
 /*** Common variables ***/
 :root {
   // colors
-  --brown-color:#803D3B;
+  --brown-color: #803D3B;
+  --beige-color: #AF8260;
+  --light-beige-color: #E4C59E;
+  --black-color: #322C2B;
   --blue-color: #475be8;
   --green-color: #4ce13f;
   --orange-color: #f29a2e;
@@ -35,7 +38,7 @@
 @mixin lightMode {
   // --primary-color: #475be8;
   --primary-color: #803D3B;
-  
+
   --secondary-color: #fff;
   --background-color: #fafafa;
   --side-link-hover-color: #f6f6f6;
@@ -172,8 +175,9 @@ ul {
 
 // content
 .content-area {
-  & > section {
+  &>section {
     margin-bottom: 16px;
+
     &:last-child {
       margin-bottom: 0;
     }
