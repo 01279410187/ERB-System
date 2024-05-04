@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Pagination } from "antd";
 import "./Table.scss";
+import { API_ENDPOINT } from "../../../../config";
 const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
   const [data, setData] = useState([]);
   const [filterValues, setFilterValues] = useState({});
@@ -70,7 +71,8 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
               data?.data.map((item) => (
                 <tr key={item.id}>
                   {headers.map((header) => (
-                    <td key={header.key}>{item[header.key]}</td>
+                    header.type === "image" ? <td><img src={`${API_ENDPOINT}/${item.image}`} alt={`alt-${item.name}`} style={{ width: "50px", height: "50px" }} /> </td> :
+                      <td key={header.key}>{item[header.key]}</td>
                   ))}
                   {actions && (
                     <td>

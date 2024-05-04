@@ -1,0 +1,48 @@
+// DynamicForm.scss
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.input-container {
+  margin-bottom: 20px;
+
+  input[type="text"],
+  input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+
+  input[type="text"]:focus,
+  input[type="file"]:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  span.error-message {
+    color: red;
+    font-size: 14px;
+  }
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
