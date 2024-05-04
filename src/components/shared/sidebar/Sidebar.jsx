@@ -1,8 +1,9 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
 import { LIGHT_THEME } from "../../../constants/themeConstants";
 import LogoBlue from "../../../../public/assets/images/logo_blue.svg";
 import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
+import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
 import { TbReport } from "react-icons/tb";
@@ -19,6 +20,7 @@ import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
+  const [activeLink, setActiveLink] = useState(""); // State to track active link
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
   const navbarRef = useRef(null);
   const navigate = useNavigate();
@@ -26,6 +28,10 @@ const Sidebar = () => {
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
+  };
+   // Handle clicking on menu links
+   const handleMenuLinkClick = (link) => {
+    setActiveLink(link);
   };
 
   // closing the navbar when clicked outside the sidebar area
@@ -53,7 +59,7 @@ const Sidebar = () => {
     >
       <div className="sidebar-top">
         <div className="sidebar-brand">
-          <img src={LogoBrown} alt="" />
+          <img src={LogoDAR} alt="" />
           <span className="sidebar-brand-text">دار المشاه</span>
         </div>
         <button className="sidebar-close-btn" onClick={closeSidebar}>
@@ -64,7 +70,20 @@ const Sidebar = () => {
         <div className="sidebar-menu">
           <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/warehouse/suppliers/show-suppliers" className="menu-link">
+              <Link to="/warehouse/suppliers/show-suppliers" 
+              // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
+              className={`menu-link ${
+                activeLink === "/warehouse/suppliers/show-suppliers"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>{
+                console.log("show-suppliers");
+                handleMenuLinkClick("/warehouse/suppliers/show-suppliers")
+              }
+
+              }
+              >
                 <span className="menu-link-icon">
                   <MdPerson size={30} />
                 </span>
@@ -74,7 +93,18 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/warehouse/recipes/show-departments" className="menu-link">
+              <Link to="/warehouse/recipes/show-departments" 
+              className={`menu-link ${
+                activeLink === "/warehouse/recipes/show-departments"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/recipes/show-departments")
+                }
+              }>
                 <span className="menu-link-icon">
                   <MdProductionQuantityLimits size={30} />
                 </span>
@@ -85,7 +115,11 @@ const Sidebar = () => {
             </li>
 
             <li className="menu-item">
-              <Link to="/dashboard/feature" className="menu-link">
+              <Link to="/dashboard/feature" 
+               className={`menu-link ${
+                activeLink === "/dashboard/feature" ? "active" : ""
+              }`}
+              onClick={() => handleMenuLinkClick("/dashboard/feature")}>
                 <span className="menu-link-icon">
                   <TbReport size={30} />
                 </span>
