@@ -74,7 +74,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/warehouse/recipes/show-recipes" className="menu-link">
+              <Link to="/warehouse/recipes/show-departments" className="menu-link">
                 <span className="menu-link-icon">
                   <MdProductionQuantityLimits size={30} />
                 </span>

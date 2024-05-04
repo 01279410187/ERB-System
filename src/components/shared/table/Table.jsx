@@ -3,19 +3,19 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Pagination } from "antd";
 import "./Table.scss";
 import { API_ENDPOINT } from "../../../../config";
-const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
+const Table = ({ headers, routes, actions, title, filters, fetchData, id }) => {
   const [data, setData] = useState([]);
   const [filterValues, setFilterValues] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const { location } = useLocation();
   useEffect(() => {
-    fetchData({ ...filterValues, page: currentPage }).then((result) => {
+    fetchData({ ...filterValues, page: currentPage }, id).then((result) => {
       setData(result);
     });
   }, [location]);
   useEffect(() => {
-    fetchData({ ...filterValues, page: currentPage }).then((result) => {
+    fetchData({ ...filterValues, page: currentPage }, id).then((result) => {
       setData(result);
     });
   }, [fetchData, filterValues, currentPage]);
@@ -42,7 +42,7 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
               <span>
                 <label htmlFor="">{key}</label>
                 <input
-                className="filter-input"
+                  className="filter-input"
                   key={key}
                   type="text"
                   placeholder={filters[key]}
@@ -54,7 +54,7 @@ const Table = ({ headers, routes, actions, title, filters, fetchData }) => {
           </div>
         )}
         <button
-        className="add-btn"
+          className="add-btn"
           onClick={() => {
             navigate(routes.add);
           }}
