@@ -70,3 +70,13 @@ export async function addSupplier(name, phoneNumber, address){
       console.log("Error fetching data:", error);
     }
 }
+export async function getSupplierInvoices(id){
+  try {
+      const res = await axios.get(
+          `${domain}/api/v1/store/supplier/${id}/invoices`
+      );
+      return res.data
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+}
