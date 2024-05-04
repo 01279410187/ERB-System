@@ -12,6 +12,7 @@ import Recipes from "./applications/warehouse/sections/recipes/Recipes";
 import { ShowRecipes } from "./applications/warehouse/sections/recipes/pages";
 import AddRecipe from "./applications/warehouse/sections/recipes/pages/AddRecipe";
 import EditRecipe from "./applications/warehouse/sections/recipes/pages/EditRecipe";
+import Departments from "./applications/warehouse/sections/recipes/Departments/Departments"
 function App() {
   return (
     <div>
@@ -43,6 +44,10 @@ function App() {
 
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/recipes" element={<Recipes />}>
+            <Route
+              path="/warehouse/recipes/show-departments"
+              element={<Departments />}
+            ></Route>
             <Route
               path="/warehouse/recipes/show-recipes"
               element={<ShowRecipes />}
