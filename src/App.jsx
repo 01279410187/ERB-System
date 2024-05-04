@@ -9,9 +9,7 @@ import {
 } from "./applications/warehouse/sections/suppliers/pages";
 import Suppliers from "./applications/warehouse/sections/suppliers/Suppliers";
 import Recipes from "./applications/warehouse/sections/recipes/Recipes";
-import { ShowRecipes } from "./applications/warehouse/sections/recipes/pages";
-import AddRecipe from "./applications/warehouse/sections/recipes/pages/AddRecipe";
-import EditRecipe from "./applications/warehouse/sections/recipes/pages/EditRecipe";
+import { AddRecipe, EditRecipe, ShowRecipes } from "./applications/warehouse/sections/recipes/pages";
 function App() {
   return (
     <div>
