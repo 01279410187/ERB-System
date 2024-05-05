@@ -1,20 +1,18 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
-export async function getSuppliers(filteredValues = {الاسم :"", الموبايل:"", page:""}){
+export async function getSuppliers(filteredValues = {name :"", phone:"", page:""}){
     try {
-      const {الاسم, الموبايل, page}= filteredValues;
-
+      const {name, phone,page}= filteredValues;
         const res = await axios.get(
           `${domain}/api/v1/store/supplier`,{
             params: {
-              name: الاسم,
-              phone: الموبايل,
-              page,
+              name,
+              phone,
+              page
             },
           }
         );
-        console.log(res.data);
         return res.data
       } catch (error) {
         console.log("Error fetching data:", error);

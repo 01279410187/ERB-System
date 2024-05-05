@@ -1,6 +1,7 @@
 import Table from "../../../../../components/shared/table/Table";
-import { getSuppliers } from "../../../../../apis/suppliers";
-import { useEffect, useState } from "react";
+import { getSuppliers, deleteSupplier } from "../../../../../apis/suppliers";
+import { Link } from "react-router-dom";
+import "../../../../../components/shared/table/Table.scss";
 const ShowSuppliers = () => {
   const tableHeaders = [
     { key: "id", value: "الكود" },
@@ -8,23 +9,55 @@ const ShowSuppliers = () => {
     { key: "phone", value: "الرقم" },
     { key: "address", value: "العنوان" },
   ];
+  const filters = [
+    { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+    {
+      key: "phone",
+      type: "text",
+      placeholder: "إبحث برقم الموبايل",
+      id: "رقم الموبايل",
+    },
+  ];
+  const actions = [
+    {
+      type: "edit",
+      label: "تعديل",
+      route: "/warehouse/suppliers/:id/edit-supplier",
+    },
+    {
+      type: "delete",
+      label: "حذف",
+    },
+    {
+      type: "show",
+      label: "فواتير",
+      route: "/warehouse/suppliers/:id/show-invoices",
+    },
+    {
+      type: "add",
+      label: "إضافة موردين",
+      route: "/warehouse/suppliers/add-supplier",
+    },
+  ];
+  const info = {
+    title: "User Information",
+    data: [
+      { Name: "John Doe", Age: 30, Email: "john@example.com" },
+      { Name: "Jane Smith", Age: 25, Email: "jane@example.com" },
+    ],
+  };
   return (
     <div>
       <Table
         headers={tableHeaders}
-        routes={{
-          edit: "/warehouse/suppliers/edit-supplier",
-          delete: "/warehouse/suppliers/delete-supplier",
-          showInvoices: "/warehouse/suppliers",
-          add: "/warehouse/suppliers/add-supplier",
-        }}
-        actions={{ edit: true, delete: true, showInvoices: true, add: true }}
         title="الموردين"
-        filters={{
-          الاسم: "ابحث بالإسم",
-          الموبايل: "ابحث بالموبايل",
-        }}
-        fetchData={getSuppliers}
+        filters={filters}
+        fetchData={(filterValues, currentPage) =>
+          getSuppliers(filterValues, currentPage, "")
+        }
+        actions={actions}
+        deleteFn={deleteSupplier}
+        info={info}
       />
     </div>
   );

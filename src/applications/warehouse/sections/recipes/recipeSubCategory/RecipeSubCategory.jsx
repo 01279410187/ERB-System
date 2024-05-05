@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-const Recipes = () => {
+const RecipesSubCategory = () => {
     return (
         <>
             <Outlet />
@@ -8,4 +8,4 @@ const Recipes = () => {
     );
 };
 
-export default Recipes;
+export default RecipesSubCategory;

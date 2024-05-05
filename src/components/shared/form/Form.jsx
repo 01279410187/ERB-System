@@ -1,7 +1,9 @@
 import React from 'react';
-import { Form, Input, Upload, Button } from 'antd';
+import { Form, Input, Upload, Button, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { API_ENDPOINT } from '../../../../config';
+
+const { Option } = Select;
 
 const DynamicForm = ({ fields, onSubmit, initialValues }) => {
     const [form] = Form.useForm();
@@ -27,6 +29,9 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                     {field.type === 'text' && (
                         <Input placeholder={field.placeholder} />
                     )}
+                    {field.type === 'number' && (
+                        <Input type="number" placeholder={field.placeholder} />
+                    )}
                     {field.type === 'image' && (
                         <div>
                             {initialValues && initialValues[field.name] && (
@@ -47,6 +52,13 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                                 </Upload>
                             </Form.Item>
                         </div>
+                    )}
+                    {field.type === 'select' && (
+                        <Select placeholder={field.placeholder}>
+                            {field.options.map(option => (
+                                <Option key={option.value} value={option.value}>{option.label}</Option>
+                            ))}
+                        </Select>
                     )}
                 </Form.Item>
             ))}
