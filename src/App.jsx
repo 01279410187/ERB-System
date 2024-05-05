@@ -18,6 +18,14 @@ import { AddRecipeSubCategory, DeleteRecipeSubCategory, EditRecipeSubCategory, S
 import Recipe from "./applications/warehouse/sections/recipes/recipe/Recipe";
 import RecipesCategoryParent from "./applications/warehouse/sections/recipes/recipeCategoryParent/RecipesCategoryParent";
 import { AddRecipeCategoryParent, EditRecipeCategoryParent, ShowRecipesCategoryParent } from "./applications/warehouse/sections/recipes/recipeCategoryParent/pages";
+import Invoice from "./applications/warehouse/sections/invoices/Invoice";
+import InvoiceCategories from "./applications/warehouse/sections/invoices/InvoiceCategory/InvoiceCategory";
+import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/IncomingInvoice";
+import OutgoingInvoice from "./applications/warehouse/sections/invoices/Outgoing/OutgoingInvoice";
+import ReturnedInvoice from "./applications/warehouse/sections/invoices/Returned/ReturnedInvoice";
+import ShowIncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/pages/ShowIncomingInvoice";
+import ShowOutgoingInvoice from "./applications/warehouse/sections/invoices/Outgoing/pages/ShowOutgoingInvoice";
+import ShowReturnedInvoice from "./applications/warehouse/sections/invoices/Returned/pages/ShowReturnedInvoice";
 function App() {
   return (
     <div>
