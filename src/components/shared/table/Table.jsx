@@ -3,27 +3,43 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Pagination } from "antd";
 import "./Table.scss";
 import { API_ENDPOINT } from "../../../../config";
+import DeleteModal from "../../ui/DeleteModal/DeleteModal";
+import ShowDataModal from "../../ui/ShowDataModal/ShowDataModal";
 
-const Table = ({ headers, title, filters, fetchData, children, id, addition }) => {
+const Table = ({
+  headers,
+  title,
+  filters,
+  fetchData,
+  actions,
+  id,
+  deleteFn,
+  showFn,
+  detailsHeaders,
+}) => {
   const [data, setData] = useState([]);
+  const [itemName, setItemName] = useState("");
+  const [itemId, setItemId] = useState(null);
+  const [isDeleteModalVisible, setisDeleteModalVisible] = useState(false);
+  const [isShowModalVisible, setisShowModalVisible] = useState(false);
   const [filterValues, setFilterValues] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const { location } = useLocation();
 
   useEffect(() => {
-    fetchData({ ...filterValues, page: currentPage }, id).then((result) => {
-      setData(result);
-    });
-  }, [location]);
-
-  useEffect(() => {
     console.log(filterValues);
     fetchData({ ...filterValues, page: currentPage }, id).then((result) => {
       setData(result);
     });
-    console.log(data)
-  }, [fetchData, filterValues, currentPage]);
+  }, [
+    fetchData,
+    filterValues,
+    currentPage,
+    isDeleteModalVisible,
+    isShowModalVisible,
+    location,
+  ]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -43,6 +59,54 @@ const Table = ({ headers, title, filters, fetchData, children, id, addition }) =
     }
   };
 
+  const handleAction = (actionType, itemId, itemName) => {
+    switch (actionType) {
+      case "delete":
+        handleDelete(itemId, itemName);
+        break;
+      case "show":
+        handleShowData(itemId, itemName);
+        break;
+      case "edit":
+        handleEdit(itemId);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleDelete = (itemId, itemName) => {
+    setItemName(itemName);
+    setItemId(itemId);
+    setisDeleteModalVisible(true);
+  };
+
+  const handleShowData = (itemId, itemName) => {
+    setItemName(itemName);
+    setItemId(itemId);
+    actions.find((action) => action.route?.includes("show"))
+      ? navigate(
+          actions
+            .find((action) => action.type === "show")
+            .route.replace(":id", itemId)
+        )
+      : setisShowModalVisible(true);
+  };
+
+  const handleEdit = (itemId) => {
+    setItemId(itemId);
+    navigate(
+      actions
+        .find((action) => action.type === "edit")
+        .route.replace(":id", itemId)
+    );
+  };
+  const handleAdd = () => {
+    const addAction = actions.find((action) => action.type === "add");
+    if (addAction) {
+      navigate(addAction.route);
+    }
+  };
   const renderFilterInput = (filter) => {
     const { key, type, placeholder, options, id } = filter;
     if (type === "number") {
@@ -97,14 +161,11 @@ const Table = ({ headers, title, filters, fetchData, children, id, addition }) =
             ))}
           </div>
         )}
-        {addition.navigate && <button
-          className="add-btn"
-          onClick={() => {
-            navigate(addition.route);
-          }}
-        >
-          +إضافة {"" + title}
-        </button>}
+        {actions && actions.some((action) => action.type === "add") && (
+          <button className="add-btn" onClick={handleAdd}>
+            {"+ "} {actions.find((action) => action.type === "add").label}
+          </button>
+        )}
       </div>
 
       <div className="data-table-diagram">
@@ -114,7 +175,7 @@ const Table = ({ headers, title, filters, fetchData, children, id, addition }) =
               {headers.map((header) => (
                 <th key={header.key}>{header.value}</th>
               ))}
-              {children && <th>الإجراءات</th>}
+              {actions && <th>الإجراءات</th>}
             </tr>
           </thead>
           <tbody>
@@ -141,14 +202,26 @@ const Table = ({ headers, title, filters, fetchData, children, id, addition }) =
                       )}
                     </td>
                   ))}
-                  {children && (
+                  {actions && (
                     <td>
                       <div className="buttons">
-                        {React.Children.map(children, (child) => {
-                          return React.cloneElement(child, {
-                            to: child.props.to.replace(":id", item.id),
-                            key: item.id,
-                          });
+                        {actions.map((action, index) => {
+                          if (action.type === "add") return;
+                          return (
+                            <button
+                              className={`button ${action.type}`}
+                              key={index}
+                              onClick={() => {
+                                handleAction(
+                                  action.type,
+                                  item.id,
+                                  item.name || ""
+                                );
+                              }}
+                            >
+                              {action.label}
+                            </button>
+                          );
                         })}
                       </div>
                     </td>
@@ -170,6 +243,23 @@ const Table = ({ headers, title, filters, fetchData, children, id, addition }) =
           onChange={handlePageChange}
           total={data?.pagination?.total || 1}
           showSizeChanger={false}
+        />
+      )}
+      {isDeleteModalVisible && (
+        <DeleteModal
+          name={itemName}
+          id={itemId}
+          onDelete={deleteFn}
+          handleModalVisible={setisDeleteModalVisible}
+        />
+      )}
+      {isShowModalVisible && (
+        <ShowDataModal
+          id={itemId}
+          name={itemName}
+          showFn={showFn}
+          handleModalVisible={setisShowModalVisible}
+          detailsHeaders={detailsHeaders}
         />
       )}
     </section>
