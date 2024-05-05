@@ -13,6 +13,18 @@ import { ShowRecipes } from "./applications/warehouse/sections/recipes/pages";
 import AddRecipe from "./applications/warehouse/sections/recipes/pages/AddRecipe";
 import EditRecipe from "./applications/warehouse/sections/recipes/pages/EditRecipe";
 import Departments from "./applications/warehouse/sections/recipes/Departments/Departments"
+import InvoiceCategories from "./applications/warehouse/sections/invoices/InvoiceCategory/InvoiceCategory";
+import Invoice from "./applications/warehouse/sections/invoices/Invoice";
+import ShowIncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/pages/ShowIncomingInvoice";
+import ShowOutgoingInvoice from "./applications/warehouse/sections/invoices/Outgoing/pages/ShowOutgoingInvoice";
+import ShowReturnedInvoice from "./applications/warehouse/sections/invoices/Returned/pages/ShowReturnedInvoice";
+import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/IncomingInvoice";
+import ReturnedInvoice from "./applications/warehouse/sections/invoices/Returned/ReturnedInvoice";
+import OutgoingInvoice from "./applications/warehouse/sections/invoices/Outgoing/OutgoingInvoice";
+// import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/Invoice";
+// import OutgoingInvoice from "./applications/warehouse/sections/invoices/Outcoming/OutgoingInvoice";
+// import ReturnedInvoice from "./applications/warehouse/sections/invoices/Returned/ReturnedInvoice";
+
 function App() {
   return (
     <div>
@@ -68,6 +80,25 @@ function App() {
           </Route>
         </Route>
 
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/invoices" element={<Invoice />}>
+
+            <Route path="/warehouse/invoices/show" element={<InvoiceCategories />}></Route>
+
+            <Route path="/warehouse/invoices/incoming" element={<IncomingInvoice />}>
+              <Route path="/warehouse/invoices/incoming/show-incomig" element={<ShowIncomingInvoice />} />
+            </Route>
+            <Route path="/warehouse/invoices/outgoing" element={<OutgoingInvoice />}>
+              <Route path="/warehouse/invoices/outgoing/show-outgoing" element={<ShowOutgoingInvoice />} />
+            </Route>
+            <Route path="/warehouse/invoices/returned" element={<ReturnedInvoice />}>
+              <Route path="/warehouse/invoices/returned/show-returned" element={<ShowReturnedInvoice />} />
+            </Route>
+
+
+          </Route>
+        </Route>
 
       </Routes>
     </div>
