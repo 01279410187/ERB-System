@@ -1,14 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./DeleteModal.scss";
 
-const DeleteModal = ({ name, id, onDelete, mainRoute }) => {
-  const navigate = useNavigate();
-
+const DeleteModal = ({ name, id, onDelete, handleModalVisible }) => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (!event.target.closest(".modal-content")) {
-        navigate(-1);
+        handleModalVisible(false);
       }
     };
 
@@ -17,11 +14,11 @@ const DeleteModal = ({ name, id, onDelete, mainRoute }) => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [navigate]);
+  }, []);
 
-  const handleDelete = () => {
-    onDelete(id);
-    navigate(-1);
+  const handleDelete = async () => {
+    await onDelete(id);
+    handleModalVisible(false);
   };
 
   return (
@@ -32,7 +29,7 @@ const DeleteModal = ({ name, id, onDelete, mainRoute }) => {
           <p>هل أنت متأكد من حذف {name} ؟</p>
           <div className="modal-buttons">
             <button onClick={handleDelete}>حذف</button>
-            <button onClick={() => navigate(-1)}>رجوع</button>
+            <button onClick={() => handleModalVisible(false)}>رجوع</button>
           </div>
         </div>
       </div>

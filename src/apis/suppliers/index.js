@@ -4,7 +4,6 @@ const domain = API_ENDPOINT;
 export async function getSuppliers(filteredValues = {name :"", phone:"", page:""}){
     try {
       const {name, phone,page}= filteredValues;
-      console.log(filteredValues);
         const res = await axios.get(
           `${domain}/api/v1/store/supplier`,{
             params: {
@@ -14,7 +13,6 @@ export async function getSuppliers(filteredValues = {name :"", phone:"", page:""
             },
           }
         );
-        console.log(res.data);
         return res.data
       } catch (error) {
         console.log("Error fetching data:", error);

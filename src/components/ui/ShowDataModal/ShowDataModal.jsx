@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./ShowDataModal.scss";
 
-const ShowDataModal = ({ children, info }) => {
-  const navigate = useNavigate();
-
+const ShowDataModal = ({ info, handleModalVisible }) => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (!event.target.closest(".modal-content")) {
-        navigate(-1);
+        handleModalVisible(false);
       }
     };
 
@@ -17,33 +14,27 @@ const ShowDataModal = ({ children, info }) => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [navigate]);
+  }, [handleModalVisible]);
 
-  if (children) {
-    return (
-      <div className="show-data-modal">
-        <div className="modal-content">{children}</div>
-      </div>
-    );
-  } else if (info) {
-    return (
-      <div className="show-data-modal">
-        <div className="modal-content">
-          <h2>{info.title}</h2>
-          <div className="info-container">
-            {Object.entries(info.data).map(([key, value]) => (
-              <div className="info-item" key={key}>
-                <span className="info-key">{key}: </span>
-                <span className="info-value">{value}</span>
-              </div>
-            ))}
-          </div>
+  return (
+    <div className="show-data-modal">
+      <div className="modal-content">
+        <h2>{info.title}</h2>
+        <div className="info-container">
+          {info.data.map((item, index) => (
+            <div className="info-item" key={index}>
+              {Object.entries(item).map(([key, value]) => (
+                <div className="info-field" key={key}>
+                  <span className="info-key">{key}: </span>
+                  <span className="info-value">{value}</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
-    );
-  } else {
-    return null;
-  }
+    </div>
+  );
 };
 
 export default ShowDataModal;

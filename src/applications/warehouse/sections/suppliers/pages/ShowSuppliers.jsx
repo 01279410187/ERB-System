@@ -1,5 +1,5 @@
 import Table from "../../../../../components/shared/table/Table";
-import { getSuppliers } from "../../../../../apis/suppliers";
+import { getSuppliers, deleteSupplier } from "../../../../../apis/suppliers";
 import { Link } from "react-router-dom";
 import "../../../../../components/shared/table/Table.scss";
 const ShowSuppliers = () => {
@@ -18,6 +18,34 @@ const ShowSuppliers = () => {
       id: "رقم الموبايل",
     },
   ];
+  const actions = [
+    {
+      type: "edit",
+      label: "تعديل",
+      route: "/warehouse/suppliers/:id/edit-supplier",
+    },
+    {
+      type: "delete",
+      label: "حذف",
+    },
+    {
+      type: "show",
+      label: "فواتير",
+      route: "/warehouse/suppliers/:id/show-invoices",
+    },
+    {
+      type: "add",
+      label: "إضافة موردين",
+      route: "/warehouse/suppliers/add-supplier",
+    },
+  ];
+  const info = {
+    title: "User Information",
+    data: [
+      { Name: "John Doe", Age: 30, Email: "john@example.com" },
+      { Name: "Jane Smith", Age: 25, Email: "jane@example.com" },
+    ],
+  };
   return (
     <div>
       <Table
@@ -27,17 +55,10 @@ const ShowSuppliers = () => {
         fetchData={(filterValues, currentPage) =>
           getSuppliers(filterValues, currentPage, "")
         }
-      >
-        <Link to={`/warehouse/suppliers/edit-supplier/:id`}>
-          <button className="button edit">تعديل</button>
-        </Link>
-        <Link to={`/warehouse/suppliers/delete-supplier/:id`}>
-          <button className="button delete">حذف</button>
-        </Link>
-        <Link to={`/warehouse/suppliers/:id/show-invoices`}>
-          <button className="button show">فواتير</button>
-        </Link>
-      </Table>
+        actions={actions}
+        deleteFn={deleteSupplier}
+        info={info}
+      />
     </div>
   );
 };
