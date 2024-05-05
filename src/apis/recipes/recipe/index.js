@@ -47,7 +47,7 @@ export async function addRecipes(name, quantity, image, price, recipe_category_i
         formData.append('recipe_category_id', recipe_category_id);
         formData.append('unit_id', unit_id);
         formData.append('minimum_limt', minimum_limt);
-        formData.append('day_before_expire', day_before_expire);
+        formData.append('days_before_expire', day_before_expire);
 
         const res = await axios.post(
             `${domain}/api/v1/store/recipe/create`,
