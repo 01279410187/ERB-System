@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addRecipe } from '../../../../../apis/recipes/recipeCategoryParent';
-import DynamicForm from '../../../../../components/shared/form/Form';
+import { addRecipe } from '../../../../../../apis/recipes/recipeCategoryParent';
+import DynamicForm from '../../../../../../components/shared/form/Form';
 
 const AddRecipe = () => {
     const navigate = useNavigate()
@@ -20,7 +20,7 @@ const AddRecipe = () => {
 
     return (
         <div>
-            <h1>ادخال تصنيف رئيسى</h1>
+            <h1>ادخال تصنيف الاقسام</h1>
             <DynamicForm fields={fields} onSubmit={handleSubmit} />
         </div>
     );

@@ -27,6 +27,7 @@ const Table = ({
   const { location } = useLocation();
 
   useEffect(() => {
+    console.log(filterValues);
     fetchData({ ...filterValues, page: currentPage }, id).then((result) => {
       setData(result);
     });
@@ -34,9 +35,9 @@ const Table = ({
     fetchData,
     filterValues,
     currentPage,
-    location,
     isDeleteModalVisible,
     isShowModalVisible,
+    location,
   ]);
 
   const handlePageChange = (page) => {
@@ -164,6 +165,7 @@ const Table = ({
           </button>
         )}
       </div>
+
       <div className="data-table-diagram">
         <table className="data-table">
           <thead>

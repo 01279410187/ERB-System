@@ -1,4 +1,5 @@
 import React from 'react'
+import { API_ENDPOINT } from '../../../../../../../config'
 import './Cards.scss'
 
 function Cards(props) {
@@ -6,9 +7,9 @@ function Cards(props) {
     return (
 
 
-        <div className="custom-card" >
+        <div className="custom-card" onClick={props.onClick}>
             <div className='image'>
-                <img className='card-img' alt={props.department} src={props.img} />
+                <img className='card-img' src={`${API_ENDPOINT}/${props.img}`} alt={`alt-${props.name}`} />
             </div>
             <div className='details'>
                 <h1>{props.department} </h1>

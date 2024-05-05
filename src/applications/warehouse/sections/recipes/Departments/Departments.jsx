@@ -1,30 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Departments.scss";
 import Cards from "./cards/Cards";
-import fridgeImg from "../../../../../../public/assets/images/departments images/meets.jpg";
-import sweetImg from "../../../../../../public/assets/images/departments images/sweet.jpg";
-import marketImg from "../../../../../../public/assets/images/departments images/supermarket.jpg";
+
+import { getRecipeCategoryParent } from "../../../../../apis/recipes/recipeCategoryParent";
+import { useNavigate } from "react-router-dom";
 
 function Departments() {
 
-  console.log(fridgeImg);
 
-  const departmentsData = [
-    { img: fridgeImg, dept: "الثلاجة" },
-    { img: sweetImg, dept: "حلواني" },
-    { img: marketImg, dept: "البقالة" },
-  ];
+  const [data, setData] = useState([]); // Initialize data as null
+  const navigate = useNavigate()
+  const fetchData = async () => {
+    try {
+      const recipeData = await getRecipeCategoryParent();
+      setData(recipeData.data);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    }
+  };
+
+
+  useEffect(() => {
+
+    fetchData(); // Call fetchData when component mounts
+  }, []);
+  const handleCardClick = (department) => {
+    // Handle click action here, for example, you can log the department name
+    console.log("Clicked on department:", department);
+    navigate(`/warehouse/recipes/subCategory/show-recipe-subcategory/${department}`)
+  };
 
   return (
     <>
       <h1 className="heading text-center p-3">الاقسام </h1>
       <div className="cards-container">
         <div className="row">
-          {departmentsData.map((department, index) => (
+          {data.map((department, index) => (
             <Cards
               key={index}
-              img={department.img}
-              department={department.dept}
+              img={department.image}
+              department={department.name}
+              onClick={() => handleCardClick(department.id)}
             />
           ))}
 
