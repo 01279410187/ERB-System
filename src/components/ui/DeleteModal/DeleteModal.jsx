@@ -17,6 +17,7 @@ const DeleteModal = ({ name, id, onDelete, handleModalVisible }) => {
   }, []);
 
   const handleDelete = async () => {
+    console.log(id);
     await onDelete(id);
     handleModalVisible(false);
   };

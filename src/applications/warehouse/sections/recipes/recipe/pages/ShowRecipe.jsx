@@ -1,49 +1,62 @@
 import Table from "../../../../../../components/shared/table/Table";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getRecipesFilterById } from "../../../../../../apis/recipes/recipe";
+import {
+  getRecipesFilterById,
+  deleteRecipe,
+  getRecipesById,
+} from "../../../../../../apis/recipes/recipe";
 const ShowRecipe = () => {
   const tableHeaders = [
     { key: "id", value: "الكود" },
-    { key: "name", value: "الإسم", },
+    { key: "name", value: "الإسم" },
     { key: "image", value: "الصوره", type: "image" },
-
   ];
   const filters = [
     { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
-
   ];
-  const { id } = useParams()
-  // routes={{
-  //   edit: "/warehouse/recipes/subCategory/edit-recipes",
-  //   delete: "/warehouse/recipes/subCategory/delete-recipes",
+  const { id } = useParams();
 
-  //   add: "/warehouse/recipes/subCategory/add-recipes",
-  // }}
-
+  const actions = [
+    {
+      type: "edit",
+      label: "تعديل",
+      route: "`/warehouse/recipes/recipe/:id/edit-recipes",
+    },
+    {
+      type: "delete",
+      label: "حذف",
+    },
+    {
+      type: "add",
+      label: "إضافة تصنيف فرعى",
+      route: "/warehouse/recipes/recipe/add-recipes",
+    },
+    {
+      type: "show",
+      label: "تفاصيل",
+    },
+  ];
+  const detailsHeaders = [
+    { key: "type", label: "النوع", isArray: false },
+    { key: "unit", label: "الوحدة", isArray: false },
+    { key: "minimum_limit", label: "الحد الأدنى", isArray: false },
+  ];
   return (
     <div>
       <Table
         headers={tableHeaders}
-
+        detailsHeaders={detailsHeaders}
         filters={filters}
-        addition={{ navigate: true, route: "/warehouse/recipes/recipe/add-recipes" }}
-
+        actions={actions}
+        deleteFn={deleteRecipe}
+        showFn={getRecipesById}
         title="التصنيف الفرعى"
-
         id={id}
-        fetchData={(filters, currentPage) => getRecipesFilterById(filters, currentPage, id)}
-      >
-        <Link to={`/warehouse/recipes/recipe/edit-recipes/:id`}>
-          <button className="button edit">تعديل</button>
-        </Link>
-        <Link to={`/warehouse/recipes/recipe/delete-recipes/:id`}>
-          <button className="button delete">حذف</button>
-        </Link>
-        <Link to={`/warehouse/recipes/recipe/details-recipe/:id`}>
-          <button className="button show">تفاصيل</button>
-        </Link>
-      </Table>
+        fetchData={(filters, currentPage) =>
+          getRecipesFilterById(filters, currentPage, id)
+        }
+      />
     </div>
   );
 };

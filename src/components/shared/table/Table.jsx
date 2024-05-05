@@ -14,7 +14,8 @@ const Table = ({
   actions,
   id,
   deleteFn,
-  info,
+  showFn,
+  detailsHeaders,
 }) => {
   const [data, setData] = useState([]);
   const [itemName, setItemName] = useState("");
@@ -64,7 +65,7 @@ const Table = ({
         handleDelete(itemId, itemName);
         break;
       case "show":
-        handleShowData(itemId);
+        handleShowData(itemId, itemName);
         break;
       case "edit":
         handleEdit(itemId);
@@ -80,7 +81,8 @@ const Table = ({
     setisDeleteModalVisible(true);
   };
 
-  const handleShowData = (itemId) => {
+  const handleShowData = (itemId, itemName) => {
+    setItemName(itemName);
     setItemId(itemId);
     actions.find((action) => action.route?.includes("show"))
       ? navigate(
@@ -252,7 +254,13 @@ const Table = ({
         />
       )}
       {isShowModalVisible && (
-        <ShowDataModal info={info} handleModalVisible={setisShowModalVisible} />
+        <ShowDataModal
+          id={itemId}
+          name={itemName}
+          showFn={showFn}
+          handleModalVisible={setisShowModalVisible}
+          detailsHeaders={detailsHeaders}
+        />
       )}
     </section>
   );
