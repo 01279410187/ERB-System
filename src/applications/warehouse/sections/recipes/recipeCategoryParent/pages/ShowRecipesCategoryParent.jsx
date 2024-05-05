@@ -1,8 +1,8 @@
-import Table from "../../../../../components/shared/table/Table";
-import { getRecipeCategoryParent } from "../../../../../apis/recipes/recipeCategoryParent";
+import Table from "../../../../../../components/shared/table/Table";
+import { getRecipeCategoryParent } from "../../../../../../apis/recipes/recipeCategoryParent";
 import { Link } from "react-router-dom";
 
-const Showrecipes = () => {
+const ShowRecipesCategoryParent = () => {
   const tableHeaders = [
     { key: "id", value: "الكود" },
     { key: "name", value: "الإسم" },
@@ -13,11 +13,13 @@ const Showrecipes = () => {
     <div>
       <Table
         headers={tableHeaders}
-        title="التصنيف الرئيسي"
+        title=" الاقسام"
         filters={filters}
         fetchData={getRecipeCategoryParent}
+        addition={{ navigate: true, route: "/warehouse/recipes/add-recipes-parent" }}
+
       >
-        <Link to={`/warehouse/suppliers/edit-supplier/:id`}>
+        <Link to={`/warehouse/recipes/edit-recipes-parent/:id`}>
           <button className="button edit">تعديل</button>
         </Link>
         <Link to={`/warehouse/suppliers/delete-supplier/:id`}>
@@ -28,4 +30,4 @@ const Showrecipes = () => {
   );
 };
 
-export default Showrecipes;
+export default ShowRecipesCategoryParent;

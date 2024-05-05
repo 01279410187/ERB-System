@@ -42,7 +42,7 @@ const AddRecipeSubCategory = () => {
 
     return (
         <div>
-            <h1>ادخال تصنيف الفرعى</h1>
+            <h1>ادخال تصنيف الرئيسى</h1>
             <DynamicForm fields={fields} onSubmit={handleSubmit} />
         </div>
     );

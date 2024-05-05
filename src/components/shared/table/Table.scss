@@ -203,6 +203,20 @@
     }
   }
 
+  .clickable-cell {
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--beige-color);
+      color: white;
+      font-weight: 700;
+      text-shadow: rgba(0, 0, 0, 0.35) 4px 5px 6px;
+      padding: 5px 10px;
+
+
+    }
+  }
+
   .pagination {
     margin: 20px;
     text-align: center;

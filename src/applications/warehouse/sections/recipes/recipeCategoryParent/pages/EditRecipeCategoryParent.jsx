@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { eidtRecipe, getRecipeById } from '../../../../../apis/recipes/recipeCategoryParent';
-import DynamicForm from '../../../../../components/shared/form/Form';
+import { eidtRecipe, getRecipeById } from '../../../../../../apis/recipes/recipeCategoryParent';
+import DynamicForm from '../../../../../../components/shared/form/Form';
 
 const EditRecipe = () => {
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ const EditRecipe = () => {
 
     return (
         <div>
-            <h1>تعديل تصنيف رئيسى</h1>
+            <h1>تعديل الاقسام </h1>
             {data && <DynamicForm fields={fields} initialValues={data} onSubmit={handleSubmit} />} {/* Pass initial values if data is available */}
         </div>
     );

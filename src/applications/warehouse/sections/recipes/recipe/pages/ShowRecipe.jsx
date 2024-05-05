@@ -1,11 +1,11 @@
 import Table from "../../../../../../components/shared/table/Table";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getRecipeSubCategoryFilterById } from "../../../../../../apis/recipes/recipeSubCategory";
-const ShowRecipesSubCategory = () => {
+import { getRecipesFilterById } from "../../../../../../apis/recipes/recipe";
+const ShowRecipe = () => {
   const tableHeaders = [
     { key: "id", value: "الكود" },
-    { key: "name", value: "الإسم", clickable: true, route: "/warehouse/recipes/recipe/show-recipe/:id" },
+    { key: "name", value: "الإسم", },
     { key: "image", value: "الصوره", type: "image" },
 
   ];
@@ -27,22 +27,25 @@ const ShowRecipesSubCategory = () => {
         headers={tableHeaders}
 
         filters={filters}
-        addition={{ navigate: true, route: "/warehouse/recipes/subCategory/add-recipes" }}
+        addition={{ navigate: true, route: "/warehouse/recipes/recipe/add-recipes" }}
 
-        title="التصنيف الرئيسى"
+        title="التصنيف الفرعى"
 
         id={id}
-        fetchData={(filters, currentPage) => getRecipeSubCategoryFilterById(filters, currentPage, id)}
+        fetchData={(filters, currentPage) => getRecipesFilterById(filters, currentPage, id)}
       >
-        <Link to={`/warehouse/recipes/subCategory/edit-recipes/:id`}>
+        <Link to={`/warehouse/recipes/recipe/edit-recipes/:id`}>
           <button className="button edit">تعديل</button>
         </Link>
-        <Link to={`/warehouse/recipes/subCategory/delete-recipes/:id`}>
+        <Link to={`/warehouse/recipes/recipe/delete-recipes/:id`}>
           <button className="button delete">حذف</button>
+        </Link>
+        <Link to={`/warehouse/recipes/recipe/details-recipe/:id`}>
+          <button className="button show">تفاصيل</button>
         </Link>
       </Table>
     </div>
   );
 };
 
-export default ShowRecipesSubCategory;
+export default ShowRecipe;

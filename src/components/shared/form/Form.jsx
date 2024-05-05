@@ -29,6 +29,9 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                     {field.type === 'text' && (
                         <Input placeholder={field.placeholder} />
                     )}
+                    {field.type === 'number' && (
+                        <Input type="number" placeholder={field.placeholder} />
+                    )}
                     {field.type === 'image' && (
                         <div>
                             {initialValues && initialValues[field.name] && (

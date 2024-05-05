@@ -4,7 +4,7 @@ import { Pagination } from "antd";
 import "./Table.scss";
 import { API_ENDPOINT } from "../../../../config";
 
-const Table = ({ headers, title, filters, fetchData, children, id }) => {
+const Table = ({ headers, title, filters, fetchData, children, id, addition }) => {
   const [data, setData] = useState([]);
   const [filterValues, setFilterValues] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +22,7 @@ const Table = ({ headers, title, filters, fetchData, children, id }) => {
     fetchData({ ...filterValues, page: currentPage }, id).then((result) => {
       setData(result);
     });
+    console.log(data)
   }, [fetchData, filterValues, currentPage]);
 
   const handlePageChange = (page) => {
@@ -96,7 +97,16 @@ const Table = ({ headers, title, filters, fetchData, children, id }) => {
             ))}
           </div>
         )}
+        {addition.navigate && <button
+          className="add-btn"
+          onClick={() => {
+            navigate(addition.route);
+          }}
+        >
+          +إضافة {"" + title}
+        </button>}
       </div>
+
       <div className="data-table-diagram">
         <table className="data-table">
           <thead>
