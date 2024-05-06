@@ -24,7 +24,7 @@ const ShowRecipesSubCategory = () => {
     {
       type: "edit",
       label: "تعديل",
-      route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
+      route: "/warehouse/recipes/subCategory/:id/edit-recipes",
     },
     {
       type: "delete",

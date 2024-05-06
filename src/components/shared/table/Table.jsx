@@ -95,6 +95,7 @@ const Table = ({
 
   const handleEdit = (itemId) => {
     setItemId(itemId);
+    console.log(actions.find((action) => action.type === "edit"));
     navigate(
       actions
         .find((action) => action.type === "edit")
