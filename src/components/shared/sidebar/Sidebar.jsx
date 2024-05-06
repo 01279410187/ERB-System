@@ -5,7 +5,7 @@ import LogoBlue from "../../../../public/assets/images/logo_blue.svg";
 import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
 import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TbReport } from "react-icons/tb";
 import {
   MdOutlineClose,
@@ -20,7 +20,8 @@ import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
-  const [activeLink, setActiveLink] = useState(""); // State to track active link
+  const { pathname } = useLocation()
+  const [activeLink, setActiveLink] = useState(pathname); // State to track active link
 
   const navbarRef = useRef(null);
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ const Sidebar = () => {
             <li className="menu-item">
               <Link to="/warehouse/suppliers/show-suppliers"
                 // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
-                className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"
+                className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"}
                   ? "active"
                   : ""
                   }`}

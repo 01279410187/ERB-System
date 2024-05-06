@@ -24,7 +24,7 @@ import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming
 import { AddInvoices } from "./applications/warehouse/sections/invoices/Incoming/pages";
 function App() {
   return (
-    <div>
+    <div className="page-wrapper">
       <Routes>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/suppliers" element={<Suppliers />}>

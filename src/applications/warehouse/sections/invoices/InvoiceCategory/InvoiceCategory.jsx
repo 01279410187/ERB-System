@@ -97,6 +97,9 @@ function Categories(props) {
                             onClick={() => handleCategoryClick(category.type)}
                         />
                     ))}
+
+                </div>
+                <div className="invoice-table">
                     {selectedCategory === "inComing" && (
                         <Table
                             headers={tableHeaders}

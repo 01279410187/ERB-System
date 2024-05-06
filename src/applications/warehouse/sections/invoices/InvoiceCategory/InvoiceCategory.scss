@@ -1,9 +1,15 @@
 .invoice-container .row {
 
-    justify-content: space-evenly;
-    margin-inline: 40px;
+    justify-content: space-around;
+    // margin-inline: 40px;
+    padding-inline: 40px;
 }
 
 .invoice-container .row .category-btn {
     width: calc(calc(100% / 3) - 60px);
+
+    @media (max-width:767px) {
+        width: calc(33.3333333333% - 30px);
+        font-size: 10px;
+    }
 }
