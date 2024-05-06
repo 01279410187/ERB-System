@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
   const [activeLink, setActiveLink] = useState(""); // State to track active link
-  const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
+
   const navbarRef = useRef(null);
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const Sidebar = () => {
       !navbarRef.current.contains(event.target) &&
       event.target.className !== "sidebar-oepn-btn"
     ) {
-      closeSidebar();
+
     }
   };
 
@@ -54,7 +54,7 @@ const Sidebar = () => {
 
   return (
     <nav
-      className={`sidebar ${isSidebarOpen ? "sidebar-show" : ""}`}
+      className={`sidebar `}
       ref={navbarRef}
     >
       <div className="sidebar-top">
@@ -62,7 +62,7 @@ const Sidebar = () => {
           <img src={LogoDAR} alt="" />
           <span className="sidebar-brand-text">دار المشاه</span>
         </div>
-        <button className="sidebar-close-btn" onClick={closeSidebar}>
+        <button className="sidebar-close-btn" >
           <MdOutlineClose size={24} />
         </button>
       </div>
