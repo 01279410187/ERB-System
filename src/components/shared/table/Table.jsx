@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Pagination } from "antd";
+import { Pagination, Select } from "antd";
 import "./Table.scss";
 import { API_ENDPOINT } from "../../../../config";
 import DeleteModal from "../../ui/DeleteModal/DeleteModal";
@@ -107,8 +107,22 @@ const Table = ({
       navigate(addAction.route);
     }
   };
+  const renderStatus = (status) => {
+    switch (status) {
+      case "pending":
+        return <p className="status pending">تحت المراجعة</p>;
+      case "approved":
+        return <p className="status approved">تم المراجعة</p>;
+      case "rejected":
+        return <p className="status rejected">مرفوض</p>;
+      case "done":
+        return <p className="status done">تم الصرف</p>;
+      default:
+        break;
+    }
+  };
   const renderFilterInput = (filter) => {
-    const { key, type, placeholder, options, id } = filter;
+    const { key, type, placeholder, options } = filter;
     if (type === "number") {
       return (
         <input
@@ -119,20 +133,28 @@ const Table = ({
           onChange={(e) => handleFilterChange(key, e.target.value)}
         />
       );
-    } else if (type === "selection") {
+    } else if (type === "date") {
       return (
-        <select
+        <input
           className="filter-input"
+          type="date"
           value={filterValues[key] || ""}
           onChange={(e) => handleFilterChange(key, e.target.value)}
-        >
-          <option value="">{placeholder}</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+        />
+      );
+    } else if (type === "selection") {
+      return (
+        <Select
+          className="selection-input"
+          showSearch
+          placeholder={placeholder}
+          optionFilterProp="children"
+          onChange={(value) => handleFilterChange(key, value)}
+          filterOption={(input, option) =>
+            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+          }
+          options={options}
+        />
       );
     } else {
       return (
@@ -172,6 +194,7 @@ const Table = ({
         <table className="data-table">
           <thead>
             <tr>
+              <th>الرقم</th>
               {headers.map((header) => (
                 <th key={header.key}>{header.value}</th>
               ))}
@@ -180,8 +203,10 @@ const Table = ({
           </thead>
           <tbody>
             {data?.data &&
-              data?.data.map((item) => (
+              data?.data.map((item, index) => (
                 <tr key={item.id}>
+                  <td>{index + 1 + (currentPage - 1) * 10}</td>
+
                   {headers.map((header) => (
                     <td
                       key={header.key}
@@ -197,6 +222,10 @@ const Table = ({
                           alt={`alt-${item.name}`}
                           style={{ width: "50px", height: "50px" }}
                         />
+                      ) : header.nestedKey ? (
+                        item[header.key][header.nestedKey]
+                      ) : header.key === "status" ? (
+                        renderStatus(item[header.key])
                       ) : (
                         item[header.key]
                       )}
@@ -215,7 +244,7 @@ const Table = ({
                                 handleAction(
                                   action.type,
                                   item.id,
-                                  item.name || ""
+                                  item.name || item.title || ""
                                 );
                               }}
                             >
