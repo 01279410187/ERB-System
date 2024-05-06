@@ -150,23 +150,19 @@ function App() {
               element={<InvoiceCategories />}
             ></Route>
 
-<<<<<<< HEAD
+            <Route
+              path="/warehouse/invoices/show"
+              element={<InvoiceCategories />}
+            ></Route>
+
             <Route
               path="/warehouse/invoices/incoming"
               element={<IncomingInvoice />}
             >
               <Route
-                path="/warehouse/invoices/incoming/add-Invoices"
+                path="/warehouse/invoices/incoming/add-Invoices/in_coming"
                 element={<AddInvoices />}
               />
-=======
-            <Route path="/warehouse/invoices/show" element={<InvoiceCategories />}>
-
-            </Route>
-
-            <Route path="/warehouse/invoices/incoming" element={<IncomingInvoice />}>
-              <Route path="/warehouse/invoices/incoming/add-Invoices/in_coming" element={<AddInvoices />} />
->>>>>>> 450681b33a06a4c8bee22fe7547f144b88a3348b
             </Route>
             {/* <Route path="/warehouse/invoices/outgoing" element={<OutgoingInvoice />}>
               <Route path="/warehouse/invoices/outgoing/show-outgoing" element={<ShowOutgoingInvoice />} />
