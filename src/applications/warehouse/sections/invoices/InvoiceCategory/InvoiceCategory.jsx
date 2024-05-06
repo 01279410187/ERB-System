@@ -1,20 +1,89 @@
 import React, { useState } from "react";
-import "./InvoiceCategory.scss"
+import "./InvoiceCategory.scss";
 import Button from "./Button/Button";
-// import Cards from "./cards/Cards";
-// import fridgeImg from "../../../../../../public/assets/images/Categories images/meets.jpg";
-// import sweetImg from "../../../../../../public/assets/images/Categories images/sweet.jpg";
-// import marketImg from "../../../../../../public/assets/images/Categories images/supermarket.jpg";
+import { getIncomingInvoiceByType, getOutgoingInvoiceByType, getReturndInvoiceByType } from "../../../../../apis/invoices";
+import Table from "../../../../../components/shared/table/Table";
 
 function Categories(props) {
+    const [selectedCategory, setSelectedCategory] = useState("inComing"); // Default selected category is "الوارد"
 
-    //   console.log(fridgeImg);
+    const tableHeaders = [
+        { key: "id", value: "الكود" },
+        { key: "code", value: "  كود الفاتوره" },
+        { key: "image", value: "الصوره", type: "image" },
+    ];
+
+    const filtersIncoming = [
+        { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+    ];
+    const filtersOutcoming = [
+        { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+    ];
+    const filtersReturn = [
+        { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+    ];
+
+    const actionsIncoming = [
+        {
+            type: "edit",
+            label: "تعديل",
+            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
+        },
+        {
+            type: "delete",
+            label: "حذف",
+        },
+        {
+            type: "add",
+            label: "إضافة فاتوره  وارده",
+            route: "/warehouse/recipes/subCategory/add-recipes",
+        },
+    ];
+
+    const actionsOutComing = [
+        {
+            type: "edit",
+            label: "تعديل",
+            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
+        },
+        {
+            type: "delete",
+            label: "حذف",
+        },
+        {
+            type: "add",
+            label: "إضافة فاتوره  صادره",
+            route: "/warehouse/recipes/subCategory/add-recipes",
+        },
+    ];
+
+    const actionsReturnd = [
+        {
+            type: "edit",
+            label: "تعديل",
+            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
+        },
+        {
+            type: "delete",
+            label: "حذف",
+        },
+        {
+            type: "add",
+            label: "إضافة فاتوره  مرتجع",
+            route: "/warehouse/recipes/subCategory/add-recipes",
+        },
+    ];
 
     const CategoriesData = [
-        { cat: "الوارد", route: "/warehouse/invoices/incoming/show-incomig" },
-        { cat: "الصادر", route: "/warehouse/invoices/outgoing/show-outgoing" },
-        { cat: "المرتجع", route: "/warehouse/invoices/returned/show-returned" },
+        { cat: "الوارد", type: "inComing" },
+        { cat: "الصادر", type: "outGoing" },
+        { cat: "المرتجع", type: "returnd" },
     ];
+
+    const handleCategoryClick = (type) => {
+        setSelectedCategory(type);
+        console.log(type)
+    };
 
     return (
         <>
@@ -25,12 +94,42 @@ function Categories(props) {
                         <Button
                             key={index}
                             title={category.cat}
-                            routes={category.route}
-
-
+                            onClick={() => handleCategoryClick(category.type)}
                         />
                     ))}
-
+                    {selectedCategory === "inComing" && (
+                        <Table
+                            headers={tableHeaders}
+                            filters={filtersIncoming}
+                            title=" الفواتير الورده"
+                            actions={actionsIncoming}
+                            fetchData={(filters, currentPage) =>
+                                getIncomingInvoiceByType(filters, currentPage)
+                            }
+                        />
+                    )}
+                    {selectedCategory === "outGoing" && (
+                        <Table
+                            headers={tableHeaders}
+                            filters={filtersOutcoming}
+                            title=" الفواتير الصادره"
+                            actions={actionsOutComing}
+                            fetchData={(filters, currentPage) =>
+                                getOutgoingInvoiceByType(filters, currentPage)
+                            }
+                        />
+                    )}
+                    {selectedCategory === "returnd" && (
+                        <Table
+                            headers={tableHeaders}
+                            filters={filtersReturn}
+                            title=" الفواتير المرتجع"
+                            actions={actionsReturnd}
+                            fetchData={(filters, currentPage) =>
+                                getReturndInvoiceByType(filters, currentPage)
+                            }
+                        />
+                    )}
                 </div>
             </div>
         </>
