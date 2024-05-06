@@ -8,6 +8,8 @@ import './AddInvoice.css';
 import axios from 'axios';
 import { getSuppliers } from '../../../../../../apis/suppliers';
 
+import { API_ENDPOINT } from '../../../../../../../config';
+
 const AddInvoices = () => {
     const [items, setItems] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
@@ -18,6 +20,9 @@ const AddInvoices = () => {
     const [invoiceImage, setInvoiceImage] = useState(null);
     const [discount, setDiscount] = useState(0);
     const [tax, setTx] = useState(0);
+    const pathname = location.pathname;
+    const lastItem = pathname.split('/').pop(); // This will give you "add-Invoices"
+    console.log(lastItem);
 
     useEffect(() => {
         const fetchDataSuppliers = async () => {
@@ -49,46 +54,6 @@ const AddInvoices = () => {
 
     const Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiODg1ZmVjMzU5NjkxZGVkZWY5MGRkNDlkNzk2ZjhjNTM0MzQ2YWU3N2MzZWFhYTM2NWFjZTQ4OTEzM2Y3YTFkMGY0ODgwMjU4YmRhODA1MDciLCJpYXQiOjE3MTQ3ODU5NTQuODkxMDMxLCJuYmYiOjE3MTQ3ODU5NTQuODkxMDM4LCJleHAiOjE3NDYzMjE5NTQuODI4MjY5LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Q0jJ9k5mtkd6PRuCb2C0jTm37D7az5SK9_W8sgbmt9Kl2Xa3u0iUy4Pf1o5QYFkbLZ7ky21kzpMIO1APFF0zfvRzfFCUEObGIsetr12rpr-L-H0cUtuUu-p4NHcpSCj_VepurPUL9p7PHGwbUmMCeCrnR155Jjpzj_bDw_worTicLEFX8gpVua2UQRu4g5vDgH9730b80wsnobgHFOzt06Pag3SVZaDpDgCv4ACd7SMXGzRorDf4JcyE2dY1aHRpbSj8Qo4M0QOt0RlBGRcagosNx4sz-zI_GrN2a6R3xgsZY6IHZkRYPFgAAY80ptG34cBx0g37uHT6M8pQEtez_Of7zl409bVMNf6SfTmVPgxTPyx1jp5H-hw-YYSB9wjoWzPdstiiG72yrM0dAQff1FFucgiksYDmvHfZRs5-F8RMb2U46dZLVHx-tfVHJmCC8qomQrpf9x0teoUPHazQOCqK2SaaM84rq1WUNe_QTxQjfOz-PJ6px-GSOKIo7xZ3amf4EAtyJ157XdqvYs-YmCLm_ePngFqv4Sqb1iyGJuMXkMEBdD9qyQvagMbLTRRv87RWxtTixmDObF2ypJH_xGZWRgDkjQaDRn0Jt61OJHkZcMbN5yk001Mk9zDSyXSlNep6ZlTpg0d41b2LgB842vO20SIERhZuRGvbFUVck-A"
 
-    // const handleDownloadPDF = async () => {
-    //     // console.log(items);
-    //     // console.log(selectedSupplier);
-    //     // console.log(invoiceDate);
-    //     // console.log(invoiceCode);
-    //     // console.log(invoiceImage);
-
-    //     const requestData = items.map((item, index) => ({
-    //         [`recipes[${index}][recipe_id]`]: item.recipeId,
-    //         [`recipes[${index}][price]`]: item.price,
-    //         // Add other fields as needed, for example quantity, expire_date, etc.
-    //         [`recipes[${index}][quantity]`]: item.quantity,
-    //         [`recipes[${index}][expire_date]`]: item.expireDate,
-    //     }));
-
-    //     try {
-    //         const response = await axios.post('http://192.168.0.116:8000/api/v1/store/invoice/create', {
-    //             recipes: requestData,
-    //             selectedSupplier,
-    //             invoiceDate,
-    //             invoiceCode,
-    //             invoiceNote,
-    //             // Add other fields as needed
-    //             // invoiceImage: invoiceImage,
-    //             // discount: discount,
-    //             // tax: tax,
-    //         }, {
-    // headers: {
-    // Authorization: `Bearer ${Token}`
-    // }
-    //         });
-    //         console.log(response.dat)
-    //         console.log('Invoice created successfully!');
-    //         // Optionally, you can redirect or show a success message here
-    //     } catch (error) {
-    //         console.error('Error creating invoice:', error);
-    //         // Handle error condition, show error message, etc.
-    //     }
-
-    // };
 
 
     const handleDownloadPDF = async () => {
@@ -104,7 +69,7 @@ const AddInvoices = () => {
 
         formData.append('supplier_id', selectedSupplier);
         console.log(selectedSupplier)
-        formData.append('type', "in_coming");
+        formData.append('type', lastItem);
         formData.append('invoice_date', invoiceDate);
         formData.append('code', invoiceCode);
         formData.append('note', invoiceNote);
@@ -115,7 +80,7 @@ const AddInvoices = () => {
 
 
         try {
-            const response = await axios.post('http://192.168.0.116:8000/api/v1/store/invoice/create', formData, {
+            const response = await axios.post(`${API_ENDPOINT}/api/v1/store/invoice/create`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${Token}`
@@ -158,7 +123,7 @@ const AddInvoices = () => {
             </div>
             <div>
                 <label>كود الفاتوره:</label>
-                <input type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} />
+                <input type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             </div>
             <div>
                 <label>صورة الفاتورة:</label>
@@ -167,11 +132,11 @@ const AddInvoices = () => {
 
             <div>
                 <label> خصم على الفاتوره:</label>
-                <input type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} />
+                <input type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             </div>
             <div>
                 <label> الضريبه المضافه:</label>
-                <input type="number" value={tax} onChange={(e) => setTx(e.target.value)} />
+                <input type="number" value={tax} onChange={(e) => setTx(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             </div>
 
             <div>
@@ -187,3 +152,10 @@ const AddInvoices = () => {
 };
 
 export default AddInvoices;
+
+
+
+
+
+
+

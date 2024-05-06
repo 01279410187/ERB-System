@@ -147,9 +147,9 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
                 </div>
             ))}
             <label>Quantity:</label>
-            <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+            <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             <label>Price:</label>
-            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             <label>Expire Date:</label>
             <input type="date" value={epireDate} onChange={(e) => setExpireDate(e.target.value)} />
             <button onClick={handleAddItem}>Add Item</button>

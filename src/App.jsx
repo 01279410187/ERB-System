@@ -141,7 +141,7 @@ function App() {
             </Route>
 
             <Route path="/warehouse/invoices/incoming" element={<IncomingInvoice />}>
-              <Route path="/warehouse/invoices/incoming/add-Invoices" element={<AddInvoices />} />
+              <Route path="/warehouse/invoices/incoming/add-Invoices/in_coming" element={<AddInvoices />} />
             </Route>
             {/* <Route path="/warehouse/invoices/outgoing" element={<OutgoingInvoice />}>
               <Route path="/warehouse/invoices/outgoing/show-outgoing" element={<ShowOutgoingInvoice />} />
