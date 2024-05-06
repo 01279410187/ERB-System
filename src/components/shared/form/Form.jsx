@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 import { Form, Input, Upload, Button, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { API_ENDPOINT } from "../../../../config";
+=======
+import React from 'react';
+import './Form.scss'
+import { Form, Input, Upload, Button, Select } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { API_ENDPOINT } from '../../../../config';
+>>>>>>> 450681b33a06a4c8bee22fe7547f144b88a3348b
 
 const { Option } = Select;
 
@@ -49,6 +57,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                   listType="text"
                   beforeUpload={() => false}
                 >
+<<<<<<< HEAD
                   <Button icon={<UploadOutlined />}>Click to upload</Button>
                 </Upload>
               </Form.Item>
@@ -79,6 +88,49 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
       </Form.Item>
     </Form>
   );
+=======
+                    {field.type === 'text' && (
+                        <Input placeholder={field.placeholder} />
+                    )}
+                    {field.type === 'number' && (
+                        <Input type="number" placeholder={field.placeholder} />
+                    )}
+                    {field.type === 'image' && (
+                        <div>
+                            {initialValues && initialValues[field.name] && (
+                                <img
+                                    src={`${API_ENDPOINT}/${initialValues[field.name]}`}
+                                    alt={`alt-${initialValues.name}`}
+                                    style={{ width: "50px", height: "50px" }}
+                                />
+                            )}
+                            <Form.Item
+                                name={field.name}
+                                valuePropName="file"
+                                getValueFromEvent={(e) => e.fileList}
+                                rules={[{ required: true, message: 'Please upload a file' }]}
+                            >
+                                <Upload name={field.name} listType="text" beforeUpload={() => false}>
+                                    <Button icon={<UploadOutlined />}>اضغط لرفع الملف</Button>
+                                </Upload>
+                            </Form.Item>
+                        </div>
+                    )}
+                    {field.type === 'select' && (
+                        <Select placeholder={field.placeholder}>
+                            {field.options.map(option => (
+                                <Option key={option.value} value={option.value}>{option.label}</Option>
+                            ))}
+                        </Select>
+                    )}
+                </Form.Item>
+            ))}
+            <Form.Item>
+                <Button type="primary" htmlType="submit">Submit</Button>
+            </Form.Item>
+        </Form>
+    );
+>>>>>>> 450681b33a06a4c8bee22fe7547f144b88a3348b
 };
 
 export default DynamicForm;

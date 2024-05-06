@@ -56,7 +56,7 @@ const Sidebar = () => {
 
   return (
     <nav
-      className={`sidebar ${isSidebarOpen ? "sidebar-show" : ""}`}
+      className={`sidebar `}
       ref={navbarRef}
     >
       <div className="sidebar-top">
@@ -64,7 +64,7 @@ const Sidebar = () => {
           <img src={LogoDAR} alt="" />
           <span className="sidebar-brand-text">دار المشاه</span>
         </div>
-        <button className="sidebar-close-btn" onClick={closeSidebar}>
+        <button className="sidebar-close-btn" >
           <MdOutlineClose size={24} />
         </button>
       </div>

@@ -1,8 +1,14 @@
 // google fonts
 // @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
-
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
-
+// import font online
+// @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+// downloaded font
+@font-face {
+  font-family: 'Cairo';
+  src: url('./fonts/Cairo/static/Cairo-Regular.ttf') format('truetype');
+  src: url('./fonts/Cairo/static/Cairo-Bold.ttf') format('truetype');
+  /* Add additional font weights and styles here if needed */
+}
 
 /*** Common variables ***/
 :root {
