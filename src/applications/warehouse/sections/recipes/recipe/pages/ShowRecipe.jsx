@@ -21,7 +21,7 @@ const ShowRecipe = () => {
     {
       type: "edit",
       label: "تعديل",
-      route: "`/warehouse/recipes/recipe/:id/edit-recipes",
+      route: "/warehouse/recipes/recipe/:id/edit-recipes",
     },
     {
       type: "delete",

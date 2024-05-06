@@ -55,7 +55,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                         </div>
                     )}
                     {field.type === 'select' && (
-                        <Select className='custom-select' placeholder={field.placeholder}>
+                        <Select placeholder={field.placeholder}>
                             {field.options.map(option => (
                                 <Option key={option.value} value={option.value}>{option.label}</Option>
                             ))}

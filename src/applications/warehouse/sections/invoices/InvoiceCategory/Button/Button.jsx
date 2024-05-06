@@ -1,26 +1,18 @@
-import React from 'react'
-import './Button.scss'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import './Button.scss';
 
 function Button(props) {
+    const handleClick = () => {
+        if (props.onClick) {
+            props.onClick(props.categoryType);
+        }
+    };
 
-    const navigate = useNavigate()
-
-    console.log(props)
     return (
-        <>
-            <button
-                className="category-btn"
-                onClick={() => {
-                    navigate(props.routes);
-                }}
-            >
-                {props.title}
-            </button>
-
-        </>
-
-    )
+        <button className="category-btn" onClick={handleClick}>
+            {props.title}
+        </button>
+    );
 }
 
-export default Button
+export default Button;
