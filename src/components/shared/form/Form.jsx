@@ -1,4 +1,5 @@
 import React from 'react';
+import './Form.scss'
 import { Form, Input, Upload, Button, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { API_ENDPOINT } from '../../../../config';
@@ -48,13 +49,13 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                                 rules={[{ required: true, message: 'Please upload a file' }]}
                             >
                                 <Upload name={field.name} listType="text" beforeUpload={() => false}>
-                                    <Button icon={<UploadOutlined />}>Click to upload</Button>
+                                    <Button icon={<UploadOutlined />}>اضغط لرفع الملف</Button>
                                 </Upload>
                             </Form.Item>
                         </div>
                     )}
                     {field.type === 'select' && (
-                        <Select placeholder={field.placeholder}>
+                        <Select className='custom-select' placeholder={field.placeholder}>
                             {field.options.map(option => (
                                 <Option key={option.value} value={option.value}>{option.label}</Option>
                             ))}
