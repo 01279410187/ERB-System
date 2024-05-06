@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, Input, Upload, Button, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { API_ENDPOINT } from "../../../../config";
@@ -26,12 +25,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
           label={field.label}
           rules={[{ required: field.required, message: field.placeholder }]}
         >
-          {field.type === "text" && (
-            <Input
-              placeholder={field.placeholder}
-              value={initialValues && initialValues[field.name]}
-            />
-          )}
+          {field.type === "text" && <Input placeholder={field.placeholder} />}
           {field.type === "number" && (
             <Input type="number" placeholder={field.placeholder} />
           )}
@@ -61,7 +55,14 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
             </div>
           )}
           {field.type === "select" && (
-            <Select placeholder={field.placeholder}>
+            <Select
+              placeholder={field.placeholder}
+              onChange={(value) => {
+                if (field.onChange) {
+                  field.onChange(value);
+                }
+              }}
+            >
               {field.options.map((option) => (
                 <Option key={option.value} value={option.value}>
                   {option.label}

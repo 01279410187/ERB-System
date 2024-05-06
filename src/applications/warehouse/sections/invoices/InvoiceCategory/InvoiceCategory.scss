@@ -1,0 +1,9 @@
+.invoice-container .row {
+
+    justify-content: space-evenly;
+    margin-inline: 40px;
+}
+
+.invoice-container .row .category-btn {
+    width: calc(calc(100% / 3) - 60px);
+}

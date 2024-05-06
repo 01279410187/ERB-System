@@ -29,8 +29,8 @@ const Sidebar = () => {
     dispatch(logout());
     navigate("/login");
   };
-   // Handle clicking on menu links
-   const handleMenuLinkClick = (link) => {
+  // Handle clicking on menu links
+  const handleMenuLinkClick = (link) => {
     setActiveLink(link);
   };
 
@@ -70,19 +70,18 @@ const Sidebar = () => {
         <div className="sidebar-menu">
           <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/warehouse/suppliers/show-suppliers" 
-              // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
-              className={`menu-link ${
-                activeLink === "/warehouse/suppliers/show-suppliers"
+              <Link to="/warehouse/suppliers/show-suppliers"
+                // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
+                className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"
                   ? "active"
                   : ""
-              }`}
-              onClick={() =>{
-                console.log("show-suppliers");
-                handleMenuLinkClick("/warehouse/suppliers/show-suppliers")
-              }
+                  }`}
+                onClick={() => {
+                  console.log("show-suppliers");
+                  handleMenuLinkClick("/warehouse/suppliers/show-suppliers")
+                }
 
-              }
+                }
               >
                 <span className="menu-link-icon">
                   <MdPerson size={30} />
@@ -93,18 +92,16 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="/warehouse/recipes/show-departments" 
-              className={`menu-link ${
-                activeLink === "/warehouse/recipes/show-departments"
+              <Link to="/warehouse/recipes/show-departments"
+                className={`menu-link ${activeLink === "/warehouse/recipes/show-departments"
                   ? "active"
                   : ""
-              }`}
-              onClick={() =>
-                {
+                  }`}
+                onClick={() => {
                   console.log("show-departments");
                   handleMenuLinkClick("/warehouse/recipes/show-departments")
                 }
-              }>
+                }>
                 <span className="menu-link-icon">
                   <MdProductionQuantityLimits size={30} />
                 </span>
@@ -115,11 +112,10 @@ const Sidebar = () => {
             </li>
 
             <li className="menu-item">
-              <Link to="/dashboard/feature" 
-               className={`menu-link ${
-                activeLink === "/dashboard/feature" ? "active" : ""
-              }`}
-              onClick={() => handleMenuLinkClick("/dashboard/feature")}>
+              <Link to="/warehouse/invoices/show"
+                className={`menu-link ${activeLink === "/warehouse/invoices/show" ? "active" : ""
+                  }`}
+                onClick={() => handleMenuLinkClick("/warehouse/invoices/show")}>
                 <span className="menu-link-icon">
                   <TbReport size={30} />
                 </span>
