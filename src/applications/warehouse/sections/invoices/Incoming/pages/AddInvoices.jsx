@@ -124,7 +124,7 @@ const AddInvoices = () => {
             </div>
             <div>
                 <label className='form-label'>كود الفاتوره:</label>
-                <input className="form-input" type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} />
+                <input className="form-input" type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             </div>
             <div>
                 <label className='form-label'>صورة الفاتورة:</label>
@@ -133,11 +133,11 @@ const AddInvoices = () => {
 
             <div>
                 <label className='form-label'> خصم على الفاتوره:</label>
-                <input className="form-input" type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} />
+                <input className="form-input" type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             </div>
             <div>
                 <label className='form-label'> الضريبه المضافه:</label>
-                <input className="form-input" type="number" value={tax} onChange={(e) => setTx(e.target.value)} />
+                <input className="form-input" type="number" value={tax} onChange={(e) => setTx(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             </div>
 
             <div>

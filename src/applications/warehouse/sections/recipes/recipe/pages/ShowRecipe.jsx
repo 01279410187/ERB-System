@@ -5,6 +5,7 @@ import {
   getRecipesFilterById,
   deleteRecipe,
   getRecipesById,
+  getRecipes,
 } from "../../../../../../apis/recipes/recipe";
 const ShowRecipe = () => {
   const tableHeaders = [
@@ -54,7 +55,7 @@ const ShowRecipe = () => {
         title="التصنيف الفرعى"
         id={id}
         fetchData={(filters, currentPage) =>
-          getRecipesFilterById(filters, currentPage, id)
+          getRecipes(filters, currentPage, id)
         }
       />
     </div>

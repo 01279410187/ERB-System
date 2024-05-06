@@ -34,7 +34,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
     const handleParentChange = async (parentId) => {
         setSelectedParent(parentId);
         try {
-            const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe_category/filter_by_parent/${parentId}`);
+            const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe_category?parent_id=${parentId}`);
             const data = await response.json();
             setRecipeCategories(data.data);
         } catch (error) {
@@ -45,7 +45,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
     const handleCategoryChange = async (categoryId) => {
         setSelectedCategory(categoryId);
         try {
-            const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe/filter_by_category/${categoryId}`);
+            const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe?recipe_category_id=${categoryId}`);
             const data = await response.json();
             setRecipes(data.data);
         } catch (error) {
@@ -148,9 +148,9 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
                 </div>
             ))}
             <label className="form-label" >Quantity:</label>
-            <input className="form-input" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+            <input className="form-input" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             <label className="form-label" >Price:</label>
-            <input className="form-input" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <input className="form-input" type="number" value={price} onChange={(e) => setPrice(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             <label className="form-label" >Expire Date:</label>
             <input className="form-input" type="date" value={epireDate} onChange={(e) => setExpireDate(e.target.value)} />
             <button className='form-btn' onClick={handleAddItem}>Add Item</button>

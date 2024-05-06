@@ -1,14 +1,15 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../../config";
 const domain = API_ENDPOINT;
-export async function getRecipes(filteredValues = { name: "", page: "" }) {
+export async function getRecipes(filteredValues = { name: "", page: "" }, id) {
     try {
         const { name, page } = filteredValues;
 
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe_category`, {
+            `${domain}/api/v1/store/recipe`, {
             params: {
                 name: name,
+                recipe_category_id: id,
                 page,
             },
         }

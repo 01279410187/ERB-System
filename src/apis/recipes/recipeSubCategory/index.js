@@ -1,14 +1,15 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../../config";
 const domain = API_ENDPOINT;
-export async function getRecipeSubCategory(filteredValues = { name: "", page: "" }) {
+export async function getRecipeSubCategory(filteredValues = { name: "", page: "" }, id) {
     try {
         const { name, page } = filteredValues;
 
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe_category_parent`, {
+            `${domain}/api/v1/store/recipe_category`, {
             params: {
                 name: name,
+                parent_id: id,
                 page,
             },
         }
