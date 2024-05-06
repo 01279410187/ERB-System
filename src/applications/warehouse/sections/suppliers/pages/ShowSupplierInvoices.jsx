@@ -10,16 +10,14 @@ const ShowSupplierInvoices = () => {
     { key: "total_price", value: "القيمة" },
     { key: "status", value: "الحالة" },
   ];
+
   return (
     <div>
-      <ShowDataModal>
-        <Table
-          headers={tableHeaders}
-          title="الفواتير"
-          routes={{ showInvoices: "/warehouse/suppliers" }}
-          fetchData={() => getSupplierInvoices(id)}
-        />
-      </ShowDataModal>
+      <Table
+        headers={tableHeaders}
+        title="الفواتير"
+        fetchData={() => getSupplierInvoices(id)}
+      />
     </div>
   );
 };

@@ -36,7 +36,7 @@ function Categories(props) {
         {
             type: "add",
             label: "إضافة فاتوره  وارده",
-            route: "/warehouse/recipes/subCategory/add-recipes",
+            route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
         },
     ];
 
