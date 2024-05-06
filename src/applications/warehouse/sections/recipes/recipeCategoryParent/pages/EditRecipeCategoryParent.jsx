@@ -34,8 +34,8 @@ const EditRecipe = () => {
     ];
 
     return (
-        <div>
-            <h1>تعديل الاقسام </h1>
+        <div className='form-container'>
+            <h1 className='form-title'>تعديل الاقسام </h1>
             {data && <DynamicForm fields={fields} initialValues={data} onSubmit={handleSubmit} />} {/* Pass initial values if data is available */}
         </div>
     );
