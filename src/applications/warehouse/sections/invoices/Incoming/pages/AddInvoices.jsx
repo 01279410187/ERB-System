@@ -4,7 +4,7 @@ import InvoiceDetails from '../../../../../../components/shared/InvoiveDetails/I
 import ItemList from '../../../../../../components/shared/itemList/ItemList';
 import TotalAmount from '../../../../../../components/shared/totalAmount/TotalAmount';
 import { jsPDF } from 'jspdf';
-import './AddInvoice.css';
+import './AddInvoice.scss';
 import axios from 'axios';
 import { getSuppliers } from '../../../../../../apis/suppliers';
 
@@ -101,11 +101,12 @@ const AddInvoices = () => {
     };
 
     return (
-        <div className="App">
-            <h1>اضافة فاتورة</h1>
+        <div className="form-container">
+            <h1 className='form-title'>اضافة فاتورة</h1>
             <div>
-                <label htmlFor="supplierSelect">اختر المورد:</label>
+                <label className='form-label' htmlFor="supplierSelect">اختر المورد:</label>
                 <select
+                    className='form-select'
                     id="supplierSelect"
                     onChange={(e) => setSelectedSupplier(e.target.value)}
                 >
@@ -118,35 +119,35 @@ const AddInvoices = () => {
                 </select>
             </div>
             <div>
-                <label>اختر تاريخ الفاتوره:</label>
-                <input type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} />
+                <label className='form-label'>اختر تاريخ الفاتوره:</label>
+                <input className="form-input" type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} />
             </div>
             <div>
-                <label>كود الفاتوره:</label>
-                <input type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} onWheel={event => event.currentTarget.blur()} />
+                <label className='form-label'>كود الفاتوره:</label>
+                <input className="form-input" type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} />
             </div>
             <div>
-                <label>صورة الفاتورة:</label>
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-            </div>
-
-            <div>
-                <label> خصم على الفاتوره:</label>
-                <input type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} onWheel={event => event.currentTarget.blur()} />
-            </div>
-            <div>
-                <label> الضريبه المضافه:</label>
-                <input type="number" value={tax} onChange={(e) => setTx(e.target.value)} onWheel={event => event.currentTarget.blur()} />
+                <label className='form-label'>صورة الفاتورة:</label>
+                <input className="form-input" type="file" accept="image/*" onChange={handleImageChange} />
             </div>
 
             <div>
-                <label>  اضافة تعليق:</label>
-                <input type="textarea" value={invoiceNote} onChange={(e) => setInvoiceNote(e.target.value)} />
+                <label className='form-label'> خصم على الفاتوره:</label>
+                <input className="form-input" type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} />
+            </div>
+            <div>
+                <label className='form-label'> الضريبه المضافه:</label>
+                <input className="form-input" type="number" value={tax} onChange={(e) => setTx(e.target.value)} />
+            </div>
+
+            <div>
+                <label className='form-label'>  اضافة تعليق:</label>
+                <input className="form-input" type="textarea" value={invoiceNote} onChange={(e) => setInvoiceNote(e.target.value)} />
             </div>
             <InvoiceDetails onAddItem={handleAddItem} selectedSupplier={selectedSupplier} />
             <ItemList items={items} onDeleteItem={handleDeleteItem} />
             <TotalAmount total={calculateTotalAmount()} />
-            <button onClick={handleDownloadPDF}>حفظ البيانات</button>
+            <button className='form-btn' onClick={handleDownloadPDF}>حفظ البيانات</button>
         </div>
     );
 };

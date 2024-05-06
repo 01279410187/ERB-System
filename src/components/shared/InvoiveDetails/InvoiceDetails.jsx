@@ -134,8 +134,9 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
         <div>
             {fields.map((field, index) => (
                 <div key={index}>
-                    <label>{field.label}</label>
+                    <label className="form-label" >{field.label}</label>
                     <select
+                        className='form-select'
                         value={field.value}
                         onChange={(e) => field.onChange(e.target.value)}
                         required={field.required}>
@@ -146,13 +147,13 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
                     </select>
                 </div>
             ))}
-            <label>Quantity:</label>
-            <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} onWheel={event => event.currentTarget.blur()} />
-            <label>Price:</label>
-            <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} onWheel={event => event.currentTarget.blur()} />
-            <label>Expire Date:</label>
-            <input type="date" value={epireDate} onChange={(e) => setExpireDate(e.target.value)} />
-            <button onClick={handleAddItem}>Add Item</button>
+            <label className="form-label" >Quantity:</label>
+            <input className="form-input" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+            <label className="form-label" >Price:</label>
+            <input className="form-input" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <label className="form-label" >Expire Date:</label>
+            <input className="form-input" type="date" value={epireDate} onChange={(e) => setExpireDate(e.target.value)} />
+            <button className='form-btn' onClick={handleAddItem}>Add Item</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
 
         </div>
