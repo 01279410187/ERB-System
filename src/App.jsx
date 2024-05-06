@@ -28,11 +28,20 @@ import {
 } from "./applications/warehouse/sections/recipes/recipeSubCategory/pages";
 import Recipe from "./applications/warehouse/sections/recipes/recipe/Recipe";
 import RecipesCategoryParent from "./applications/warehouse/sections/recipes/recipeCategoryParent/RecipesCategoryParent";
-import { AddRecipeCategoryParent, EditRecipeCategoryParent, ShowRecipesCategoryParent } from "./applications/warehouse/sections/recipes/recipeCategoryParent/pages";
+import {
+  AddRecipeCategoryParent,
+  EditRecipeCategoryParent,
+  ShowRecipesCategoryParent,
+} from "./applications/warehouse/sections/recipes/recipeCategoryParent/pages";
 import Invoice from "./applications/warehouse/sections/invoices/Invoice";
-import InvoiceCategories from "./applications/warehouse/sections/invoices/InvoiceCategory/InvoiceCategory"
-import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/IncomingInvoice"
+import InvoiceCategories from "./applications/warehouse/sections/invoices/InvoiceCategory/InvoiceCategory";
+import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/IncomingInvoice";
 import { AddInvoices } from "./applications/warehouse/sections/invoices/Incoming/pages";
+import Requests from "./applications/warehouse/sections/requests/Requests";
+import {
+  AddRequest,
+  ShowRequests,
+} from "./applications/warehouse/sections/requests/pages";
 function App() {
   return (
     <div>
@@ -134,18 +143,21 @@ function App() {
           </Route>
         </Route>
 
-
-
-
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/invoices" element={<Invoice />}>
+            <Route
+              path="/warehouse/invoices/show"
+              element={<InvoiceCategories />}
+            ></Route>
 
-            <Route path="/warehouse/invoices/show" element={<InvoiceCategories />}>
-
-            </Route>
-
-            <Route path="/warehouse/invoices/incoming" element={<IncomingInvoice />}>
-              <Route path="/warehouse/invoices/incoming/add-Invoices" element={<AddInvoices />} />
+            <Route
+              path="/warehouse/invoices/incoming"
+              element={<IncomingInvoice />}
+            >
+              <Route
+                path="/warehouse/invoices/incoming/add-Invoices"
+                element={<AddInvoices />}
+              />
             </Route>
             {/* <Route path="/warehouse/invoices/outgoing" element={<OutgoingInvoice />}>
               <Route path="/warehouse/invoices/outgoing/show-outgoing" element={<ShowOutgoingInvoice />} />
@@ -153,12 +165,16 @@ function App() {
             <Route path="/warehouse/invoices/returned" element={<ReturnedInvoice />}>
               <Route path="/warehouse/invoices/returned/show-returned" element={<ShowReturnedInvoice />} />
             </Route> */}
-
-
           </Route>
         </Route>
-
-
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/requests" element={<Requests />}>
+            <Route
+              path="/warehouse/requests/show-requests"
+              element={<ShowRequests />}
+            ></Route>
+          </Route>
+        </Route>
       </Routes>
     </div>
   );

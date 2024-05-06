@@ -30,6 +30,7 @@
 
   // toggling this class helps to hide/unhide the sidebar
   &.sidebar-show {
+    
     @media(max-width: 768px) {
       transform: translateX(0);
     }
@@ -98,7 +99,6 @@
     color: var(--toggle-btn-icon-color);
     border-radius: 2px;
     transition: var(--default-transition);
-    display: none;
 
     @media(max-width: 768px) {
       display: none;

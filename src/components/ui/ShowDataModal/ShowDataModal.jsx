@@ -12,8 +12,7 @@ const ShowDataModal = ({
 
   useEffect(() => {
     showFn(id).then((result) => {
-      setData(result);
-      console.log(result);
+      setData(result.data);
     });
   }, [id, showFn]);
 
@@ -49,46 +48,40 @@ const ShowDataModal = ({
 
   const renderObject = (obj) => {
     return (
-      <div>
-        {detailsHeaders?.map((header, index) => {
-          if (header.isArray && Array.isArray(obj[header.key])) {
-            return (
-              <div key={index}>
-                {obj[header.key].map((item, idx) => (
-                  <div key={idx}>
-                    {header.keys.map((key) => (
-                      <div key={key}>
-                        <span className="info-key">{header.label}: </span>
-                        <span className="info-value">
-                          {renderValue(item[key])}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            );
-          } else if (obj.hasOwnProperty(header.key)) {
-            if (header.key === "image") {
+      <table className="data-table">
+        <tbody>
+          {detailsHeaders?.map((header, index) => {
+            if (header.isArray && Array.isArray(obj[header.key])) {
+              return obj[header.key].map((item, idx) => (
+                <tr key={idx}>
+                  {header.keys.map((key, keyIndex) => (
+                    <React.Fragment key={keyIndex}>
+                      <td className="info-key">{key.label}: </td>
+                      <td className="info-value">{item[key.key]}</td>
+                    </React.Fragment>
+                  ))}
+                </tr>
+              ));
+            } else if (obj.hasOwnProperty(header.key)) {
               return (
-                <div key={index}>
-                  <span className="info-key">{header.label}: </span>
-                  <img src={obj[header.key]} alt="Product" />
-                </div>
+                <React.Fragment key={index}>
+                  <tr>
+                    <td className="info-key">{header.label}: </td>
+                    <td className="info-value">
+                      {header.key === "image" ? (
+                        <img src={obj[header.key]} alt="Product" />
+                      ) : (
+                        renderValue(obj[header.key])
+                      )}
+                    </td>
+                  </tr>
+                </React.Fragment>
               );
             }
-            return (
-              <div key={index}>
-                <span className="info-key">{header.label}: </span>
-                <span className="info-value">
-                  {renderValue(obj[header.key])}
-                </span>
-              </div>
-            );
-          }
-          return null;
-        })}
-      </div>
+            return null;
+          })}
+        </tbody>
+      </table>
     );
   };
 
