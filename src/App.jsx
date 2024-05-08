@@ -44,7 +44,7 @@ import {
 } from "./applications/warehouse/sections/requests/pages";
 function App() {
   return (
-    <div>
+    <div className="page-wrapper">
       <Routes>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/suppliers" element={<Suppliers />}>

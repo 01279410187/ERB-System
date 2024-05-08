@@ -176,12 +176,12 @@ const AddInvoices = () => {
             }
 
             <div>
-                <label className='form-label'>اختر تاريخ الفاتوره:</label>
+                <label className='form-label'>اختر تاريخ الفاتورة:</label>
                 <input className="form-input" type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} />
             </div>
             {
                 lastItem === "in_coming" ? <div>
-                    <label className='form-label'>كود الفاتوره:</label>
+                    <label className='form-label'>كود الفاتورة:</label>
                     <input className="form-input" type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} onWheel={event => event.currentTarget.blur()} />
                 </div> : null
             }
@@ -193,7 +193,7 @@ const AddInvoices = () => {
             {
                 lastItem === "in_coming" ? <>
                     <div>
-                        <label className='form-label'> خصم على الفاتوره:</label>
+                        <label className='form-label'> خصم على الفاتورة:</label>
                         <input className="form-input" type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} onWheel={event => event.currentTarget.blur()} />
                     </div>
                     <div>

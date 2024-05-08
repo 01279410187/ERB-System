@@ -20,6 +20,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.scss";
 import { SidebarContext } from "../../../context/SidebarContext";
 import { useTranslation } from "react-i18next";
+import { RightOutlined } from '@ant-design/icons';
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
@@ -28,6 +29,12 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState(pathname); // State to track active link
+
+  const [display, setDisplay] = useState('d-block')
+  const [sidebarWidth, setSidebarWidth] = useState('w-defualt')
+  const [arrowDirection, setArrowDirection] = useState("")
+  const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -49,6 +56,14 @@ const Sidebar = () => {
     }
   };
 
+  const handleCloseSidebar = () => {
+    { display === "d-block" ? setDisplay('d-none') : setDisplay('d-block') }
+    { sidebarWidth === "w-auto" ? setSidebarWidth('w-defualt') : setSidebarWidth('w-auto') }
+    { arrowDirection === "rotate-y-180" ? setArrowDirection('') : setArrowDirection('rotate-y-180') }
+    toggleWrapperMargin(); // Call toggleWrapperMargin from context
+  }
+
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -58,13 +73,19 @@ const Sidebar = () => {
 
   return (
     <nav
-      className={`sidebar `}
+      className={`sidebar ${sidebarWidth}`}
       ref={navbarRef}
     >
       <div className="sidebar-top">
+
         <div className="sidebar-brand">
           <img src={LogoDAR} alt="" />
-          <span className="sidebar-brand-text">دار المشاه</span>
+          <span className={`sidebar-brand-text ${display}`}>دار المشاه</span>
+        </div>
+        <div className={`arrows ${arrowDirection}`}>
+          <RightOutlined className={`arrow-right `} onClick={() => { handleCloseSidebar() }} />
+          {/* <i class="arrow right"></i> */}
+          {/* <i class="arrow left"></i> */}
         </div>
         <button className="sidebar-close-btn" >
           <MdOutlineClose size={24} />
@@ -89,7 +110,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <MdPerson size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
                   الموردين
                 </span>
               </Link>
@@ -109,8 +130,8 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <GiTomato size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
-                  المكونات
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
+                  المنتجات
                 </span>
               </Link>
             </li>
@@ -125,7 +146,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <TbReport size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
                   الفواتير
                 </span>
               </Link>
@@ -144,7 +165,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <FaCodePullRequest size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
                   الطلبات
                 </span>
               </Link>
