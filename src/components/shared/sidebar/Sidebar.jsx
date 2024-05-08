@@ -7,6 +7,8 @@ import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
 import { FaCodePullRequest } from "react-icons/fa6";
+import { GiTomato } from "react-icons/gi";
+
 import { TbReport } from "react-icons/tb";
 import {
   MdOutlineClose,
@@ -75,11 +77,10 @@ const Sidebar = () => {
               <Link
                 to="/warehouse/suppliers/show-suppliers"
                 // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
-                className={`menu-link ${
-                  activeLink === "/warehouse/suppliers/show-suppliers"
-                    ? "active"
-                    : ""
-                }`}
+                className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"
+                  ? "active"
+                  : ""
+                  }`}
                 onClick={() => {
                   console.log("show-suppliers");
                   handleMenuLinkClick("/warehouse/suppliers/show-suppliers");
@@ -96,21 +97,20 @@ const Sidebar = () => {
             <li className="menu-item">
               <Link
                 to="/warehouse/recipes/show-departments"
-                className={`menu-link ${
-                  activeLink === "/warehouse/recipes/show-departments"
-                    ? "active"
-                    : ""
-                }`}
+                className={`menu-link ${activeLink === "/warehouse/recipes/show-departments"
+                  ? "active"
+                  : ""
+                  }`}
                 onClick={() => {
                   console.log("show-departments");
                   handleMenuLinkClick("/warehouse/recipes/show-departments");
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdProductionQuantityLimits size={30} />
+                  <GiTomato size={30} />
                 </span>
                 <span className="menu-link-text" style={{ fontSize: "30px" }}>
-                  المنتجات
+                  المكونات
                 </span>
               </Link>
             </li>
@@ -118,9 +118,8 @@ const Sidebar = () => {
             <li className="menu-item">
               <Link
                 to="/warehouse/invoices/show"
-                className={`menu-link ${
-                  activeLink === "/warehouse/invoices/show" ? "active" : ""
-                }`}
+                className={`menu-link ${activeLink === "/warehouse/invoices/show" ? "active" : ""
+                  }`}
                 onClick={() => handleMenuLinkClick("/warehouse/invoices/show")}
               >
                 <span className="menu-link-icon">
@@ -134,11 +133,10 @@ const Sidebar = () => {
             <li className="menu-item">
               <Link
                 to="/warehouse/requests/show-requests"
-                className={`menu-link ${
-                  activeLink === "/warehouse/requests/show-requests"
-                    ? "active"
-                    : ""
-                }`}
+                className={`menu-link ${activeLink === "/warehouse/requests/show-requests"
+                  ? "active"
+                  : ""
+                  }`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/requests/show-requests")
                 }

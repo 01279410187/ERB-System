@@ -49,7 +49,7 @@ export async function eidtRecipe(name, description, image, id) {
         formData.append('name', name);
         formData.append('description', description);
 
-        formData.append('image', image[0].originFileObj ? image[0].originFileObj : ""
+        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0
         );
         formData.append('_method', "PUT"); // Only send the first image
 

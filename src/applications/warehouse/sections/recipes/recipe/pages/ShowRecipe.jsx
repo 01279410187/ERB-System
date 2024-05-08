@@ -31,7 +31,7 @@ const ShowRecipe = () => {
     {
       type: "add",
       label: "إضافة تصنيف فرعى",
-      route: "/warehouse/recipes/recipe/add-recipes",
+      route: `/warehouse/recipes/recipe/add-recipes/${id}`,
     },
     {
       type: "show",

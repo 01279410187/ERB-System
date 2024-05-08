@@ -17,7 +17,7 @@ const ItemList = ({ items, onDeleteItem }) => {
                     </div>
                     <div>Price: ${item.price}</div>
                     <div>Expire Date: {item.expireDate}</div>
-                    <button style={{ backgroundColor: "#803D3B" }} onClick={() => onDeleteItem(index)}>
+                    <button className="item-btn" style={{ backgroundColor: "#803D3B" }} onClick={() => onDeleteItem(index)}>
                         Delete
                     </button>
                 </div>

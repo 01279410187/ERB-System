@@ -10,6 +10,10 @@ const EditRecipeSubCategory = () => {
     const { id } = useParams();
     const [categories, setCategories] = useState([]); // Initialize categories state
 
+    const [parent, setParent] = useState(null);
+    const [parentId, setParentId] = useState(null);
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -27,7 +31,10 @@ const EditRecipeSubCategory = () => {
         const fetchData = async () => {
             try {
                 const recipeData = await getRecipeSubCategoryById(id);
-                setData(recipeData);
+                setData(recipeData.data);
+                setParent(recipeData.data.parent)
+                setParentId(recipeData.data.parent_id)
+                console.log(recipeData.data.parent)
             } catch (error) {
                 console.log("Error fetching data:", error);
             }
@@ -36,27 +43,21 @@ const EditRecipeSubCategory = () => {
         fetchData(); // Call fetchData when component mounts
     }, [id]); // useEffect dependency on id
 
-    const handleSubmit = (formData) => {
+    const handleSubmit = async (formData) => {
         console.log(formData);
-        eidtRecipeSubCategory(formData.name, formData.description, formData.image, formData.category_id, id);
-        navigate(`/warehouse/recipes/subCategory/show-recipe-subcategory/${formData.category_id}`);
+        await eidtRecipeSubCategory(formData.name, formData.description, formData.image, parentId, id);
+        await navigate(`/warehouse/recipes/subCategory/show-recipe-subcategory/${parentId}`);
     };
-
     const fields = [
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true },
-        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', required: true },
+        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true, disabled: false },
+        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', required: true, disabled: false },
+        { type: 'text', name: 'parentName', placeholder: `${parent}`, required: false, disabled: true },
         { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره' },
-        {
-            type: 'select',
-            name: 'category_id',
-            placeholder: 'اختر التصنيف الرئيسي',
-            options: categories.map(category => ({ value: category.id, label: category.name }))
-        }
     ];
 
     return (
         <div className='form-container'>
-            <h1 className='form-title'>تعديل تصنيف الفرعى</h1>
+            <h1 className='form-title'>تعديل التصنيف الرئيسي</h1>
             {data && <DynamicForm fields={fields} initialValues={data} onSubmit={handleSubmit} />} {/* Pass initial values if data is available */}
         </div>
     );

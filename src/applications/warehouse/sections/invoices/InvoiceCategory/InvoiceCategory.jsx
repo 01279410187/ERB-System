@@ -10,7 +10,9 @@ function Categories(props) {
     const tableHeaders = [
         { key: "id", value: "الكود" },
         { key: "code", value: "  كود الفاتوره" },
-        { key: "image", value: "الصوره", type: "image" },
+        { key: "status", value: "الحاله" },
+        // { key: "image", value: "الصوره", type: "image" },
+
     ];
 
     const filtersIncoming = [
@@ -24,11 +26,7 @@ function Categories(props) {
     ];
 
     const actionsIncoming = [
-        {
-            type: "edit",
-            label: "تعديل",
-            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
-        },
+
         {
             type: "delete",
             label: "حذف",
@@ -41,11 +39,7 @@ function Categories(props) {
     ];
 
     const actionsOutComing = [
-        {
-            type: "edit",
-            label: "تعديل",
-            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
-        },
+
         {
             type: "delete",
             label: "حذف",
@@ -53,16 +47,12 @@ function Categories(props) {
         {
             type: "add",
             label: "إضافة فاتوره  صادره",
-            route: "/warehouse/recipes/subCategory/add-recipes",
+            route: "/warehouse/invoices/incoming/add-Invoices/out_going",
         },
     ];
 
     const actionsReturnd = [
-        {
-            type: "edit",
-            label: "تعديل",
-            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
-        },
+
         {
             type: "delete",
             label: "حذف",
@@ -70,7 +60,7 @@ function Categories(props) {
         {
             type: "add",
             label: "إضافة فاتوره  مرتجع",
-            route: "/warehouse/recipes/subCategory/add-recipes",
+            route: "/warehouse/invoices/incoming/add-Invoices/returned",
         },
     ];
 

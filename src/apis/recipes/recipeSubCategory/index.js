@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../../config";
+import { message } from 'antd'
 const domain = API_ENDPOINT;
 export async function getRecipeSubCategory(filteredValues = { name: "", page: "" }, id) {
     try {
@@ -9,7 +10,7 @@ export async function getRecipeSubCategory(filteredValues = { name: "", page: ""
             `${domain}/api/v1/store/recipe_category`, {
             params: {
                 name: name,
-                parent_id: id,
+                category_id: id,
                 page,
             },
         }
@@ -51,8 +52,7 @@ export async function eidtRecipeSubCategory(name, description, image, category_i
         formData.append('name', name);
         formData.append('description', description);
 
-        formData.append('image', image[0].originFileObj ? image[0].originFileObj : ""
-        );
+        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0);
         formData.append('category_id', category_id);
         formData.append('_method', "PUT"); // Only send the first image
 
@@ -67,7 +67,8 @@ export async function eidtRecipeSubCategory(name, description, image, category_i
         );
         return res.data;
     } catch (error) {
-        console.log("Error fetching data:", error);
+        message.error(error.response.data.error.message)
+        console.log("Error fetching data:", error.response.data.error.message);
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
 }
@@ -77,7 +78,7 @@ export async function getRecipeSubCategoryById(id) {
             `${domain}/api/v1/store/recipe_category/${id}`
         );
         console.log(res.data)
-        return res.data.data
+        return res.data
     } catch (error) {
         console.log("Error fetching data:", error);
     }

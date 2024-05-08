@@ -1,11 +1,13 @@
 // Import useState and useEffect if not already imported
 import React, { useState, useEffect } from 'react';
 import { API_ENDPOINT } from '../../../../config';
+import { getRecipesById } from '../../../apis/invoices';
 
-const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
+const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
     const [item, setItem] = useState('');
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
+    const [uint, setUnit] = useState('')
     const [epireDate, setExpireDate] = useState();
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -16,16 +18,49 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
     const [selectedParent, setSelectedParent] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedRecipe, setSelectedRecipe] = useState('');
+    const [selectedOneRecipe, setSelectedOneRecipe] = useState('');
 
     useEffect(() => {
         fetchRecipeCategoryParents();
     }, []);
+
+    const fetchOneRecipe = async (id) => {
+        try {
+            const oneRecipe = await getRecipesById(id);
+            setSelectedOneRecipe(oneRecipe);
+            if (InvoiceType === "out_going") {
+                setQuantity(oneRecipe.total_quantity)
+                setPrice(oneRecipe.price)
+                setUnit(oneRecipe.unit)
+            }
+            if (InvoiceType === "in_coming") {
+                setUnit(oneRecipe.unit)
+            }
+            if (InvoiceType === "returned") {
+                setQuantity(oneRecipe.total_quantity)
+                setPrice(oneRecipe.price)
+                setUnit(oneRecipe.unit)
+            }
+
+            console.log(oneRecipe);
+        } catch (error) {
+            console.log("Error fetching data:", error);
+        }
+    };
+
+    useEffect(() => {
+
+
+        fetchOneRecipe(selectedRecipe);
+    }, [selectedRecipe]);
 
     const fetchRecipeCategoryParents = async () => {
         try {
             const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe_category_parent`);
             const data = await response.json();
             setRecipeCategoryParents(data.data);
+            console.log(data)
+
         } catch (error) {
             console.error('Error fetching recipe category parents:', error);
         }
@@ -34,7 +69,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
     const handleParentChange = async (parentId) => {
         setSelectedParent(parentId);
         try {
-            const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe_category?parent_id=${parentId}`);
+            const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe_category?category_id=${parentId}`);
             const data = await response.json();
             setRecipeCategories(data.data);
         } catch (error) {
@@ -48,6 +83,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
             const response = await fetch(`${API_ENDPOINT}/api/v1/store/recipe?recipe_category_id=${categoryId}`);
             const data = await response.json();
             setRecipes(data.data);
+
         } catch (error) {
             console.error('Error fetching recipes:', error);
         }
@@ -56,32 +92,32 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
     useEffect(() => {
         setFields([
             {
-                label: 'Recipe Category Parent',
+                label: 'الاقسام المخزن',
                 type: 'select',
-                placeholder: 'Select Parent',
-                options: recipeCategoryParents.map(parent => ({ value: parent.id, label: parent.name })),
+                placeholder: 'اختر منتج من المخزن',
+                options: recipeCategoryParents?.map(parent => ({ value: parent.id, label: parent.name })) || [],
                 required: true,
                 onChange: handleParentChange
             },
             {
-                label: 'Recipe Category',
+                label: 'التصنيف الرئيسى',
                 type: 'select',
-                placeholder: 'Select Category',
-                options: recipeCategories.map(category => ({ value: category.id, label: category.name })),
+                placeholder: 'اختر تصنيف رئيسى ',
+                options: recipeCategories?.map(category => ({ value: category.id, label: category.name })) || [],
                 required: true,
                 onChange: handleCategoryChange
             },
             {
-                label: 'Recipe',
+                label: 'التصنيف الفرعى',
                 type: 'select',
-                placeholder: 'Select Recipe',
-                options: recipes.map(recipe => ({ value: recipe.id, label: recipe.name })),
+                placeholder: 'اختر تصنيف فرعى',
+                options: recipes?.map(recipe => ({ value: recipe.id, label: recipe.name })) || [],
                 required: true,
                 onChange: (value) => setSelectedRecipe(value) // Update selectedRecipe state with selected recipe value
             }
         ]);
     }, [recipeCategoryParents, recipeCategories, recipes]);
-
+    console.log(selectedRecipe)
     const onSubmit = (formData) => {
         // Handle form submission here
         console.log('Form data:', formData);
@@ -109,6 +145,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
         // Logging for troubleshooting
         console.log('recipeName:', recipeName);
         console.log('recipeName:', recipeImage);
+        console.log('recipeprice:', recipeImage);
 
         // Additional validation or processing logic
 
@@ -147,11 +184,19 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem }) => {
                     </select>
                 </div>
             ))}
-            <label className="form-label" >Quantity:</label>
+            {/* {
+                InvoiceType === "in_coming" ? <>
+
+                </> :<>
+                </>
+            } */}
+            <label className="form-label" >الكميه:</label>
             <input className="form-input" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} onWheel={event => event.currentTarget.blur()} />
-            <label className="form-label" >Price:</label>
+            <label className="form-label" >السعر:</label>
             <input className="form-input" type="number" value={price} onChange={(e) => setPrice(e.target.value)} onWheel={event => event.currentTarget.blur()} />
-            <label className="form-label" >Expire Date:</label>
+            <label className="form-label" >الوحده:</label>
+            <input className="form-input" type="text" value={uint} />
+            <label className="form-label" >تاريخ الصلاحيه:</label>
             <input className="form-input" type="date" value={epireDate} onChange={(e) => setExpireDate(e.target.value)} />
             <button className='form-btn' onClick={handleAddItem}>Add Item</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>

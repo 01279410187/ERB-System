@@ -34,7 +34,7 @@ const ShowRecipesSubCategory = () => {
     {
       type: "add",
       label: "إضافة تصنيف رئيسى",
-      route: "/warehouse/recipes/subCategory/add-recipes",
+      route: `/warehouse/recipes/subCategory/add-recipes/${id}`,
     },
   ];
   return (

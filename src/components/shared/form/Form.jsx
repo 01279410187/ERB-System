@@ -27,9 +27,12 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
           label={field.label}
           rules={[{ required: field.required, message: field.placeholder }]}
         >
-          {field.type === "text" && <Input placeholder={field.placeholder} />}
           {field.type === "number" && (
-            <Input type="number" placeholder={field.placeholder} />
+            <Input
+              type="number"
+              placeholder={field.placeholder}
+              className="disable-scroll"
+            />
           )}
           {field.type === "image" && (
             <div>
@@ -46,11 +49,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                 getValueFromEvent={(e) => e.fileList}
                 rules={[{ required: true, message: "Please upload a file" }]}
               >
-                <Upload
-                  name={field.name}
-                  listType="text"
-                  beforeUpload={() => false}
-                >
+                <Upload name={field.name} listType="text" beforeUpload={() => false}>
                   <Button icon={<UploadOutlined />}>اضغط لرفع الملف</Button>
                 </Upload>
               </Form.Item>
@@ -65,11 +64,18 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
               ))}
             </Select>
           )}
+          {field.type === "text" && (
+            <Input
+              placeholder={field.placeholder}
+              disabled={field.disabled}
+              value={field.disabled ? field.value : undefined}
+            />
+          )}
         </Form.Item>
       ))}
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Submit
+          اضافة
         </Button>
       </Form.Item>
     </Form>

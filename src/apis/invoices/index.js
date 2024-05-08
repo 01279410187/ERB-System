@@ -98,7 +98,11 @@ export async function getRecipesById(id) {
 
     try {
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe/${id}`
+            `${domain}/api/v1/store/recipe/${id}`, {
+            headers: {
+                Authorization: `Bearer ${Token}`
+            }
+        }
         );
         console.log(res.data)
         return res.data.data
@@ -107,7 +111,7 @@ export async function getRecipesById(id) {
     }
 }
 
-const Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiODg1ZmVjMzU5NjkxZGVkZWY5MGRkNDlkNzk2ZjhjNTM0MzQ2YWU3N2MzZWFhYTM2NWFjZTQ4OTEzM2Y3YTFkMGY0ODgwMjU4YmRhODA1MDciLCJpYXQiOjE3MTQ3ODU5NTQuODkxMDMxLCJuYmYiOjE3MTQ3ODU5NTQuODkxMDM4LCJleHAiOjE3NDYzMjE5NTQuODI4MjY5LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Q0jJ9k5mtkd6PRuCb2C0jTm37D7az5SK9_W8sgbmt9Kl2Xa3u0iUy4Pf1o5QYFkbLZ7ky21kzpMIO1APFF0zfvRzfFCUEObGIsetr12rpr-L-H0cUtuUu-p4NHcpSCj_VepurPUL9p7PHGwbUmMCeCrnR155Jjpzj_bDw_worTicLEFX8gpVua2UQRu4g5vDgH9730b80wsnobgHFOzt06Pag3SVZaDpDgCv4ACd7SMXGzRorDf4JcyE2dY1aHRpbSj8Qo4M0QOt0RlBGRcagosNx4sz-zI_GrN2a6R3xgsZY6IHZkRYPFgAAY80ptG34cBx0g37uHT6M8pQEtez_Of7zl409bVMNf6SfTmVPgxTPyx1jp5H-hw-YYSB9wjoWzPdstiiG72yrM0dAQff1FFucgiksYDmvHfZRs5-F8RMb2U46dZLVHx-tfVHJmCC8qomQrpf9x0teoUPHazQOCqK2SaaM84rq1WUNe_QTxQjfOz-PJ6px-GSOKIo7xZ3amf4EAtyJ157XdqvYs-YmCLm_ePngFqv4Sqb1iyGJuMXkMEBdD9qyQvagMbLTRRv87RWxtTixmDObF2ypJH_xGZWRgDkjQaDRn0Jt61OJHkZcMbN5yk001Mk9zDSyXSlNep6ZlTpg0d41b2LgB842vO20SIERhZuRGvbFUVck-A"
+const Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDBlNDc0ODNiNTI2NDM5MGFiMzA5ZjAxNzRhMjI3NTM1ZmE2OTZlNjFiYWI5ZTZjYzQ0MzAyZDY0NDA1N2JkOGMyMWFlMmY4YmQwYzJjZTEiLCJpYXQiOjE3MTUwOTM0NTcuNzcyMDE0LCJuYmYiOjE3MTUwOTM0NTcuNzcyMDE2LCJleHAiOjE3NDY2Mjk0NTcuNDQ5NTUzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.E8jDDQX9xIofoAoyzkEUCvesgEu5mWtqbqDvpOTolnTrCIo8j5S7QHP8NWF352x9GneW9SGpRCe-ijH0bpTAOkZmW9sSCLjAszxtimZOXZpg8lwtiGVa_AXN1VG1KDyYZmhATNdNOiY2Fwo4KaT7VcVg3686tDQaJF-P5DY-kmInXbuD9vEoxTRVbE-HMwBVBC9S3v8H5om5O-huaJ49QbkGE_1DtCG9ZoYULXsHMEANV1vE1oS4yt7IhC2oHB3YOndOMC2gPKBDvxi6XfJlHESxqFGs2uEg-euLNFaRFYTbuddVXSgHh-edbvY0dSMsG0IoFLNSxLtcqNj_ejYRFMNcatiMQwgqqA44DcgxVHx__dDv1WK8dQerX0gX8BiKSJWcAH-xGp2UzOfenI0ESW37QmEyVq3GAYD6saRAmKcLIHvgqLuRh0hPemHfR-AsOTI2JvJLbK3dcb1P1yXOtcMe6ULQOf2A_PqhIo1nLRwvmHFkFM2QW3rlmp9kl1C47cELKGoY398KWdDCelNnHUJdWlyExGh9qk1jcNFkTIRVfZyYBSB6epnHlH91xXeHbF8ylLIo5ur6qwe12BbkJmjAN1FeAmB6HtRmCqKlxlMD_YE5Mxia8VK2G1LXxk5sV2AW0Ho76SQWWSZCTM6WxRN20rKDNxEK2bZZpnAfLOQ"
 export async function getIncomingInvoiceByType(filteredValues = { name: "", page: "" }) {
 
     const { name, page } = filteredValues;
@@ -164,7 +168,7 @@ export async function getReturndInvoiceByType(filteredValues = { name: "", page:
     try {
 
         const res = await axios.get(
-            `${domain}/api/v1/store/invoice/get_invoices_based_on_type/returnd`, {
+            `${domain}/api/v1/store/invoice/get_invoices_based_on_type/returned`, {
             params: {
                 name: name,
                 page,
