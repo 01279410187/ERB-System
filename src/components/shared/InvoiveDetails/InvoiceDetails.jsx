@@ -31,15 +31,15 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
             if (InvoiceType === "out_going") {
                 setQuantity(oneRecipe.total_quantity)
                 setPrice(oneRecipe.price)
-                setUnit(oneRecipe.unit)
+                setUnit(oneRecipe.unit.name)
             }
             if (InvoiceType === "in_coming") {
-                setUnit(oneRecipe.unit)
+                setUnit(oneRecipe.unit.name)
             }
             if (InvoiceType === "returned") {
                 setQuantity(oneRecipe.total_quantity)
                 setPrice(oneRecipe.price)
-                setUnit(oneRecipe.unit)
+                setUnit(oneRecipe.unit.name)
             }
 
             console.log(oneRecipe);

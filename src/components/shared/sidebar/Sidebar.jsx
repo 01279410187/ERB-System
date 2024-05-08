@@ -131,7 +131,7 @@ const Sidebar = () => {
                   <GiTomato size={30} />
                 </span>
                 <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
-                  المنتجات
+                  المكونات
                 </span>
               </Link>
             </li>

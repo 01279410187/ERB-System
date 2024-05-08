@@ -1,29 +1,84 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./InvoiceCategory.scss";
 import Button from "./Button/Button";
 import { getIncomingInvoiceByType, getOutgoingInvoiceByType, getReturndInvoiceByType } from "../../../../../apis/invoices";
 import Table from "../../../../../components/shared/table/Table";
+import { getSuppliers } from "../../../../../apis/suppliers";
 
 function Categories(props) {
     const [selectedCategory, setSelectedCategory] = useState("inComing"); // Default selected category is "الوارد"
+    const [supplier, setAllSupplier] = useState([]);
 
+    useEffect(() => {
+        const fetchSupplier = async () => {
+            const res = await getSuppliers();
+            setAllSupplier(
+                [{ label: "", value: "" }].concat(
+                    res.data.map((item) => {
+                        return { label: item.name, value: item.id };
+                    })
+                )
+            );
+            console.log(departments);
+        };
 
+        fetchSupplier();
+    }, []);
     const tableHeaders = [
         { key: "id", value: "الكود" },
         { key: "code", value: "  كود الفاتوره" },
-        { key: "status", value: "الحاله" },
+        { key: "registration_date", value: "التاريخ" },
+        { key: "status", value: "الحالة" },
         // { key: "image", value: "الصوره", type: "image" },
 
     ];
 
     const filtersIncoming = [
-        { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+        // { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+        { key: "code", type: "text", placeholder: "إبحث بالكود", id: "الكود" },
+        { key: "invoice_price", type: "text", placeholder: "إبحث بسعر الفاتورة", id: "سعر الفاتورة" },
+
+        { key: "from_date", type: "date", id: "من تاريخ" },
+        { key: "to_date", type: "date", id: "إلى تاريخ" },
+
+        {
+            key: "supplier_id",
+            type: "selection",
+            id: "اختر المورد",
+            placeholder: "المورد",
+            options: supplier,
+        },
+
     ];
     const filtersOutcoming = [
-        { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+        { key: "code", type: "text", placeholder: "إبحث بالكود", id: "الكود" },
+        { key: "invoice_price", type: "text", placeholder: "إبحث بسعر الفاتورة", id: "سعر الفاتورة" },
+
+        { key: "from_date", type: "date", id: "من تاريخ" },
+        { key: "to_date", type: "date", id: "إلى تاريخ" },
+
+        {
+            key: "supplier_id",
+            type: "selection",
+            id: "اختر المورد",
+            placeholder: "المورد",
+            options: supplier,
+        },
     ];
     const filtersReturn = [
-        { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+        { key: "code", type: "text", placeholder: "إبحث بالكود", id: "الكود" },
+        { key: "invoice_price", type: "text", placeholder: "إبحث بسعر الفاتورة", id: "سعر الفاتورة" },
+
+        { key: "from_date", type: "date", id: "من تاريخ" },
+        { key: "to_date", type: "date", id: "إلى تاريخ" },
+
+        {
+            key: "supplier_id",
+            type: "selection",
+            id: "اختر المورد",
+            placeholder: "المورد",
+            options: supplier,
+        },
     ];
 
     const actionsIncoming = [

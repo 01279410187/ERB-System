@@ -112,40 +112,66 @@ export async function getRecipesById(id) {
 }
 
 const Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDBlNDc0ODNiNTI2NDM5MGFiMzA5ZjAxNzRhMjI3NTM1ZmE2OTZlNjFiYWI5ZTZjYzQ0MzAyZDY0NDA1N2JkOGMyMWFlMmY4YmQwYzJjZTEiLCJpYXQiOjE3MTUwOTM0NTcuNzcyMDE0LCJuYmYiOjE3MTUwOTM0NTcuNzcyMDE2LCJleHAiOjE3NDY2Mjk0NTcuNDQ5NTUzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.E8jDDQX9xIofoAoyzkEUCvesgEu5mWtqbqDvpOTolnTrCIo8j5S7QHP8NWF352x9GneW9SGpRCe-ijH0bpTAOkZmW9sSCLjAszxtimZOXZpg8lwtiGVa_AXN1VG1KDyYZmhATNdNOiY2Fwo4KaT7VcVg3686tDQaJF-P5DY-kmInXbuD9vEoxTRVbE-HMwBVBC9S3v8H5om5O-huaJ49QbkGE_1DtCG9ZoYULXsHMEANV1vE1oS4yt7IhC2oHB3YOndOMC2gPKBDvxi6XfJlHESxqFGs2uEg-euLNFaRFYTbuddVXSgHh-edbvY0dSMsG0IoFLNSxLtcqNj_ejYRFMNcatiMQwgqqA44DcgxVHx__dDv1WK8dQerX0gX8BiKSJWcAH-xGp2UzOfenI0ESW37QmEyVq3GAYD6saRAmKcLIHvgqLuRh0hPemHfR-AsOTI2JvJLbK3dcb1P1yXOtcMe6ULQOf2A_PqhIo1nLRwvmHFkFM2QW3rlmp9kl1C47cELKGoY398KWdDCelNnHUJdWlyExGh9qk1jcNFkTIRVfZyYBSB6epnHlH91xXeHbF8ylLIo5ur6qwe12BbkJmjAN1FeAmB6HtRmCqKlxlMD_YE5Mxia8VK2G1LXxk5sV2AW0Ho76SQWWSZCTM6WxRN20rKDNxEK2bZZpnAfLOQ"
-export async function getIncomingInvoiceByType(filteredValues = { name: "", page: "" }) {
+export async function getIncomingInvoiceByType(filteredValues = {
+    from_date: "",
+    to_date: "",
+    code: "",
+    supplier_id: "",
+    invoice_price: "",
 
-    const { name, page } = filteredValues;
-    try {
+    page: "",
+}) {
 
-        const res = await axios.get(
-            `${domain}/api/v1/store/invoice/get_invoices_based_on_type/in_coming`, {
-            params: {
-                name: name,
-                page,
+    const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
+        filteredValues; try {
+
+            const res = await axios.get(
+                `${domain}/api/v1/store/invoice/get_invoices_based_on_type/in_coming`, {
+                params: {
+                    "date[from]": from_date,
+                    "date[to]": to_date,
+                    code,
+                    invoice_price,
+                    supplier_id,
+                    status,
+                    page,
+                },
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+
+
             },
-            headers: {
-                Authorization: `Bearer ${Token}`
-            }
-
-
-        },
-        );
-        console.log(res)
-        return res.data
-    } catch (error) {
-        console.log("Error fetching data:", error);
-    }
+            );
+            console.log(res)
+            return res.data
+        } catch (error) {
+            console.log("Error fetching data:", error);
+        }
 }
 
-export async function getOutgoingInvoiceByType(filteredValues = { name: "", page: "" }) {
+export async function getOutgoingInvoiceByType(filteredValues = {
+    from_date: "",
+    to_date: "",
+    code: "",
+    supplier_id: "",
+    invoice_price: "",
 
-    const { name, page } = filteredValues;
+    page: "",
+}) {
+
+    const { from_date, to_date, supplier_id, invoice_price, page, code, status } = filteredValues
     try {
 
         const res = await axios.get(
             `${domain}/api/v1/store/invoice/get_invoices_based_on_type/out_going`, {
             params: {
-                name: name,
+                "date[from]": from_date,
+                "date[to]": to_date,
+                code,
+                invoice_price,
+                supplier_id,
+                status,
                 page,
             },
             headers: {
@@ -162,15 +188,28 @@ export async function getOutgoingInvoiceByType(filteredValues = { name: "", page
     }
 }
 
-export async function getReturndInvoiceByType(filteredValues = { name: "", page: "" }) {
+export async function getReturndInvoiceByType(filteredValues = filteredValues = {
+    from_date: "",
+    to_date: "",
+    code: "",
+    supplier_id: "",
+    invoice_price: "",
 
-    const { name, page } = filteredValues;
+    page: "",
+}) {
+
+    const { from_date, to_date, supplier_id, invoice_price, page, code, status } = filteredValues
     try {
 
         const res = await axios.get(
             `${domain}/api/v1/store/invoice/get_invoices_based_on_type/returned`, {
             params: {
-                name: name,
+                "date[from]": from_date,
+                "date[to]": to_date,
+                code,
+                invoice_price,
+                supplier_id,
+                status,
                 page,
             },
             headers: {

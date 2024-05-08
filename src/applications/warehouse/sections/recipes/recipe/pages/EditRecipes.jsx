@@ -13,7 +13,7 @@ const EditRecipes = () => {
     const handleSubmit = async (formData) => {
         console.log("=================>" + formData.name);
 
-        await eidtRecipes(formData.name, formData.image, recipeParentId, formData.unit_id, formData.minimum_limt, formData.day_before_expire, id);
+        await eidtRecipes(formData.name, formData.image, recipeParentId, formData.unit_id, formData.minimum_limt, formData.days_before_expire, id);
         await navigate(`/warehouse/recipes/recipe/show-recipe/${recipeParentId}`);
     };
     const [units, setUnits] = useState([]); // Initialize categories state
@@ -65,7 +65,7 @@ const EditRecipes = () => {
         { type: 'text', name: 'parent', placeholder: `${parentName}`, required: false, disabled: true },
         { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: false, disabled: false },
         { type: 'number', name: 'minimum_limt', placeholder: 'يجب عليك ادخال حد الامان', required: false, disabled: false },
-        { type: 'number', name: 'day_before_expire', placeholder: 'يجب عليك ادخال تاريح الصلاحيه', required: false, disabled: false },
+        { type: 'number', name: 'days_before_expire', placeholder: 'يجب عليك ادخال تاريح الصلاحيه', required: false, disabled: false },
         {
             type: 'select',
             name: 'unit_id',
@@ -81,8 +81,8 @@ const EditRecipes = () => {
     const initialValues = {
         name: data?.name || '',
         minimum_limt: data?.minimum_limt || '',
-        day_before_expire: data?.day_before_expire !== undefined ? data.day_before_expire : '', // Check if day_before_expire is present
-        // unit_id: data?.unit_id || '', // Check if unit_id is present
+        days_before_expire: data?.days_before_expire !== undefined ? data.days_before_expire : '', // Check if day_before_expire is present
+        unit_id: data?.unit.id || '', // Check if unit_id is present
         image: data?.image || null, // Assuming image is present in recipe data
     };
 

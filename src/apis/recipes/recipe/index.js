@@ -67,7 +67,7 @@ export async function addRecipes(name, image, recipe_category_id, unit_id, minim
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
 }
-export async function eidtRecipes(name, image, recipe_category_id, unit_id, minimum_limt, day_before_expire, id) {
+export async function eidtRecipes(name, image, recipe_category_id, unit_id, minimum_limt, days_before_expire, id) {
     try {
         const formData = new FormData();
         formData.append('name', name);
@@ -78,7 +78,7 @@ export async function eidtRecipes(name, image, recipe_category_id, unit_id, mini
         formData.append('recipe_category_id', recipe_category_id);
         formData.append('unit_id', unit_id);
         formData.append('minimum_limt', minimum_limt);
-        formData.append('days_before_expire', day_before_expire);
+        formData.append('days_before_expire', days_before_expire);
         formData.append('_method', "PUT"); // Only send the first image
 
         const res = await axios.post(
