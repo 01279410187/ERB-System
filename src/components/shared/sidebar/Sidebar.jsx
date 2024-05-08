@@ -31,6 +31,8 @@ const Sidebar = () => {
   const [display, setDisplay] = useState('d-block')
   const [sidebarWidth, setSidebarWidth] = useState('w-defualt')
   const [arrowDirection, setArrowDirection] = useState("")
+  const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -56,6 +58,7 @@ const Sidebar = () => {
     { display === "d-block" ? setDisplay('d-none') : setDisplay('d-block') }
     { sidebarWidth === "w-auto" ? setSidebarWidth('w-defualt') : setSidebarWidth('w-auto') }
     { arrowDirection === "rotate-y-180" ? setArrowDirection('') : setArrowDirection('rotate-y-180') }
+    toggleWrapperMargin(); // Call toggleWrapperMargin from context
   }
 
 
