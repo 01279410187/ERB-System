@@ -7,6 +7,7 @@ import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
 import { FaCodePullRequest } from "react-icons/fa6";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 
 import { TbReport } from "react-icons/tb";
@@ -33,6 +34,7 @@ const Sidebar = () => {
   const [display, setDisplay] = useState('d-block')
   const [sidebarWidth, setSidebarWidth] = useState('w-defualt')
   const [arrowDirection, setArrowDirection] = useState("")
+  const [justifyContent, setJustifyContent] = useState("d-flex-start")
   const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
 
 
@@ -60,6 +62,7 @@ const Sidebar = () => {
     { display === "d-block" ? setDisplay('d-none') : setDisplay('d-block') }
     { sidebarWidth === "w-auto" ? setSidebarWidth('w-defualt') : setSidebarWidth('w-auto') }
     { arrowDirection === "rotate-y-180" ? setArrowDirection('') : setArrowDirection('rotate-y-180') }
+    { justifyContent === "d-flex-start" ? setJustifyContent('d-justify-center') : setJustifyContent('d-flex-start') }
     toggleWrapperMargin(); // Call toggleWrapperMargin from context
   }
 
@@ -101,7 +104,7 @@ const Sidebar = () => {
                 className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"
                   ? "active"
                   : ""
-                  }`}
+                  } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-suppliers");
                   handleMenuLinkClick("/warehouse/suppliers/show-suppliers");
@@ -121,7 +124,7 @@ const Sidebar = () => {
                 className={`menu-link ${activeLink === "/warehouse/recipes/show-departments"
                   ? "active"
                   : ""
-                  }`}
+                  } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-departments");
                   handleMenuLinkClick("/warehouse/recipes/show-departments");
@@ -130,8 +133,9 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <GiTomato size={30} />
                 </span>
-                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
-                  المكونات
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "24px" }}>
+                  اقسام المخزن
+
                 </span>
               </Link>
             </li>
@@ -140,7 +144,7 @@ const Sidebar = () => {
               <Link
                 to="/warehouse/invoices/show"
                 className={`menu-link ${activeLink === "/warehouse/invoices/show" ? "active" : ""
-                  }`}
+                  } ${justifyContent}`}
                 onClick={() => handleMenuLinkClick("/warehouse/invoices/show")}
               >
                 <span className="menu-link-icon">
@@ -157,7 +161,7 @@ const Sidebar = () => {
                 className={`menu-link ${activeLink === "/warehouse/requests/show-requests"
                   ? "active"
                   : ""
-                  }`}
+                  } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/requests/show-requests")
                 }
@@ -170,10 +174,30 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
+
+            <li className="menu-item">
+              <Link
+                to="/warehouse/department/show-department"
+                className={`menu-link ${activeLink === "/warehouse/department/show-department"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/department/show-department")
+                }
+              >
+                <span className="menu-link-icon">
+                  <HiOutlineOfficeBuilding size={30} />
+                </span>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
+                  المنافذ
+                </span>
+              </Link>
+            </li>
           </ul>
         </div>
 
-        <div className="sidebar-menu sidebar-menu2">
+        {/* <div className="sidebar-menu sidebar-menu2">
           <ul className="menu-list">
             <li className="menu-item">
               <Link to="/" className="menu-link" onClick={handleLogout}>
@@ -184,7 +208,7 @@ const Sidebar = () => {
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

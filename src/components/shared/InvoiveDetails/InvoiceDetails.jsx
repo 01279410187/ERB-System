@@ -92,7 +92,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
     useEffect(() => {
         setFields([
             {
-                label: 'الاقسام المخزن',
+                label: 'اقسام المخزن',
                 type: 'select',
                 placeholder: 'اختر منتج من المخزن',
                 options: recipeCategoryParents?.map(parent => ({ value: parent.id, label: parent.name })) || [],
@@ -198,7 +198,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
             <input className="form-input" type="text" value={uint} />
             <label className="form-label" >تاريخ الصلاحيه:</label>
             <input className="form-input" type="date" value={epireDate} onChange={(e) => setExpireDate(e.target.value)} />
-            <button className='form-btn' onClick={handleAddItem}>Add Item</button>
+            <button className='form-btn' onClick={handleAddItem}>اضافة عنصر</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
 
         </div>

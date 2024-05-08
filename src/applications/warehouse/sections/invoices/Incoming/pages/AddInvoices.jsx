@@ -138,7 +138,7 @@ const AddInvoices = () => {
 
     return (
         <div className="form-container">
-            <h1 className='form-title'>{lastItem === "in_coming" ? "اضافة فاتورة وارده" : lastItem === "out_going" ? "اضافه اذن صرف" : " اضافة فاتورة مرتجع"}</h1>
+            <h1 className='form-title'>{lastItem === "in_coming" ? "اضافة فاتورة مورد" : lastItem === "out_going" ? "اضافه فاتورة اذن صرف" : " اضافة فاتورة مرتجع"}</h1>
             {
                 lastItem === "out_going" ? null : <div>
                     <label className='form-label' htmlFor="supplierSelect">اختر المورد:</label>
@@ -197,7 +197,7 @@ const AddInvoices = () => {
                         <input className="form-input" type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} onWheel={event => event.currentTarget.blur()} />
                     </div>
                     <div>
-                        <label className='form-label'> الضريبه المضافه:</label>
+                        <label className='form-label'> مصروفات نثرية (نقل، مشال، ...) :</label>
                         <input className="form-input" type="number" value={tax} onChange={(e) => setTx(e.target.value)} onWheel={event => event.currentTarget.blur()} />
                     </div>
 

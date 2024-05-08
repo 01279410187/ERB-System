@@ -10,8 +10,9 @@ const TotalAmount = ({ total }) => {
     return (
         <div className="total">
             <h3>
-                Total Amount:
-                ${total.toFixed(2)}
+                الناتج الاجمالي:&nbsp;
+                {total.toFixed(2)}&nbsp;
+                ج.م
             </h3>
         </div>
     );

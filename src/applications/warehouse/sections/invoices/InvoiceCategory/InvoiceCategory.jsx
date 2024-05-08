@@ -37,10 +37,6 @@ function Categories(props) {
         // { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
         { key: "code", type: "text", placeholder: "إبحث بالكود", id: "الكود" },
         { key: "invoice_price", type: "text", placeholder: "إبحث بسعر الفاتورة", id: "سعر الفاتورة" },
-
-        { key: "from_date", type: "date", id: "من تاريخ" },
-        { key: "to_date", type: "date", id: "إلى تاريخ" },
-
         {
             key: "supplier_id",
             type: "selection",
@@ -48,15 +44,15 @@ function Categories(props) {
             placeholder: "المورد",
             options: supplier,
         },
+        { key: "from_date", type: "date", id: "من تاريخ" },
+        { key: "to_date", type: "date", id: "إلى تاريخ" },
+
+
 
     ];
     const filtersOutcoming = [
         { key: "code", type: "text", placeholder: "إبحث بالكود", id: "الكود" },
         { key: "invoice_price", type: "text", placeholder: "إبحث بسعر الفاتورة", id: "سعر الفاتورة" },
-
-        { key: "from_date", type: "date", id: "من تاريخ" },
-        { key: "to_date", type: "date", id: "إلى تاريخ" },
-
         {
             key: "supplier_id",
             type: "selection",
@@ -64,14 +60,14 @@ function Categories(props) {
             placeholder: "المورد",
             options: supplier,
         },
+        { key: "from_date", type: "date", id: "من تاريخ" },
+        { key: "to_date", type: "date", id: "إلى تاريخ" },
+
+
     ];
     const filtersReturn = [
         { key: "code", type: "text", placeholder: "إبحث بالكود", id: "الكود" },
         { key: "invoice_price", type: "text", placeholder: "إبحث بسعر الفاتورة", id: "سعر الفاتورة" },
-
-        { key: "from_date", type: "date", id: "من تاريخ" },
-        { key: "to_date", type: "date", id: "إلى تاريخ" },
-
         {
             key: "supplier_id",
             type: "selection",
@@ -79,6 +75,10 @@ function Categories(props) {
             placeholder: "المورد",
             options: supplier,
         },
+        { key: "from_date", type: "date", id: "من تاريخ" },
+        { key: "to_date", type: "date", id: "إلى تاريخ" },
+
+
     ];
 
     const actionsIncoming = [
@@ -88,7 +88,7 @@ function Categories(props) {
         },
         {
             type: "add",
-            label: "إضافة فاتورة واردة",
+            label: "اضافة فاتورة مورد",
             route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
         },
     ];
@@ -100,7 +100,7 @@ function Categories(props) {
         },
         {
             type: "add",
-            label: "إضافة فاتوره  صادره",
+            label: "اضافة فاتورة صرف القسم",
             route: "/warehouse/invoices/incoming/add-Invoices/out_going",
         },
     ];
@@ -112,15 +112,15 @@ function Categories(props) {
         },
         {
             type: "add",
-            label: "إضافة فاتوره  مرتجع",
+            label: "إضافة   فاتورة مرتجع من القسم",
             route: "/warehouse/invoices/incoming/add-Invoices/returned",
         },
     ];
 
     const CategoriesData = [
-        { cat: "الوارد", type: "inComing" },
-        { cat: "الصادر", type: "outGoing" },
-        { cat: "المرتجع", type: "returnd" },
+        { cat: "فاتورة مورد", type: "inComing" },
+        { cat: "فاتورة صرف القسم", type: "outGoing" },
+        { cat: "فاتورة مرتجع من القسم", type: "returnd" },
     ];
 
     const handleCategoryClick = (type) => {
@@ -149,7 +149,7 @@ function Categories(props) {
                         <Table
                             headers={tableHeaders}
                             filters={filtersIncoming}
-                            title=" الفواتير الوردة"
+                            title="فاتورة مورد"
                             actions={actionsIncoming}
                             fetchData={(filters, currentPage) =>
                                 getIncomingInvoiceByType(filters, currentPage)
@@ -160,7 +160,7 @@ function Categories(props) {
                         <Table
                             headers={tableHeaders}
                             filters={filtersOutcoming}
-                            title=" الفواتير الصادرة"
+                            title="فاتورة صرف القسم"
                             actions={actionsOutComing}
                             fetchData={(filters, currentPage) =>
                                 getOutgoingInvoiceByType(filters, currentPage)
@@ -171,7 +171,7 @@ function Categories(props) {
                         <Table
                             headers={tableHeaders}
                             filters={filtersReturn}
-                            title=" الفواتير المرتجعة"
+                            title="فاتورة مرتجع من القسم"
                             actions={actionsReturnd}
                             fetchData={(filters, currentPage) =>
                                 getReturndInvoiceByType(filters, currentPage)

@@ -3,7 +3,7 @@ import { API_ENDPOINT } from "../../../../config";
 const ItemList = ({ items, onDeleteItem }) => {
     return (
         <div className="item-list">
-            <h2>Item List</h2>
+            <h2>قائمة العناصر</h2>
             {items.map((item, index) => (
                 <div className="item" key={index}>
                     <div>{item.name}</div>
@@ -13,12 +13,12 @@ const ItemList = ({ items, onDeleteItem }) => {
                         style={{ width: "50px", height: "40px" }}
                     /></div>
                     <div>
-                        Quantity: {item.quantity}
+                        الكمية: {item.quantity}
                     </div>
-                    <div>Price: ${item.price}</div>
-                    <div>Expire Date: {item.expireDate}</div>
-                    <button className="item-btn" style={{ backgroundColor: "#803D3B" }} onClick={() => onDeleteItem(index)}>
-                        Delete
+                    <div>السعر: &nbsp;{item.price} &nbsp;ج.م  </div>
+                    <div>تاريخ انتهاء الصلاحية: {item.expireDate}</div>
+                    <button className="item-btn" onClick={() => onDeleteItem(index)}>
+                        حذف
                     </button>
                 </div>
             ))}

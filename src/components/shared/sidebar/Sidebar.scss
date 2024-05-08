@@ -256,6 +256,14 @@
       box-shadow: 0px 0px 4px rgba(71, 91, 232, 0.04);
     }
 
+    &.d-flex-start {
+      justify-content: flex-start;
+    }
+
+    &.d-justify-center {
+      justify-content: center;
+    }
+
     // &.active {
     //   background-color: var(--primary-color);
     //   color: var(--light-color);
