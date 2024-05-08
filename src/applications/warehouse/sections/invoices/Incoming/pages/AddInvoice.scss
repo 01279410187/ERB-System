@@ -11,23 +11,6 @@
     color: var(--brown-color);
 }
 
-.ant-input.ant-input-outlined {
-    color: var(--brown-color);
-    outline: 0;
-    background-color: #ffffff;
-    font-weight: 700;
-    font-family: "Cairo";
-    padding: 10px 5px;
-    margin-top: 20px;
-
-    &:hover,
-    &:focus {
-        color: var(--brown-color);
-        border-color: var(--brown-color);
-        box-shadow: 0 0 0 2px rgb(255 155 5 / 10%);
-    }
-}
-
 .form-label {
     display: block;
     margin-bottom: 5px;
@@ -67,7 +50,7 @@
     outline: 0;
     border-radius: 5px;
 
-    padding: 8px;
+    padding: 10px 15px;
     margin-bottom: 20px;
     box-sizing: border-box;
 

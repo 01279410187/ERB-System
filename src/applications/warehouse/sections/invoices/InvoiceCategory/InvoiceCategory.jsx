@@ -7,10 +7,11 @@ import Table from "../../../../../components/shared/table/Table";
 function Categories(props) {
     const [selectedCategory, setSelectedCategory] = useState("inComing"); // Default selected category is "الوارد"
 
+
     const tableHeaders = [
         { key: "id", value: "الكود" },
-        { key: "code", value: "  كود الفاتوره" },
-        { key: "image", value: "الصوره", type: "image" },
+        { key: "code", value: "  كود الفاتورة" },
+        { key: "image", value: "الصورة", type: "image" },
     ];
 
     const filtersIncoming = [
@@ -27,7 +28,7 @@ function Categories(props) {
         {
             type: "edit",
             label: "تعديل",
-            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
+            route: "/warehouse/recipes/subCategory/:id/edit-recipes",
         },
         {
             type: "delete",
@@ -35,7 +36,7 @@ function Categories(props) {
         },
         {
             type: "add",
-            label: "إضافة فاتوره  وارده",
+            label: "إضافة فاتورة واردة",
             route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
         },
     ];
@@ -44,7 +45,7 @@ function Categories(props) {
         {
             type: "edit",
             label: "تعديل",
-            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
+            route: "/warehouse/recipes/subCategory/:id/edit-recipes",
         },
         {
             type: "delete",
@@ -52,7 +53,7 @@ function Categories(props) {
         },
         {
             type: "add",
-            label: "إضافة فاتوره  صادره",
+            label: "إضافة فاتورة  صادرة",
             route: "/warehouse/recipes/subCategory/add-recipes",
         },
     ];
@@ -61,7 +62,7 @@ function Categories(props) {
         {
             type: "edit",
             label: "تعديل",
-            route: "`/warehouse/recipes/subCategory/:id/edit-recipes",
+            route: "/warehouse/recipes/subCategory/:id/edit-recipes",
         },
         {
             type: "delete",
@@ -69,7 +70,7 @@ function Categories(props) {
         },
         {
             type: "add",
-            label: "إضافة فاتوره  مرتجع",
+            label: "إضافة فاتورة  مرتجعة",
             route: "/warehouse/recipes/subCategory/add-recipes",
         },
     ];
@@ -94,7 +95,9 @@ function Categories(props) {
                         <Button
                             key={index}
                             title={category.cat}
+                            isActive={selectedCategory === category.type}
                             onClick={() => handleCategoryClick(category.type)}
+
                         />
                     ))}
 
@@ -104,7 +107,7 @@ function Categories(props) {
                         <Table
                             headers={tableHeaders}
                             filters={filtersIncoming}
-                            title=" الفواتير الورده"
+                            title=" الفواتير الوردة"
                             actions={actionsIncoming}
                             fetchData={(filters, currentPage) =>
                                 getIncomingInvoiceByType(filters, currentPage)
@@ -115,7 +118,7 @@ function Categories(props) {
                         <Table
                             headers={tableHeaders}
                             filters={filtersOutcoming}
-                            title=" الفواتير الصادره"
+                            title=" الفواتير الصادرة"
                             actions={actionsOutComing}
                             fetchData={(filters, currentPage) =>
                                 getOutgoingInvoiceByType(filters, currentPage)
@@ -126,7 +129,7 @@ function Categories(props) {
                         <Table
                             headers={tableHeaders}
                             filters={filtersReturn}
-                            title=" الفواتير المرتجع"
+                            title=" الفواتير المرتجعة"
                             actions={actionsReturnd}
                             fetchData={(filters, currentPage) =>
                                 getReturndInvoiceByType(filters, currentPage)

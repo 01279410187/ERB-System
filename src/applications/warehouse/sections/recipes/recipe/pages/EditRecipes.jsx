@@ -158,8 +158,8 @@ const EditRecipes = () => {
     ];
 
     return (
-        <div>
-            <h1>تعديل تصنيف الفرعى</h1>
+        <div className='form-container'>
+            <h1 className='form-title'>تعديل تصنيف الفرعى</h1>
             <DynamicForm fields={fields} initialValues={data} onSubmit={handleSubmit} />
         </div>
     );

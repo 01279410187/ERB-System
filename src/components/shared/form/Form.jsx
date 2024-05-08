@@ -44,7 +44,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                 name={field.name}
                 valuePropName="file"
                 getValueFromEvent={(e) => e.fileList}
-                rules={[{ required: true, message: "Please upload a file" }]}
+                rules={[{ required: true, message: "يرجى تحميل الملف" }]}
               >
                 <Upload
                   name={field.name}
@@ -69,7 +69,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
       ))}
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Submit
+          تسجيل
         </Button>
       </Form.Item>
     </Form>

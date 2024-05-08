@@ -68,8 +68,8 @@ const AddRecipes = () => {
     ];
 
     return (
-        <div>
-            <h1>ادخال تصنيف الفرعى</h1>
+        <div className='form-container'>
+            <h1 className='form-title'>ادخال تصنيف الفرعى</h1>
             <DynamicForm fields={fields} onSubmit={handleSubmit} />
         </div>
     );

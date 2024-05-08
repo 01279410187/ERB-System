@@ -119,11 +119,11 @@ const AddInvoices = () => {
                 </select>
             </div>
             <div>
-                <label className='form-label'>اختر تاريخ الفاتوره:</label>
+                <label className='form-label'>اختر تاريخ الفاتورة:</label>
                 <input className="form-input" type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} />
             </div>
             <div>
-                <label className='form-label'>كود الفاتوره:</label>
+                <label className='form-label'>كود الفاتورة:</label>
                 <input className="form-input" type="number" value={invoiceCode} onChange={(e) => setInvoiceCode(e.target.value)} />
             </div>
             <div>
@@ -132,11 +132,11 @@ const AddInvoices = () => {
             </div>
 
             <div>
-                <label className='form-label'> خصم على الفاتوره:</label>
+                <label className='form-label'> خصم على الفاتورة:</label>
                 <input className="form-input" type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} />
             </div>
             <div>
-                <label className='form-label'> الضريبه المضافه:</label>
+                <label className='form-label'> الضريبة المضافة:</label>
                 <input className="form-input" type="number" value={tax} onChange={(e) => setTx(e.target.value)} />
             </div>
 

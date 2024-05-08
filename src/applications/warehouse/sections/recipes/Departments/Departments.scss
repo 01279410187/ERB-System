@@ -47,9 +47,11 @@
     }
 
     .details {
-        // padding: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 50%;
-        padding-top: 40px;
+        // padding-top: 40px;
 
         h1 {
             margin-bottom: 16px;
