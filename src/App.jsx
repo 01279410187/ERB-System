@@ -42,6 +42,9 @@ import {
   AddRequest,
   ShowRequests,
 } from "./applications/warehouse/sections/requests/pages";
+import Cashier from "./applications/cashier/Cashier";
+import Cashiers from "./applications/cashier/sections/resturant/Cashiers";
+import { AddCashierOrder } from "./applications/cashier/sections/resturant/pages";
 function App() {
   return (
     <div className="page-wrapper">
@@ -190,6 +193,18 @@ function App() {
             ></Route>
           </Route>
         </Route>
+      </Routes>
+      <Routes >
+        <Route path="/cashier" element={<Cashier />}>
+          <Route path="/cashier/resturant" element={<Cashiers />}>
+            <Route
+              path="/cashier/resturant/create-order"
+              element={<AddCashierOrder />}
+            ></Route>
+          </Route>
+
+        </Route>
+
       </Routes>
     </div>
   );
