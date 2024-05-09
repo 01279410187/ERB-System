@@ -41,6 +41,7 @@
         font-size: 14px;
         font-weight: 700;
       }
+
       .selection-input {
         margin-right: 10px;
         padding: 2px 8px;
@@ -109,7 +110,7 @@
     }
 
     table {
-      min-width: 900px;
+      // min-width: 900px;
       width: 100%;
       border-collapse: collapse;
       color: var(--text-color-inverted);
@@ -142,12 +143,15 @@
         .buttons {
           display: flex;
           flex-wrap: wrap;
+          justify-content: space-evenly;
+
           .button {
             // background-color: var(--beige-color);
             color: white;
             padding: 5px 10px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
+
 
             &:hover {
               box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
@@ -162,7 +166,7 @@
             }
 
             &.show {
-              background-color: #80BB93;
+              background-color: #53a86e;
             }
           }
         }
@@ -298,6 +302,8 @@
     // color: var(--text);
     border: none;
     cursor: pointer;
+    flex-basis: calc(calc(100% / 3) - 10px);
+    gap: 10px;
   }
 
   // .addButton {
@@ -365,10 +371,12 @@
     align-items: center;
     justify-content: end;
   }
-.selection-with-text{
-  display: flex;
-  flex-direction: column;
-}
+
+  .selection-with-text {
+    display: flex;
+    flex-direction: column;
+  }
+
   .search {
     display: flex;
     align-items: center;
@@ -386,30 +394,40 @@
     color: var(--text);
     outline: none;
   }
-.status{
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 5px ;
-  text-align: center;
-}
-.pending{
-  background-color: rgba(255, 255, 0, 0.5);
-  color: black;
-}
-.approved{
-  background-color: green;
-  color: white;
-}
-.done{
-  background-color: black;
-  color: white;
-}
-.rejected{
-  background-color: rgba(255, 0, 0, 0.747);
-  color: white;
 
-}
+  .status {
+    width: 100%;
+    // width: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    pointer-events: none;
+
+    &.pending {
+      background-color: #E7B416;
+      color: black;
+    }
+
+    &.approved {
+      background-color: green;
+      color: white;
+    }
+
+    &.done {
+      background-color: #130101;
+      color: white;
+    }
+
+    &.rejected {
+      background-color: #CC3232;
+      color: white;
+
+    }
+
+  }
+
+
+
   /* HTML: <div class="loader"></div> */
   .loader {
     width: 65px;

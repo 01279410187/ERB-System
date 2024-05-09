@@ -44,8 +44,8 @@ const AddSupplier = () => {
   ];
 
   return (
-    <div>
-      <h1>إضافة مورد</h1>
+    <div className='form-container'>
+      <h1 className='form-title'>إضافة مورد</h1>
       <DynamicForm fields={fields} onSubmit={handleSubmit} />
     </div>
   );

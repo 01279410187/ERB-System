@@ -9,7 +9,8 @@ function Button(props) {
     };
 
     return (
-        <button className="category-btn" onClick={handleClick}>
+        <button className={`category-btn ${props.isActive ? 'active-invoice-btn' : ''}`}
+            onClick={handleClick}>
             {props.title}
         </button>
     );

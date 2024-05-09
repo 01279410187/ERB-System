@@ -16,6 +16,9 @@ const Table = ({
   deleteFn,
   showFn,
   detailsHeaders,
+  header,
+  updateFn,
+  changeStatusFn,
 }) => {
   const [data, setData] = useState([]);
   const [itemName, setItemName] = useState("");
@@ -287,8 +290,11 @@ const Table = ({
           id={itemId}
           name={itemName}
           showFn={showFn}
+          header={header}
           handleModalVisible={setisShowModalVisible}
           detailsHeaders={detailsHeaders}
+          updateFn={updateFn}
+          changeStatusFn={changeStatusFn}
         />
       )}
     </section>

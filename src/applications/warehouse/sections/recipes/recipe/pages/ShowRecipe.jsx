@@ -5,6 +5,7 @@ import {
   getRecipesFilterById,
   deleteRecipe,
   getRecipesById,
+  getRecipes,
 } from "../../../../../../apis/recipes/recipe";
 const ShowRecipe = () => {
   const tableHeaders = [
@@ -30,7 +31,7 @@ const ShowRecipe = () => {
     {
       type: "add",
       label: "إضافة تصنيف فرعى",
-      route: "/warehouse/recipes/recipe/add-recipes",
+      route: `/warehouse/recipes/recipe/add-recipes/${id}`,
     },
     {
       type: "show",
@@ -54,7 +55,7 @@ const ShowRecipe = () => {
         title="التصنيف الفرعى"
         id={id}
         fetchData={(filters, currentPage) =>
-          getRecipesFilterById(filters, currentPage, id)
+          getRecipes(filters, currentPage, id)
         }
       />
     </div>

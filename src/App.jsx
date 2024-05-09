@@ -42,9 +42,12 @@ import {
   AddRequest,
   ShowRequests,
 } from "./applications/warehouse/sections/requests/pages";
+import Cashier from "./applications/cashier/Cashier";
+import Cashiers from "./applications/cashier/sections/resturant/Cashiers";
+import { AddCashierOrder } from "./applications/cashier/sections/resturant/pages";
 function App() {
   return (
-    <div>
+    <div className="page-wrapper">
       <Routes>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/admin" element={<Suppliers />}></Route>
@@ -106,7 +109,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/warehouse/recipes/subCategory/add-recipes"
+              path="/warehouse/recipes/subCategory/add-recipes/:id"
               element={<AddRecipeSubCategory />}
             ></Route>
             <Route
@@ -132,7 +135,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/warehouse/recipes/recipe/add-recipes"
+              path="/warehouse/recipes/recipe/add-recipes/:id"
               element={<AddRecipes />}
             ></Route>
             <Route
@@ -166,7 +169,17 @@ function App() {
                 path="/warehouse/invoices/incoming/add-Invoices/in_coming"
                 element={<AddInvoices />}
               />
+
+              <Route
+                path="/warehouse/invoices/incoming/add-Invoices/out_going"
+                element={<AddInvoices />}
+              />
+              <Route
+                path="/warehouse/invoices/incoming/add-Invoices/returned"
+                element={<AddInvoices />}
+              />
             </Route>
+
             {/* <Route path="/warehouse/invoices/outgoing" element={<OutgoingInvoice />}>
               <Route path="/warehouse/invoices/outgoing/show-outgoing" element={<ShowOutgoingInvoice />} />
             </Route>
@@ -187,6 +200,18 @@ function App() {
             ></Route>
           </Route>
         </Route>
+      </Routes>
+      <Routes >
+        <Route path="/cashier" element={<Cashier />}>
+          <Route path="/cashier/resturant" element={<Cashiers />}>
+            <Route
+              path="/cashier/resturant/create-order"
+              element={<AddCashierOrder />}
+            ></Route>
+          </Route>
+
+        </Route>
+
       </Routes>
     </div>
   );

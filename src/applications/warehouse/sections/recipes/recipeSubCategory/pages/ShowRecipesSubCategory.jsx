@@ -2,8 +2,9 @@ import Table from "../../../../../../components/shared/table/Table";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
-  getRecipeSubCategoryFilterById,
+
   deleteRecipeSubCategory,
+  getRecipeSubCategory,
 } from "../../../../../../apis/recipes/recipeSubCategory";
 const ShowRecipesSubCategory = () => {
   const tableHeaders = [
@@ -33,7 +34,7 @@ const ShowRecipesSubCategory = () => {
     {
       type: "add",
       label: "إضافة تصنيف رئيسى",
-      route: "/warehouse/recipes/subCategory/add-recipes",
+      route: `/warehouse/recipes/subCategory/add-recipes/${id}`,
     },
   ];
   return (
@@ -45,7 +46,7 @@ const ShowRecipesSubCategory = () => {
         actions={actions}
         id={id}
         fetchData={(filters, currentPage) =>
-          getRecipeSubCategoryFilterById(filters, currentPage, id)
+          getRecipeSubCategory(filters, currentPage, id)
         }
         deleteFn={deleteRecipeSubCategory}
       />

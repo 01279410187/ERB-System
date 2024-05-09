@@ -3,6 +3,7 @@ import {
   getRequests,
   deleteRequest,
   getRequestById,
+  updateRequests,
 } from "../../../../../apis/requests";
 import { getAllUsers } from "../../../../../apis/users";
 import { getAllDepartments } from "../../../../../apis/departments";
@@ -42,7 +43,7 @@ const ShowRequests = () => {
   const tableHeaders = [
     { key: "title", value: "العنوان" },
     { key: "user", value: "من", nestedKey: "name" },
-    { key: "department", value: "إلى", nestedKey: "name" },
+    { key: "from_department", value: "إلى", nestedKey: "name" },
     { key: "status", value: "الحالة" },
     { key: "date", value: "التاريخ" },
   ];
@@ -114,13 +115,18 @@ const ShowRequests = () => {
   ];
   const detailsHeaders = [
     {
-      key: "recipes",
-      label: "المواد الخام",
-      isArray: true,
-      keys: [
-        { label: "الكود", key: "id" },
-        { label: "الكمية", key: "quantity" },
-      ],
+      key: "id",
+      label: "الكود",
+    },
+    {
+      key: "quantity",
+      label: "الكمية",
+      isInput: true,
+    },
+    {
+      key: "price",
+      label: "السعر",
+      isInput: true,
     },
   ];
 
@@ -133,9 +139,11 @@ const ShowRequests = () => {
         fetchData={(filterValues, currentPage) =>
           getRequests(filterValues, currentPage, "")
         }
+        header={"recipes"}
         actions={actions}
         deleteFn={deleteRequest}
         showFn={getRequestById}
+        // updateFn={updateRequests}
         detailsHeaders={detailsHeaders}
       />
     </div>

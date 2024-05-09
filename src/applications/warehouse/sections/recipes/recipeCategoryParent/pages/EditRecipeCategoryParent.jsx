@@ -21,10 +21,10 @@ const EditRecipe = () => {
         fetchData(); // Call fetchData when component mounts
     }, [id]); // useEffect dependency on id
 
-    const handleSubmit = (formData) => {
+    const handleSubmit = async (formData) => {
         console.log(formData);
-        eidtRecipe(formData.name, formData.description, formData.image, id);
-        navigate('/warehouse/recipes/show-recipes');
+        await eidtRecipe(formData.name, formData.description, formData.image, id);
+        await navigate('/warehouse/recipes/show-recipes');
     };
 
     const fields = [

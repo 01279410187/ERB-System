@@ -1,5 +1,4 @@
 .form-container {
-
     max-width: 700px;
     margin: 30px auto;
     background-color: #fff;
@@ -77,6 +76,9 @@
         .ant-select-selector {
 
             border-color: var(--brown-color) !important;
+            padding: 10px 15px;
+
+            // border-color: transparent;
         }
     }
 }
@@ -129,4 +131,14 @@
     color: var(--brown-color);
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
+}
+
+
+.disable-scroll {
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 }

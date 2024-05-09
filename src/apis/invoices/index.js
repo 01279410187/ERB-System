@@ -1,7 +1,6 @@
 import axios from "axios";
-import { API_ENDPOINT, TOKEN } from "../../../config";
+import { API_ENDPOINT, Token } from "../../../config";
 const domain = API_ENDPOINT;
-const Token = TOKEN;
 export async function getRecipes(filteredValues = { name: "", page: "" }) {
   try {
     const { name, page } = filteredValues;
@@ -107,7 +106,11 @@ export async function eidtRecipes(
 }
 export async function getRecipesById(id) {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/recipe/${id}`);
+    const res = await axios.get(`${domain}/api/v1/store/recipe/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     console.log(res.data);
     return res.data.data;
   } catch (error) {
@@ -116,15 +119,29 @@ export async function getRecipesById(id) {
 }
 
 export async function getIncomingInvoiceByType(
-  filteredValues = { name: "", page: "" }
+  filteredValues = {
+    from_date: "",
+    to_date: "",
+    code: "",
+    supplier_id: "",
+    invoice_price: "",
+
+    page: "",
+  }
 ) {
-  const { name, page } = filteredValues;
+  const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
+    filteredValues;
   try {
     const res = await axios.get(
       `${domain}/api/v1/store/invoice/get_invoices_based_on_type/in_coming`,
       {
         params: {
-          name: name,
+          "date[from]": from_date,
+          "date[to]": to_date,
+          code,
+          invoice_price,
+          supplier_id,
+          status,
           page,
         },
         headers: {
@@ -140,15 +157,29 @@ export async function getIncomingInvoiceByType(
 }
 
 export async function getOutgoingInvoiceByType(
-  filteredValues = { name: "", page: "" }
+  filteredValues = {
+    from_date: "",
+    to_date: "",
+    code: "",
+    supplier_id: "",
+    invoice_price: "",
+
+    page: "",
+  }
 ) {
-  const { name, page } = filteredValues;
+  const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
+    filteredValues;
   try {
     const res = await axios.get(
       `${domain}/api/v1/store/invoice/get_invoices_based_on_type/out_going`,
       {
         params: {
-          name: name,
+          "date[from]": from_date,
+          "date[to]": to_date,
+          code,
+          invoice_price,
+          supplier_id,
+          status,
           page,
         },
         headers: {
@@ -164,15 +195,29 @@ export async function getOutgoingInvoiceByType(
 }
 
 export async function getReturndInvoiceByType(
-  filteredValues = { name: "", page: "" }
+  filteredValues = (filteredValues = {
+    from_date: "",
+    to_date: "",
+    code: "",
+    supplier_id: "",
+    invoice_price: "",
+
+    page: "",
+  })
 ) {
-  const { name, page } = filteredValues;
+  const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
+    filteredValues;
   try {
     const res = await axios.get(
-      `${domain}/api/v1/store/invoice/get_invoices_based_on_type/returnd`,
+      `${domain}/api/v1/store/invoice/get_invoices_based_on_type/returned`,
       {
         params: {
-          name: name,
+          "date[from]": from_date,
+          "date[to]": to_date,
+          code,
+          invoice_price,
+          supplier_id,
+          status,
           page,
         },
         headers: {

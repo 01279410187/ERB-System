@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_ENDPOINT } from "../../../config";
+import { API_ENDPOINT, Token } from "../../../config";
 const domain = API_ENDPOINT;
 export async function getRequests(
   filteredValues = {
@@ -47,43 +47,34 @@ export async function getRequestById(id) {
     console.log("Error fetching data:", error);
   }
 }
-// export async function editSupplier(name, phoneNumber, address, id){
-//     try {
-//         const res = await axios.post(
-//             `${domain}/api/v1/store/supplier/update/${id}`,{
-//               name: name,
-//               phone: phoneNumber,
-//               address: address,
-//               _method: "PUT"
-//           }
-//         );
-//         return res.data
-//       } catch (error) {
-//         console.log("Error fetching data:", error);
-//       }
-// }
-
-// export async function addSupplier(name, phoneNumber, address){
-//   try {
-//       const res = await axios.post(
-//           `${domain}/api/v1/store/supplier/create`,{
-//             name: name,
-//             phone: phoneNumber,
-//             address: address,
-//         }
-//       );
-//       return res.data
-//     } catch (error) {
-//       console.log("Error fetching data:", error);
-//     }
-// }
-// export async function getSupplierInvoices(id){
-//   try {
-//       const res = await axios.get(
-//           `${domain}/api/v1/store/supplier/${id}/invoices`
-//       );
-//       return res.data
-//     } catch (error) {
-//       console.log("Error fetching data:", error);
-//     }
-// }
+export async function updateRequests(filteredValues, id) {
+  try {
+    const { title, date, status, inputValues, page } = filteredValues;
+    console.log(inputValues);
+    const recipesParams = Object.keys(inputValues).map((recipe, index) => ({
+      [`recipes[${index}][price]`]: inputValues[recipe].price,
+    }));
+    const flattenedParams = recipesParams.reduce(
+      (acc, curr) => ({ ...acc, ...curr }),
+      {}
+    );
+    console.log(flattenedParams);
+    const res = await axios.get(`${domain}/api/v1/store/request`, {
+      params: {
+        title,
+        date,
+        ...flattenedParams,
+        user_id: id,
+        status,
+        page,
+        _method: "PUT",
+      },
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+  }
+}

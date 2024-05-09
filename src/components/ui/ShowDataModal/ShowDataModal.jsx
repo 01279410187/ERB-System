@@ -1,99 +1,126 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ShowDataModal.scss";
 
 const ShowDataModal = ({
   id,
-  handleModalVisible,
   showFn,
   detailsHeaders,
-  name,
+  header,
+  handleModalVisible,
+  updateFn,
+  changeStatusFn,
 }) => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [inputValues, setInputValues] = useState({});
 
   useEffect(() => {
-    showFn(id).then((result) => {
-      setData(result.data);
-      console.log(result.data);
-    });
-  }, [id, showFn]);
+    const fetchData = async () => {
+      try {
+        const response = await showFn(id);
+        setData(response.data[header]);
+        setTitle(response.data ? response.data.title : "تفاصيل الفاتورة");
+        const initialInputValues = response.data[header].reduce(
+          (acc, item, index) => {
+            const inputValuesForItem = {};
+            detailsHeaders.forEach((h) => {
+              if (h.isInput) {
+                inputValuesForItem[h.key] = item[h.key];
+              }
+            });
+            acc[index] = inputValuesForItem;
+            return acc;
+          },
+          {}
+        );
+        setInputValues(initialInputValues);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchData();
+  }, [id, showFn, header, detailsHeaders]);
   useEffect(() => {
-    const handleOutsideClick = (event) => {
+    const handleClickOutside = (event) => {
       if (!event.target.closest(".modal-content")) {
         handleModalVisible(false);
       }
     };
 
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [handleModalVisible]);
 
-  const renderValue = (value) => {
-    if (Array.isArray(value)) {
-      return (
-        <ul>
-          {value.map((item, index) => (
-            <li key={index}>{renderObject(item)}</li>
-          ))}
-        </ul>
-      );
-    } else if (typeof value === "object") {
-      return renderObject(value);
-    } else {
-      return value;
-    }
+  const handleEditChange = () => {
+    updateFn({ inputValues }, id);
+    handleModalVisible(false);
   };
-
-  const renderObject = (obj) => {
-    return (
-      <table className="data-table">
-        <tbody>
-          {detailsHeaders?.map((header, index) => {
-            if (header.isArray && Array.isArray(obj[header.key])) {
-              return obj[header.key].map((item, idx) => (
-                <tr key={idx}>
-                  {header.keys.map((key, keyIndex) => (
-                    <React.Fragment key={keyIndex}>
-                      <td className="info-key">{key.label}: </td>
-                      <td className="info-value">{item[key.key]}</td>
-                    </React.Fragment>
-                  ))}
-                </tr>
-              ));
-            } else if (obj.hasOwnProperty(header.key)) {
-              return (
-                <React.Fragment key={index}>
-                  <tr>
-                    <td className="info-key">{header.label}: </td>
-                    <td className="info-value">
-                      {header.key === "image" ? (
-                        <img src={obj[header.key]} alt="Product" />
-                      ) : (
-                        renderValue(obj[header.key])
-                      )}
-                    </td>
-                  </tr>
-                </React.Fragment>
-              );
-            }
-            return null;
-          })}
-        </tbody>
-      </table>
-    );
+  const handleInputChange = (e, index, key) => {
+    const newValue = e.target.value;
+    setInputValues((prevInputValues) => ({
+      ...prevInputValues,
+      [index]: {
+        ...prevInputValues[index],
+        [key]: newValue,
+      },
+    }));
   };
 
   return (
     <div className="show-data-modal">
-      <div className="modal-content">
-        <h2>{name}</h2>
-        <div className="info-container">
-          {data && <div className="info-item">{renderObject(data)}</div>}
+      {data && (
+        <div className="modal-content">
+          <h2>{title}</h2>
+          <table className="data-table">
+            <thead>
+              <tr>
+                {detailsHeaders.map((h) => (
+                  <th key={h.key}>{h.label}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item, index) => (
+                <tr key={index}>
+                  {detailsHeaders.map((h) => (
+                    <td key={h.key}>
+                      {h.isInput ? (
+                        <input
+                          type="text"
+                          disabled={updateFn}
+                          value={inputValues[index][h.key] || ""}
+                          onChange={(e) => handleInputChange(e, index, h.key)}
+                        />
+                      ) : (
+                        item[h.key]
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {changeStatusFn && (
+            <div className="button-container">
+              <button onClick={() => changeStatusFn("accepted", id)}>
+                مراجعة
+              </button>
+              <button onClick={() => changeStatusFn("rejected", id)}>
+                رفض
+              </button>
+            </div>
+          )}
+          {updateFn && (
+            <div className="button-container">
+              <button onClick={handleEditChange}>تعديل</button>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 };

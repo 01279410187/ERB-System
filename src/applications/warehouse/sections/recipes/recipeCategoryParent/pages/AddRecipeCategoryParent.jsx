@@ -5,10 +5,10 @@ import DynamicForm from '../../../../../../components/shared/form/Form';
 
 const AddRecipe = () => {
     const navigate = useNavigate()
-    const handleSubmit = (formData) => {
+    const handleSubmit = async (formData) => {
         console.log(formData);
-        addRecipe(formData.name, formData.description, formData.image)
-        navigate('/warehouse/recipes/show-recipes')
+        await addRecipe(formData.name, formData.description, formData.image)
+        await navigate('/warehouse/recipes/show-recipes')
 
     };
 

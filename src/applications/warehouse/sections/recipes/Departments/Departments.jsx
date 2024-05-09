@@ -32,7 +32,7 @@ function Departments() {
 
   return (
     <>
-      <h1 className="heading text-center p-3">الاقسام </h1>
+      <h1 className="heading text-center p-3">اقسام المخزن </h1>
       <div className="cards-container">
         <div className="row">
           {data.map((department, index) => (

@@ -30,10 +30,18 @@
 
   // toggling this class helps to hide/unhide the sidebar
   &.sidebar-show {
-    
+
     @media(max-width: 768px) {
       transform: translateX(0);
     }
+  }
+
+  &.w-auto {
+    width: auto;
+  }
+
+  &.w-defualt {
+    width: 260px;
   }
 
   // showing icons only on sidebar
@@ -57,18 +65,97 @@
     margin-bottom: 60px;
     padding-bottom: 4px;
     border-bottom: 1px solid var(--brown-color);
-    pointer-events: none;
+
+    // .arrow {
+    //   border: solid var(--brown-color);
+    //   border-width: 0 3px 3px 0;
+    //   display: inline-block;
+    //   padding: 3px;
+    //   cursor: pointer;
+    //   // margin-top: 22px;
+    //   transition: transform 0.5s;
+    //   animation: arow-move 2s ease-in-out infinite;
+
+    // }
+
+    // .right {
+    //   transform: rotate(-45deg);
+    //   -webkit-transform: rotate(-45deg);
+    // }
+
+    // .left {
+    //   transform: rotate(135deg);
+    //   -webkit-transform: rotate(135deg);
+    // }
+    .arrow-right {
+
+      color: var(--brown-color);
+      font-weight: bold;
+      font-size: 22px;
+      margin-right: 10px;
+      margin-top: 18px;
+      cursor: pointer;
+      transition: transform 0.5s;
+      animation: arow-move 2s ease-in-out infinite;
+
+      &:hover {
+        color: var(--beige-color);
+        // color: var(--brown-color);
+        // box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        // box-shadow: rgba(0, 0, 0, 0.25) -1px 1em 2em 17px, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+        // filter: drop-shadow(-3px 2px 1px rgba(0 0 0 / 0.6));
+        // filter: drop-shadow(-9px 8px 5px #000000);
+        filter: drop-shadow(-9px 8px 5px rgba(0 0 0 / 0.5));
+        font-size: 26px;
+
+
+      }
+
+
+
+    }
+
+
+
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(-180deg);
+  }
+
+  @keyframes arow-move {
+    0% {
+      transform: translateX(-10px);
+      -webkit-transform: translateX(-10px);
+    }
+
+    50% {
+      transform: translateX(0);
+      -webkit-transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-10px);
+      -webkit-transform: translateX(-10px);
+    }
+
   }
 
   .sidebar-brand {
     display: flex;
     align-items: flex-end;
-    column-gap: 6px;
+    // column-gap: 6px;
+    pointer-events: none;
+
 
     img {
       width: 64px;
       height: 64px;
-      margin-left: 15px;
+
+      @media (min-width:767px) {
+
+        margin-left: 15px;
+      }
     }
   }
 
@@ -100,6 +187,7 @@
     border-radius: 2px;
     transition: var(--default-transition);
     display: none;
+
     @media(max-width: 768px) {
       display: none;
     }
@@ -168,11 +256,25 @@
       box-shadow: 0px 0px 4px rgba(71, 91, 232, 0.04);
     }
 
+    &.d-flex-start {
+      justify-content: flex-start;
+    }
+
+    &.d-justify-center {
+      justify-content: center;
+    }
+
     // &.active {
     //   background-color: var(--primary-color);
     //   color: var(--light-color);
     //   box-shadow: 0px 0px 4px rgba(71, 91, 232, 0.04);
     // }
+
+    @media (max-width:768px) {
+
+      justify-content: center;
+
+    }
   }
 
   .mennu-link-icon {
@@ -180,13 +282,22 @@
     align-items: center;
   }
 
+  .d-none {
+    display: none;
+  }
+
+  .d-block {
+    display: inline-block;
+  }
+
+
   .menu-link-text {
     font-family: var(--font-family-cairo);
     font-weight: 700;
     // color: var(--black-color);
 
     @media(max-width: 1200px) {
-      display: inline-block;
+      // display: inline-block;
     }
 
     @media(max-width: 768px) {

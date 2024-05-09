@@ -7,6 +7,9 @@ import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
 import { FaCodePullRequest, FaTruckArrowRight } from "react-icons/fa6";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { GiTomato } from "react-icons/gi";
+
 import { TbReport } from "react-icons/tb";
 import {
   MdOutlineClose,
@@ -18,6 +21,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.scss";
 import { SidebarContext } from "../../../context/SidebarContext";
 import { useTranslation } from "react-i18next";
+import { RightOutlined } from "@ant-design/icons";
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
@@ -26,6 +30,12 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState(pathname); // State to track active link
+
+  const [display, setDisplay] = useState("d-block");
+  const [sidebarWidth, setSidebarWidth] = useState("w-defualt");
+  const [arrowDirection, setArrowDirection] = useState("");
+  const [justifyContent, setJustifyContent] = useState("d-flex-start");
+  const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -47,6 +57,28 @@ const Sidebar = () => {
     }
   };
 
+  const handleCloseSidebar = () => {
+    {
+      display === "d-block" ? setDisplay("d-none") : setDisplay("d-block");
+    }
+    {
+      sidebarWidth === "w-auto"
+        ? setSidebarWidth("w-defualt")
+        : setSidebarWidth("w-auto");
+    }
+    {
+      arrowDirection === "rotate-y-180"
+        ? setArrowDirection("")
+        : setArrowDirection("rotate-y-180");
+    }
+    {
+      justifyContent === "d-flex-start"
+        ? setJustifyContent("d-justify-center")
+        : setJustifyContent("d-flex-start");
+    }
+    toggleWrapperMargin(); // Call toggleWrapperMargin from context
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -55,11 +87,21 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <nav className={`sidebar `} ref={navbarRef}>
+    <nav className={`sidebar ${sidebarWidth}`} ref={navbarRef}>
       <div className="sidebar-top">
         <div className="sidebar-brand">
           <img src={LogoDAR} alt="" />
-          <span className="sidebar-brand-text">دار المشاه</span>
+          <span className={`sidebar-brand-text ${display}`}>دار المشاه</span>
+        </div>
+        <div className={`arrows ${arrowDirection}`}>
+          <RightOutlined
+            className={`arrow-right `}
+            onClick={() => {
+              handleCloseSidebar();
+            }}
+          />
+          {/* <i class="arrow right"></i> */}
+          {/* <i class="arrow left"></i> */}
         </div>
         <button className="sidebar-close-btn">
           <MdOutlineClose size={24} />
@@ -76,7 +118,7 @@ const Sidebar = () => {
                   activeLink === "/warehouse/suppliers/show-suppliers"
                     ? "active"
                     : ""
-                }`}
+                } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-suppliers");
                   handleMenuLinkClick("/warehouse/suppliers/show-suppliers");
@@ -85,7 +127,10 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <FaTruckArrowRight size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "30px" }}
+                >
                   الموردين
                 </span>
               </Link>
@@ -97,17 +142,20 @@ const Sidebar = () => {
                   activeLink === "/warehouse/recipes/show-departments"
                     ? "active"
                     : ""
-                }`}
+                } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-departments");
                   handleMenuLinkClick("/warehouse/recipes/show-departments");
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdProductionQuantityLimits size={30} />
+                  <GiTomato size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
-                  المنتجات
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "24px" }}
+                >
+                  اقسام المخزن
                 </span>
               </Link>
             </li>
@@ -117,13 +165,16 @@ const Sidebar = () => {
                 to="/warehouse/invoices/show"
                 className={`menu-link ${
                   activeLink === "/warehouse/invoices/show" ? "active" : ""
-                }`}
+                } ${justifyContent}`}
                 onClick={() => handleMenuLinkClick("/warehouse/invoices/show")}
               >
                 <span className="menu-link-icon">
                   <TbReport size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "30px" }}
+                >
                   الفواتير
                 </span>
               </Link>
@@ -135,7 +186,7 @@ const Sidebar = () => {
                   activeLink === "/warehouse/requests/show-requests"
                     ? "active"
                     : ""
-                }`}
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/requests/show-requests")
                 }
@@ -143,22 +194,36 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <FaCodePullRequest size={30} />
                 </span>
-                <span className="menu-link-text" style={{ fontSize: "30px" }}>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "30px" }}
+                >
                   الطلبات
                 </span>
               </Link>
             </li>
-          </ul>
-        </div>
 
-        <div className="sidebar-menu sidebar-menu2">
-          <ul className="menu-list">
             <li className="menu-item">
-              <Link to="/" className="menu-link" onClick={handleLogout}>
+              <Link
+                to="/warehouse/department/show-department"
+                className={`menu-link ${
+                  activeLink === "/warehouse/department/show-department"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/department/show-department")
+                }
+              >
                 <span className="menu-link-icon">
-                  <MdOutlineLogout size={20} />
+                  <HiOutlineOfficeBuilding size={30} />
                 </span>
-                <span className="menu-link-text">Logout</span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "30px" }}
+                >
+                  المنافذ
+                </span>
               </Link>
             </li>
           </ul>
