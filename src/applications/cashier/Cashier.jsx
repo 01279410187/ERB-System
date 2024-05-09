@@ -15,10 +15,7 @@ const Cashier = () => {
     return (
         <>
             {/* <Sidebar /> */}
-            <div className={`content-wrapper`}>
-                <button className="back-arrow" onClick={handleGoBack}>
-                    <ArrowLeftOutlined />
-                </button>
+            <div>
                 <Outlet />
             </div>
         </>
