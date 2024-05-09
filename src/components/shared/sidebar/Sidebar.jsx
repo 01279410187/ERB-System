@@ -6,9 +6,11 @@ import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
 import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
-import { FaCodePullRequest } from "react-icons/fa6";
+import { FaCodePullRequest, FaKitchenSet, FaWarehouse } from "react-icons/fa6";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
+
 
 import { TbReport } from "react-icons/tb";
 import {
@@ -16,6 +18,7 @@ import {
   MdOutlineLogout,
   MdPerson,
   MdProductionQuantityLimits,
+  MdTableBar,
 } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.scss";
@@ -113,7 +116,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <MdPerson size={30} />
                 </span>
-                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
                   الموردين
                 </span>
               </Link>
@@ -133,7 +136,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <GiTomato size={30} />
                 </span>
-                <span className={`menu-link-text ${display}`} style={{ fontSize: "24px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
                   اقسام المخزن
 
                 </span>
@@ -150,7 +153,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <TbReport size={30} />
                 </span>
-                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
                   الفواتير
                 </span>
               </Link>
@@ -169,7 +172,7 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <FaCodePullRequest size={30} />
                 </span>
-                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
                   الطلبات
                 </span>
               </Link>
@@ -189,8 +192,86 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <HiOutlineOfficeBuilding size={30} />
                 </span>
-                <span className={`menu-link-text ${display}`} style={{ fontSize: "30px" }}>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
                   المنافذ
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/department/show-department"
+                className={`menu-link ${activeLink === "/warehouse/department/show-department"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/department/show-department")
+                }
+              >
+                <span className="menu-link-icon">
+                  <MdTableBar size={30} />
+                </span>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
+                  ترابيزات مفتوحة
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/department/show-department"
+                className={`menu-link ${activeLink === "/warehouse/department/show-department"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/department/show-department")
+                }
+              >
+                <span className="menu-link-icon">
+                  <FaWarehouse size={30} />
+                </span>
+                <span className={`menu-link-text special-txt ${display}`} style={{ fontSize: "20px" }}>
+                  طلبات المخزن
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/department/show-department"
+                className={`menu-link ${activeLink === "/warehouse/department/show-department"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/department/show-department")
+                }
+              >
+                <span className="menu-link-icon">
+                  <FaKitchenSet size={30} />
+                </span>
+                <span className={`menu-link-text special-txt ${display}`} style={{ fontSize: "20px" }}>
+                  طلبات المطبخ
+                </span>
+              </Link>
+            </li>
+
+
+            <li className="menu-item">
+              <Link
+                to="/warehouse/underLimit/show-under-limit"
+                className={`menu-link ${activeLink === "/warehouse/underLimit/show-under-limit"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/underLimit/show-under-limit")
+                }
+              >
+                <span className="menu-link-icon">
+                  <AiOutlineSafetyCertificate size={30} />
+                </span>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
+                  حدالامان
                 </span>
               </Link>
             </li>
