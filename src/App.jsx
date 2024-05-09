@@ -42,10 +42,13 @@ import {
   AddRequest,
   ShowRequests,
 } from "./applications/warehouse/sections/requests/pages";
-import Cashier from "./applications/cashier/Cashier";
-import { AddCashierOrder } from "./applications/cashier/sections/resturant/cashier/pages";
+import { AddCashierOrder } from "./applications/warehouse/sections/cashier/pages";
 import UnderLimit from "./applications/warehouse/sections/underLimit/UnderLimit";
 import { ShowUnderLimit } from "./applications/warehouse/sections/underLimit/pages";
+import Resturants from "./applications/warehouse/sections/categories/Resturants/Returants";
+import Category from "./applications/warehouse/sections/categories/Category/Category";
+import Cashiers from "./applications/warehouse/sections/cashier/Cashiers";
+
 function App() {
   return (
     <div className="page-wrapper">
@@ -93,6 +96,18 @@ function App() {
               path="/warehouse/recipes/edit-recipes-parent/:id"
               element={<EditRecipeCategoryParent />}
             ></Route>
+          </Route>
+        </Route>
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/returants" element={<Category />}>
+            <Route
+              path="/warehouse/returants/show-resturants"
+              element={<Resturants />}
+            ></Route>
+
+
+
           </Route>
         </Route>
 
@@ -204,9 +219,18 @@ function App() {
           </Route>
         </Route>
 
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/cashier" element={<Cashiers />}>
+            <Route
+              path="/warehouse/cashier/create-order"
+              element={<AddCashierOrder />}
+            ></Route>
+          </Route>
+        </Route>
+
       </Routes>
       <Routes >
-        <Route path="/cashier" element={<Cashier />}>
+        {/* <Route path="/cashier" element={<Cashier />}>
           <Route path="/cashier/resturant" element={<Cashier />}>
             <Route
               path="/cashier/resturant/create-order"
@@ -214,9 +238,35 @@ function App() {
             ></Route>
           </Route>
 
-        </Route>
+        </Route> */}
 
       </Routes>
+
+      {/* <Route path="/warehouse" element={<Warehouse />}>
+        <Route
+          path="/warehouse/returants/show-resturants"
+          element={<Resturants />}
+        ></Route>
+      </Route> */}
+
+
+
+
+
+
+
+      {/* <Routes >
+        <Route path="/Kitchen" element={<Kitchen />}>
+          <Route path="/Kitchen/resturants" element={<Kitchen />}>
+            <Route
+              path="/Kitchen/resturants/show-resturants"
+              element={<Resturants />}
+            ></Route>
+          </Route>
+
+        </Route>
+
+      </Routes> */}
     </div>
   );
 }

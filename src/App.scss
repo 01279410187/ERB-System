@@ -196,6 +196,49 @@ ul {
   }
 }
 
+
+.content-wrapper-Kitchen {
+  background-color: var(--background-color);
+  min-height: 100vh;
+  padding: 50px 58px;
+  margin-right: 260px;
+
+  @media (max-width: 1400px) {
+    padding: 32px;
+  }
+
+  @media (max-width: 1200px) {
+    // margin-right: 50px;
+  }
+
+  @media (max-width: 768px) {
+    // margin-right: 50px;
+    margin-right: 100px;
+    padding: 24px;
+  }
+
+  @media (max-width: 576px) {
+    margin-left: 50px;
+    padding: 16px;
+  }
+
+  .back-arrow {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--brown-color);
+    display: block;
+    margin-right: auto;
+  }
+
+  &.mr-260 {
+    margin-right: 260px;
+  }
+
+  &.mr-145 {
+    margin-right: 145px;
+  }
+}
+
 // content
 .content-area {
   &>section {

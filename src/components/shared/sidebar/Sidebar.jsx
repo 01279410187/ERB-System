@@ -6,7 +6,7 @@ import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
 import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
-import { FaCodePullRequest, FaKitchenSet, FaWarehouse } from "react-icons/fa6";
+import { FaCodePullRequest, FaKitchenSet, FaWarehouse, FaCashRegister } from "react-icons/fa6";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
@@ -272,6 +272,51 @@ const Sidebar = () => {
                 </span>
                 <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
                   حدالامان
+                </span>
+              </Link>
+            </li>
+
+
+
+            <li className="menu-item">
+              <Link
+                to="/warehouse/returants/show-resturants"
+                className={`menu-link ${activeLink === "/warehouse/returants/show-resturants"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/returants/show-resturants");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <MdProductionQuantityLimits size={30} />
+                </span>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
+                  المنتجات
+
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/cashier/create-order"
+                className={`menu-link ${activeLink === "/warehouse/cashier/create-order"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/cashier/create-order");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <FaCashRegister size={30} />
+                </span>
+                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
+                  الكاشير
+
                 </span>
               </Link>
             </li>

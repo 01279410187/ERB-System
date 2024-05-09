@@ -1,15 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 
-import TotalAmount from '../../../../../../components/shared/totalAmount/TotalAmount';
+import TotalAmount from '../../../../../components/shared/totalAmount/TotalAmount';
 
 import './AddCashierOrder.scss';
 import axios from 'axios';
 
 
-import { API_ENDPOINT, Token } from '../../../../../../../config';
-import CashierOrderDetailes from '../../../../../../components/shared/CashierOrderDetails/CashierOrderDetailes';
-import CashierItemList from '../../../../../../components/shared/CashierItemList/CashierItemList';
+import { API_ENDPOINT, Token } from '../../../../../../config';
+import CashierOrderDetailes from '../../../../../components/shared/CashierOrderDetails/CashierOrderDetailes';
+import CashierItemList from '../../../../../components/shared/CashierItemList/CashierItemList';
 import { message } from 'antd';
 
 
