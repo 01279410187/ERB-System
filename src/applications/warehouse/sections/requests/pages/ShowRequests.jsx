@@ -43,8 +43,8 @@ const ShowRequests = () => {
     { key: "title", value: "العنوان" },
     { key: "user", value: "من", nestedKey: "name" },
     { key: "department", value: "إلى", nestedKey: "name" },
-    { key: "date", value: "التاريخ" },
     { key: "status", value: "الحالة" },
+    { key: "date", value: "التاريخ" },
   ];
   const filters = [
     { key: "from_date", type: "date", id: "من تاريخ" },
@@ -109,7 +109,7 @@ const ShowRequests = () => {
     {
       type: "add",
       label: "إضافة طلبات",
-      route: "/warehouse/requests/add-supplier",
+      route: "/warehouse/requests/add-request",
     },
   ];
   const detailsHeaders = [

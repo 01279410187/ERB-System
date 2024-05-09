@@ -47,6 +47,9 @@ function App() {
     <div>
       <Routes>
         <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/admin" element={<Suppliers />}></Route>
+        </Route>
+        <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/suppliers" element={<Suppliers />}>
             <Route
               path="/warehouse/suppliers/show-suppliers"
@@ -177,6 +180,10 @@ function App() {
             <Route
               path="/warehouse/requests/show-requests"
               element={<ShowRequests />}
+            ></Route>
+            <Route
+              path="/warehouse/requests/add-request"
+              element={<AddRequest />}
             ></Route>
           </Route>
         </Route>

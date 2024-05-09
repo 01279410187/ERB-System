@@ -7,6 +7,7 @@ export async function getRequests(
     to_date: "",
     department_id: "",
     user_id: "",
+    status: "",
     page: "",
   }
 ) {

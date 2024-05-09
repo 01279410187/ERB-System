@@ -6,7 +6,7 @@ import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
 import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
-import { FaCodePullRequest } from "react-icons/fa6";
+import { FaCodePullRequest, FaTruckArrowRight } from "react-icons/fa6";
 import { TbReport } from "react-icons/tb";
 import {
   MdOutlineClose,
@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
-  const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
+  const { closeSidebar } = useContext(SidebarContext);
   const navbarRef = useRef(null);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -55,16 +55,13 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <nav
-      className={`sidebar `}
-      ref={navbarRef}
-    >
+    <nav className={`sidebar `} ref={navbarRef}>
       <div className="sidebar-top">
         <div className="sidebar-brand">
           <img src={LogoDAR} alt="" />
           <span className="sidebar-brand-text">دار المشاه</span>
         </div>
-        <button className="sidebar-close-btn" >
+        <button className="sidebar-close-btn">
           <MdOutlineClose size={24} />
         </button>
       </div>
@@ -86,7 +83,7 @@ const Sidebar = () => {
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdPerson size={30} />
+                  <FaTruckArrowRight size={30} />
                 </span>
                 <span className="menu-link-text" style={{ fontSize: "30px" }}>
                   الموردين

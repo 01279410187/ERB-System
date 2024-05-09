@@ -31,6 +31,16 @@ const AddSupplier = () => {
       placeholder: "يجب عليك ادخال العنوان",
       required: true,
     },
+    {
+      type: "select",
+      name: "type",
+      placeholder: "يجب عليك ادخال نوع التوريد",
+      options: [
+        { value: "contracted", label: "متعاقد" },
+        { value: "local", label: "سوق محلى" },
+      ],
+      required: true,
+    },
   ];
 
   return (

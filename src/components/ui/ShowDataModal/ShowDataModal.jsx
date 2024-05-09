@@ -13,6 +13,7 @@ const ShowDataModal = ({
   useEffect(() => {
     showFn(id).then((result) => {
       setData(result.data);
+      console.log(result.data);
     });
   }, [id, showFn]);
 
