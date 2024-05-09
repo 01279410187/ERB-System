@@ -115,11 +115,13 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
         // If the selected Product is found, extract its name
         const ProductName = selectedProductObj ? selectedProductObj.name : '';
         const ProductImage = selectedProductObj ? selectedProductObj.image : '';
+        const ProductPrice = selectedProductObj ? selectedProductObj.price : '';
+
 
         // Logging for troubleshooting
         console.log('ProductName:', ProductName);
         console.log('ProductName:', ProductImage);
-        console.log('Productprice:', ProductImage);
+        console.log('Productprice:', ProductPrice);
 
         // Additional validation or processing logic
 
@@ -128,7 +130,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
             image: ProductImage,
             ProductId: selectedProduct, // Accessing selectedProduct directly
             quantity: parseInt(quantity),
-            price: parseFloat(price),
+            price: parseFloat(ProductPrice),
             expireDate: epireDate
         };
 

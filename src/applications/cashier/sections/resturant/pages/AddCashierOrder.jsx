@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import CashierOrderDetailes from '../../../../../components/shared/CashierOrderDetails/CashierOrderDetailes';
 import CashierItemList from '../../../../../components/shared/CashierItemList/CashierItemList';
 import { message } from 'antd';
+import { getProductById } from '../../../../../apis/cashier';
 
 const AddCashierOrder = () => {
     const [items, setItems] = useState([]);
@@ -22,44 +23,86 @@ const AddCashierOrder = () => {
     const [selectedSupplier, setSelectedSupplier] = useState(null);
     const [selectedDepartment, setSelectedDepartment] = useState(null);
 
+
+
+
     const [invoiceDate, setInvoiceDate] = useState('');
     const [invoiceCode, setInvoiceCode] = useState('');
     const [invoiceNote, setInvoiceNote] = useState('');
     const [invoiceImage, setInvoiceImage] = useState(null);
     const [discount, setDiscount] = useState(0);
     const [tax, setTx] = useState(0);
-    // const pathname = location.pathname;
-    // const lastItem = pathname.split('/').pop(); // This will give you "add-Invoices"
+    const [selectedOneProduct, setSelectedOneProduct] = useState('');
+    const [selectedParent, setSelectedParent] = useState('');
+    const [fields, setFields] = useState([]);
+
+
+
+    const [ProductCategoryParents, setProductCategoryParents] = useState([]);
+    const [ProductCategories, setProductCategories] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState('');
 
     useEffect(() => {
-        const fetchDataSuppliers = async () => {
-            try {
-                const supplierData = await getSuppliers();
-                setSuppliers(supplierData.data);
-                console.log(suppliers);
-            } catch (error) {
-                console.log("Error fetching data:", error);
-            }
-        };
-
-        fetchDataSuppliers();
+        fetchCustomerCategoryParents();
     }, []);
 
 
 
-    useEffect(() => {
-        const fetchDepartment = async () => {
-            try {
-                const departmentData = await getAllDepartments();
-                setDepartment(departmentData.data);
-                console.log(departmentData);
-            } catch (error) {
-                console.log("Error fetching data:", error);
-            }
-        };
+    console.log(selectedProduct)
 
-        fetchDepartment();
-    }, []);
+    const fetchCustomerCategoryParents = async () => {
+        try {
+            const response = await fetch(`${API_ENDPOINT}/api/v1/product/customers/parent`, {
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+            });
+            const data = await response.json();
+            setProductCategoryParents(data.data);
+            console.log(data)
+
+        } catch (error) {
+            console.error('Error fetching Product category parents:', error);
+        }
+    };
+
+    const handleParentChange = async (parentId) => {
+        setSelectedParent(parentId);
+        try {
+            const response = await fetch(`${API_ENDPOINT}/api/v1/product/customers/${parentId}`, {
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+            });
+            const data = await response.json();
+            setProductCategories(data.data);
+        } catch (error) {
+            console.error('Error fetching Product categories:', error);
+        }
+    };
+
+
+
+    useEffect(() => {
+        setFields([
+            {
+                label: 'نوع الدفع ',
+                type: 'select',
+                placeholder: 'اختر نوع الدفع',
+                options: ProductCategoryParents?.map(parent => ({ value: parent.id, label: parent.name })) || [],
+                required: true,
+                onChange: handleParentChange
+            },
+            {
+                label: 'العميل',
+                type: 'select',
+                placeholder: 'اختر  نوع العميل ',
+                options: ProductCategories?.map(category => ({ value: category.id, label: category.name })) || [],
+                required: true,
+                onChange: (value) => setSelectedProduct(value)
+            },
+        ]);
+    }, [ProductCategoryParents, ProductCategories]);
 
     const handleAddItem = (item) => {
         setItems([...items, item]);
@@ -75,7 +118,7 @@ const AddCashierOrder = () => {
         return items.reduce((total, item) => total + ((item.quantity * item.price)), 0);
     };
 
-    const [deliveryType, setDeliveryType] = useState("kitchen");
+    // const [deliveryType, setDeliveryType] = useState("kitchen");
 
 
     const handleDownloadPDF = async () => {
@@ -89,27 +132,11 @@ const AddCashierOrder = () => {
             // formData.append(`products[${index}][expire_date]`, item.expireDate);
         });
 
-        // if (lastItem === "out_going") {
-        //     formData.append('to', selectedDepartment)
-        // }
-        // if (lastItem === "returned") {
-        //     formData.append('from', selectedDepartment)
-        // }
-
-        // if (lastItem === "in_coming") {
-        //     formData.append('supplier_id', selectedSupplier);
-
-        // }
-
-        // if (lastItem === "returned") {
-        //     formData.append('supplier_id', selectedSupplier || "");
-
-        // }
 
 
         // formData.append('type', lastItem);
         formData.append('order_date', invoiceDate);
-        formData.append('deleviery_type', deliveryType);
+        // formData.append('deleviery_type', deliveryType);
         // formData.append('code', invoiceCode);
         // formData.append('note', invoiceNote);
         // Add other fields as needed
@@ -178,6 +205,22 @@ const AddCashierOrder = () => {
                 </select>
             </div> */}
 
+            {fields.map((field, index) => (
+                <div key={index}>
+                    <label className="form-label" >{field.label}</label>
+                    <select
+                        className='form-select'
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        required={field.required}>
+                        <option value="">{field.placeholder}</option>
+                        {field.options.map((option, index) => (
+                            <option key={index} value={option.value}>{option.label}</option>
+                        ))}
+                    </select>
+                </div>
+            ))}
+
             <div>
                 <label className='form-label'>اختر تاريخ الطلب:</label>
                 <input className="form-input" type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} />
@@ -187,7 +230,7 @@ const AddCashierOrder = () => {
                 <label className='form-label'> اجمالى رقم:</label>
                 <input className="form-input" type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             </div>
-            <div>
+            {/* <div>
                 <label className='form-label'>اختر نوع التسليم:</label>
                 <select
                     className='form-select'
@@ -197,7 +240,7 @@ const AddCashierOrder = () => {
                     <option value="kitchen">مطبخ</option>
                     <option value="room">غرفة</option>
                 </select>
-            </div>
+            </div> */}
 
             <CashierOrderDetailes onAddItem={handleAddItem} selectedSupplier={selectedSupplier} />
             <CashierItemList items={items} onDeleteItem={handleDeleteItem} />
