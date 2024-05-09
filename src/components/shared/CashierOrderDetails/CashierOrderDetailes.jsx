@@ -100,7 +100,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
 
     const handleAddItem = () => {
         if (!selectedProduct.trim()) {
-            setErrorMessage(`Please select a Product.`);
+            setErrorMessage(`الرجاء اختيار منتج`);
             return;
         }
         // Logging for troubleshooting
@@ -158,7 +158,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
                             value={field.value}
                             onChange={(e) => field.onChange(e.target.value)}
                             required={field.required}>
-                            <option value="">{field.placeholder}</option>
+                            <option value="" disabled selected>{field.placeholder}</option>
                             {field.options.map((option, index) => (
                                 <option key={index} value={option.value}>{option.label}</option>
                             ))}
@@ -166,6 +166,8 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
                     </div>
                 ))}
             </div>
+            <label className="form-label" >الكميه:</label>
+            <input className="form-input" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} onWheel={event => event.currentTarget.blur()} />
             <button className='form-cashier-btn' onClick={handleAddItem}>اضافة عنصر</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
         </div>

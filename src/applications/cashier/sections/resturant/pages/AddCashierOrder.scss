@@ -37,6 +37,7 @@
 
 .form-cashier-select-wrraper {
     flex-basis: calc(50% - 40px);
+    margin-bottom: 20px;
 }
 
 .form-cashier-label {
@@ -53,7 +54,7 @@
     border-style: solid;
     border-color: #d9d9d9;
     width: 100%;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     color: var(--brown-color);
     outline: 0;
     font-weight: 700;
@@ -69,6 +70,12 @@
     }
 }
 
+.cashier-input-error {
+    color: red;
+    font-size: 11px;
+    padding-right: 5px;
+}
+
 .form-cashier-select {
     width: 100%;
     background: #ffffff;
@@ -79,7 +86,7 @@
     border-radius: 5px;
 
     padding: 10px 15px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     box-sizing: border-box;
 
     &:hover,
