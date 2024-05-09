@@ -2,10 +2,10 @@ import { API_ENDPOINT } from "../../../../config";
 
 const CashierItemList = ({ items, onDeleteItem }) => {
     return (
-        <div className="item-list">
+        <div className="item-cashier-list">
             <h2>قائمة العناصر</h2>
             {items.map((item, index) => (
-                <div className="item" key={index}>
+                <div className="item-cashier" key={index}>
                     <div>{item.name}</div>
                     <div>   <img
                         src={`${API_ENDPOINT}/${item.image}`}
@@ -17,7 +17,7 @@ const CashierItemList = ({ items, onDeleteItem }) => {
                     </div>
                     <div>السعر: &nbsp;{item.price} &nbsp;ج.م  </div>
                     {/* <div>تاريخ انتهاء الصلاحية: {item.expireDate}</div> */}
-                    <button className="item-btn" onClick={() => onDeleteItem(index)}>
+                    <button className="item-cashier-btn" onClick={() => onDeleteItem(index)}>
                         حذف
                     </button>
                 </div>

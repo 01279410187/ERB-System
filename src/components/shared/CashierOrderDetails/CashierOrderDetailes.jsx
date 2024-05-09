@@ -20,6 +20,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
     const [selectedProduct, setSelectedProduct] = useState('');
     const [selectedOneProduct, setSelectedOneProduct] = useState('');
 
+
     useEffect(() => {
         fetchProductCategoryParents();
     }, []);
@@ -144,27 +145,29 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
 
 
     return (
-        <div>
-            {fields.map((field, index) => (
-                <div key={index}>
-                    <label className="form-label" >{field.label}</label>
-                    <select
-                        className='form-select'
-                        value={field.value}
-                        onChange={(e) => field.onChange(e.target.value)}
-                        required={field.required}>
-                        <option value="">{field.placeholder}</option>
-                        {field.options.map((option, index) => (
-                            <option key={index} value={option.value}>{option.label}</option>
-                        ))}
-                    </select>
-                </div>
-            ))}
+        <div className='form-cashier-product-category-parent'>
+            <div className='form-cashier-product-category'>
 
-
-            <button className='form-btn' onClick={handleAddItem}>اضافة عنصر</button>
+                {fields.map((field, index) => (
+                    <div key={index}
+                        className='form-cashier-select-wrraper'
+                    >
+                        <label className="form-cashier-label" >{field.label}</label>
+                        <select
+                            className='form-cashier-select'
+                            value={field.value}
+                            onChange={(e) => field.onChange(e.target.value)}
+                            required={field.required}>
+                            <option value="">{field.placeholder}</option>
+                            {field.options.map((option, index) => (
+                                <option key={index} value={option.value}>{option.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                ))}
+            </div>
+            <button className='form-cashier-btn' onClick={handleAddItem}>اضافة عنصر</button>
             <p style={{ color: 'red' }}>{errorMessage}</p>
-
         </div>
     );
 };
