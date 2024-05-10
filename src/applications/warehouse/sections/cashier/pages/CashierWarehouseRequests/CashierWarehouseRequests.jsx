@@ -3,7 +3,7 @@ import InvoiceDetails from "../../../../../../components/shared/InvoiveDetails/I
 import ItemList from "../../../../../../components/shared/itemList/ItemList";
 import TotalAmount from "../../../../../../components/shared/totalAmount/TotalAmount";
 
-import "./AddInvoice.scss";
+import "./CashierWarehouseRequests.scss";
 import axios from "axios";
 import { getSuppliers } from "../../../../../../apis/suppliers";
 import { getAllDepartments } from "../../../../../../apis/departments";
@@ -11,22 +11,15 @@ import { getAllDepartments } from "../../../../../../apis/departments";
 import { API_ENDPOINT, Token } from "../../../../../../../config";
 import { useNavigate } from "react-router-dom";
 
-const AddInvoices = () => {
-  const [items, setItems] = useState([]);
+const CashierWarehouseRequests = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [department, setDepartment] = useState([]);
 
   const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
 
-  const [invoiceDate, setInvoiceDate] = useState("");
-  const [invoiceCode, setInvoiceCode] = useState("");
-  const [invoiceNote, setInvoiceNote] = useState("");
-  const [invoiceImage, setInvoiceImage] = useState(null);
-  const [discount, setDiscount] = useState(0);
-  const [tax, setTx] = useState(0);
-  const pathname = location.pathname;
-  const lastItem = pathname.split("/").pop(); // This will give you "add-Invoices"
+  const [items, setItems] = useState([]);
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const fetchDataSuppliers = async () => {
@@ -80,9 +73,7 @@ const AddInvoices = () => {
     const formData = new FormData();
 
     items.forEach((item, index) => {
-      formData.append(`recipes[${index}][recipe_id]`, item.recipeId);
-      formData.append(`recipes[${index}][price]`, item.price);
-      // Add other fields as needed, for example quantity, expire_date, etc.
+      formData.append(`recipes[${index}][id]`, item.recipeId);
       formData.append(`recipes[${index}][quantity]`, item.quantity);
       formData.append(`recipes[${index}][expire_date]`, item.expireDate);
     });
@@ -268,4 +259,4 @@ const AddInvoices = () => {
   );
 };
 
-export default AddInvoices;
+export default CashierWarehouseRequests;

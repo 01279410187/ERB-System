@@ -42,7 +42,13 @@ import {
   AddRequest,
   ShowRequests,
 } from "./applications/warehouse/sections/requests/pages";
-import { AddCashierOrder } from "./applications/warehouse/sections/cashier/pages";
+import {
+  AddCashierOrder,
+  OpenedTables,
+  OrderDetails,
+  CashierWarehouseRequests,
+  CashierKitchenRequests,
+} from "./applications/warehouse/sections/cashier/pages";
 import UnderLimit from "./applications/warehouse/sections/underLimit/UnderLimit";
 import { ShowUnderLimit } from "./applications/warehouse/sections/underLimit/pages";
 import Resturants from "./applications/warehouse/sections/Kitchen/categories/Resturants/Returants";
@@ -56,6 +62,9 @@ function App() {
   return (
     <div className="page-wrapper">
       <Routes>
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/admin" element={<Suppliers />}></Route>
+        </Route>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/suppliers" element={<Suppliers />}>
             <Route
@@ -241,7 +250,10 @@ function App() {
           </Route>
         </Route>
         <Route path="/warehouse" element={<Warehouse />}>
-          <Route path="/warehouse/underLimit/show-under-limit" element={<UnderLimit />}>
+          <Route
+            path="/warehouse/underLimit/show-under-limit"
+            element={<UnderLimit />}
+          >
             <Route
               path="/warehouse/underLimit/show-under-limit"
               element={<ShowUnderLimit />}
@@ -255,6 +267,10 @@ function App() {
               path="/warehouse/requests/show-requests"
               element={<ShowRequests />}
             ></Route>
+            <Route
+              path="/warehouse/requests/add-request"
+              element={<AddRequest />}
+            ></Route>
           </Route>
         </Route>
 
@@ -264,48 +280,25 @@ function App() {
               path="/warehouse/cashier/create-order"
               element={<AddCashierOrder />}
             ></Route>
-          </Route>
-        </Route>
-
-      </Routes>
-      <Routes >
-        {/* <Route path="/cashier" element={<Cashier />}>
-          <Route path="/cashier/resturant" element={<Cashier />}>
             <Route
-              path="/cashier/resturant/create-order"
-              element={<AddCashierOrder />}
+              path="/warehouse/cashier/opened-tables"
+              element={<OpenedTables />}
+            ></Route>
+            <Route
+              path="/warehouse/cashier/order/:id"
+              element={<OrderDetails />}
+            ></Route>
+            <Route
+              path="/warehouse/cashier/warehouse-requests"
+              element={<CashierWarehouseRequests />}
+            ></Route>
+            <Route
+              path="/warehouse/cashier/kitchen-requests"
+              element={<CashierKitchenRequests />}
             ></Route>
           </Route>
-
-        </Route> */}
-
-      </Routes>
-
-      {/* <Route path="/warehouse" element={<Warehouse />}>
-        <Route
-          path="/warehouse/returants/show-resturants"
-          element={<Resturants />}
-        ></Route>
-      </Route> */}
-
-
-
-
-
-
-
-      {/* <Routes >
-        <Route path="/Kitchen" element={<Kitchen />}>
-          <Route path="/Kitchen/resturants" element={<Kitchen />}>
-            <Route
-              path="/Kitchen/resturants/show-resturants"
-              element={<Resturants />}
-            ></Route>
-          </Route>
-
         </Route>
-
-      </Routes> */}
+      </Routes>
     </div>
   );
 }
