@@ -1,10 +1,10 @@
 import React from "react";
-import { API_ENDPOINT } from "../../../../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import "./Cards.scss";
 
 function Cards(props) {
-   return (
-    <div className="custom-card" onClick={props.onClick}>
+  return (
+    <button className="custom-card" onClick={props.onClick}>
       <div className="image">
         <img
           className="card-img"
@@ -15,7 +15,7 @@ function Cards(props) {
       <div className="details">
         <h1>{props.department} </h1>
       </div>
-    </div>
+    </button>
   );
 }
 

@@ -25,7 +25,7 @@ const ShowRecipesCategoryParent = () => {
       route: `/warehouse/recipes/add-recipes-parent`,
     },
   ];
-  const filters = [{ key: "الإسم", type: "text", placeholder: "إبحث باللإسم" }];
+  const filters = [{ key: "name", type: "text", placeholder: "إبحث باللإسم" }];
   return (
     <div>
       <Table

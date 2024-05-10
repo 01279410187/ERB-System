@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Departments.scss";
-import Cards from "./cards/Cards";
+import Cards from "../../../../../components/ui/cards/Cards";
 
 import { getRecipeCategoryParent } from "../../../../../apis/recipes/recipeCategoryParent";
 import { useNavigate } from "react-router-dom";
