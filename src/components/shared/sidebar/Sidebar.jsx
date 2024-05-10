@@ -6,9 +6,16 @@ import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
 import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
-import { FaCodePullRequest, FaTruckArrowRight } from "react-icons/fa6";
+import {
+  FaCodePullRequest,
+  FaKitchenSet,
+  FaWarehouse,
+  FaCashRegister,
+  FaTruckArrowRight,
+} from "react-icons/fa6";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
 
 import { TbReport } from "react-icons/tb";
 import {
@@ -16,6 +23,7 @@ import {
   MdOutlineLogout,
   MdPerson,
   MdProductionQuantityLimits,
+  MdTableBar,
 } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.scss";
@@ -129,7 +137,7 @@ const Sidebar = () => {
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
-                  style={{ fontSize: "30px" }}
+                  style={{ fontSize: "20px" }}
                 >
                   الموردين
                 </span>
@@ -153,7 +161,7 @@ const Sidebar = () => {
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
-                  style={{ fontSize: "24px" }}
+                  style={{ fontSize: "20px" }}
                 >
                   اقسام المخزن
                 </span>
@@ -173,7 +181,7 @@ const Sidebar = () => {
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
-                  style={{ fontSize: "30px" }}
+                  style={{ fontSize: "20px" }}
                 >
                   الفواتير
                 </span>
@@ -196,7 +204,7 @@ const Sidebar = () => {
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
-                  style={{ fontSize: "30px" }}
+                  style={{ fontSize: "20px" }}
                 >
                   الطلبات
                 </span>
@@ -220,9 +228,151 @@ const Sidebar = () => {
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
-                  style={{ fontSize: "30px" }}
+                  style={{ fontSize: "20px" }}
                 >
                   المنافذ
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/cashier/opened-tables"
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/opened-tables"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/cashier/opened-tables")
+                }
+              >
+                <span className="menu-link-icon">
+                  <MdTableBar size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  ترابيزات مفتوحة
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/cashier/warehouse-requests"
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/warehouse-requests"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/cashier/warehouse-requests")
+                }
+              >
+                <span className="menu-link-icon">
+                  <FaWarehouse size={30} />
+                </span>
+                <span
+                  className={`menu-link-text special-txt ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  طلبات المخزن
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/cashier/kitchen-requests"
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/kitchen-requests"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/cashier/kitchen-requests")
+                }
+              >
+                <span className="menu-link-icon">
+                  <FaKitchenSet size={30} />
+                </span>
+                <span
+                  className={`menu-link-text special-txt ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  طلبات المطبخ
+                </span>
+              </Link>
+            </li>
+
+            <li className="menu-item">
+              <Link
+                to="/warehouse/underLimit/show-under-limit"
+                className={`menu-link ${
+                  activeLink === "/warehouse/underLimit/show-under-limit"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/underLimit/show-under-limit")
+                }
+              >
+                <span className="menu-link-icon">
+                  <AiOutlineSafetyCertificate size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  حدالامان
+                </span>
+              </Link>
+            </li>
+
+            <li className="menu-item">
+              <Link
+                to="/warehouse/returants/show-resturants"
+                className={`menu-link ${
+                  activeLink === "/warehouse/returants/show-resturants"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/returants/show-resturants");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <MdProductionQuantityLimits size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  المنتجات
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item">
+              <Link
+                to="/warehouse/cashier/create-order"
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/create-order"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/cashier/create-order");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <FaCashRegister size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  الكاشير
                 </span>
               </Link>
             </li>

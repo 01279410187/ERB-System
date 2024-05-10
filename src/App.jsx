@@ -42,9 +42,19 @@ import {
   AddRequest,
   ShowRequests,
 } from "./applications/warehouse/sections/requests/pages";
-import Cashier from "./applications/cashier/Cashier";
-import Cashiers from "./applications/cashier/sections/resturant/Cashiers";
-import { AddCashierOrder } from "./applications/cashier/sections/resturant/pages";
+import {
+  AddCashierOrder,
+  OpenedTables,
+  OrderDetails,
+  CashierWarehouseRequests,
+  CashierKitchenRequests,
+} from "./applications/warehouse/sections/cashier/pages";
+import UnderLimit from "./applications/warehouse/sections/underLimit/UnderLimit";
+import { ShowUnderLimit } from "./applications/warehouse/sections/underLimit/pages";
+import Resturants from "./applications/warehouse/sections/categories/Resturants/Returants";
+import Category from "./applications/warehouse/sections/categories/Category/Category";
+import Cashiers from "./applications/warehouse/sections/cashier/Cashiers";
+
 function App() {
   return (
     <div className="page-wrapper">
@@ -94,6 +104,15 @@ function App() {
             <Route
               path="/warehouse/recipes/edit-recipes-parent/:id"
               element={<EditRecipeCategoryParent />}
+            ></Route>
+          </Route>
+        </Route>
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/returants" element={<Category />}>
+            <Route
+              path="/warehouse/returants/show-resturants"
+              element={<Resturants />}
             ></Route>
           </Route>
         </Route>
@@ -189,6 +208,18 @@ function App() {
           </Route>
         </Route>
         <Route path="/warehouse" element={<Warehouse />}>
+          <Route
+            path="/warehouse/underLimit/show-under-limit"
+            element={<UnderLimit />}
+          >
+            <Route
+              path="/warehouse/underLimit/show-under-limit"
+              element={<ShowUnderLimit />}
+            ></Route>
+          </Route>
+        </Route>
+
+        <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/requests" element={<Requests />}>
             <Route
               path="/warehouse/requests/show-requests"
@@ -200,18 +231,31 @@ function App() {
             ></Route>
           </Route>
         </Route>
-      </Routes>
-      <Routes >
-        <Route path="/cashier" element={<Cashier />}>
-          <Route path="/cashier/resturant" element={<Cashiers />}>
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/cashier" element={<Cashiers />}>
             <Route
-              path="/cashier/resturant/create-order"
+              path="/warehouse/cashier/create-order"
               element={<AddCashierOrder />}
             ></Route>
+            <Route
+              path="/warehouse/cashier/opened-tables"
+              element={<OpenedTables />}
+            ></Route>
+            <Route
+              path="/warehouse/cashier/order/:id"
+              element={<OrderDetails />}
+            ></Route>
+            <Route
+              path="/warehouse/cashier/warehouse-requests"
+              element={<CashierWarehouseRequests />}
+            ></Route>
+            <Route
+              path="/warehouse/cashier/kitchen-requests"
+              element={<CashierKitchenRequests />}
+            ></Route>
           </Route>
-
         </Route>
-
       </Routes>
     </div>
   );
