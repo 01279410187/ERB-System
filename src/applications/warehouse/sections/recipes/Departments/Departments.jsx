@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Departments.scss";
-import Cards from "./cards/Cards";
+import Cards from "../../../../../components/ui/cards/Cards";
 
 import { getRecipeCategoryParent } from "../../../../../apis/recipes/recipeCategoryParent";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,13 @@ function Departments() {
     }
   };
 
+  const handleAddDepartment = () => {
+    navigate("/warehouse/recipes/add-recipes-parent")
+  }
+  const handleSearchDepartment = () => {
+    navigate("/warehouse/recipes/show-recipes")
 
+  }
   useEffect(() => {
 
     fetchData(); // Call fetchData when component mounts
@@ -33,6 +39,15 @@ function Departments() {
   return (
     <>
       <h1 className="heading text-center p-3">اقسام المخزن </h1>
+      <div className="btn-container">
+
+        <button className="dept-btn" onClick={handleAddDepartment}>
+          +اضافة قسم
+        </button>
+        <button className="dept-btn" onClick={handleSearchDepartment}>
+          +بحث عن قسم
+        </button>
+      </div>
       <div className="cards-container">
         <div className="row">
           {data.map((department, index) => (

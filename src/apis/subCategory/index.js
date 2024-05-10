@@ -1,19 +1,18 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../config";
+import { message } from 'antd'
 const domain = API_ENDPOINT;
-export async function getRecipeCategoryParent(filteredValues = { name: "", page: "" }) {
+export async function getSubCategory(filteredValues = { name: "", page: "" }, id) {
     try {
         const { name, page } = filteredValues;
 
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe_category_parent`, {
+            `${domain}/api/v1/store/_category`, {
             params: {
                 name: name,
+                category_id: id,
                 page,
             },
-            headers: {
-                Authorization: `Bearer ${Token}`
-            }
         }
         );
         console.log(res.data);
@@ -23,21 +22,21 @@ export async function getRecipeCategoryParent(filteredValues = { name: "", page:
     }
 }
 
-export async function addRecipe(name, description, image) {
+export async function addSubCategory(name, description, image, category_id) {
     try {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('description', description);
         formData.append('image', image[0].originFileObj
         ); // Only send the first image
+        formData.append('category_id', category_id);
 
         const res = await axios.post(
-            `${domain}/api/v1/store/recipe_category_parent/create`,
+            `${domain}/api/v1/store/sub_categories/create`,
             formData,
             {
                 headers: {
-                    'Accept': 'application/json',
-                    Authorization: `Bearer ${Token}`
+                    'Accept': 'application/json'
                 }
             }
         );
@@ -47,55 +46,68 @@ export async function addRecipe(name, description, image) {
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
 }
-export async function eidtRecipe(name, description, image, id) {
+export async function eidtSubCategory(name, description, image, category_id, id) {
     try {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('description', description);
 
-        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0
-        );
+        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0);
+        formData.append('category_id', category_id);
         formData.append('_method', "PUT"); // Only send the first image
 
         const res = await axios.post(
-            `${domain}/api/v1/store/recipe_category_parent/update/${id}`,
+            `${domain}/api/v1/store/sub_categories/update/${id}`,
             formData,
             {
                 headers: {
-                    'Accept': 'application/json',
-                    Authorization: `Bearer ${Token}`
+                    'Accept': 'application/json'
                 }
             }
         );
         return res.data;
     } catch (error) {
-        console.log("Error fetching data:", error);
+        message.error(error.response.data.error.message)
+        console.log("Error fetching data:", error.response.data.error.message);
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
 }
-export async function getRecipeById(id) {
+export async function getSubCategoryById(id) {
     try {
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe_category_parent/${id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${Token}`
-                }
-            }
+            `${domain}/api/v1/store/sub_categories/${id}`
         );
         console.log(res.data)
-        return res.data.data
+        return res.data
     } catch (error) {
         console.log("Error fetching data:", error);
     }
 }
 
 
+export async function getSubCategoryFilterById(filteredValues = { name: "", page: "" }, id) {
+    const { name, page } = filteredValues;
+    try {
 
-export async function deleteRecipeSubCategoryParent(id) {
+        const res = await axios.get(
+            `${domain}/api/v1/store/sub_categories/filter_by_category/${id}`, {
+            params: {
+                name: name,
+                page,
+            },
+        }
+        );
+        console.log(res.data)
+        return res.data
+    } catch (error) {
+        console.log("Error fetching data:", error);
+    }
+}
+
+export async function deleteSubCategory(id) {
     try {
         const res = await axios.delete(
-            `${domain}/api/v1/store/recipe_category_parent/delete/${id}`
+            `${domain}/api/v1/store/sub_categories/delete/${id}`
 
         );
         return res.data

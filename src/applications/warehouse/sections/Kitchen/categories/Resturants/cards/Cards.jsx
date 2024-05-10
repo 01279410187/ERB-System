@@ -1,5 +1,5 @@
 import React from 'react'
-import { API_ENDPOINT } from '../../../../../../../config'
+import { API_ENDPOINT } from '../../../../../../../../config'
 import './Cards.scss'
 
 function Cards(props) {

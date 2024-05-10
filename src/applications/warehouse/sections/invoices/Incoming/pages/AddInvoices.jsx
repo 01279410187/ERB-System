@@ -143,8 +143,8 @@ const AddInvoices = () => {
         {lastItem === "in_coming"
           ? "اضافة فاتورة مورد"
           : lastItem === "out_going"
-          ? "اضافه فاتورة اذن صرف"
-          : " اضافة فاتورة مرتجع"}
+            ? "اضافه فاتورة اذن صرف"
+            : " اضافة فاتورة مرتجع"}
       </h1>
       {lastItem === "out_going" ? null : (
         <div>

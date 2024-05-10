@@ -53,8 +53,8 @@ const EditSuppliers = () => {
   ];
 
   return (
-    <div>
-      <h1>تعديل مورد</h1>
+    <div className='form-container'>
+      <h1 className='form-title'>تعديل مورد</h1>
       {data && (
         <DynamicForm
           fields={fields}

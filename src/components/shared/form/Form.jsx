@@ -38,7 +38,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
             <div>
               {initialValues && initialValues[field.name] && (
                 <img
-                  src={`${API_ENDPOINT}/${initialValues[field.name]}`}
+                  src={`${initialValues[field.name]}`}
                   alt={`alt-${initialValues.name}`}
                   style={{ width: "50px", height: "50px" }}
                 />
