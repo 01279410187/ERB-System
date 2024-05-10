@@ -8,7 +8,7 @@ function Cards(props) {
       <div className="image">
         <img
           className="card-img"
-          src={`${API_ENDPOINT}/${props.img}`}
+          src={`${props.img}`}
           alt={`alt-${props.name}`}
         />
       </div>

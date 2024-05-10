@@ -48,7 +48,10 @@ const ShowProduct = () => {
     ];
     const detailsHeaders = [
         { key: "id", label: "الكود" },
-        { key: "quantity", label: "الكمية" },
+        { key: "quantity", label: "الكمية", isInput: true },
+        { key: "name", label: "الإسم" },
+        { key: "type", label: "النوع" },
+        { key: "unit", label: "الوحدة" },
 
     ];
     return (
