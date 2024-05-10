@@ -250,11 +250,6 @@ function App() {
       </Route> */}
 
 
-
-
-
-
-
       {/* <Routes >
         <Route path="/Kitchen" element={<Kitchen />}>
           <Route path="/Kitchen/resturants" element={<Kitchen />}>

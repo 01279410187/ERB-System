@@ -79,3 +79,17 @@ export async function getRecipeById(id) {
         console.log("Error fetching data:", error);
     }
 }
+
+
+
+export async function deleteRecipeSubCategoryParent(id) {
+    try {
+        const res = await axios.delete(
+            `${domain}/api/v1/store/recipe_category_parent/delete/${id}`
+
+        );
+        return res.data
+    } catch (error) {
+        console.log("Error fetching data:", error);
+    }
+}

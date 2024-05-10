@@ -96,7 +96,7 @@
       margin-top: 18px;
       cursor: pointer;
       transition: transform 0.5s;
-      animation: arow-move 2s ease-in-out infinite;
+      animation: arow-move 1s ease-in-out infinite;
 
       &:hover {
         color: var(--beige-color);
@@ -301,7 +301,7 @@
     }
 
     @media(max-width: 768px) {
-      display: none;
+      // display: none;
     }
 
     &:hover {

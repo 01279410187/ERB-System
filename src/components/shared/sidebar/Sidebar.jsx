@@ -100,7 +100,7 @@ const Sidebar = () => {
       <div className="sidebar-body">
         <div className="sidebar-menu">
           <ul className="menu-list">
-            <li className="menu-item">
+            <li className="menu-item" title="الموردين">
               <Link
                 to="/warehouse/suppliers/show-suppliers"
                 // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
@@ -121,7 +121,7 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item">
+            <li className="menu-item" title="اقسام المخزن">
               <Link
                 to="/warehouse/recipes/show-departments"
                 className={`menu-link ${activeLink === "/warehouse/recipes/show-departments"
@@ -143,7 +143,7 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item">
+            <li className="menu-item" title="الفواتير">
               <Link
                 to="/warehouse/invoices/show"
                 className={`menu-link ${activeLink === "/warehouse/invoices/show" ? "active" : ""
@@ -158,7 +158,7 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item">
+            <li className="menu-item" title="الطلبات">
               <Link
                 to="/warehouse/requests/show-requests"
                 className={`menu-link ${activeLink === "/warehouse/requests/show-requests"
@@ -178,7 +178,7 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item">
+            <li className="menu-item" title="المنافذ">
               <Link
                 to="/warehouse/department/show-department"
                 className={`menu-link ${activeLink === "/warehouse/department/show-department"
@@ -197,7 +197,7 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item">
+            <li className="menu-item" title="ترابيزات مفتوحة">
               <Link
                 to="/warehouse/department/show-department"
                 className={`menu-link ${activeLink === "/warehouse/department/show-department"
@@ -216,7 +216,7 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item">
+            <li className="menu-item" title=" طلبات المخزن">
               <Link
                 to="/warehouse/department/show-department"
                 className={`menu-link ${activeLink === "/warehouse/department/show-department"
@@ -235,7 +235,7 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item">
+            <li className="menu-item" title="طلبات المطبخ">
               <Link
                 to="/warehouse/department/show-department"
                 className={`menu-link ${activeLink === "/warehouse/department/show-department"
@@ -256,7 +256,7 @@ const Sidebar = () => {
             </li>
 
 
-            <li className="menu-item">
+            <li className="menu-item" title=" حد الامان">
               <Link
                 to="/warehouse/underLimit/show-under-limit"
                 className={`menu-link ${activeLink === "/warehouse/underLimit/show-under-limit"
@@ -271,14 +271,14 @@ const Sidebar = () => {
                   <AiOutlineSafetyCertificate size={30} />
                 </span>
                 <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
-                  حدالامان
+                  حد الامان
                 </span>
               </Link>
             </li>
 
 
 
-            <li className="menu-item">
+            <li className="menu-item" title="المنتجات">
               <Link
                 to="/warehouse/returants/show-resturants"
                 className={`menu-link ${activeLink === "/warehouse/returants/show-resturants"
@@ -299,7 +299,7 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item">
+            <li className="menu-item" title="الكاشير">
               <Link
                 to="/warehouse/cashier/create-order"
                 className={`menu-link ${activeLink === "/warehouse/cashier/create-order"

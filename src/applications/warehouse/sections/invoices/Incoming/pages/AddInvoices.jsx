@@ -147,7 +147,7 @@ const AddInvoices = () => {
                         id="supplierSelect"
                         onChange={(e) => setSelectedSupplier(e.target.value)}
                     >
-                        <option value="">اختر المورد</option>
+                        <option value="" disabled selected>اختر المورد</option>
                         {suppliers.map((supplier) => (
                             <option key={supplier.id} value={supplier.id}>
                                 {supplier.name}
@@ -165,7 +165,7 @@ const AddInvoices = () => {
                         id="supplierSelect"
                         onChange={(e) => setSelectedDepartment(e.target.value)}
                     >
-                        <option value="">اختر قسم</option>
+                        <option value="" disabled selected>اختر قسم</option>
                         {department.map((supplier) => (
                             <option key={supplier.id} value={supplier.id}>
                                 {supplier.name}

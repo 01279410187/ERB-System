@@ -1,5 +1,5 @@
 import Table from "../../../../../../components/shared/table/Table";
-import { getRecipeCategoryParent } from "../../../../../../apis/recipes/recipeCategoryParent";
+import { deleteRecipeSubCategoryParent, getRecipeCategoryParent } from "../../../../../../apis/recipes/recipeCategoryParent";
 import { Link } from "react-router-dom";
 
 const ShowRecipesCategoryParent = () => {
@@ -8,24 +8,36 @@ const ShowRecipesCategoryParent = () => {
     { key: "name", value: "الإسم" },
     { key: "image", value: "الصوره", type: "image" },
   ];
+
+  const actions = [
+    {
+      type: "edit",
+      label: "تعديل",
+      route: "/warehouse/recipes/edit-recipes-parent/:id",
+    },
+    {
+      type: "delete",
+      label: "حذف",
+    },
+    {
+      type: "add",
+      label: "إضافة قسم المخزن",
+      route: `/warehouse/recipes/add-recipes-parent`,
+    },
+  ];
   const filters = [{ key: "الإسم", type: "text", placeholder: "إبحث باللإسم" }];
   return (
     <div>
       <Table
         headers={tableHeaders}
-        title=" الاقسام"
         filters={filters}
-        fetchData={getRecipeCategoryParent}
-        addition={{ navigate: true, route: "/warehouse/recipes/add-recipes-parent" }}
-
-      >
-        <Link to={`/warehouse/recipes/edit-recipes-parent/:id`}>
-          <button className="button edit">تعديل</button>
-        </Link>
-        <Link to={`/warehouse/suppliers/delete-supplier/:id`}>
-          <button className="button delete">حذف</button>
-        </Link>
-      </Table>
+        title="القسم"
+        actions={actions}
+        fetchData={(filters, currentPage) =>
+          getRecipeCategoryParent(filters, currentPage)
+        }
+        deleteFn={deleteRecipeSubCategoryParent}
+      />
     </div>
   );
 };
