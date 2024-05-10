@@ -8,7 +8,7 @@ import axios from "axios";
 const CashierKitchenRequests = () => {
   const [items, setItems] = useState([]);
   const [errors, setErrors] = useState({});
-  const [title, setTitle] = useState(" ");
+  const [comment, setComment] = useState(" ");
 
   const handleAddItem = (item) => {
     setItems([...items, item]);
@@ -30,8 +30,13 @@ const CashierKitchenRequests = () => {
 
       formData.append(`products[${index}][quantity]`, item.quantity);
     });
-    formData.append("title", title);
-    formData.append("to_department_id", "1");
+    formData.append("comment", comment);
+    formData.append(
+      "order_date",
+      new Date().toISOString().slice(0, 19).replace("T", " ")
+    );
+
+    formData.append("department_id", "1");
 
     try {
       const response = await axios.post(
@@ -53,38 +58,24 @@ const CashierKitchenRequests = () => {
         message.error(errors[err][0]);
       });
     }
+    setItems([]);
+    setComment("");
   };
   return (
     <div>
-      <div className="input-wrapper">
-        <div>
-          <label className="form-cashier-label">عنوان الطلب :</label>
-          <input
-            className="form-cashier-input"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          {errors.customerName && (
-            <span className="error cashier-input-error">
-              {errors.customerName}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="form-cashier-label">ع:</label>
-          <input
-            className="form-cashier-input"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          {errors.customerName && (
-            <span className="error cashier-input-error">
-              {errors.customerName}
-            </span>
-          )}
-        </div>
+      <div>
+        <label className="form-cashier-label">ملاحظة :</label>
+        <input
+          className="form-cashier-input"
+          type="text"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        {errors.customerName && (
+          <span className="error cashier-input-error">
+            {errors.customerName}
+          </span>
+        )}
       </div>
       <CashierOrderDetailes onAddItem={handleAddItem} />
       <CashierItemList items={items} onDeleteItem={handleDeleteItem} />
