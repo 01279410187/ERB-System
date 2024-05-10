@@ -23,6 +23,7 @@ export async function getSuppliers(filteredValues, id, setIsLoading) {
   } catch (error) {
     console.log("Error fetching data:", error);
     setIsLoading(false);
+    message.error("حدث خطأ الرجاء إعادة المحاولة ");
   }
 }
 export async function getSupplierById(id) {

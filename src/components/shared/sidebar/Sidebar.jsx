@@ -122,10 +122,11 @@ const Sidebar = () => {
               <Link
                 to="/warehouse/suppliers/show-suppliers"
                 // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
-                className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/suppliers/show-suppliers"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-suppliers");
                   handleMenuLinkClick("/warehouse/suppliers/show-suppliers");
@@ -145,10 +146,11 @@ const Sidebar = () => {
             <li className="menu-item" title="اقسام المخزن">
               <Link
                 to="/warehouse/recipes/show-departments"
-                className={`menu-link ${activeLink === "/warehouse/recipes/show-departments"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/recipes/show-departments"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-departments");
                   handleMenuLinkClick("/warehouse/recipes/show-departments");
@@ -169,8 +171,9 @@ const Sidebar = () => {
             <li className="menu-item" title="الفواتير">
               <Link
                 to="/warehouse/invoices/show"
-                className={`menu-link ${activeLink === "/warehouse/invoices/show" ? "active" : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/invoices/show" ? "active" : ""
+                } ${justifyContent}`}
                 onClick={() => handleMenuLinkClick("/warehouse/invoices/show")}
               >
                 <span className="menu-link-icon">
@@ -187,10 +190,11 @@ const Sidebar = () => {
             <li className="menu-item" title="الطلبات">
               <Link
                 to="/warehouse/requests/show-requests"
-                className={`menu-link ${activeLink === "/warehouse/requests/show-requests"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/requests/show-requests"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/requests/show-requests")
                 }
@@ -209,10 +213,11 @@ const Sidebar = () => {
             <li className="menu-item" title="الكاشير">
               <Link
                 to="/warehouse/cashier/create-order"
-                className={`menu-link ${activeLink === "/warehouse/cashier/create-order"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/create-order"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-departments");
                   handleMenuLinkClick("/warehouse/cashier/create-order");
@@ -232,10 +237,11 @@ const Sidebar = () => {
             <li className="menu-item" title="ترابيزات مفتوحة">
               <Link
                 to="/warehouse/cashier/opened-tables"
-                className={`menu-link ${activeLink === "/warehouse/cashier/opened-tables"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/opened-tables"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/cashier/opened-tables")
                 }
@@ -254,10 +260,11 @@ const Sidebar = () => {
             <li className="menu-item" title=" طلبات المخزن">
               <Link
                 to="/warehouse/cashier/warehouse-requests"
-                className={`menu-link ${activeLink === "/warehouse/cashier/warehouse-requests"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/warehouse-requests"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/cashier/warehouse-requests")
                 }
@@ -276,10 +283,11 @@ const Sidebar = () => {
             <li className="menu-item" title="طلبات المطبخ">
               <Link
                 to="/warehouse/cashier/kitchen-requests"
-                className={`menu-link ${activeLink === "/warehouse/cashier/kitchen-requests"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/kitchen-requests"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/cashier/kitchen-requests")
                 }
@@ -298,10 +306,11 @@ const Sidebar = () => {
             <li className="menu-item" title=" حد الامان">
               <Link
                 to="/warehouse/underLimit/show-under-limit"
-                className={`menu-link ${activeLink === "/warehouse/underLimit/show-under-limit"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/underLimit/show-under-limit"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/underLimit/show-under-limit")
                 }
@@ -309,7 +318,10 @@ const Sidebar = () => {
                 <span className="menu-link-icon">
                   <AiOutlineSafetyCertificate size={30} />
                 </span>
-                <span className={`menu-link-text ${display}`} style={{ fontSize: "20px" }}>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
                   حد الامان
                 </span>
               </Link>
@@ -317,10 +329,11 @@ const Sidebar = () => {
             <li className="menu-item" title="المنتجات">
               <Link
                 to="/warehouse/returants/show-resturants"
-                className={`menu-link ${activeLink === "/warehouse/returants/show-resturants"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/returants/show-resturants"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-departments");
                   handleMenuLinkClick("/warehouse/returants/show-resturants");
@@ -337,7 +350,7 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="المنافذ">
+            {/* <li className="menu-item" title="المنافذ">
               <Link
                 to="/warehouse/department/show-department"
                 className={`menu-link ${activeLink === "/warehouse/department/show-department"
@@ -358,7 +371,7 @@ const Sidebar = () => {
                   المنافذ
                 </span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

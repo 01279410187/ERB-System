@@ -40,6 +40,7 @@ import { AddInvoices } from "./applications/warehouse/sections/invoices/Incoming
 import Requests from "./applications/warehouse/sections/requests/Requests";
 import {
   AddRequest,
+  EditRequest,
   ShowRequests,
 } from "./applications/warehouse/sections/requests/pages";
 import {
@@ -54,9 +55,18 @@ import { ShowUnderLimit } from "./applications/warehouse/sections/underLimit/pag
 import Resturants from "./applications/warehouse/sections/Kitchen/categories/Resturants/Returants";
 import Category from "./applications/warehouse/sections/Kitchen/categories/Category/Category";
 import Cashiers from "./applications/warehouse/sections/cashier/Cashiers";
-import { AddSubCategory, EditSubCategory, ShowSubCategory } from "./applications/warehouse/sections/Kitchen/categories/subCategory/pages";
+import {
+  AddSubCategory,
+  EditSubCategory,
+  ShowSubCategory,
+} from "./applications/warehouse/sections/Kitchen/categories/subCategory/pages";
 import Product from "./applications/warehouse/sections/Kitchen/categories/product/Product";
-import { AddProduct, AddProductRecipe, EditProduct, ShowProduct } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
+import {
+  AddProduct,
+  AddProductRecipe,
+  EditProduct,
+  ShowProduct,
+} from "./applications/warehouse/sections/Kitchen/categories/product/pages";
 
 function App() {
   return (
@@ -132,8 +142,6 @@ function App() {
               path="/warehouse/returants/subCategory/:id/edit-subCategory"
               element={<EditSubCategory />}
             ></Route>
-
-
           </Route>
         </Route>
 
@@ -144,7 +152,6 @@ function App() {
               element={<ShowProduct />}
             ></Route>
 
-
             <Route
               path="/warehouse/returants/subcategory/add-product/:id"
               element={<AddProduct />}
@@ -153,17 +160,12 @@ function App() {
             <Route
               path="/warehouse/returants/subcategory/:id/edit-product"
               element={<EditProduct />}
-            >
-
-            </Route>
+            ></Route>
 
             <Route
               path="/warehouse/returants/subcategory/:id/add-rescipes"
               element={<AddProductRecipe />}
-            >
-
-            </Route>
-
+            ></Route>
           </Route>
         </Route>
 
@@ -279,6 +281,10 @@ function App() {
               path="/warehouse/requests/add-request"
               element={<AddRequest />}
             ></Route>
+            <Route
+              path="/warehouse/requests/:id/edit-request"
+              element={<EditRequest />}
+            ></Route>
           </Route>
         </Route>
 
@@ -305,9 +311,7 @@ function App() {
               element={<CashierKitchenRequests />}
             ></Route>
           </Route>
-
         </Route>
-
       </Routes>
 
       {/* <Route path="/warehouse" element={<Warehouse />}>
@@ -316,7 +320,6 @@ function App() {
           element={<Resturants />}
         ></Route>
       </Route> */}
-
 
       {/* <Routes >
         <Route path="/Kitchen" element={<Kitchen />}>

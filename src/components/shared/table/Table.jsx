@@ -237,7 +237,7 @@ const Table = ({
                     >
                       {header.type === "image" ? (
                         <img
-                          src={`${API_ENDPOINT}/${item.image}`}
+                          src={`${item.image}`}
                           alt={`alt-${item.name}`}
                           style={{ width: "50px", height: "50px" }}
                         />

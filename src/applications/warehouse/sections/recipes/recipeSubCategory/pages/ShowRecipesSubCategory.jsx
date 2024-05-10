@@ -2,7 +2,6 @@ import Table from "../../../../../../components/shared/table/Table";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
-
   deleteRecipeSubCategory,
   getRecipeSubCategory,
 } from "../../../../../../apis/recipes/recipeSubCategory";
@@ -45,8 +44,8 @@ const ShowRecipesSubCategory = () => {
         title="التصنيف الرئيسى"
         actions={actions}
         id={id}
-        fetchData={(filters, currentPage) =>
-          getRecipeSubCategory(filters, currentPage, id)
+        fetchData={(filters, id, setIsLoading) =>
+          getRecipeSubCategory(filters, id, setIsLoading)
         }
         deleteFn={deleteRecipeSubCategory}
       />

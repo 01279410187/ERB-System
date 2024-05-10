@@ -46,11 +46,11 @@ const ShowRecipe = () => {
         filters={filters}
         actions={actions}
         deleteFn={deleteRecipe}
-        showFn={(id, setIsLoading)=>getRecipesById(id, setIsLoading)}
+        showFn={(id, setIsLoading) => getRecipesById(id, setIsLoading)}
         title="التصنيف الفرعى"
         id={id}
-        fetchData={(filters, currentPage) =>
-          getRecipes(filters, currentPage, id)
+        fetchData={(filters, id, setIsLoading) =>
+          getRecipes(filters, id, setIsLoading)
         }
       />
     </div>

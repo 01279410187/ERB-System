@@ -75,8 +75,13 @@ import axios from "axios";
 import { API_ENDPOINT, Token } from "../../../../config";
 const domain = API_ENDPOINT;
 import { message } from "antd";
-export async function getRecipes(filteredValues = { name: "", page: "" }, id) {
+export async function getRecipes(
+  filteredValues = { name: "", page: "" },
+  id,
+  setIsLoading
+) {
   try {
+    setIsLoading(true);
     const { name, page } = filteredValues;
 
     const res = await axios.get(`${domain}/api/v1/store/recipe`, {
@@ -90,9 +95,12 @@ export async function getRecipes(filteredValues = { name: "", page: "" }, id) {
       },
     });
     console.log(res.data);
+    setIsLoading(false);
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    setIsLoading(false);
+    message.error("حدث خطأ الرجاء المحاولة مرة أخرى");
   }
 }
 
@@ -176,6 +184,7 @@ export async function eidtRecipes(
       {
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${Token}`,
         },
       }
     );
@@ -225,7 +234,12 @@ export async function getRecipesFilterById(
 export async function deleteRecipe(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/recipe/delete/${id}`
+      `${domain}/api/v1/store/recipe/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
     );
     return res.data;
   } catch (error) {

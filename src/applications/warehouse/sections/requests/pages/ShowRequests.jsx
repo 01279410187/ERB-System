@@ -95,17 +95,12 @@ const ShowRequests = () => {
   ];
   const actions = [
     {
-      type: "edit",
-      label: "تعديل",
-      route: "/warehouse/requests/:id/edit-request",
-    },
-    {
       type: "delete",
       label: "حذف",
     },
     {
       type: "show",
-      label: "المواد الخام",
+      label: "مراجعة",
     },
     {
       type: "add",
@@ -131,8 +126,8 @@ const ShowRequests = () => {
         headers={tableHeaders}
         title="الطلبات"
         filters={filters}
-        fetchData={(filterValues, currentPage) =>
-          getRequests(filterValues, currentPage, "")
+        fetchData={(filterValues, id, setIsLoading) =>
+          getRequests(filterValues, id, setIsLoading)
         }
         header={"recipes"}
         actions={actions}

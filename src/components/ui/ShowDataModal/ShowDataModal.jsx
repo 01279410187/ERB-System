@@ -56,10 +56,6 @@ const ShowDataModal = ({
     };
   }, [handleModalVisible]);
 
-  const handleEditChange = () => {
-    updateFn({ inputValues }, id);
-    handleModalVisible(false);
-  };
   const handleInputChange = (e, index, key) => {
     const newValue = e.target.value;
     setInputValues((prevInputValues) => ({
@@ -93,7 +89,7 @@ const ShowDataModal = ({
                         {h.isInput ? (
                           <input
                             className="form-input"
-                            style={{ marginBottom: '0px' }}
+                            style={{ marginBottom: "0px" }}
                             type="text"
                             disabled={updateFn ? false : true}
                             value={inputValues[index][h.key] || ""}
@@ -106,41 +102,42 @@ const ShowDataModal = ({
                     ))}
                   </tr>
                 ))}
-                {(!data || data?.length === 0) && < tr > <td colSpan={detailsHeaders.length + 1}>  'لا يوجد نتائج'</td></tr>}
-
+                {(!data || data?.length === 0) && (
+                  <tr>
+                    <td colSpan={detailsHeaders.length + 1}>'لا يوجد نتائج'</td>
+                  </tr>
+                )}
               </tbody>
             </table>
             <div className="button-container">
               {changeStatusFn && (
-                <>
-                  <button
-                    className="data-modal-btn show"
-                    onClick={() => changeStatusFn("accepted", id)}
-                  >
-                    مراجعة
-                  </button>
-                  <button
-                    className="data-modal-btn delete"
-                    onClick={() => changeStatusFn("rejected", id)}
-                  >
-                    رفض
-                  </button>
-                </>
-              )}
-              {updateFn && (
                 <button
-                  className="data-modal-btn edit"
-                  onClick={handleEditChange}
+                  className="data-modal-btn delete"
+                  onClick={() => {
+                    changeStatusFn("rejected", id);
+                    handleModalVisible(false);
+                  }}
                 >
-                  تعديل
+                  رفض
+                </button>
+              )}
+              {updateFn && changeStatusFn && (
+                <button
+                  className="data-modal-btn show"
+                  onClick={() => {
+                    updateFn({ inputValues }, id);
+                    changeStatusFn("accepted", id);
+                    handleModalVisible(false);
+                  }}
+                >
+                  قبول
                 </button>
               )}
             </div>
           </div>
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 

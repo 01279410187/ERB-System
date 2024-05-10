@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT, Token } from "../../../config";
-
+import { message } from "antd";
 const domain = API_ENDPOINT;
 export async function getRecipes(filteredValues = { name: "", page: "" }) {
   try {
@@ -66,7 +66,7 @@ export async function addRecipes(
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
-    throw error; 
+    throw error;
   }
 }
 export async function eidtRecipes(
@@ -123,24 +123,22 @@ export async function getRecipesById(id) {
 }
 
 export async function getIncomingInvoiceByType(
-  filteredValues = {
-    from_date: "",
-    to_date: "",
-    code: "",
-    supplier_id: "",
-    invoice_price: "",
-    page: "",
-  }
+  filteredValues,
+  id,
+  setIsLoading
 ) {
   const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
     filteredValues;
+  const default_from = "1970-01-01";
+  const default_to = new Date().toISOString().split("T")[0];
   try {
+    setIsLoading(true);
     const res = await axios.get(
       `${domain}/api/v1/store/invoice/get_invoices_based_on_type/in_coming`,
       {
         params: {
-          "date[from]": from_date,
-          "date[to]": to_date,
+          "date[from]": from_date || default_from,
+          "date[to]": to_date || default_to,
           code,
           invoice_price,
           supplier_id,
@@ -152,33 +150,33 @@ export async function getIncomingInvoiceByType(
         },
       }
     );
+    setIsLoading(false);
     console.log(res);
     return res.data;
   } catch (error) {
+    setIsLoading(false);
     console.log("Error fetching data:", error);
+    message.error("حدث خطأ الرجاء إعادة المحاولة");
   }
 }
 
 export async function getOutgoingInvoiceByType(
-  filteredValues = {
-    from_date: "",
-    to_date: "",
-    code: "",
-    supplier_id: "",
-    invoice_price: "",
-
-    page: "",
-  }
+  filteredValues,
+  id,
+  setIsLoading
 ) {
   const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
     filteredValues;
+  const default_from = "1970-01-01";
+  const default_to = new Date().toISOString().split("T")[0];
   try {
+    setIsLoading(true);
     const res = await axios.get(
       `${domain}/api/v1/store/invoice/get_invoices_based_on_type/out_going`,
       {
         params: {
-          "date[from]": from_date,
-          "date[to]": to_date,
+          "date[from]": from_date || default_from,
+          "date[to]": to_date || default_to,
           code,
           invoice_price,
           supplier_id,
@@ -190,33 +188,33 @@ export async function getOutgoingInvoiceByType(
         },
       }
     );
+    setIsLoading(false);
     console.log(res);
     return res.data;
   } catch (error) {
+    setIsLoading(false);
     console.log("Error fetching data:", error);
+    message.error("حدث خطأ الرجاء إعادة المحاولة");
   }
 }
 
 export async function getReturndInvoiceByType(
-  filteredValues = (filteredValues = {
-    from_date: "",
-    to_date: "",
-    code: "",
-    supplier_id: "",
-    invoice_price: "",
-
-    page: "",
-  })
+  filteredValues,
+  id,
+  setIsLoading
 ) {
   const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
     filteredValues;
+  const default_from = "1970-01-01";
+  const default_to = new Date().toISOString().split("T")[0];
   try {
+    setIsLoading(true);
     const res = await axios.get(
       `${domain}/api/v1/store/invoice/get_invoices_based_on_type/returned`,
       {
         params: {
-          "date[from]": from_date,
-          "date[to]": to_date,
+          "date[from]": from_date || default_from,
+          "date[to]": to_date || default_to,
           code,
           invoice_price,
           supplier_id,
@@ -228,23 +226,26 @@ export async function getReturndInvoiceByType(
         },
       }
     );
+    setIsLoading(false);
     console.log(res);
     return res.data;
   } catch (error) {
+    setIsLoading(false);
     console.log("Error fetching data:", error);
+    message.error("حدث خطأ الرجاء إعادة المحاولة");
   }
 }
 
-export async function deleteRecipe(id) {
-  try {
-    const res = await axios.delete(
-      `${domain}/api/v1/store/recipe/delete/${id}`
-    );
-    return res.data;
-  } catch (error) {
-    console.log("Error fetching data:", error);
-  }
-}
+// export async function deleteInvoice(id) {
+//   try {
+//     const res = await axios.delete(
+//       `${domain}/api/v1/store/recipe/delete/${id}`
+//     );
+//     return res.data;
+//   } catch (error) {
+//     console.log("Error fetching data:", error);
+//   }
+// }
 export async function getInvoiceById(id) {
   try {
     const res = await axios.get(`${domain}/api/v1/store/invoice/${id}`, {

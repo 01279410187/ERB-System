@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./Departments.scss";
 import Cards from "../../../../../components/ui/cards/Cards";
-
 import { getRecipeCategoryParent } from "../../../../../apis/recipes/recipeCategoryParent";
 import { useNavigate } from "react-router-dom";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 function Departments() {
-
-
   const [data, setData] = useState([]); // Initialize data as null
-  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const fetchData = async () => {
     try {
-      const recipeData = await getRecipeCategoryParent();
+      const recipeData = await getRecipeCategoryParent({}, "", setIsLoading);
       setData(recipeData.data);
     } catch (error) {
       console.log("Error fetching data:", error);
@@ -20,27 +20,26 @@ function Departments() {
   };
 
   const handleAddDepartment = () => {
-    navigate("/warehouse/recipes/add-recipes-parent")
-  }
+    navigate("/warehouse/recipes/add-recipes-parent");
+  };
   const handleSearchDepartment = () => {
-    navigate("/warehouse/recipes/show-recipes")
-
-  }
+    navigate("/warehouse/recipes/show-recipes");
+  };
   useEffect(() => {
-
     fetchData(); // Call fetchData when component mounts
   }, []);
   const handleCardClick = (department) => {
     // Handle click action here, for example, you can log the department name
     console.log("Clicked on department:", department);
-    navigate(`/warehouse/recipes/subCategory/show-recipe-subcategory/${department}`)
+    navigate(
+      `/warehouse/recipes/subCategory/show-recipe-subcategory/${department}`
+    );
   };
 
   return (
     <>
       <h1 className="heading text-center p-3">اقسام المخزن </h1>
       <div className="btn-container">
-
         <button className="dept-btn" onClick={handleAddDepartment}>
           +اضافة قسم
         </button>
@@ -58,7 +57,13 @@ function Departments() {
               onClick={() => handleCardClick(department.id)}
             />
           ))}
-
+          {isLoading && (
+            <>
+              <Spin
+                indicator={<LoadingOutlined style={{ fontSize: 56 }} spin />}
+              />
+            </>
+          )}
         </div>
       </div>
     </>

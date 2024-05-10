@@ -1,5 +1,8 @@
 import Table from "../../../../../../components/shared/table/Table";
-import { deleteRecipeSubCategoryParent, getRecipeCategoryParent } from "../../../../../../apis/recipes/recipeCategoryParent";
+import {
+  deleteRecipeSubCategoryParent,
+  getRecipeCategoryParent,
+} from "../../../../../../apis/recipes/recipeCategoryParent";
 import { Link } from "react-router-dom";
 
 const ShowRecipesCategoryParent = () => {
@@ -33,8 +36,8 @@ const ShowRecipesCategoryParent = () => {
         filters={filters}
         title="القسم"
         actions={actions}
-        fetchData={(filters, currentPage) =>
-          getRecipeCategoryParent(filters, currentPage)
+        fetchData={(filters, id, setIsLoading) =>
+          getRecipeCategoryParent(filters, id, setIsLoading)
         }
         deleteFn={deleteRecipeSubCategoryParent}
       />

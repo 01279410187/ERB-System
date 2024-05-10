@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  editSupplier,
-  getSupplierById,
-} from "../../../../../apis/suppliers/index";
+  editRequest,
+  getRequestById,
+} from "../../../../../apis/requests/index";
 import DynamicForm from "../../../../../components/shared/form/Form";
 
-const EditSuppliers = () => {
+const EditRequest = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const { id } = useParams();
@@ -14,7 +14,7 @@ const EditSuppliers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const recipeData = await getSupplierById(id);
+        const recipeData = await getRequestById(id);
         setData(recipeData?.data);
         console.log(recipeData.data);
       } catch (error) {
@@ -27,8 +27,8 @@ const EditSuppliers = () => {
 
   const handleSubmit = async (formData) => {
     console.log(formData);
-    await editSupplier(formData.name, formData.phone, formData.address, id);
-    navigate(`/warehouse/suppliers/show-suppliers`);
+    await editRequest(formData.name, formData.phone, formData.address, id);
+    navigate(`/warehouse/suppliers/show-requests`);
   };
 
   const fields = [
@@ -66,4 +66,4 @@ const EditSuppliers = () => {
   );
 };
 
-export default EditSuppliers;
+export default EditRequest;
