@@ -86,10 +86,10 @@ const Table = ({
     setItemId(itemId);
     actions.find((action) => action.route?.includes("show"))
       ? navigate(
-          actions
-            .find((action) => action.type === "show")
-            .route.replace(":id", itemId)
-        )
+        actions
+          .find((action) => action.type === "show")
+          .route.replace(":id", itemId)
+      )
       : setisShowModalVisible(true);
   };
 
@@ -218,7 +218,7 @@ const Table = ({
                     >
                       {header.type === "image" ? (
                         <img
-                          src={`${API_ENDPOINT}/${item.image}`}
+                          src={`${item.image}`}
                           alt={`alt-${item.name}`}
                           style={{ width: "50px", height: "50px" }}
                         />
