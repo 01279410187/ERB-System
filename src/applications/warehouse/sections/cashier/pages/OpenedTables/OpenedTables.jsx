@@ -14,10 +14,10 @@ const OpenedTables = () => {
     getTables();
   }, []);
   return (
-    <div>
+    <div className="table-cards-container">
       <h1 className="tables-title">الترابيزات المفتوحة</h1>
 
-      <div className="table-cards">
+      <div className="row">
         {tables.length > 0 &&
           tables.map((table) => {
             return (

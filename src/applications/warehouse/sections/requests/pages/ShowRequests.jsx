@@ -143,7 +143,8 @@ const ShowRequests = () => {
         actions={actions}
         deleteFn={deleteRequest}
         showFn={getRequestById}
-        // updateFn={updateRequests}
+        changeStatusFn={() => { }}
+        updateFn={updateRequests}
         detailsHeaders={detailsHeaders}
       />
     </div>

@@ -305,8 +305,30 @@ function App() {
               element={<CashierKitchenRequests />}
             ></Route>
           </Route>
+
         </Route>
+
       </Routes>
+
+      {/* <Route path="/warehouse" element={<Warehouse />}>
+        <Route
+          path="/warehouse/returants/show-resturants"
+          element={<Resturants />}
+        ></Route>
+      </Route> */}
+
+
+      {/* <Routes >
+        <Route path="/Kitchen" element={<Kitchen />}>
+          <Route path="/Kitchen/resturants" element={<Kitchen />}>
+            <Route
+              path="/Kitchen/resturants/show-resturants"
+              element={<Resturants />}
+            ></Route>
+          </Route>
+
+        </Route>
+    </Routes>*/}
     </div>
   );
 }

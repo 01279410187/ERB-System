@@ -73,55 +73,60 @@ const ShowDataModal = ({
   return (
     <div className="show-data-modal">
       {data && (
-        <div className="modal-content">
-          <h2>{title}</h2>
-          <table className="data-table">
-            <thead>
-              <tr>
-                {detailsHeaders.map((h) => (
-                  <th key={h.key}>{h.label}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
+        <div className="data-table-diagram">
+          <div className="modal-content">
+            <h2>{title}</h2>
+            <table className="data-table">
+              <thead>
+                <tr>
                   {detailsHeaders.map((h) => (
-                    <td key={h.key}>
-                      {h.isInput ? (
-                        <input
-                          type="text"
-                          disabled={updateFn}
-                          value={inputValues[index][h.key] || ""}
-                          onChange={(e) => handleInputChange(e, index, h.key)}
-                        />
-                      ) : (
-                        item[h.key]
-                      )}
-                    </td>
+                    <th key={h.key}>{h.label}</th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {changeStatusFn && (
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    {detailsHeaders.map((h) => (
+                      <td key={h.key}>
+                        {h.isInput ? (
+                          <input
+                            className="form-input"
+                            type="text"
+                            disabled={updateFn}
+                            value={inputValues[index][h.key] || ""}
+                            onChange={(e) => handleInputChange(e, index, h.key)}
+                          />
+                        ) : (
+                          item[h.key]
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
             <div className="button-container">
-              <button onClick={() => changeStatusFn("accepted", id)}>
-                مراجعة
-              </button>
-              <button onClick={() => changeStatusFn("rejected", id)}>
-                رفض
-              </button>
+              {changeStatusFn && (
+                <>
+                  <button className="data-modal-btn show" onClick={() => changeStatusFn("accepted", id)}>
+                    مراجعة
+                  </button>
+                  <button className="data-modal-btn delete" onClick={() => changeStatusFn("rejected", id)}>
+                    رفض
+                  </button>
+                </>
+              )}
+              {updateFn && (
+                <button className="data-modal-btn edit" onClick={handleEditChange}>تعديل</button>
+              )}
             </div>
-          )}
-          {updateFn && (
-            <div className="button-container">
-              <button onClick={handleEditChange}>تعديل</button>
-            </div>
-          )}
+
+          </div>
         </div>
       )}
     </div>
+
   );
 };
 
