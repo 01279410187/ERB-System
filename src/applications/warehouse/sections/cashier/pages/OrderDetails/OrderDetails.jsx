@@ -24,24 +24,30 @@ const OrderDetails = () => {
       {order.code && (
         <div>
           <h1 className="order-title"> اوردر كود {order.code}</h1>
-          {order.comment && <p>ملاحظة: {order.comment}</p>}
-          {order.discount !== null && <p>قيمةالخصم: {order.discount}</p>}
-          {order.discount_resones && <p>سبب الخصم: {order.discount_resones}</p>}
-          {order.order_date && <p>تاريخ الأوردر: {order.order_date}</p>}
-          {order.target_department_name && (
-            <p>إسم القسم المراد: {order.target_department_name}</p>
-          )}
+          <div className="order-header">
+            {order.comment && <p>ملاحظة: {order.comment}</p>}
+            {order.discount !== null && <p>قيمةالخصم: {order.discount}</p>}
+            {order.discount_resones && <p>سبب الخصم: {order.discount_resones}</p>}
+            {order.order_date && <p>تاريخ الأوردر: {order.order_date}</p>}
+            {order.target_department_name && (
+              <p>إسم القسم المراد: {order.target_department_name}</p>
+            )}
+          </div>
           <h2>المنتجات:</h2>
-          <ul>
+          <ul className="order-details-container">
             {order.products &&
               order.products.map((product, index) => (
-                <li key={index}>
-                  <div>
+                <li key={index}
+                  className="order">
+                  <div className="img-container">
+
                     <img
                       className="product-image"
                       src={product.image}
                       alt={product.name}
                     />
+                  </div>
+                  <div className="order-details-txt">
                     <p>إسم المنتج: {product.name}</p>
                     <p>السعر: {product.price} جم</p>
                     <p>الكمية: {product.quantity}</p>
