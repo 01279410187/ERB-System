@@ -2,7 +2,6 @@ import Table from "../../../../../../components/shared/table/Table";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
-  getRecipesFilterById,
   deleteRecipe,
   getRecipesById,
   getRecipes,
@@ -33,10 +32,6 @@ const ShowRecipe = () => {
       label: "إضافة تصنيف فرعى",
       route: `/warehouse/recipes/recipe/add-recipes/${id}`,
     },
-    {
-      type: "show",
-      label: "تفاصيل",
-    },
   ];
   const detailsHeaders = [
     { key: "type", label: "النوع", isArray: false },
@@ -51,7 +46,7 @@ const ShowRecipe = () => {
         filters={filters}
         actions={actions}
         deleteFn={deleteRecipe}
-        showFn={getRecipesById}
+        showFn={(id, setIsLoading)=>getRecipesById(id, setIsLoading)}
         title="التصنيف الفرعى"
         id={id}
         fetchData={(filters, currentPage) =>

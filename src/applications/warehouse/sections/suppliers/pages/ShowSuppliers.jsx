@@ -7,7 +7,7 @@ const ShowSuppliers = () => {
     { key: "id", value: "الكود" },
     { key: "name", value: "الإسم" },
     { key: "phone", value: "الرقم" },
-    { key: "address", value: "العنوان" },
+    { key: "type", value: "النوع" },
   ];
   const filters = [
     { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
@@ -16,6 +16,26 @@ const ShowSuppliers = () => {
       type: "text",
       placeholder: "إبحث برقم الموبايل",
       id: "رقم الموبايل",
+    },
+    {
+      key: "type",
+      type: "selection",
+      id: "نوع المورد",
+      placeholder: "نوع المورد",
+      options: [
+        {
+          value: "",
+          label: "",
+        },
+        {
+          value: "contracted",
+          label: "متعاقد",
+        },
+        {
+          value: "local",
+          label: "سوق محلى",
+        },
+      ],
     },
   ];
   const actions = [
@@ -29,35 +49,29 @@ const ShowSuppliers = () => {
       label: "حذف",
     },
     {
-      type: "show",
+      type: "navigate",
       label: "فواتير",
       route: "/warehouse/suppliers/:id/show-invoices",
     },
+
     {
       type: "add",
       label: "إضافة موردين",
       route: "/warehouse/suppliers/add-supplier",
     },
   ];
-  const info = {
-    title: "User Information",
-    data: [
-      { Name: "John Doe", Age: 30, Email: "john@example.com" },
-      { Name: "Jane Smith", Age: 25, Email: "jane@example.com" },
-    ],
-  };
+
   return (
     <div>
       <Table
         headers={tableHeaders}
         title="الموردين"
         filters={filters}
-        fetchData={(filterValues, currentPage) =>
-          getSuppliers(filterValues, currentPage, "")
+        fetchData={(filterValues, currentPage, setIsLoading) =>
+          getSuppliers(filterValues, currentPage, setIsLoading)
         }
         actions={actions}
         deleteFn={deleteSupplier}
-        info={info}
       />
     </div>
   );

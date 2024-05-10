@@ -9,7 +9,7 @@ function Cards(props) {
 
         <div className="custom-card" onClick={props.onClick}>
             <div className='image'>
-                <img className='card-img' src={`${API_ENDPOINT}/${props.img}`} alt={`alt-${props.name}`} />
+                <img className='card-img' src={`${props.img}`} alt={`alt-${props.name}`} />
             </div>
             <div className='details'>
                 <h1>{props.department} </h1>

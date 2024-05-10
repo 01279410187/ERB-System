@@ -8,7 +8,7 @@ const AddSupplier = () => {
 
   const handleSubmit = async (formData) => {
     console.log(formData);
-    await addSupplier(formData.name, formData.phone, formData.address);
+    await addSupplier(formData);
     navigate(`/warehouse/suppliers/show-suppliers`);
   };
 
@@ -20,7 +20,7 @@ const AddSupplier = () => {
       required: true,
     },
     {
-      type: "text",
+      type: "number",
       name: "phone",
       placeholder: "يجب عليك ادخال رقم الموبايل",
       required: true,
@@ -44,8 +44,8 @@ const AddSupplier = () => {
   ];
 
   return (
-    <div className='form-container'>
-      <h1 className='form-title'>إضافة مورد</h1>
+    <div className="form-container">
+      <h1 className="form-title">إضافة مورد</h1>
       <DynamicForm fields={fields} onSubmit={handleSubmit} />
     </div>
   );

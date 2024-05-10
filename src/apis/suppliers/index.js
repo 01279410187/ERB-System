@@ -1,21 +1,28 @@
 import axios from "axios";
-import { API_ENDPOINT } from "../../../config";
+import { API_ENDPOINT, Token } from "../../../config";
+import { message } from "antd";
+// const Token = localStorage.getItem('token')
 const domain = API_ENDPOINT;
-export async function getSuppliers(
-  filteredValues = { name: "", phone: "", page: "" }
-) {
+export async function getSuppliers(filteredValues, id, setIsLoading) {
   try {
-    const { name, phone, page } = filteredValues;
+    setIsLoading(true);
+    const { name, phone, page, type } = filteredValues;
     const res = await axios.get(`${domain}/api/v1/store/supplier`, {
       params: {
         name,
         phone,
         page,
+        type,
+      },
+      headers: {
+        Authorization: `Bearer ${Token}`,
       },
     });
+    setIsLoading(false);
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    setIsLoading(false);
   }
 }
 export async function getSupplierById(id) {
@@ -35,41 +42,74 @@ export async function editSupplier(name, phoneNumber, address, id) {
         phone: phoneNumber,
         address: address,
         _method: "PUT",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
       }
     );
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    const errors = error.response.data.error.errors;
+    Object.keys(errors).map((err) => {
+      message.error(errors[err][0] || "حدث خطأ الرجاء المحاولة مرة أخرى");
+    });
   }
 }
 export async function deleteSupplier(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/supplier/delete/${id}`
+      `${domain}/api/v1/store/supplier/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    const errors = error.response.data.error.errors;
+    Object.keys(errors).map((err) => {
+      message.error(errors[err][0] || "حدث خطأ الرجاء المحاولة مرة أخرى");
+    });
+  }
+}
+export async function addSupplier(formData) {
+  const { type, name, address, phone } = formData;
+  console.log(type, name, address, phone, formData);
+  try {
+    const res = await axios.post(
+      `${domain}/api/v1/store/supplier/create`,
+      {
+        type,
+        name,
+        address,
+        phone,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
     );
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
-  }
-}
-export async function addSupplier(name, phoneNumber, address) {
-  try {
-    const res = await axios.post(`${domain}/api/v1/store/supplier/create`, {
-      name: name,
-      phone: phoneNumber,
-      address: address,
+    const errors = error.response.data.error.errors;
+    Object.keys(errors).map((err) => {
+      message.error(errors[err][0] || "حدث خطأ الرجاء المحاولة مرة أخرى");
     });
-    return res.data;
-  } catch (error) {
-    console.log("Error fetching data:", error);
   }
 }
-export async function getSupplierInvoices(
-  filteredValues = { from_date: "", to_date: "", status: "", page: "" },
-  id
-) {
+export async function getSupplierInvoices(filteredValues, id, setIsLoading) {
   const { from_date, to_date, status, page } = filteredValues;
   try {
+    setIsLoading(true);
+
     const res = await axios.get(
       `${domain}/api/v1/store/supplier/${id}/invoices`,
       {
@@ -79,10 +119,21 @@ export async function getSupplierInvoices(
           status,
           page,
         },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
       }
     );
+    setIsLoading(false);
     return res.data;
   } catch (error) {
+    setIsLoading(false);
     console.log("Error fetching data:", error);
+    const errors = error.response.data.error.errors;
+    Object.keys(errors).map((err) => {
+      message.error(errors[err][0] || "حدث خطأ الرجاء المحاولة مرة أخرى");
+    });
   }
 }

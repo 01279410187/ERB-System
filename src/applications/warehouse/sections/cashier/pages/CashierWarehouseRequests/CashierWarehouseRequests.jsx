@@ -10,6 +10,9 @@ import { getAllDepartments } from "../../../../../../apis/departments";
 
 import { API_ENDPOINT, Token } from "../../../../../../../config";
 import { useNavigate } from "react-router-dom";
+import CahierWearhouseDetailes from "../../../../../../components/shared/CashierWearhouseDetailes/CashierWearhouseDetailes";
+import ItemCashierWearhouse from "../../../../../../components/shared/CashierWearhouseDetailes/ItemCashierWearhouse";
+import { message } from "antd";
 
 const CashierWarehouseRequests = () => {
   const [suppliers, setSuppliers] = useState([]);
@@ -63,7 +66,7 @@ const CashierWarehouseRequests = () => {
     return items.reduce(
       (total, item) =>
         total +
-        (item.quantity * item.price - parseInt(discount) + parseInt(tax)),
+        (item.quantity * item.price),
       0
     );
   };
@@ -78,33 +81,21 @@ const CashierWarehouseRequests = () => {
       formData.append(`recipes[${index}][expire_date]`, item.expireDate);
     });
 
-    if (lastItem === "out_going") {
-      formData.append("to", selectedDepartment);
-    }
-    if (lastItem === "returned") {
-      formData.append("from", selectedDepartment);
-    }
 
-    if (lastItem === "in_coming") {
-      formData.append("supplier_id", selectedSupplier);
-    }
+    // formData.append("type", lastItem);
+    // formData.append("invoice_date", invoiceDate);
+    // formData.append("code", invoiceCode);
+    formData.append("to_department_id", selectedDepartment);
 
-    if (lastItem === "returned") {
-      formData.append("supplier_id", selectedSupplier || "");
-    }
-
-    formData.append("type", lastItem);
-    formData.append("invoice_date", invoiceDate);
-    formData.append("code", invoiceCode);
-    formData.append("note", invoiceNote);
+    formData.append("title", title);
     // Add other fields as needed
-    formData.append("image", invoiceImage);
-    formData.append("discount", lastItem === "in_coming" ? discount : 0);
-    formData.append("tax", lastItem === "in_coming" ? tax : 0);
+    // formData.append("image", invoiceImage);
+    // formData.append("discount", lastItem === "in_coming" ? discount : 0);
+    // formData.append("tax", lastItem === "in_coming" ? tax : 0);
 
     try {
       const response = await axios.post(
-        `${API_ENDPOINT}/api/v1/store/invoice/create`,
+        `${API_ENDPOINT}/api/v1/store/request/create`,
         formData,
         {
           headers: {
@@ -114,8 +105,9 @@ const CashierWarehouseRequests = () => {
         }
       );
       console.log(response.data);
-      navigate("/warehouse/invoices/show");
+      // navigate("/warehouse/invoices/show");
       console.log("Invoice created successfully!");
+      message.success("تم اضافة طلب بنجاح")
       // Optionally, you can redirect or show a success message here
     } catch (error) {
       console.error("Error creating invoice:", error);
@@ -123,134 +115,46 @@ const CashierWarehouseRequests = () => {
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setInvoiceImage(file);
-  };
 
   return (
     <div className="form-container">
       <h1 className="form-title">
-        {lastItem === "in_coming"
-          ? "اضافة فاتورة مورد"
-          : lastItem === "out_going"
-          ? "اضافه فاتورة اذن صرف"
-          : " اضافة فاتورة مرتجع"}
+        اضافة طلب من  المخزن
       </h1>
-      {lastItem === "out_going" ? null : (
-        <div>
-          <label className="form-label" htmlFor="supplierSelect">
-            اختر المورد:
-          </label>
-          <select
-            className="form-select"
-            id="supplierSelect"
-            onChange={(e) => setSelectedSupplier(e.target.value)}
-          >
-            <option value="">اختر المورد</option>
-            {suppliers.map((supplier) => (
-              <option key={supplier.id} value={supplier.id}>
-                {supplier.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {lastItem === "out_going" || lastItem === "returned" ? (
-        <div>
-          <label className="form-label" htmlFor="supplierSelect">
-            اختر قسم:
-          </label>
-          <select
-            className="form-select"
-            id="supplierSelect"
-            onChange={(e) => setSelectedDepartment(e.target.value)}
-          >
-            <option value="">اختر قسم</option>
-            {department.map((supplier) => (
-              <option key={supplier.id} value={supplier.id}>
-                {supplier.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      ) : null}
 
       <div>
-        <label className="form-label">اختر تاريخ الفاتورة:</label>
-        <input
-          className="form-input"
-          type="date"
-          value={invoiceDate}
-          onChange={(e) => setInvoiceDate(e.target.value)}
-        />
+        <label className="form-label" htmlFor="supplierSelect">
+          اختر قسم:
+        </label>
+        <select
+          className="form-select"
+          id="supplierSelect"
+          onChange={(e) => setSelectedDepartment(e.target.value)}
+        >
+          <option value="">اختر قسم</option>
+          {department.map((supplier) => (
+            <option key={supplier.id} value={supplier.id}>
+              {supplier.name}
+            </option>
+          ))}
+        </select>
       </div>
-      {lastItem === "in_coming" ? (
-        <div>
-          <label className="form-label">كود الفاتورة:</label>
-          <input
-            className="form-input"
-            type="number"
-            value={invoiceCode}
-            onChange={(e) => setInvoiceCode(e.target.value)}
-            onWheel={(event) => event.currentTarget.blur()}
-          />
-        </div>
-      ) : null}
-
       <div>
-        <label className="form-label">صورة الفاتورة:</label>
-        <input
-          className="form-input"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-      </div>
-      {lastItem === "in_coming" ? (
-        <>
-          <div>
-            <label className="form-label"> خصم على الفاتورة:</label>
-            <input
-              className="form-input"
-              type="number"
-              value={discount}
-              onChange={(e) => setDiscount(e.target.value)}
-              onWheel={(event) => event.currentTarget.blur()}
-            />
-          </div>
-          <div>
-            <label className="form-label">
-              {" "}
-              مصروفات نثرية (نقل، مشال، ...) :
-            </label>
-            <input
-              className="form-input"
-              type="number"
-              value={tax}
-              onChange={(e) => setTx(e.target.value)}
-              onWheel={(event) => event.currentTarget.blur()}
-            />
-          </div>
-        </>
-      ) : null}
-
-      <div>
-        <label className="form-label"> اضافة تعليق:</label>
+        <label className="form-label">العنوان:</label>
         <input
           className="form-input"
           type="textarea"
-          value={invoiceNote}
-          onChange={(e) => setInvoiceNote(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <InvoiceDetails
+
+      <CahierWearhouseDetailes
         onAddItem={handleAddItem}
         selectedSupplier={selectedSupplier}
-        InvoiceType={lastItem}
+      // InvoiceType={lastItem}
       />
-      <ItemList items={items} onDeleteItem={handleDeleteItem} />
+      <ItemCashierWearhouse items={items} onDeleteItem={handleDeleteItem} />
       <TotalAmount total={calculateTotalAmount()} />
       <button className="form-btn" onClick={handleDownloadPDF}>
         حفظ البيانات

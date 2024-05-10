@@ -19,7 +19,8 @@ const ShowDataModal = ({
       try {
         const response = await showFn(id);
         setData(response.data[header]);
-        setTitle(response.data ? response.data.title : "تفاصيل الفاتورة");
+        console.log(response.data[header]);
+        setTitle(response.data.title || "التفاصيل");
         const initialInputValues = response.data[header].reduce(
           (acc, item, index) => {
             const inputValuesForItem = {};
@@ -92,8 +93,9 @@ const ShowDataModal = ({
                         {h.isInput ? (
                           <input
                             className="form-input"
+                            style={{ marginBottom: '0px' }}
                             type="text"
-                            disabled={updateFn}
+                            disabled={updateFn ? false : true}
                             value={inputValues[index][h.key] || ""}
                             onChange={(e) => handleInputChange(e, index, h.key)}
                           />
@@ -104,29 +106,41 @@ const ShowDataModal = ({
                     ))}
                   </tr>
                 ))}
+                {(!data || data?.length === 0) && < tr > <td colSpan={detailsHeaders.length + 1}>  'لا يوجد نتائج'</td></tr>}
+
               </tbody>
             </table>
             <div className="button-container">
               {changeStatusFn && (
                 <>
-                  <button className="data-modal-btn show" onClick={() => changeStatusFn("accepted", id)}>
+                  <button
+                    className="data-modal-btn show"
+                    onClick={() => changeStatusFn("accepted", id)}
+                  >
                     مراجعة
                   </button>
-                  <button className="data-modal-btn delete" onClick={() => changeStatusFn("rejected", id)}>
+                  <button
+                    className="data-modal-btn delete"
+                    onClick={() => changeStatusFn("rejected", id)}
+                  >
                     رفض
                   </button>
                 </>
               )}
               {updateFn && (
-                <button className="data-modal-btn edit" onClick={handleEditChange}>تعديل</button>
+                <button
+                  className="data-modal-btn edit"
+                  onClick={handleEditChange}
+                >
+                  تعديل
+                </button>
               )}
             </div>
-
           </div>
         </div>
-      )}
-    </div>
-
+      )
+      }
+    </div >
   );
 };
 

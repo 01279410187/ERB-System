@@ -63,7 +63,10 @@ const CashierKitchenRequests = () => {
   };
   return (
     <div>
-      <div>
+      <div
+        className="form-cashier-product-category-parent"
+        style={{ border: "none" }}
+      >
         <label className="form-cashier-label">ملاحظة :</label>
         <input
           className="form-cashier-input"

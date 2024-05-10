@@ -14,13 +14,15 @@ const EditProduct = () => {
     const handleSubmit = async (formData) => {
         console.log("=================>" + formData.name);
 
-        await eidtProduct(formData.name, formData.description, formData.image, formData.price, ProductParentId, id);
+        await eidtProduct(formData.name, formData.description, formData.image, formData.price, ProductCategory_id, ProductParentId, id);
         await navigate(`/warehouse/returants/subcategory/show-product/${ProductParentId}`);
     };
     // const [units, setUnits] = useState([]); // Initialize categories state
     const [parentName, setParentName] = useState('')
     // const [recipeUnit, setRecipeUnit] = useState('')
     const [ProductParentId, setRecipeParentId] = useState('')
+    const [ProductCategory_id, setProductCategoryId] = useState('')
+
 
 
 
@@ -35,6 +37,7 @@ const EditProduct = () => {
                 setParentName(recipeData.data.sub_category_name)
                 // setRecipeUnit(recipeData.data.unit)
                 setRecipeParentId(recipeData.data.sub_category_id)
+                setProductCategoryId(recipeData.data.category_id)
 
 
 

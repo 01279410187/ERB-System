@@ -1,7 +1,7 @@
 import Table from "../../../../../../../components/shared/table/Table";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { deleteProduct, getProductsFilterById } from "../../../../../../../apis/product";
+import { deleteProduct, getProductsFilterById, getProductsById } from "../../../../../../../apis/product";
 
 const ShowProduct = () => {
     const tableHeaders = [
@@ -20,6 +20,7 @@ const ShowProduct = () => {
             label: "تعديل",
             route: "/warehouse/returants/subcategory/:id/edit-product",
         },
+
         {
             type: "delete",
             label: "حذف",
@@ -30,15 +31,28 @@ const ShowProduct = () => {
             route: `/warehouse/returants/subcategory/add-product/${id}`,
         },
 
+
         {
             type: "show",
             label: "تفاصيل",
+
         },
+        {
+            type: "navigate",
+            label: "اضافة مكون",
+            route: "/warehouse/returants/subcategory/:id/add-rescipes"
+        },
+
+
+
     ];
     const detailsHeaders = [
-        { key: "type", label: "النوع", isArray: false },
-        { key: "unit", label: "الوحدة", isArray: false },
-        { key: "minimum_limit", label: "الحد الأدنى", isArray: false },
+        { key: "id", label: "الكود" },
+        { key: "quantity", label: "الكمية", isInput: true },
+        { key: "name", label: "الإسم" },
+        { key: "type", label: "النوع" },
+        { key: "unit", label: "الوحدة" },
+
     ];
     return (
         <div>
@@ -48,7 +62,8 @@ const ShowProduct = () => {
                 filters={filters}
                 actions={actions}
                 deleteFn={deleteProduct}
-                // showFn={getRecipesById}
+                header={'recipes'}
+                showFn={getProductsById}
                 title="المنتجات"
                 id={id}
                 fetchData={(filters, currentPage) =>

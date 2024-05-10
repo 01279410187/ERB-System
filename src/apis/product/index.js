@@ -71,7 +71,7 @@ export async function addProducts(name, description, price, image, category_id, 
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
 }
-export async function eidtProduct(name, description, image, price, sub_category_id, id) {
+export async function eidtProduct(name, description, image, price, category_id, sub_category_id, id) {
     try {
 
         const formData = new FormData();
@@ -80,7 +80,7 @@ export async function eidtProduct(name, description, image, price, sub_category_
         formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0
         );
 
-        formData.append('category_id', 1);
+        formData.append('category_id', category_id);
         formData.append('price', price);
 
         formData.append('sub_category_id', sub_category_id);

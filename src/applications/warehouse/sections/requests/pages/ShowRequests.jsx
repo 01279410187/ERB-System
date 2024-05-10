@@ -123,11 +123,6 @@ const ShowRequests = () => {
       label: "الكمية",
       isInput: true,
     },
-    {
-      key: "price",
-      label: "السعر",
-      isInput: true,
-    },
   ];
 
   return (
@@ -143,7 +138,7 @@ const ShowRequests = () => {
         actions={actions}
         deleteFn={deleteRequest}
         showFn={getRequestById}
-        changeStatusFn={() => { }}
+        changeStatusFn={() => {}}
         updateFn={updateRequests}
         detailsHeaders={detailsHeaders}
       />
