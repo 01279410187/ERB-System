@@ -1,16 +1,16 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../config";
+import { message } from 'antd'
 const domain = API_ENDPOINT;
-import { message } from "antd";
-export async function getRecipes(filteredValues = { name: "", page: "" }, id) {
+export async function getSubCategory(filteredValues = { name: "", page: "" }, id) {
     try {
         const { name, page } = filteredValues;
 
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe`, {
+            `${domain}/api/v1/store/_category`, {
             params: {
                 name: name,
-                recipe_category_id: id,
+                category_id: id,
                 page,
             },
         }
@@ -22,37 +22,42 @@ export async function getRecipes(filteredValues = { name: "", page: "" }, id) {
     }
 }
 
-export async function getUnits() {
-    try {
-
-
-        const res = await axios.get(
-            `${domain}/api/v1/store/unit`
-
-        );
-        console.log(res.data);
-        return res.data
-    } catch (error) {
-        console.log("Error fetching data:", error);
-    }
-}
-
-export async function addRecipes(name, image, recipe_category_id, unit_id, minimum_limt, day_before_expire) {
+export async function addSubCategory(name, description, image, category_id) {
     try {
         const formData = new FormData();
         formData.append('name', name);
-        // formData.append('quantity', quantity);
+        formData.append('description', description);
         formData.append('image', image[0].originFileObj
-        );
-        // formData.append('price', price);
-        // Only send the first image
-        formData.append('recipe_category_id', recipe_category_id);
-        formData.append('unit_id', unit_id);
-        formData.append('minimum_limt', minimum_limt);
-        formData.append('days_before_expire', day_before_expire);
+        ); // Only send the first image
+        formData.append('category_id', category_id);
 
         const res = await axios.post(
-            `${domain}/api/v1/store/recipe/create`,
+            `${domain}/api/v1/store/sub_categories/create`,
+            formData,
+            {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }
+        );
+        return res.data;
+    } catch (error) {
+        console.log("Error fetching data:", error);
+        throw error; // Rethrow the error to handle it in the calling code if necessary
+    }
+}
+export async function eidtSubCategory(name, description, image, category_id, id) {
+    try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+
+        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0);
+        formData.append('category_id', category_id);
+        formData.append('_method', "PUT"); // Only send the first image
+
+        const res = await axios.post(
+            `${domain}/api/v1/store/sub_categories/update/${id}`,
             formData,
             {
                 headers: {
@@ -63,50 +68,14 @@ export async function addRecipes(name, image, recipe_category_id, unit_id, minim
         return res.data;
     } catch (error) {
         message.error(error.response.data.error.message)
-        console.log("Error fetching data:", error);
+        console.log("Error fetching data:", error.response.data.error.message);
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
 }
-export async function eidtRecipes(name, image, recipe_category_id, unit_id, minimum_limt, days_before_expire, id) {
-    try {
-        const formData = new FormData();
-        formData.append('name', name);
-        // formData.append('quantity', quantity);
-        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0);
-        // formData.append('price', price);
-        // Only send the first image
-        formData.append('recipe_category_id', recipe_category_id);
-        formData.append('unit_id', unit_id);
-        formData.append('minimum_limt', minimum_limt);
-        formData.append('days_before_expire', days_before_expire);
-        formData.append('_method', "PUT"); // Only send the first image
-
-        const res = await axios.post(
-            `${domain}/api/v1/store/recipe/update/${id}`,
-            formData,
-            {
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }
-        );
-        return res.data;
-    } catch (error) {
-        console.log("Error fetching data:", error);
-        throw error; // Rethrow the error to handle it in the calling code if necessary
-    }
-}
-
-
-export async function getRecipesById(id) {
-
+export async function getSubCategoryById(id) {
     try {
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe/${id}`, {
-            headers: {
-                Authorization: `Bearer ${Token}`
-            }
-        }
+            `${domain}/api/v1/store/sub_categories/${id}`
         );
         console.log(res.data)
         return res.data
@@ -116,12 +85,12 @@ export async function getRecipesById(id) {
 }
 
 
-export async function getRecipesFilterById(filteredValues = { name: "", page: "" }, id) {
+export async function getSubCategoryFilterById(filteredValues = { name: "", page: "" }, id) {
     const { name, page } = filteredValues;
     try {
 
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe/filter_by_category/${id}`, {
+            `${domain}/api/v1/store/sub_categories/filter_by_category/${id}`, {
             params: {
                 name: name,
                 page,
@@ -135,10 +104,10 @@ export async function getRecipesFilterById(filteredValues = { name: "", page: ""
     }
 }
 
-export async function deleteRecipe(id) {
+export async function deleteSubCategory(id) {
     try {
         const res = await axios.delete(
-            `${domain}/api/v1/store/recipe/delete/${id}`
+            `${domain}/api/v1/store/sub_categories/delete/${id}`
 
         );
         return res.data

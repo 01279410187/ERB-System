@@ -3,7 +3,7 @@ import "./Resturants.scss";
 import Cards from "./cards/Cards";
 
 import { useNavigate } from "react-router-dom";
-import { getCategories } from "../../../../../apis/categories";
+import { getCategories } from "../../../../../../apis/categories";
 
 function Resturants() {
 
@@ -27,7 +27,7 @@ function Resturants() {
     const handleCardClick = (department) => {
         // Handle click action here, for example, you can log the department name
         console.log("Clicked on department:", department);
-        navigate(`/warehouse/recipes/subCategory/show-recipe-subcategory/${department}`)
+        navigate(`/warehouse/returants/show-subCategory/${department}`)
     };
 
     return (

@@ -1,8 +1,8 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT, Token } from "../../../config";
 const domain = API_ENDPOINT;
 import { message } from "antd";
-export async function getRecipes(filteredValues = { name: "", page: "" }, id) {
+export async function getProducts(filteredValues = { name: "", page: "" }, id) {
     try {
         const { name, page } = filteredValues;
 
@@ -37,22 +37,26 @@ export async function getUnits() {
     }
 }
 
-export async function addRecipes(name, image, recipe_category_id, unit_id, minimum_limt, day_before_expire) {
+export async function addProducts(name, description, price, image, category_id, sub_category_id) {
     try {
         const formData = new FormData();
         formData.append('name', name);
+        formData.append('description', description);
         // formData.append('quantity', quantity);
         formData.append('image', image[0].originFileObj
         );
         // formData.append('price', price);
         // Only send the first image
-        formData.append('recipe_category_id', recipe_category_id);
-        formData.append('unit_id', unit_id);
-        formData.append('minimum_limt', minimum_limt);
-        formData.append('days_before_expire', day_before_expire);
+        formData.append('category_id', category_id);
+        formData.append('price', price);
+
+        formData.append('sub_category_id', sub_category_id);
+        // formData.append('unit_id', unit_id);
+        // formData.append('minimum_limt', minimum_limt);
+        // formData.append('days_before_expire', day_before_expire);
 
         const res = await axios.post(
-            `${domain}/api/v1/store/recipe/create`,
+            `${domain}/api/v1/store/products/create`,
             formData,
             {
                 headers: {
@@ -67,22 +71,22 @@ export async function addRecipes(name, image, recipe_category_id, unit_id, minim
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
 }
-export async function eidtRecipes(name, image, recipe_category_id, unit_id, minimum_limt, days_before_expire, id) {
+export async function eidtProduct(name, description, image, price, sub_category_id, id) {
     try {
+
         const formData = new FormData();
         formData.append('name', name);
-        // formData.append('quantity', quantity);
-        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0);
-        // formData.append('price', price);
-        // Only send the first image
-        formData.append('recipe_category_id', recipe_category_id);
-        formData.append('unit_id', unit_id);
-        formData.append('minimum_limt', minimum_limt);
-        formData.append('days_before_expire', days_before_expire);
-        formData.append('_method', "PUT"); // Only send the first image
+        formData.append('description', description);
+        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0
+        );
 
+        formData.append('category_id', 1);
+        formData.append('price', price);
+
+        formData.append('sub_category_id', sub_category_id);
+        formData.append('_method', "PUT");
         const res = await axios.post(
-            `${domain}/api/v1/store/recipe/update/${id}`,
+            `${domain}/api/v1/store/products/update/${id}`,
             formData,
             {
                 headers: {
@@ -98,11 +102,11 @@ export async function eidtRecipes(name, image, recipe_category_id, unit_id, mini
 }
 
 
-export async function getRecipesById(id) {
+export async function getProductsById(id) {
 
     try {
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe/${id}`, {
+            `${domain}/api/v1/store/products/${id}`, {
             headers: {
                 Authorization: `Bearer ${Token}`
             }
@@ -116,12 +120,12 @@ export async function getRecipesById(id) {
 }
 
 
-export async function getRecipesFilterById(filteredValues = { name: "", page: "" }, id) {
+export async function getProductsFilterById(filteredValues = { name: "", page: "" }, id) {
     const { name, page } = filteredValues;
     try {
 
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe/filter_by_category/${id}`, {
+            `${domain}/api/v1/store/products/subcategory/${id}`, {
             params: {
                 name: name,
                 page,
@@ -135,10 +139,10 @@ export async function getRecipesFilterById(filteredValues = { name: "", page: ""
     }
 }
 
-export async function deleteRecipe(id) {
+export async function deleteProduct(id) {
     try {
         const res = await axios.delete(
-            `${domain}/api/v1/store/recipe/delete/${id}`
+            `${domain}/api/v1/store/products/delete/${id}`
 
         );
         return res.data
