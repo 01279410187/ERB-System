@@ -1,22 +1,91 @@
 import { useParams } from "react-router-dom";
-import { getSupplierInvoices } from "../../../../../apis/suppliers";
+import {
+  getSupplierById,
+  getSupplierInvoices,
+} from "../../../../../apis/suppliers";
+import { getInvoiceById } from "../../../../../apis/invoices";
 import Table from "../../../../../components/shared/table/Table";
-import ShowDataModal from "../../../../../components/ui/ShowDataModal/ShowDataModal";
+import { useEffect, useState } from "react";
 const ShowSupplierInvoices = () => {
+  const [name, setName] = useState("");
   const { id } = useParams();
+
+  useEffect(() => {
+    const getSupplier = async () => {
+      const res = await getSupplierById(id);
+      setName(res.data.name);
+    };
+    getSupplier();
+  }, []);
   const tableHeaders = [
     { key: "code", value: "كود الفاتورة" },
-    { key: "invoice_date", value: "تاريخ الإصدار" },
-    { key: "total_price", value: "القيمة" },
     { key: "status", value: "الحالة" },
+    { key: "invoice_date", value: "تاريخ الإصدار" },
+    { key: "registration_date", value: "تاريخ التسجيل" },
+    { key: "discount", value: "الخصم" },
+    { key: "total_price", value: "سعر الفاتورة" },
   ];
-
+  const actions = [
+    {
+      type: "show",
+      label: "تفاصيل",
+    },
+  ];
+  const filters = [
+    { key: "from_date", type: "date", id: "من تاريخ" },
+    { key: "to_date", type: "date", id: "إلى تاريخ" },
+    {
+      key: "status",
+      type: "selection",
+      id: "الحالة",
+      options: [
+        {
+          value: "",
+          label: "",
+        },
+        {
+          value: "pending",
+          label: "تحت المراجعة",
+        },
+        {
+          value: "approved",
+          label: "تم المراجعة",
+        },
+        {
+          value: "done",
+          label: "تم الصرف",
+        },
+        {
+          value: "rejected",
+          label: "مرفوض",
+        },
+      ],
+    },
+  ];
+  const detailsHeaders = [
+    {
+      key: "recipes",
+      label: "المواد الخام",
+      isArray: true,
+      keys: [
+        { label: "الكود", key: "id" },
+        { label: "الكمية", key: "quantity" },
+      ],
+    },
+  ];
   return (
     <div>
       <Table
         headers={tableHeaders}
-        title="الفواتير"
-        fetchData={() => getSupplierInvoices(id)}
+        id={id}
+        title={`فواتير ${name}`}
+        fetchData={(filterValues, currentPage) =>
+          getSupplierInvoices(filterValues, currentPage, id)
+        }
+        filters={filters}
+        actions={actions}
+        showFn={getInvoiceById}
+        detailsHeaders={detailsHeaders}
       />
     </div>
   );

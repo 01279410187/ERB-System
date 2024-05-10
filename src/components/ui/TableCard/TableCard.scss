@@ -1,0 +1,14 @@
+.table-card{
+    background-color: var(--light-beige-color);
+    color: var(--brown-color);
+    font-size: 3rem;
+    padding: 1.5rem 3rem;
+    border-radius: 1rem;
+}
+.table-card:hover{
+    background-color: var(--beige-color);
+    color: white;
+    font-size: 3rem;
+    padding: 1.5rem 3rem;
+    border-radius: 1rem;
+}
