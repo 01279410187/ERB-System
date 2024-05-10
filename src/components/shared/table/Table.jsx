@@ -5,7 +5,8 @@ import "./Table.scss";
 import { API_ENDPOINT } from "../../../../config";
 import DeleteModal from "../../ui/DeleteModal/DeleteModal";
 import ShowDataModal from "../../ui/ShowDataModal/ShowDataModal";
-
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 const Table = ({
   headers,
   title,
@@ -25,6 +26,7 @@ const Table = ({
   const [itemId, setItemId] = useState(null);
   const [isDeleteModalVisible, setisDeleteModalVisible] = useState(false);
   const [isShowModalVisible, setisShowModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [filterValues, setFilterValues] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
@@ -32,9 +34,11 @@ const Table = ({
 
   useEffect(() => {
     console.log(filterValues);
-    fetchData({ ...filterValues, page: currentPage }, id).then((result) => {
-      setData(result);
-    });
+    fetchData({ ...filterValues, page: currentPage }, id, setIsLoading).then(
+      (result) => {
+        setData(result);
+      }
+    );
   }, [
     fetchData,
     filterValues,
@@ -73,6 +77,9 @@ const Table = ({
       case "edit":
         handleEdit(itemId);
         break;
+      case "navigate":
+        handleNavigate(itemId);
+        break;
       default:
         break;
     }
@@ -87,15 +94,15 @@ const Table = ({
   const handleShowData = (itemId, itemName) => {
     setItemName(itemName);
     setItemId(itemId);
-    actions.find((action) => action.route?.includes("show"))
-      ? navigate(
-        actions
-          .find((action) => action.type === "show")
-          .route.replace(":id", itemId)
-      )
-      : setisShowModalVisible(true);
+    setisShowModalVisible(true);
   };
-
+  const handleNavigate = (itemId) => {
+    navigate(
+      actions
+        .find((action) => action.type === "navigate")
+        .route.replace(":id", itemId)
+    );
+  };
   const handleEdit = (itemId) => {
     setItemId(itemId);
     navigate(
@@ -122,6 +129,14 @@ const Table = ({
         return <p className="status done">تم الصرف</p>;
       default:
         break;
+    }
+  };
+  const renderType = (type) => {
+    switch (type) {
+      case "contracted":
+        return <p>متعاقد</p>;
+      case "local":
+        return <p>سوق محلى</p>;
     }
   };
   const renderFilterInput = (filter) => {
@@ -221,7 +236,7 @@ const Table = ({
                     >
                       {header.type === "image" ? (
                         <img
-                          src={`${item.image}`}
+                          src={`${API_ENDPOINT}/${item.image}`}
                           alt={`alt-${item.name}`}
                           style={{ width: "50px", height: "50px" }}
                         />
@@ -229,6 +244,8 @@ const Table = ({
                         item[header.key][header.nestedKey]
                       ) : header.key === "status" ? (
                         renderStatus(item[header.key])
+                      ) : header.key === "type" ? (
+                        renderType(item[header.key])
                       ) : (
                         item[header.key]
                       )}
@@ -260,7 +277,7 @@ const Table = ({
                   )}
                 </tr>
               ))}
-            {data && data.data && data.data.length ? null : (
+            {data && data.data && data.data.length && !isLoading ? null : (
               <tr>
                 <td colSpan={headers.length + 1}>لا يوجد نتائج</td>
               </tr>
@@ -296,6 +313,15 @@ const Table = ({
           updateFn={updateFn}
           changeStatusFn={changeStatusFn}
         />
+      )}
+      {isLoading && (
+        <tr style={{ display: "flex", justifyContent: "center" }}>
+          <td colSpan={headers.length + 1}>
+            <Spin
+              indicator={<LoadingOutlined style={{ fontSize: 56 }} spin />}
+            />
+          </td>
+        </tr>
       )}
     </section>
   );

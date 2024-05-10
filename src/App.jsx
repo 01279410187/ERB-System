@@ -56,7 +56,7 @@ import Category from "./applications/warehouse/sections/Kitchen/categories/Categ
 import Cashiers from "./applications/warehouse/sections/cashier/Cashiers";
 import { AddSubCategory, EditSubCategory, ShowSubCategory } from "./applications/warehouse/sections/Kitchen/categories/subCategory/pages";
 import Product from "./applications/warehouse/sections/Kitchen/categories/product/Product";
-import { AddProduct, EditProduct, ShowProduct } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
+import { AddProduct, AddProductRecipe, EditProduct, ShowProduct } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
 
 function App() {
   return (
@@ -153,8 +153,16 @@ function App() {
             <Route
               path="/warehouse/returants/subcategory/:id/edit-product"
               element={<EditProduct />}
-            ></Route>
+            >
 
+            </Route>
+
+            <Route
+              path="/warehouse/returants/subcategory/:id/add-rescipes"
+              element={<AddProductRecipe />}
+            >
+
+            </Route>
 
           </Route>
         </Route>

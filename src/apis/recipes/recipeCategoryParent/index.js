@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_ENDPOINT } from "../../../../config";
+import { API_ENDPOINT, Token } from "../../../../config";
 const domain = API_ENDPOINT;
 export async function getRecipeCategoryParent(filteredValues = { name: "", page: "" }) {
     try {
@@ -11,6 +11,9 @@ export async function getRecipeCategoryParent(filteredValues = { name: "", page:
                 name: name,
                 page,
             },
+            headers: {
+                Authorization: `Bearer ${Token}`
+            }
         }
         );
         console.log(res.data);
@@ -33,7 +36,8 @@ export async function addRecipe(name, description, image) {
             formData,
             {
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    Authorization: `Bearer ${Token}`
                 }
             }
         );
@@ -58,7 +62,8 @@ export async function eidtRecipe(name, description, image, id) {
             formData,
             {
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    Authorization: `Bearer ${Token}`
                 }
             }
         );
@@ -71,7 +76,12 @@ export async function eidtRecipe(name, description, image, id) {
 export async function getRecipeById(id) {
     try {
         const res = await axios.get(
-            `${domain}/api/v1/store/recipe_category_parent/${id}`
+            `${domain}/api/v1/store/recipe_category_parent/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${Token}`
+                }
+            }
         );
         console.log(res.data)
         return res.data.data

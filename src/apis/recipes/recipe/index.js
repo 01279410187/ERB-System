@@ -13,6 +13,9 @@ export async function getRecipes(filteredValues = { name: "", page: "" }, id) {
                 recipe_category_id: id,
                 page,
             },
+            headers: {
+                Authorization: `Bearer ${Token}`
+            }
         }
         );
         console.log(res.data);
@@ -56,13 +59,15 @@ export async function addRecipes(name, image, recipe_category_id, unit_id, minim
             formData,
             {
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    Authorization: `Bearer ${Token}`
+
                 }
             }
         );
         return res.data;
     } catch (error) {
-        message.error(error.response.data.error.message)
+        // message.error(error.response.data.error.message[0].errors)
         console.log("Error fetching data:", error);
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
@@ -86,7 +91,8 @@ export async function eidtRecipes(name, image, recipe_category_id, unit_id, mini
             formData,
             {
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    Authorization: `Bearer ${Token}`
                 }
             }
         );
@@ -138,7 +144,13 @@ export async function getRecipesFilterById(filteredValues = { name: "", page: ""
 export async function deleteRecipe(id) {
     try {
         const res = await axios.delete(
-            `${domain}/api/v1/store/recipe/delete/${id}`
+            `${domain}/api/v1/store/recipe/delete/${id}`,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    Authorization: `Bearer ${Token}`
+                }
+            }
 
         );
         return res.data

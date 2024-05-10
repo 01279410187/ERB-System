@@ -13,7 +13,7 @@ const AddProduct = () => {
 
     const handleSubmit = async (formData) => {
         console.log(formData);
-        await eidtProduct(formData.name, formData.description, formData.price, formData.image, category_id, id);
+        await addProducts(formData.name, formData.description, formData.price, formData.image, category_id, id);
         await navigate(`/warehouse/returants/subcategory/show-product/${id}`);
     };
 

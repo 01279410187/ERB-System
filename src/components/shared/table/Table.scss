@@ -168,6 +168,11 @@
             &.show {
               background-color: #53a86e;
             }
+
+            &.navigate {
+              background-color: rgba(255, 208, 0, 0.555);
+              color: black;
+            }
           }
         }
       }
