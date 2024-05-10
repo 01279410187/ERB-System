@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT, Token } from "../../../config";
+
 const domain = API_ENDPOINT;
 export async function getRecipes(filteredValues = { name: "", page: "" }) {
   try {
@@ -57,12 +58,15 @@ export async function addRecipes(
         headers: {
           Accept: "application/json",
         },
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
       }
     );
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
-    throw error; // Rethrow the error to handle it in the calling code if necessary
+    throw error; 
   }
 }
 export async function eidtRecipes(
@@ -125,7 +129,6 @@ export async function getIncomingInvoiceByType(
     code: "",
     supplier_id: "",
     invoice_price: "",
-
     page: "",
   }
 ) {

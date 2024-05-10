@@ -19,7 +19,8 @@ const ShowDataModal = ({
       try {
         const response = await showFn(id);
         setData(response.data[header]);
-        setTitle(response.data ? response.data.title : "تفاصيل الفاتورة");
+        console.log(response);
+        setTitle(response.data.title || "تفاصيل الفاتورة");
         const initialInputValues = response.data[header].reduce(
           (acc, item, index) => {
             const inputValuesForItem = {};
@@ -91,7 +92,7 @@ const ShowDataModal = ({
                       {h.isInput ? (
                         <input
                           type="text"
-                          disabled={updateFn}
+                          disabled={updateFn ? false : true}
                           value={inputValues[index][h.key] || ""}
                           onChange={(e) => handleInputChange(e, index, h.key)}
                         />

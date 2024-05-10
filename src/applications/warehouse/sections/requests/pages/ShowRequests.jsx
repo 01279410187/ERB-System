@@ -123,11 +123,6 @@ const ShowRequests = () => {
       label: "الكمية",
       isInput: true,
     },
-    {
-      key: "price",
-      label: "السعر",
-      isInput: true,
-    },
   ];
 
   return (

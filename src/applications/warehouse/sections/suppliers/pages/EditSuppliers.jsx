@@ -8,7 +8,7 @@ import DynamicForm from "../../../../../components/shared/form/Form";
 
 const EditSuppliers = () => {
   const navigate = useNavigate();
-  const [data, setData] = useState(null); // Initialize data as null
+  const [data, setData] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const EditSuppliers = () => {
       }
     };
 
-    fetchData(); // Call fetchData when component mounts
-  }, [id]); // useEffect dependency on id
+    fetchData(); 
+  }, [id]); 
 
   const handleSubmit = async (formData) => {
     console.log(formData);

@@ -64,13 +64,18 @@ const ShowSupplierInvoices = () => {
   ];
   const detailsHeaders = [
     {
-      key: "recipes",
-      label: "المواد الخام",
-      isArray: true,
-      keys: [
-        { label: "الكود", key: "id" },
-        { label: "الكمية", key: "quantity" },
-      ],
+      key: "id",
+      label: "الكود",
+    },
+    {
+      key: "quantity",
+      label: "الكمية",
+      isInput: true,
+    },
+    {
+      key: "price",
+      label: "السعر",
+      isInput: true,
     },
   ];
   return (
@@ -79,11 +84,12 @@ const ShowSupplierInvoices = () => {
         headers={tableHeaders}
         id={id}
         title={`فواتير ${name}`}
-        fetchData={(filterValues, currentPage) =>
-          getSupplierInvoices(filterValues, currentPage, id)
+        fetchData={(filterValues, currentPage, id, setIsLoading) =>
+          getSupplierInvoices(filterValues, currentPage, id, setIsLoading)
         }
         filters={filters}
         actions={actions}
+        header={"recipes"}
         showFn={getInvoiceById}
         detailsHeaders={detailsHeaders}
       />
