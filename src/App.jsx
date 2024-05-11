@@ -68,11 +68,13 @@ import {
   ShowProduct,
 } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
 import KitchenRequests from "./applications/warehouse/sections/cashier/pages/KitchenRequests/KitchenRequests";
+import Login from "./auth/Login";
 
 function App() {
   return (
     <div className="page-wrapper">
       <Routes>
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/admin" element={<Suppliers />}></Route>
         </Route>
