@@ -31,10 +31,17 @@ function Categories(props) {
 
     fetchSupplier();
   }, []);
+  const statusOptions = [
+    { value: "", label: "" },
+    { value: "approved", label: "تم المراجعة" },
+    { value: "pending", label: "تحت المراجعة" },
+    { value: "rejected", label: "مرفوضة" },
+  ];
   const tableHeaders = [
     { key: "id", value: "الكود" },
     { key: "code", value: "  كود الفاتوره" },
-    { key: "registration_date", value: "التاريخ" },
+    { key: "invoice_date", value: "تاريخ الإصدار" },
+    { key: "registration_date", value: "تاريخ التسجيل" },
     { key: "status", value: "الحالة" },
   ];
   const detailsHeaders = [
@@ -63,6 +70,13 @@ function Categories(props) {
       placeholder: "المورد",
       options: supplier,
     },
+    {
+      key: "status",
+      type: "selection",
+      id: "اختر الحالة",
+      placeholder: "الحالة",
+      options: statusOptions,
+    },
     { key: "from_date", type: "date", id: "من تاريخ" },
     { key: "to_date", type: "date", id: "إلى تاريخ" },
   ];
@@ -75,11 +89,11 @@ function Categories(props) {
       id: "سعر الفاتورة",
     },
     {
-      key: "supplier_id",
+      key: "status",
       type: "selection",
-      id: "اختر المورد",
-      placeholder: "المورد",
-      options: supplier,
+      id: "اختر الحالة",
+      placeholder: "الحالة",
+      options: statusOptions,
     },
     { key: "from_date", type: "date", id: "من تاريخ" },
     { key: "to_date", type: "date", id: "إلى تاريخ" },
@@ -93,22 +107,22 @@ function Categories(props) {
       id: "سعر الفاتورة",
     },
     {
-      key: "supplier_id",
+      key: "status",
       type: "selection",
-      id: "اختر المورد",
-      placeholder: "المورد",
-      options: supplier,
+      id: "اختر الحالة",
+      placeholder: "الحالة",
+      options: statusOptions,
     },
     { key: "from_date", type: "date", id: "من تاريخ" },
     { key: "to_date", type: "date", id: "إلى تاريخ" },
   ];
 
   const actionsIncoming = [
-    {
-      type: "add",
-      label: "اضافة فاتورة مورد",
-      route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
-    },
+    // {
+    //   type: "add",
+    //   label: "اضافة فاتورة مورد",
+    //   route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
+    // },
     {
       type: "show",
       label: "مراجعة",
@@ -116,11 +130,11 @@ function Categories(props) {
   ];
 
   const actionsOutComing = [
-    {
-      type: "add",
-      label: "اضافة فاتورة صرف القسم",
-      route: "/warehouse/invoices/incoming/add-Invoices/out_going",
-    },
+    // {
+    //   type: "add",
+    //   label: "اضافة فاتورة صرف القسم",
+    //   route: "/warehouse/invoices/incoming/add-Invoices/out_going",
+    // },
     {
       type: "show",
       label: "مراجعة",
@@ -128,11 +142,11 @@ function Categories(props) {
   ];
 
   const actionsReturnd = [
-    {
-      type: "add",
-      label: "إضافة   فاتورة مرتجع من القسم",
-      route: "/warehouse/invoices/incoming/add-Invoices/returned",
-    },
+    // {
+    //   type: "add",
+    //   label: "إضافة   فاتورة مرتجع من القسم",
+    //   route: "/warehouse/invoices/incoming/add-Invoices/returned",
+    // },
     {
       type: "show",
       label: "مراجعة",

@@ -1,6 +1,5 @@
 import Table from "../../../../../components/shared/table/Table";
 import { getSuppliers, deleteSupplier } from "../../../../../apis/suppliers";
-import { Link } from "react-router-dom";
 import "../../../../../components/shared/table/Table.scss";
 const ShowSuppliers = () => {
   const tableHeaders = [

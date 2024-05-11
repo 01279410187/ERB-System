@@ -68,6 +68,10 @@ const ShowSupplierInvoices = () => {
       label: "الكود",
     },
     {
+      key: "name",
+      label: "الإسم",
+    },
+    {
       key: "quantity",
       label: "الكمية",
       isInput: true,

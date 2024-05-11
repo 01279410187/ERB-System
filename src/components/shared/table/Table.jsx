@@ -37,6 +37,7 @@ const Table = ({
     fetchData({ ...filterValues, page: currentPage }, id, setIsLoading).then(
       (result) => {
         setData(result);
+        console.log(result);
       }
     );
   }, [
@@ -248,7 +249,7 @@ const Table = ({
                       ) : header.key === "type" ? (
                         renderType(item[header.key])
                       ) : (
-                        item[header.key]
+                        item[header.key] || "لا يوجد"
                       )}
                     </td>
                   ))}

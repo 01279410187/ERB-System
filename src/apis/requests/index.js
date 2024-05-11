@@ -10,9 +10,9 @@ export async function getRequests(filteredValues, id, setIsLoading) {
     const default_to = new Date().toISOString().split("T")[0];
     const res = await axios.get(`${domain}/api/v1/store/request`, {
       params: {
-        "date[from]": from_date || default_from,
-        "date[to]": to_date || default_to,
-        department_id,
+        "date[from]": from_date,
+        "date[to]": to_date,
+        to_department_id: department_id,
         user_id,
         status,
         page,
