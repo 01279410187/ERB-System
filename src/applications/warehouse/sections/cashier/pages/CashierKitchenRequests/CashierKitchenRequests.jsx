@@ -62,7 +62,8 @@ const CashierKitchenRequests = () => {
     setComment("");
   };
   return (
-    <div>
+    <div className="form-container">
+      <h1 className="form-title">اضافة طلب من المطبخ</h1>
       <div
         className="form-cashier-product-category-parent"
         style={{ border: "none" }}
