@@ -27,13 +27,18 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching profile:", error);
       setIsAuthenticated(false);
-      //   navigate("/login");
+      navigate("/login");
     }
   };
 
   useEffect(() => {
     checkAuthUser();
-    // if (!localStorage.getItem("token")) navigate("/login");
+    console.log(typeof localStorage.getItem("token"));
+    if (
+      localStorage.getItem("token") === null ||
+      sessionStorage.getItem("token") === null
+    )
+      navigate("/login");
   }, []);
 
   return (

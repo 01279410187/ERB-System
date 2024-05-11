@@ -46,7 +46,8 @@ const Sidebar = () => {
   const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
 
   const handleLogout = () => {
-    dispatch(logout());
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     navigate("/login");
   };
   // Handle clicking on menu links
@@ -372,6 +373,9 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li> */}
+            <li>
+              <button onClick={handleLogout}>logout</button>
+            </li>
           </ul>
         </div>
       </div>

@@ -11,8 +11,8 @@ const Login = () => {
     console.log(res);
     if (!(res instanceof Error)) {
       values.remember
-        ? localStorage.setItem("token", res.data.token)
-        : sessionStorage.setItem("token", res.data.token);
+        ? localStorage.setItem("token", res.data.data.token)
+        : sessionStorage.setItem("token", res.data.data.token);
       navigate("/warehouse");
     } else {
       message.error(res.response.data.error.message);
