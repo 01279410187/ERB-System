@@ -108,6 +108,8 @@ export async function addSupplier(formData) {
 }
 export async function getSupplierInvoices(filteredValues, id, setIsLoading) {
   const { from_date, to_date, status, page } = filteredValues;
+  const default_from = "1970-01-01";
+  const default_to = new Date().toISOString().split("T")[0];
   try {
     setIsLoading(true);
 
@@ -115,8 +117,8 @@ export async function getSupplierInvoices(filteredValues, id, setIsLoading) {
       `${domain}/api/v1/store/supplier/${id}/invoices`,
       {
         params: {
-          "date[from]": from_date,
-          "date[to]": to_date,
+          "date[from]": from_date || default_from,
+          "date[to]": to_date || default_to,
           status,
           page,
         },

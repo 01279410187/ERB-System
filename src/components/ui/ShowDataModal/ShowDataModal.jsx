@@ -97,6 +97,12 @@ const ShowDataModal = ({
                               handleInputChange(e, item.id, h.key)
                             }
                           />
+                        ) : h.key === "image" ? (
+                          <img
+                            src={item[h.key]}
+                            width={"70px"}
+                            height={"70px"}
+                          />
                         ) : (
                           item[h.key]
                         )}
@@ -128,7 +134,7 @@ const ShowDataModal = ({
                   className="data-modal-btn show"
                   onClick={() => {
                     console.log(inputValues);
-                    updateFn({inputValues}, id);
+                    updateFn({ inputValues }, id);
                     changeStatusFn(id, "approved");
                     handleModalVisible(false);
                   }}

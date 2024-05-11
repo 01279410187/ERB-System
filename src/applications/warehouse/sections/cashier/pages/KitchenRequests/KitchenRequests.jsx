@@ -1,16 +1,11 @@
-import Table from "../../../../../components/shared/table/Table";
-import {
-  getRequests,
-  deleteRequest,
-  getRequestById,
-  updateRequests,
-} from "../../../../../apis/requests";
-import { getAllUsers } from "../../../../../apis/users";
-import { getAllDepartments } from "../../../../../apis/departments";
-import "../../../../../components/shared/table/Table.scss";
+import Table from "../../../../../../components/shared/table/Table";
+import { getOrders } from "../../../../../../apis/orders";
+import { getOrderById } from "../../../../../../apis/orders";
+import { getAllDepartments } from "../../../../../../apis/departments";
+import "../../../../../../components/shared/table/Table.scss";
 import { useEffect, useState } from "react";
 
-const ShowRequests = () => {
+const KitchenRequests = () => {
   const [departments, setDepartments] = useState([]);
   const [users, setusers] = useState([]);
 
@@ -41,11 +36,11 @@ const ShowRequests = () => {
     fetchUsers();
   }, []);
   const tableHeaders = [
-    { key: "title", value: "العنوان" },
-    { key: "user", value: "من", nestedKey: "name" },
-    { key: "from_department", value: "إلى", nestedKey: "name" },
+    { key: "discount", value: "قيمة الخصم" },
+    { key: "discount_resones", value: "سبب الخصم" },
+    { key: "id", value: "كود الأوردر" },
     { key: "status", value: "الحالة" },
-    { key: "date", value: "التاريخ" },
+    { key: "order_date", value: "التاريخ" },
   ];
   const filters = [
     { key: "from_date", type: "date", id: "من تاريخ" },
@@ -105,7 +100,7 @@ const ShowRequests = () => {
     {
       type: "add",
       label: "إضافة طلبات",
-      route: "/warehouse/requests/add-request",
+      route: "/warehouse/cashier/add-orders",
     },
   ];
   const detailsHeaders = [
@@ -122,6 +117,10 @@ const ShowRequests = () => {
       label: "الكمية",
     },
     {
+      key: "price",
+      label: "السعر",
+    },
+    {
       key: "image",
       label: "الصورة",
     },
@@ -134,18 +133,18 @@ const ShowRequests = () => {
         title="الطلبات"
         filters={filters}
         fetchData={(filterValues, id, setIsLoading) =>
-          getRequests(filterValues, id, setIsLoading)
+          getOrders(filterValues, id, setIsLoading)
         }
-        header={"recipes"}
+        header={"products"}
         actions={actions}
-        deleteFn={deleteRequest}
-        showFn={getRequestById}
-        updateFn={updateRequests}
-        changeStatusFn={() => {}}
+        // deleteFn={deleteRequest}
+        showFn={getOrderById}
+        // updateFn={updateRequests}
+        // changeStatusFn={() => {}}
         detailsHeaders={detailsHeaders}
       />
     </div>
   );
 };
 
-export default ShowRequests;
+export default KitchenRequests;

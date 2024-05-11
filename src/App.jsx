@@ -67,6 +67,7 @@ import {
   EditProduct,
   ShowProduct,
 } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
+import KitchenRequests from "./applications/warehouse/sections/cashier/pages/KitchenRequests/KitchenRequests";
 
 function App() {
   return (
@@ -307,8 +308,12 @@ function App() {
               element={<CashierWarehouseRequests />}
             ></Route>
             <Route
-              path="/warehouse/cashier/kitchen-requests"
+              path="/warehouse/cashier/add-orders"
               element={<CashierKitchenRequests />}
+            ></Route>
+            <Route
+              path="/warehouse/cashier/kitchen-requests"
+              element={<KitchenRequests />}
             ></Route>
           </Route>
         </Route>
