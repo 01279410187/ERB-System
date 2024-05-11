@@ -116,7 +116,6 @@ const ShowRequests = () => {
     {
       key: "quantity",
       label: "الكمية",
-      isInput: true,
     },
   ];
 
@@ -133,8 +132,8 @@ const ShowRequests = () => {
         actions={actions}
         deleteFn={deleteRequest}
         showFn={getRequestById}
-        changeStatusFn={() => {}}
         updateFn={updateRequests}
+        changeStatusFn={() => {}}
         detailsHeaders={detailsHeaders}
       />
     </div>

@@ -5,6 +5,9 @@ import {
   getIncomingInvoiceByType,
   getOutgoingInvoiceByType,
   getReturndInvoiceByType,
+  getInvoiceById,
+  updateInvoice,
+  changeInvoiceStatus,
 } from "../../../../../apis/invoices";
 import Table from "../../../../../components/shared/table/Table";
 import { getSuppliers } from "../../../../../apis/suppliers";
@@ -34,7 +37,12 @@ function Categories(props) {
     { key: "registration_date", value: "التاريخ" },
     { key: "status", value: "الحالة" },
   ];
-
+  const detailsHeaders = [
+    { key: "id", label: "الكود" },
+    { key: "name", label: "الإسم" },
+    { key: "quantity", label: "الكمية" },
+    { key: "price", label: "السعر", isInput: true },
+  ];
   const filtersIncoming = [
     {
       key: "code",
@@ -101,6 +109,10 @@ function Categories(props) {
       label: "اضافة فاتورة مورد",
       route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
     },
+    {
+      type: "show",
+      label: "مراجعة",
+    },
   ];
 
   const actionsOutComing = [
@@ -109,6 +121,10 @@ function Categories(props) {
       label: "اضافة فاتورة صرف القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/out_going",
     },
+    {
+      type: "show",
+      label: "مراجعة",
+    },
   ];
 
   const actionsReturnd = [
@@ -116,6 +132,10 @@ function Categories(props) {
       type: "add",
       label: "إضافة   فاتورة مرتجع من القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/returned",
+    },
+    {
+      type: "show",
+      label: "مراجعة",
     },
   ];
 
@@ -154,6 +174,11 @@ function Categories(props) {
               fetchData={(filters, id, setIsLoading) =>
                 getIncomingInvoiceByType(filters, id, setIsLoading)
               }
+              header={"recipes"}
+              showFn={getInvoiceById}
+              detailsHeaders={detailsHeaders}
+              updateFn={updateInvoice}
+              changeStatusFn={changeInvoiceStatus}
             />
           )}
           {selectedCategory === "outGoing" && (
@@ -165,6 +190,11 @@ function Categories(props) {
               fetchData={(filters, id, setIsLoading) =>
                 getOutgoingInvoiceByType(filters, id, setIsLoading)
               }
+              header={"recipes"}
+              showFn={getInvoiceById}
+              detailsHeaders={detailsHeaders}
+              updateFn={updateInvoice}
+              changeStatusFn={changeInvoiceStatus}
             />
           )}
           {selectedCategory === "returnd" && (
@@ -176,6 +206,11 @@ function Categories(props) {
               fetchData={(filters, id, setIsLoading) =>
                 getReturndInvoiceByType(filters, id, setIsLoading)
               }
+              header={"recipes"}
+              showFn={getInvoiceById}
+              detailsHeaders={detailsHeaders}
+              updateFn={updateInvoice}
+              changeStatusFn={changeInvoiceStatus}
             />
           )}
         </div>

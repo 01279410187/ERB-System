@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ShowDataModal.scss";
-
+import Input from "antd/es/input/Input";
 const ShowDataModal = ({
   id,
   showFn,
@@ -29,7 +29,7 @@ const ShowDataModal = ({
                 inputValuesForItem[h.key] = item[h.key];
               }
             });
-            acc[index] = inputValuesForItem;
+            acc[item.id] = inputValuesForItem;
             return acc;
           },
           {}
@@ -56,12 +56,12 @@ const ShowDataModal = ({
     };
   }, [handleModalVisible]);
 
-  const handleInputChange = (e, index, key) => {
+  const handleInputChange = (e, itemId, key) => {
     const newValue = e.target.value;
     setInputValues((prevInputValues) => ({
       ...prevInputValues,
-      [index]: {
-        ...prevInputValues[index],
+      [itemId]: {
+        ...prevInputValues[itemId],
         [key]: newValue,
       },
     }));
@@ -87,13 +87,15 @@ const ShowDataModal = ({
                     {detailsHeaders.map((h) => (
                       <td key={h.key}>
                         {h.isInput ? (
-                          <input
+                          <Input
                             className="form-input"
                             style={{ marginBottom: "0px" }}
-                            type="text"
+                            type="number"
                             disabled={updateFn ? false : true}
-                            value={inputValues[index][h.key] || ""}
-                            onChange={(e) => handleInputChange(e, index, h.key)}
+                            value={inputValues[item.id][h.key] || ""}
+                            onChange={(e) =>
+                              handleInputChange(e, item.id, h.key)
+                            }
                           />
                         ) : (
                           item[h.key]
@@ -114,7 +116,7 @@ const ShowDataModal = ({
                 <button
                   className="data-modal-btn delete"
                   onClick={() => {
-                    changeStatusFn("rejected", id);
+                    changeStatusFn(id, "rejected");
                     handleModalVisible(false);
                   }}
                 >
@@ -125,8 +127,9 @@ const ShowDataModal = ({
                 <button
                   className="data-modal-btn show"
                   onClick={() => {
-                    updateFn({ inputValues }, id);
-                    changeStatusFn("accepted", id);
+                    console.log(inputValues);
+                    updateFn({inputValues}, id);
+                    changeStatusFn(id, "approved");
                     handleModalVisible(false);
                   }}
                 >

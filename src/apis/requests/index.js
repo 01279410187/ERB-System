@@ -100,3 +100,18 @@ export async function updateRequests(filteredValues, id) {
     console.log("Error fetching data:", error);
   }
 }
+export async function changeRequestStatus(id, status) {
+  try {
+    const res = await axios.get(
+      `${domain}/api/v1/store/request/chenge_status/${id}/${status}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+  }
+}

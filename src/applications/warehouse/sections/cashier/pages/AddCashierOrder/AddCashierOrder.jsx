@@ -13,7 +13,8 @@ import { message } from "antd";
 const AddCashierOrder = () => {
   const [items, setItems] = useState([]);
   const [tableNumber, setTableNumber] = useState(0);
-  const [discountReason, setDiscontReason] = useState("");
+  const [discountReason, setDiscountReason] = useState("");
+  const [discountReasons, setDiscountReasons] = useState([]);
   const [CashierName, setCahierName] = useState("احمد بركات");
   const [customerName, setCustomerName] = useState(" ");
   const [discount, setDiscount] = useState(0);
@@ -28,6 +29,7 @@ const AddCashierOrder = () => {
 
   useEffect(() => {
     fetchCustomerCategoryParents();
+    fetchDiscountReasons();
   }, []);
 
   const validateTableNumber = (value) => {
@@ -76,6 +78,18 @@ const AddCashierOrder = () => {
     return Object.values(errors).every((error) => error === "");
   };
 
+  const selectValues = [
+    { label: "إختر", value: "0" },
+    { label: "10%", value: "10" },
+    { label: "15%", value: "15" },
+    { label: "20%", value: "20" },
+    { label: "25%", value: "25" },
+    { label: "30%", value: "30" },
+    { label: "40%", value: "40" },
+    { label: "50%", value: "50" },
+    { label: "100%", value: "100" },
+  ];
+
   const fetchCustomerCategoryParents = async () => {
     try {
       const response = await fetch(
@@ -93,7 +107,23 @@ const AddCashierOrder = () => {
       console.error("Error fetching Product category parents:", error);
     }
   };
-
+  const fetchDiscountReasons = async () => {
+    try {
+      const response = await fetch(
+        `${API_ENDPOINT}/api/v1/orders/discount/reasons`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setDiscountReasons(data.data);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching Product category parents:", error);
+    }
+  };
   const handleParentChange = async (parentId) => {
     setSelectedParent(parentId);
     try {
@@ -281,25 +311,44 @@ const AddCashierOrder = () => {
         </div>
         <div>
           <label className="form-cashier-label"> نسبة الخصم:</label>
-          <input
+          <select
             className="form-cashier-input"
-            type="number"
             value={discount}
             onChange={(e) => setDiscount(e.target.value)}
             onWheel={(event) => event.currentTarget.blur()}
-          />
-          {errors.discount && (
-            <span className="error cashier-input-error">{errors.discount}</span>
-          )}
+          >
+            {selectValues.map((select) => (
+              <option key={select.value} value={select.value}>
+                {select.label}
+              </option>
+            ))}
+            {errors.discount && (
+              <span className="error cashier-input-error">
+                {errors.discount}
+              </span>
+            )}
+          </select>
         </div>
         <div>
           <label className="form-cashier-label">سبب الخصم:</label>
-          <input
+
+          <select
             className="form-cashier-input"
-            type="text"
             value={discountReason}
-            onChange={(e) => setDiscontReason(e.target.value)}
-          />
+            onChange={(e) => setDiscountReason(e.target.value)}
+            onWheel={(event) => event.currentTarget.blur()}
+          >
+            {discountReasons.map((select) => (
+              <option key={select.id} value={select.discount_reason}>
+                {select.discount_reason}
+              </option>
+            ))}
+            {errors.discount && (
+              <span className="error cashier-input-error">
+                {errors.discount}
+              </span>
+            )}
+          </select>
           {errors.discountReason && (
             <span className="error cashier-input-error">
               {errors.discountReason}

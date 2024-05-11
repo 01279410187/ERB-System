@@ -258,3 +258,54 @@ export async function getInvoiceById(id) {
     console.log("Error fetching data:", error);
   }
 }
+export async function updateInvoice(filteredValues, id) {
+  const { inputValues } = filteredValues;
+  const formData = new FormData();
+  Object.keys(inputValues).forEach((inputValueID, index) => {
+    formData.append(`recipes[${index}][recipe_id]`, inputValueID);
+    formData.append(
+      `recipes[${index}][price]`,
+      inputValues[inputValueID].price
+    );
+    // Add other fields as needed, for example quantity, expire_date, etc.
+    formData.append(
+      `recipes[${index}][quantity]`,
+      inputValues[inputValueID].quantity
+    );
+    formData.append(
+      `recipes[${index}][expire_date]`,
+      inputValues[inputValueID].expire_date
+    );
+  });
+  formData.append("_method", "PUT");
+  try {
+    const res = await axios.post(
+      `${domain}/api/v1/store/invoice/update/${id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+  }
+}
+export async function changeInvoiceStatus(id, status) {
+  try {
+    const res = await axios.get(
+      `${domain}/api/v1/store/invoice/chenge_status/${id}/${status}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+  }
+}
