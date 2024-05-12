@@ -74,11 +74,13 @@ import ShowDepartment from "./applications/warehouse/sections/department/pages/S
 import { AddDepartments, EditDepartment, ShowProductDepartment } from "./applications/warehouse/sections/department/pages";
 import Unit from "./applications/warehouse/sections/unit/Unit";
 import { AddUnits, EditUnits, ShowUnits } from "./applications/warehouse/sections/unit/pages";
+import Login from "./auth/Login";
 
 function App() {
   return (
     <div className="page-wrapper">
       <Routes>
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/admin" element={<Suppliers />}></Route>
         </Route>

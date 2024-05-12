@@ -19,6 +19,7 @@ import {
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { MdLogout } from "react-icons/md";
 
 import { TbReport, TbBrandUnity } from "react-icons/tb";
 import {
@@ -49,7 +50,8 @@ const Sidebar = () => {
   const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
 
   const handleLogout = () => {
-    dispatch(logout());
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     navigate("/login");
   };
   // Handle clicking on menu links
@@ -374,6 +376,24 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
+            <li className="menu-item" title="تسجيل خروج">
+              <button className={`menu-link logout ${activeLink === "/warehouse/*"
+                ? "active"
+                : ""
+                } ${justifyContent}`} onClick={handleLogout}>
+                <span className="menu-link-icon">
+                  <MdLogout size={30} />
+                </span>
+                {/* <button onClick={handleLogout} style={{ fontSize: "20px", }}> */}
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  تسجيل خروج
+                </span>
+                {/* </button> */}
+              </button>
+            </li>
             <li className="menu-item" title="المنافذ">
               <Link
                 to="/warehouse/departments/show-departments"
@@ -397,28 +417,6 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item" title="الوحدات">
-              <Link
-                to="/warehouse/units/show-units"
-                className={`menu-link ${activeLink === "/warehouse/units/show-units"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
-                onClick={() =>
-                  handleMenuLinkClick("/warehouse/units/show-units")
-                }
-              >
-                <span className="menu-link-icon">
-                  <TbBrandUnity size={30} />
-                </span>
-                <span
-                  className={`menu-link-text ${display}`}
-                  style={{ fontSize: "20px" }}
-                >
-                  الواحدات
-                </span>
-              </Link>
-            </li>
           </ul>
         </div>
       </div>

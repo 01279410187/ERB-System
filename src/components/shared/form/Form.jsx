@@ -32,6 +32,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
               type="number"
               placeholder={field.placeholder}
               className="disable-scroll"
+              onWheel={event => event.currentTarget.blur()}
             />
           )}
           {field.type === "image" && (
