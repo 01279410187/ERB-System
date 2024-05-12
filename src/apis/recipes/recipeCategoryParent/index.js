@@ -29,6 +29,8 @@ export async function getRecipeCategoryParent(
     setIsLoading(false);
     console.log("Error fetching data:", error);
     message.error("حدث خطأ الرجاء إعادة المحاولة");
+    message.error(error.response.data.error.message);
+
   }
 }
 
@@ -52,6 +54,8 @@ export async function addRecipe(name, description, image) {
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
+
     throw error; // Rethrow the error to handle it in the calling code if necessary
   }
 }
@@ -80,6 +84,8 @@ export async function eidtRecipe(name, description, image, id) {
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
+
     throw error; // Rethrow the error to handle it in the calling code if necessary
   }
 }
@@ -97,6 +103,8 @@ export async function getRecipeById(id) {
     return res.data.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
+
   }
 }
 
@@ -108,5 +116,6 @@ export async function deleteRecipeSubCategoryParent(id) {
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
   }
 }

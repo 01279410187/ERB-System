@@ -18,6 +18,8 @@ export async function getSubCategory(filteredValues = { name: "", page: "" }, id
         console.log(res.data);
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }
@@ -42,6 +44,8 @@ export async function addSubCategory(name, description, image, category_id) {
         );
         return res.data;
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
@@ -80,6 +84,8 @@ export async function getSubCategoryById(id) {
         console.log(res.data)
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }
@@ -100,6 +106,8 @@ export async function getSubCategoryFilterById(filteredValues = { name: "", page
         console.log(res.data)
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }
@@ -112,6 +120,8 @@ export async function deleteSubCategory(id) {
         );
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }

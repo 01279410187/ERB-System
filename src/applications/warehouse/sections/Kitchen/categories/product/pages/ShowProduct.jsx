@@ -44,7 +44,6 @@ const ShowProduct = () => {
         },
 
 
-
     ];
     const detailsHeaders = [
         { key: "id", label: "الكود" },

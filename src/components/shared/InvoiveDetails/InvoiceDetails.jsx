@@ -19,6 +19,9 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedRecipe, setSelectedRecipe] = useState("");
   const [selectedOneRecipe, setSelectedOneRecipe] = useState("");
+  const [newQuantity, setNewQuantity] = useState()
+  const [newPrice, setNewPrice] = useState()
+
 
   useEffect(() => {
     fetchRecipeCategoryParents();
@@ -32,6 +35,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
         setQuantity(oneRecipe.total_quantity);
         setPrice(oneRecipe.price);
         setUnit(oneRecipe.unit.name);
+        setNewPrice(oneRecipe.quantitesDetails[0].price)
       }
       if (InvoiceType === "in_coming") {
         setUnit(oneRecipe.unit.name);
@@ -50,7 +54,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
 
   useEffect(() => {
     fetchOneRecipe(selectedRecipe);
-  }, [selectedRecipe]);
+  }, [selectedRecipe, quantity]);
 
   const fetchRecipeCategoryParents = async () => {
     try {
@@ -184,14 +188,15 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
       name: recipeName,
       image: recipeImage,
       recipeId: selectedRecipe, // Accessing selectedRecipe directly
-      quantity: parseInt(quantity),
-      price: parseFloat(price),
+      quantity: parseInt(newQuantity),
+      price: InvoiceType === "in_coming" ? parseFloat(price) : parseFloat(newPrice),
       expireDate: epireDate,
     };
 
     onAddItem(newItem);
     setItem("");
     setQuantity(1);
+    setNewPrice(0)
     setPrice(0);
     setErrorMessage("");
   };
@@ -216,37 +221,49 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
           </select>
         </div>
       ))}
-      {/* {
-                InvoiceType === "in_coming" ? <>
 
-                </> :<>
-                </>
-            } */}
+      {InvoiceType === "in_coming" ? null : <label className="form-label">{` الكميه المتاحه فى المخزن هى ${quantity}  ${uint}`}</label>}
       <label className="form-label">الكميه:</label>
       <input
         className="form-input"
         type="number"
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
+        value={newQuantity}
+        onChange={(e) => setNewQuantity(e.target.value)}
         onWheel={(event) => event.currentTarget.blur()}
       />
-      <label className="form-label">السعر:</label>
-      <input
-        className="form-input"
-        type="number"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        onWheel={(event) => event.currentTarget.blur()}
-      />
+      {InvoiceType === "in_coming" ? <>
+        <label className="form-label">السعر:</label>
+        <input
+          className="form-input"
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          onWheel={(event) => event.currentTarget.blur()}
+        />
+      </> : null}
+
+      {InvoiceType === "returned" ? <>
+        <label className="form-label">السعر:</label>
+        <input
+          className="form-input"
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          onWheel={(event) => event.currentTarget.blur()}
+        />
+      </> : null}
+
+
       <label className="form-label">الوحده:</label>
-      <input className="form-input" type="text" value={uint} />
-      <label className="form-label">تاريخ الصلاحيه:</label>
-      <input
-        className="form-input"
-        type="date"
-        value={epireDate}
-        onChange={(e) => setExpireDate(e.target.value)}
-      />
+      <input className="form-input" type="text" value={uint} disabled={true} style={{ cursor: "not-allowed" }} />
+      {InvoiceType === "in_coming" ? <> <label className="form-label">تاريخ الصلاحيه:</label>
+        <input
+          className="form-input"
+          type="date"
+          value={epireDate}
+          onChange={(e) => setExpireDate(e.target.value)}
+        /></> : null}
+
       <button className="form-btn" onClick={handleAddItem}>
         اضافة عنصر
       </button>

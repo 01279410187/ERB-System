@@ -18,7 +18,7 @@ function Categories(props) {
 
   useEffect(() => {
     const fetchSupplier = async () => {
-      const res = await getSuppliers({}, "", () => {});
+      const res = await getSuppliers({}, "", () => { });
       setAllSupplier(
         [{ label: "", value: "" }].concat(
           res.data.map((item) => {
@@ -118,35 +118,45 @@ function Categories(props) {
   ];
 
   const actionsIncoming = [
-    // {
-    //   type: "add",
-    //   label: "اضافة فاتورة مورد",
-    //   route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
-    // },
+    {
+      type: "add",
+      label: "اضافة فاتورة مورد",
+      route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
+    },
     {
       type: "show",
       label: "مراجعة",
+    },
+    {
+      type: "navigate",
+      label: " طباعه",
+      route: "/warehouse/invoices/print/:id"
     },
   ];
 
   const actionsOutComing = [
-    // {
-    //   type: "add",
-    //   label: "اضافة فاتورة صرف القسم",
-    //   route: "/warehouse/invoices/incoming/add-Invoices/out_going",
-    // },
+    {
+      type: "add",
+      label: "اضافة فاتورة صرف القسم",
+      route: "/warehouse/invoices/incoming/add-Invoices/out_going",
+    },
     {
       type: "show",
       label: "مراجعة",
     },
+    {
+      type: "navigate",
+      label: " طباعه",
+      route: "/warehouse/invoices/print/:id"
+    },
   ];
 
   const actionsReturnd = [
-    // {
-    //   type: "add",
-    //   label: "إضافة   فاتورة مرتجع من القسم",
-    //   route: "/warehouse/invoices/incoming/add-Invoices/returned",
-    // },
+    {
+      type: "add",
+      label: "إضافة   فاتورة مرتجع من القسم",
+      route: "/warehouse/invoices/incoming/add-Invoices/returned",
+    },
     {
       type: "show",
       label: "مراجعة",

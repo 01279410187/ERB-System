@@ -1,3 +1,4 @@
+import { message } from "antd";
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
@@ -9,6 +10,8 @@ export async function getCategories() {
     console.log(res.data)
     return res.data
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -20,6 +23,8 @@ export async function getSubCategories({ id }) {
     );
     return res.data
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -31,6 +36,8 @@ export async function getCategoryById(id) {
     console.log(res.data)
     return res.data
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -46,6 +53,8 @@ export async function editCategory(name, phoneNumber, address, id) {
     );
     return res.data
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -57,6 +66,8 @@ export async function deleteCategory(id) {
     );
     return res.data
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -72,6 +83,8 @@ export async function addCategory(name, description, image) {
     );
     return res.data
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
