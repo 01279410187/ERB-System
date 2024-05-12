@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     checkAuthUser();
     console.log(typeof localStorage.getItem("token"));
     if (
-      localStorage.getItem("token") === null ||
+      localStorage.getItem("token") === null &&
       sessionStorage.getItem("token") === null
     )
       navigate("/login");
