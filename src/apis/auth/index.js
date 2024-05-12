@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT, Token } from "../../../config";
+
 export async function getProfile() {
   try {
     const res = await axios.get(`${API_ENDPOINT}/api/v1/profile`, {
