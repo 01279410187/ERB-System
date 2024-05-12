@@ -1,10 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
-import { LIGHT_THEME } from "../../../constants/themeConstants";
-import LogoBlue from "../../../../public/assets/images/logo_blue.svg";
-import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
 import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
-import LogoWhite from "../../../../public/assets/images/logo_white.svg";
+import { MdAssignmentLate } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import {
   FaCodePullRequest,
@@ -13,10 +10,10 @@ import {
   FaCashRegister,
   FaTruckArrowRight,
 } from "react-icons/fa6";
+import { FaUserCircle, FaUser } from "react-icons/fa";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-
 import { TbReport } from "react-icons/tb";
 import {
   MdOutlineClose,
@@ -30,7 +27,7 @@ import "./Sidebar.scss";
 import { SidebarContext } from "../../../context/SidebarContext";
 import { useTranslation } from "react-i18next";
 import { RightOutlined } from "@ant-design/icons";
-
+import { useAuth } from "../../../context/AuthContext";
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
   const { closeSidebar } = useContext(SidebarContext);
@@ -38,13 +35,19 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState(pathname); // State to track active link
-
+  const { user } = useAuth();
   const [display, setDisplay] = useState("d-block");
   const [sidebarWidth, setSidebarWidth] = useState("w-defualt");
   const [arrowDirection, setArrowDirection] = useState("");
   const [justifyContent, setJustifyContent] = useState("d-flex-start");
   const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
-
+  const checkMenuItemPermission = (requiredPermission) => {
+    return user
+      ? user.permissions.some(
+          (permission) => permission.id === requiredPermission.id
+        )
+      : false;
+  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
@@ -118,11 +121,27 @@ const Sidebar = () => {
       </div>
       <div className="sidebar-body">
         <div className="sidebar-menu">
+          <div>
+            <FaUser size={30} />
+            <span>{user?.username}</span>
+          </div>
           <ul className="menu-list">
-            <li className="menu-item" title="الموردين">
+            <li
+              className="menu-item"
+              title="الموردين"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 88,
+                    name: "view suppliers",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/suppliers/show-suppliers"
-                // className={`menu-link ${active? active: ""}`} onClick={handleActiveClass}
                 className={`menu-link ${
                   activeLink === "/warehouse/suppliers/show-suppliers"
                     ? "active"
@@ -144,7 +163,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="اقسام المخزن">
+            <li
+              className="menu-item"
+              title="اقسام المخزن"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 135,
+                    name: "view departments",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/recipes/show-departments"
                 className={`menu-link ${
@@ -169,7 +201,20 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item" title="الفواتير">
+            <li
+              className="menu-item"
+              title="الفواتير"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view invoices",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/invoices/show"
                 className={`menu-link ${
@@ -188,7 +233,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="الطلبات">
+            <li
+              className="menu-item"
+              title="الطلبات"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 130,
+                    name: "view requests",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/requests/show-requests"
                 className={`menu-link ${
@@ -211,7 +269,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="الكاشير">
+            <li
+              className="menu-item"
+              title="الكاشير"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 124,
+                    name: "add orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/cashier/create-order"
                 className={`menu-link ${
@@ -235,7 +306,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="ترابيزات مفتوحة">
+            <li
+              className="menu-item"
+              title="ترابيزات مفتوحة"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 124,
+                    name: "add orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/cashier/opened-tables"
                 className={`menu-link ${
@@ -258,7 +342,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title=" طلبات المخزن">
+            <li
+              className="menu-item"
+              title=" طلبات المخزن"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 124,
+                    name: "add orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/cashier/warehouse-requests"
                 className={`menu-link ${
@@ -281,7 +378,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="طلبات المطبخ">
+            <li
+              className="menu-item"
+              title="طلبات المطبخ"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 124,
+                    name: "add orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/cashier/kitchen-requests"
                 className={`menu-link ${
@@ -304,7 +414,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title=" حد الامان">
+            <li
+              className="menu-item"
+              title=" حد الامان"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 85,
+                    name: "safe limit",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/underLimit/show-under-limit"
                 className={`menu-link ${
@@ -327,7 +450,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="المنتجات">
+            <li
+              className="menu-item"
+              title="المنتجات"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 93,
+                    name: "view categories",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/returants/show-resturants"
                 className={`menu-link ${
@@ -348,6 +484,76 @@ const Sidebar = () => {
                   style={{ fontSize: "20px" }}
                 >
                   المنتجات
+                </span>
+              </Link>
+            </li>
+            <li
+              className="menu-item"
+              title="المستخدمين"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 130,
+                    name: "view requests",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
+              <Link
+                to="/warehouse/users/show-users"
+                className={`menu-link ${
+                  activeLink === "/warehouse/users/show-users" ? "active" : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/users/show-users");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <FaUserCircle size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  المستخدمين
+                </span>
+              </Link>
+            </li>
+            <li
+              className="menu-item"
+              title="الأدوار"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
+              <Link
+                to="/warehouse/roles/show-roles"
+                className={`menu-link ${
+                  activeLink === "/warehouse/roles/show-roles" ? "active" : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/roles/show-roles");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <MdAssignmentLate size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  الأدوار
                 </span>
               </Link>
             </li>

@@ -8,7 +8,6 @@ const ItemList = ({ items, onDeleteItem }) => {
         <div className="item" key={index}>
           <div>{item.name}</div>
           <div>
-            {" "}
             <img
               src={`${item.image}`}
               alt={`alt-${item.name}`}

@@ -69,32 +69,74 @@ import {
 } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
 import KitchenRequests from "./applications/warehouse/sections/cashier/pages/KitchenRequests/KitchenRequests";
 import Login from "./auth/Login";
-
+import Users from "./applications/warehouse/sections/admin/Users/Users";
+import {
+  AddUser,
+  ShowUsers,
+} from "./applications/warehouse/sections/admin/Users/pages";
+import Roles from "./applications/warehouse/sections/admin/Roles/Roles";
+import {
+  ShowRoles,
+  EditRole,
+  AddRole,
+} from "./applications/warehouse/sections/admin/Roles/pages";
+import ProtectedRoute from "./context/ProtectedRoute";
+import Unauthorized from "./auth/Unauthorized";
 function App() {
   return (
     <div className="page-wrapper">
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/warehouse" element={<Warehouse />}>
-          <Route path="/warehouse/admin" element={<Suppliers />}></Route>
+          <Route
+            path="/warehouse/unauthorized"
+            element={<Unauthorized />}
+          ></Route>
         </Route>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/suppliers" element={<Suppliers />}>
             <Route
               path="/warehouse/suppliers/show-suppliers"
-              element={<ShowSuppliers />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{ id: 88, name: "view suppliers" }}
+                >
+                  <ShowSuppliers />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/suppliers/add-supplier"
-              element={<AddSupplier />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{ id: 89, name: "add supplier" }}
+                >
+                  <AddSupplier />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/suppliers/:id/edit-supplier"
-              element={<EditSuppliers />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{ id: 90, name: "edit suppliers" }}
+                >
+                  <EditSuppliers />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/suppliers/:id/show-invoices"
-              element={<ShowSupplierInvoices />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 92,
+                    name: "show supplier invoices",
+                  }}
+                >
+                  <ShowSupplierInvoices />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>
@@ -103,23 +145,55 @@ function App() {
           <Route path="/warehouse/recipes" element={<RecipesCategoryParent />}>
             <Route
               path="/warehouse/recipes/show-departments"
-              element={<Departments />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 135,
+                    name: "view departments",
+                  }}
+                >
+                  <Departments />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/recipes/show-recipes"
-              element={<ShowRecipesCategoryParent />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 73,
+                    name: "view recipe_category_parents",
+                  }}
+                >
+                  <ShowRecipesCategoryParent />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/recipes/add-recipes-parent"
-              element={<AddRecipeCategoryParent />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 74,
+                    name: "create recipe_category_parents",
+                  }}
+                >
+                  <AddRecipeCategoryParent />
+                </ProtectedRoute>
+              }
             ></Route>
-            {/* <Route
-              path="/warehouse/recipes/delete-recipes/:id"
-              element={<ShowSuppliers />}
-            ></Route> */}
             <Route
               path="/warehouse/recipes/edit-recipes-parent/:id"
-              element={<EditRecipeCategoryParent />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 75,
+                    name: "edit recipe_category_parents",
+                  }}
+                >
+                  <EditRecipeCategoryParent />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>
@@ -128,22 +202,58 @@ function App() {
           <Route path="/warehouse/returants" element={<Category />}>
             <Route
               path="/warehouse/returants/show-resturants"
-              element={<Resturants />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 93,
+                    name: "view categories",
+                  }}
+                >
+                  <Resturants />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/returants/show-subCategory/:id"
-              element={<ShowSubCategory />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 97,
+                    name: "view sub_categories",
+                  }}
+                >
+                  <ShowSubCategory />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/returants/add-subcategory/:id"
-              element={<AddSubCategory />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 98,
+                    name: "add sub_categories",
+                  }}
+                >
+                  <AddSubCategory />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/returants/subCategory/:id/edit-subCategory"
-              element={<EditSubCategory />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 99,
+                    name: "edit sub_categories",
+                  }}
+                >
+                  <EditSubCategory />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>
@@ -152,22 +262,58 @@ function App() {
           <Route path="/warehouse/returants/subcategory" element={<Product />}>
             <Route
               path="/warehouse/returants/subcategory/show-product/:id"
-              element={<ShowProduct />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 101,
+                    name: "view products",
+                  }}
+                >
+                  <ShowProduct />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/returants/subcategory/add-product/:id"
-              element={<AddProduct />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 102,
+                    name: "add products",
+                  }}
+                >
+                  <AddProduct />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/returants/subcategory/:id/edit-product"
-              element={<EditProduct />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 103,
+                    name: "edit products",
+                  }}
+                >
+                  <EditProduct />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/returants/subcategory/:id/add-rescipes"
-              element={<AddProductRecipe />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 105,
+                    name: "add products to department",
+                  }}
+                >
+                  <AddProductRecipe />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>
@@ -179,20 +325,43 @@ function App() {
           >
             <Route
               path="/warehouse/recipes/subCategory/show-recipe-subcategory/:id"
-              element={<ShowRecipesSubCategory />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 77,
+                    name: "view recipe_categories",
+                  }}
+                >
+                  <ShowRecipesSubCategory />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/recipes/subCategory/add-recipes/:id"
-              element={<AddRecipeSubCategory />}
-            ></Route>
-            <Route
-              path="/warehouse/recipes/subCategory/delete-recipes/:id"
-              element={<DeleteRecipeSubCategory />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 78,
+                    name: "add recipe_categories",
+                  }}
+                >
+                  <AddRecipeSubCategory />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/recipes/subCategory/:id/edit-recipes"
-              element={<EditRecipeSubCategory />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 79,
+                    name: "edit recipe_categories",
+                  }}
+                >
+                  <EditRecipeSubCategory />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>
@@ -201,24 +370,42 @@ function App() {
           <Route path="/warehouse/recipes/recipe" element={<Recipe />}>
             <Route
               path="/warehouse/recipes/recipe/show-recipe/:id"
-              element={<ShowRecipe />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 81,
+                    name: "view recipes",
+                  }}
+                >
+                  <ShowRecipe />
+                </ProtectedRoute>
+              }
             ></Route>
-            <Route
-              path="/warehouse/recipes/recipe/details-recipe/:id"
-              element={<ShowRecipeDetails />}
-            ></Route>
-
             <Route
               path="/warehouse/recipes/recipe/add-recipes/:id"
-              element={<AddRecipes />}
-            ></Route>
-            <Route
-              path="/warehouse/recipes/recipe/delete-recipes/:id"
-              element={<DeleteRecipes />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 82,
+                    name: "add recipes",
+                  }}
+                >
+                  <AddRecipes />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/recipes/recipe/:id/edit-recipes"
-              element={<EditRecipes />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 83,
+                    name: "edit recipes",
+                  }}
+                >
+                  <EditRecipes />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>
@@ -227,66 +414,130 @@ function App() {
           <Route path="/warehouse/invoices" element={<Invoice />}>
             <Route
               path="/warehouse/invoices/show"
-              element={<InvoiceCategories />}
-            ></Route>
-
-            <Route
-              path="/warehouse/invoices/show"
-              element={<InvoiceCategories />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 140,
+                    name: "view invoices",
+                  }}
+                >
+                  <InvoiceCategories />
+                </ProtectedRoute>
+              }
             ></Route>
 
             <Route
               path="/warehouse/invoices/incoming"
-              element={<IncomingInvoice />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 140,
+                    name: "view invoices",
+                  }}
+                >
+                  <IncomingInvoice />
+                </ProtectedRoute>
+              }
             >
               <Route
                 path="/warehouse/invoices/incoming/add-Invoices/in_coming"
-                element={<AddInvoices />}
+                element={
+                  <ProtectedRoute
+                    requiredPermission={{
+                      id: 141,
+                      name: "view invoices",
+                    }}
+                  >
+                    <AddInvoices />
+                  </ProtectedRoute>
+                }
               />
 
               <Route
                 path="/warehouse/invoices/incoming/add-Invoices/out_going"
-                element={<AddInvoices />}
+                element={
+                  <ProtectedRoute
+                    requiredPermission={{
+                      id: 141,
+                      name: "view invoices",
+                    }}
+                  >
+                    <AddInvoices />
+                  </ProtectedRoute>
+                }
               />
               <Route
                 path="/warehouse/invoices/incoming/add-Invoices/returned"
-                element={<AddInvoices />}
+                element={
+                  <ProtectedRoute
+                    requiredPermission={{
+                      id: 141,
+                      name: "view invoices",
+                    }}
+                  >
+                    <AddInvoices />
+                  </ProtectedRoute>
+                }
               />
             </Route>
-
-            {/* <Route path="/warehouse/invoices/outgoing" element={<OutgoingInvoice />}>
-              <Route path="/warehouse/invoices/outgoing/show-outgoing" element={<ShowOutgoingInvoice />} />
-            </Route>
-            <Route path="/warehouse/invoices/returned" element={<ReturnedInvoice />}>
-              <Route path="/warehouse/invoices/returned/show-returned" element={<ShowReturnedInvoice />} />
-            </Route> */}
           </Route>
         </Route>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route
             path="/warehouse/underLimit/show-under-limit"
-            element={<UnderLimit />}
-          >
-            <Route
-              path="/warehouse/underLimit/show-under-limit"
-              element={<ShowUnderLimit />}
-            ></Route>
-          </Route>
+            element={
+              <ProtectedRoute
+                requiredPermission={{
+                  id: 85,
+                  name: "safe limit",
+                }}
+              >
+                <UnderLimit />
+              </ProtectedRoute>
+            }
+          ></Route>
         </Route>
 
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/requests" element={<Requests />}>
             <Route
               path="/warehouse/requests/show-requests"
-              element={<ShowRequests />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 130,
+                    name: "view requests",
+                  }}
+                >
+                  <ShowRequests />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/requests/add-request"
-              element={<AddRequest />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 131,
+                    name: "add request",
+                  }}
+                >
+                  <AddRequest />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/requests/:id/edit-request"
-              element={<EditRequest />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 132,
+                    name: "edit request",
+                  }}
+                >
+                  <EditRequest />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>
@@ -295,27 +546,155 @@ function App() {
           <Route path="/warehouse/cashier" element={<Cashiers />}>
             <Route
               path="/warehouse/cashier/create-order"
-              element={<AddCashierOrder />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 123,
+                    name: "view and add orders",
+                  }}
+                >
+                  <KitchenRequests />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/cashier/opened-tables"
-              element={<OpenedTables />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 123,
+                    name: "view orders",
+                  }}
+                >
+                  <OpenedTables />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/cashier/order/:id"
-              element={<OrderDetails />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 123,
+                    name: "view orders",
+                  }}
+                >
+                  <OrderDetails />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/cashier/warehouse-requests"
-              element={<CashierWarehouseRequests />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 130,
+                    name: "view requests",
+                  }}
+                >
+                  <CashierWarehouseRequests />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/cashier/add-orders"
-              element={<CashierKitchenRequests />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 124,
+                    name: "add orders",
+                  }}
+                >
+                  <CashierKitchenRequests />
+                </ProtectedRoute>
+              }
             ></Route>
             <Route
               path="/warehouse/cashier/kitchen-requests"
-              element={<KitchenRequests />}
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 123,
+                    name: "view orders",
+                  }}
+                >
+                  <KitchenRequests />
+                </ProtectedRoute>
+              }
+            ></Route>
+          </Route>
+        </Route>
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/users" element={<Users />}>
+            <Route
+              path="/warehouse/users/show-users"
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 113,
+                    name: "view users",
+                  }}
+                >
+                  <ShowUsers />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/warehouse/users/add-user"
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 114,
+                    name: "add users",
+                  }}
+                >
+                  <AddUser />
+                </ProtectedRoute>
+              }
+            ></Route>
+          </Route>
+        </Route>
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/roles" element={<Roles />}>
+            <Route
+              path="/warehouse/roles/show-roles"
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 118,
+                    name: "add role",
+                  }}
+                >
+                  <ShowRoles />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/warehouse/roles/add-role"
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 118,
+                    name: "add role",
+                  }}
+                >
+                  <AddRole />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/warehouse/roles/:id/edit-role"
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 117,
+                    name: "edit role",
+                  }}
+                >
+                  <EditRole />
+                </ProtectedRoute>
+              }
             ></Route>
           </Route>
         </Route>

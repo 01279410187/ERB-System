@@ -9,10 +9,11 @@ import { getAllUsers } from "../../../../../apis/users";
 import { getAllDepartments } from "../../../../../apis/departments";
 import "../../../../../components/shared/table/Table.scss";
 import { useEffect, useState } from "react";
-
+import { useAuth } from "../../../../../context/AuthContext";
 const ShowRequests = () => {
   const [departments, setDepartments] = useState([]);
   const [users, setusers] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -95,15 +96,27 @@ const ShowRequests = () => {
   ];
   const actions = [
     {
-      type: "delete",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 133)
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
     {
-      type: "show",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 132)
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
     },
     {
-      type: "add",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 131)
+          ? "add"
+          : ""
+      }`,
       label: "إضافة طلبات",
       route: "/warehouse/requests/add-request",
     },

@@ -4,10 +4,11 @@ import { getOrderById } from "../../../../../../apis/orders";
 import { getAllDepartments } from "../../../../../../apis/departments";
 import "../../../../../../components/shared/table/Table.scss";
 import { useEffect, useState } from "react";
-
+import { useAuth } from "../../../../../../context/AuthContext";
 const KitchenRequests = () => {
   const [departments, setDepartments] = useState([]);
   const [users, setusers] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -90,15 +91,35 @@ const KitchenRequests = () => {
   ];
   const actions = [
     {
-      type: "delete",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 126)
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
     {
-      type: "show",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 127)
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
     },
+    // {
+    //   type: `${
+    //     user?.permissions.some((permission) => permission.id === 125)
+    //       ? "edit"
+    //       : ""
+    //   }`,
+    //   label: "تعديل",
+    // },
     {
-      type: "add",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 124)
+          ? "add"
+          : ""
+      }`,
       label: "إضافة طلبات",
       route: "/warehouse/cashier/add-orders",
     },
@@ -140,7 +161,7 @@ const KitchenRequests = () => {
         // deleteFn={deleteRequest}
         showFn={getOrderById}
         // updateFn={updateRequests}
-        // changeStatusFn={() => {}}
+        changeStatusFn={() => {}}
         detailsHeaders={detailsHeaders}
       />
     </div>

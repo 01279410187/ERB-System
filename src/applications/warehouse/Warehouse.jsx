@@ -1,27 +1,48 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import Sidebar from "../../components/shared/sidebar/Sidebar";
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useContext } from "react";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useContext, useEffect } from "react";
 import { SidebarContext } from "../../context/SidebarContext";
-
+import { useAuth } from "../../context/AuthContext";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 const Warehouse = () => {
+  const { checkAuthUser, isLoading } = useAuth();
   const location = useLocation();
   const { wrapperMargin } = useContext(SidebarContext); // Access wrapperMargin from context
-
 
   const handleGoBack = () => {
     window.history.back();
   };
-
+  useEffect(() => {
+    const getProfile = async () => {
+      await checkAuthUser();
+    };
+    getProfile();
+  }, []);
   return (
     <>
-      <Sidebar />
-      <div className={`content-wrapper ${wrapperMargin}`}>
-        <button className="back-arrow" onClick={handleGoBack}>
-          <ArrowLeftOutlined />
-        </button>
-        <Outlet />
-      </div>
+      {!isLoading && (
+        <>
+          <Sidebar />
+          <div className={`content-wrapper ${wrapperMargin}`}>
+            <button className="back-arrow" onClick={handleGoBack}>
+              <ArrowLeftOutlined />
+            </button>
+            <Outlet />
+          </div>
+        </>
+      )}
+      {isLoading && (
+        <Spin
+          indicator={
+            <LoadingOutlined
+              style={{ fontSize: 56, marginTop: "50vh", marginRight: "50vw" }}
+              spin
+            />
+          }
+        />
+      )}
     </>
   );
 };

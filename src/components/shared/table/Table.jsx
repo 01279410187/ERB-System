@@ -257,7 +257,8 @@ const Table = ({
                     <td>
                       <div className="buttons">
                         {actions.map((action, index) => {
-                          if (action.type === "add") return;
+                          if (action.type === "add" || action.type === "")
+                            return;
                           return (
                             <button
                               className={`button ${action.type}`}

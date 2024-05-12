@@ -3,20 +3,18 @@ import { login } from "../apis/auth";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-
 const Login = () => {
   const navigate = useNavigate();
   const onFinish = async (values) => {
     const res = await login(values);
-    console.log(res);
     if (!(res instanceof Error)) {
       values.remember
         ? localStorage.setItem("token", res.data.data.token)
         : sessionStorage.setItem("token", res.data.data.token);
-      navigate("/warehouse");
     } else {
       message.error(res.response.data.error.message);
     }
+    navigate("/warehouse");
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

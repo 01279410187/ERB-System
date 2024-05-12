@@ -25,8 +25,6 @@ const ShowUnderLimit = () => {
                 fetchData={(filterValues, currentPage) =>
                     getUderLimit(filterValues, currentPage, "")
                 }
-
-
             />
         </div>
     );
