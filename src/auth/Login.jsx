@@ -87,6 +87,7 @@ const Login = () => {
           {/* <img src="../../public/assets/images/dar_brown.svg" alt="" /> */}
           <img src={loginImg} alt="Dar-elmoshaa-logo" />
         </div>
+
       </div>
     </div>
   );

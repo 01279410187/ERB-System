@@ -31,15 +31,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    checkAuthUser();
-    console.log(typeof localStorage.getItem("token"));
-    if (
-      localStorage.getItem("token") === null &&
-      sessionStorage.getItem("token") === null
-    )
-      navigate("/login");
-  }, []);
+  // useEffect(() => {
+  //   checkAuthUser();
+  //   console.log(typeof localStorage.getItem("token"));
+  //   if (
+  //     localStorage.getItem("token") === null &&
+  //     sessionStorage.getItem("token") === null
+  //   )
+  //     navigate("/login");
+  // }, []);
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, checkAuthUser }}>

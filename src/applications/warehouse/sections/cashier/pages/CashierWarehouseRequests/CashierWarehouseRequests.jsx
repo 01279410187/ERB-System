@@ -131,11 +131,13 @@ const CashierWarehouseRequests = () => {
           id="supplierSelect"
           onChange={(e) => setSelectedDepartment(e.target.value)}
         >
-          <option value="">اختر قسم</option>
+          <option value="" selected disabled>اختر قسم</option>
           {department.map((supplier) => (
-            <option key={supplier.id} value={supplier.id}>
-              {supplier.name}
-            </option>
+            supplier.name !== "مخزن" && (
+              <option key={supplier.id} value={supplier.id}>
+                {supplier.name}
+              </option>
+            )
           ))}
         </select>
       </div>
