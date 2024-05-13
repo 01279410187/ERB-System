@@ -36,7 +36,7 @@ import {
 import Invoice from "./applications/warehouse/sections/invoices/Invoice";
 import InvoiceCategories from "./applications/warehouse/sections/invoices/InvoiceCategory/InvoiceCategory";
 import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/IncomingInvoice";
-import { AddInvoices } from "./applications/warehouse/sections/invoices/Incoming/pages";
+import { AddInvoices, PrintInvoice } from "./applications/warehouse/sections/invoices/Incoming/pages";
 import Requests from "./applications/warehouse/sections/requests/Requests";
 import {
   AddRequest,
@@ -51,7 +51,7 @@ import {
   CashierKitchenRequests,
 } from "./applications/warehouse/sections/cashier/pages";
 import UnderLimit from "./applications/warehouse/sections/underLimit/UnderLimit";
-import { ShowUnderLimit } from "./applications/warehouse/sections/underLimit/pages";
+import { ShowExpireLimit, ShowUnderLimit } from "./applications/warehouse/sections/underLimit/pages";
 import Resturants from "./applications/warehouse/sections/Kitchen/categories/Resturants/Returants";
 import Category from "./applications/warehouse/sections/Kitchen/categories/Category/Category";
 import Cashiers from "./applications/warehouse/sections/cashier/Cashiers";
@@ -64,11 +64,19 @@ import Product from "./applications/warehouse/sections/Kitchen/categories/produc
 import {
   AddProduct,
   AddProductRecipe,
+  AddProductToDepartment,
   EditProduct,
   ShowProduct,
 } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
 import KitchenRequests from "./applications/warehouse/sections/cashier/pages/KitchenRequests/KitchenRequests";
+import Department from "./applications/warehouse/sections/department/Deaprtment";
+import ShowDepartment from "./applications/warehouse/sections/department/pages/ShowDepartments";
+import { AddDepartments, EditDepartment, ShowProductDepartment } from "./applications/warehouse/sections/department/pages";
+import Unit from "./applications/warehouse/sections/unit/Unit";
+import { AddUnits, EditUnits, ShowUnits } from "./applications/warehouse/sections/unit/pages";
 import Login from "./auth/Login";
+import Payables from "./applications/warehouse/sections/payble/Payables";
+import { AddPayable, ShowPayables } from "./applications/warehouse/sections/payble/pages";
 
 function App() {
   return (
@@ -160,6 +168,12 @@ function App() {
               element={<AddProduct />}
             ></Route>
 
+
+            <Route
+              path="/warehouse/returants/subcategory/add-product-to-department/:id"
+              element={<AddProductToDepartment />}
+            ></Route>
+
             <Route
               path="/warehouse/returants/subcategory/:id/edit-product"
               element={<EditProduct />}
@@ -236,6 +250,11 @@ function App() {
             ></Route>
 
             <Route
+              path="/warehouse/invoices/print/:id"
+              element={<PrintInvoice />}
+            ></Route>
+
+            <Route
               path="/warehouse/invoices/incoming"
               element={<IncomingInvoice />}
             >
@@ -270,6 +289,10 @@ function App() {
             <Route
               path="/warehouse/underLimit/show-under-limit"
               element={<ShowUnderLimit />}
+            ></Route>
+            <Route
+              path="/warehouse/underLimit/show-under-limit/show-expire-limit"
+              element={<ShowExpireLimit />}
             ></Route>
           </Route>
         </Route>
@@ -319,7 +342,74 @@ function App() {
             ></Route>
           </Route>
         </Route>
+
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/departments" element={<Department />}>
+            <Route
+              path="/warehouse/departments/show-departments"
+              element={<ShowDepartment />}
+            ></Route>
+            <Route
+              path="/warehouse/departments/add-departments"
+              element={<AddDepartments />}
+            ></Route>
+            <Route
+              path="/warehouse/departments/:id/edit-departments"
+              element={<EditDepartment />}
+            ></Route>
+            <Route
+              path="/warehouse/departments/show-departments/product/:id"
+              element={<ShowProductDepartment />}
+            ></Route>
+
+            <Route
+              path="/warehouse/departments/add-product-to-department/:id"
+              element={<AddProductToDepartment />}
+            ></Route>
+
+          </Route>
+        </Route>
+
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/units" element={<Unit />}>
+            <Route
+              path="/warehouse/units/show-units"
+              element={<ShowUnits />}
+            ></Route>
+            <Route
+              path="/warehouse/units/add-units"
+              element={<AddUnits />}
+            ></Route>
+            <Route
+              path="/warehouse/units/:id/edit-units"
+              element={<EditUnits />}
+            ></Route>
+
+          </Route>
+        </Route>
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/payable" element={<Payables />}>
+            <Route
+              path="/warehouse/payable/show-payable"
+              element={<ShowPayables />}
+            ></Route>
+            <Route
+              path="/warehouse/payable/add-payable"
+              element={<AddPayable />}
+            ></Route>
+
+
+          </Route>
+        </Route>
       </Routes>
+
+
+
+
+
 
       {/* <Route path="/warehouse" element={<Warehouse />}>
         <Route

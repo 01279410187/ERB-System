@@ -6,19 +6,24 @@ import LogoBrown from "../../../../public/assets/images/logo_brown.svg";
 import LogoDAR from "../../../../public/assets/images/Dar_logo.svg";
 import LogoWhite from "../../../../public/assets/images/logo_white.svg";
 import { useNavigate } from "react-router-dom";
+import { CgDanger } from "react-icons/cg";
+
 import {
   FaCodePullRequest,
   FaKitchenSet,
   FaWarehouse,
   FaCashRegister,
   FaTruckArrowRight,
+  FaCalendarXmark
 } from "react-icons/fa6";
+import { BsCashCoin } from "react-icons/bs";
+
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 
-import { TbReport } from "react-icons/tb";
+import { TbReport, TbBrandUnity } from "react-icons/tb";
 import {
   MdOutlineClose,
   MdOutlineLogout,
@@ -186,6 +191,25 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
+
+            <li className="menu-item" title="المدفوعات">
+              <Link
+                to="/warehouse/payable/show-payable"
+                className={`menu-link ${activeLink === "/warehouse/payable/show-payable" ? "active" : ""
+                  } ${justifyContent}`}
+                onClick={() => handleMenuLinkClick("/warehouse/payable/show-payable")}
+              >
+                <span className="menu-link-icon">
+                  <BsCashCoin size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  المدفوعات
+                </span>
+              </Link>
+            </li>
             <li className="menu-item" title="الطلبات">
               <Link
                 to="/warehouse/requests/show-requests"
@@ -316,9 +340,40 @@ const Sidebar = () => {
                   style={{ fontSize: "20px" }}
                 >
                   حد الامان
+
                 </span>
+                <CgDanger size={30} style={{ color: "red" }} />
               </Link>
             </li>
+
+            <li className="menu-item" title=" حد الامان">
+              <Link
+                to="/warehouse/underLimit/show-under-limit/show-expire-limit"
+                className={`menu-link ${activeLink === "/warehouse/underLimit/show-under-limit/show-expire-limit"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/underLimit/show-under-limit/show-expire-limit")
+                }
+              >
+                <span className="menu-link-icon">
+                  <FaCalendarXmark size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  حد الصلاحية
+
+                </span>
+                <CgDanger size={30} style={{ color: "red" }} />
+              </Link>
+            </li>
+
+
+
+
             <li className="menu-item" title="المنتجات">
               <Link
                 to="/warehouse/returants/show-resturants"
@@ -342,6 +397,30 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
+
+            <li className="menu-item" title="المنافذ">
+              <Link
+                to="/warehouse/departments/show-departments"
+                className={`menu-link ${activeLink === "/warehouse/departments/show-departments"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/departments/show-departments")
+                }
+              >
+                <span className="menu-link-icon">
+                  <HiOutlineOfficeBuilding size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  المنافذ
+                </span>
+              </Link>
+            </li>
+
             <li className="menu-item" title="تسجيل خروج">
               <button className={`menu-link logout ${activeLink === "/warehouse/*"
                 ? "active"
@@ -360,28 +439,6 @@ const Sidebar = () => {
                 {/* </button> */}
               </button>
             </li>
-            {/* <li className="menu-item" title="المنافذ">
-              <Link
-                to="/warehouse/department/show-department"
-                className={`menu-link ${activeLink === "/warehouse/department/show-department"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
-                onClick={() =>
-                  handleMenuLinkClick("/warehouse/department/show-department")
-                }
-              >
-                <span className="menu-link-icon">
-                  <HiOutlineOfficeBuilding size={30} />
-                </span>
-                <span
-                  className={`menu-link-text ${display}`}
-                  style={{ fontSize: "20px" }}
-                >
-                  المنافذ
-                </span>
-              </Link>
-            </li> */}
 
           </ul>
         </div>

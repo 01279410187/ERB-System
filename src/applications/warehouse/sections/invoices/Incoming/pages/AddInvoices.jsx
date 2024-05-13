@@ -10,6 +10,8 @@ import { getAllDepartments } from "../../../../../../apis/departments";
 
 import { API_ENDPOINT, Token } from "../../../../../../../config";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import Invoice from "../../Invoice";
 
 const AddInvoices = () => {
   const [items, setItems] = useState([]);
@@ -31,7 +33,7 @@ const AddInvoices = () => {
   useEffect(() => {
     const fetchDataSuppliers = async () => {
       try {
-        const supplierData = await getSuppliers({}, "", () => {});
+        const supplierData = await getSuppliers({}, "", () => { });
         setSuppliers(supplierData.data);
         console.log(suppliers);
       } catch (error) {
@@ -67,12 +69,23 @@ const AddInvoices = () => {
   };
 
   const calculateTotalAmount = () => {
-    return items.reduce(
-      (total, item) =>
-        total +
-        (item.quantity * item.price - parseInt(discount) + parseInt(tax)),
-      0
-    );
+    if (lastItem === "in_coming") {
+      return (items.reduce(
+        (total, item) =>
+          total +
+          (item.quantity * item.price),
+        0
+      )) - (parseInt(discount)) + (parseInt(tax))
+    }
+    else {
+      return items.reduce(
+        (total, item) =>
+          total +
+          (item.quantity * item.price),
+        0
+      );
+    }
+
   };
 
   const navigate = useNavigate();
@@ -84,7 +97,8 @@ const AddInvoices = () => {
       formData.append(`recipes[${index}][price]`, item.price);
       // Add other fields as needed, for example quantity, expire_date, etc.
       formData.append(`recipes[${index}][quantity]`, item.quantity);
-      formData.append(`recipes[${index}][expire_date]`, item.expireDate);
+      { lastItem === "in_coming" ? formData.append(`recipes[${index}][expire_date]`, item.expireDate) : null }
+      // formData.append(`recipes[${index}][expire_date]`, item.expireDate);
     });
 
     if (lastItem === "out_going") {
@@ -125,9 +139,11 @@ const AddInvoices = () => {
       console.log(response.data);
       navigate("/warehouse/invoices/show");
       console.log("Invoice created successfully!");
+      message.success("تم اضافة  الفاتوره بنجاح ")
       // Optionally, you can redirect or show a success message here
     } catch (error) {
       console.error("Error creating invoice:", error);
+      message.error(error.response.data.error.message, 10)
       // Handle error condition, show error message, etc.
     }
   };
@@ -143,8 +159,8 @@ const AddInvoices = () => {
         {lastItem === "in_coming"
           ? "اضافة فاتورة مورد"
           : lastItem === "out_going"
-          ? "اضافه فاتورة اذن صرف"
-          : " اضافة فاتورة مرتجع"}
+            ? "اضافه فاتورة اذن صرف"
+            : " اضافة فاتورة مرتجع"}
       </h1>
       {lastItem === "out_going" ? null : (
         <div>
@@ -259,7 +275,8 @@ const AddInvoices = () => {
         selectedSupplier={selectedSupplier}
         InvoiceType={lastItem}
       />
-      <ItemList items={items} onDeleteItem={handleDeleteItem} />
+      <ItemList items={items} onDeleteItem={handleDeleteItem} InvoiceType={lastItem} />
+
       <TotalAmount total={calculateTotalAmount()} />
       <button className="form-btn" onClick={handleDownloadPDF}>
         حفظ البيانات

@@ -49,6 +49,8 @@ export async function addRecipeSubCategory(
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
+
     throw error; // Rethrow the error to handle it in the calling code if necessary
   }
 }
@@ -94,6 +96,8 @@ export async function getRecipeSubCategoryById(id) {
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
+
   }
 }
 
@@ -116,6 +120,8 @@ export async function getRecipeSubCategoryFilterById(
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
+
   }
 }
 
@@ -127,5 +133,7 @@ export async function deleteRecipeSubCategory(id) {
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
+
   }
 }
