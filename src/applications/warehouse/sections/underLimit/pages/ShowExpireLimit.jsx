@@ -13,7 +13,7 @@ const ShowExpireLimit = () => {
     ];
 
     const tableHeadersDetailes = [
-        { key: "expire_date", label: "تاريخ الصلاحيه" },
+        { key: "expire_date", label: "تاريخ انتهاء الصلاحيه" },
         { key: "quantity", label: "الكميه" },
 
     ];

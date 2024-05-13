@@ -8,8 +8,6 @@ import {
   EditSuppliers,
 } from "./applications/warehouse/sections/suppliers/pages";
 import Suppliers from "./applications/warehouse/sections/suppliers/Suppliers";
-// import Recipes from "./applications/warehouse/sections/recipes/RecipesCategoryParent";
-// import { AddRecipe, EditRecipe, ShowRecipes } from "./applications/warehouse/sections/recipes/pages";
 import {
   AddRecipes,
   DeleteRecipes,
@@ -102,6 +100,26 @@ import {
 } from "./applications/warehouse/sections/admin/Roles/pages";
 import ProtectedRoute from "./context/ProtectedRoute";
 import Unauthorized from "./auth/Unauthorized";
+import Payables from "./applications/warehouse/sections/payble/Payables";
+import {
+  AddPayable,
+  ShowPayables,
+} from "./applications/warehouse/sections/payble/pages";
+import Clients from "./applications/warehouse/sections/clients/Clients";
+import {
+  AddClientType,
+  AddDiscountReason,
+  AddPaymentMethod,
+  Client,
+  ClientType,
+  DiscountReason,
+  EditDiscountReason,
+  EditPaymentMethod,
+  PaymentMethod,
+} from "./applications/warehouse/sections/clients/pages";
+import EditClientType from "./applications/warehouse/sections/clients/pages/EditClientType";
+import AddClient from "./applications/warehouse/sections/clients/pages/AddClient";
+
 function App() {
   return (
     <div className="page-wrapper">
@@ -780,26 +798,68 @@ function App() {
             ></Route>
           </Route>
         </Route>
-      </Routes>
 
-      {/* <Route path="/warehouse" element={<Warehouse />}>
-        <Route
-          path="/warehouse/returants/show-resturants"
-          element={<Resturants />}
-        ></Route>
-      </Route> */}
-
-      {/* <Routes >
-        <Route path="/Kitchen" element={<Kitchen />}>
-          <Route path="/Kitchen/resturants" element={<Kitchen />}>
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/payable" element={<Payables />}>
             <Route
-              path="/Kitchen/resturants/show-resturants"
-              element={<Resturants />}
+              path="/warehouse/payable/show-payable"
+              element={<ShowPayables />}
+            ></Route>
+            <Route
+              path="/warehouse/payable/add-payable"
+              element={<AddPayable />}
             ></Route>
           </Route>
-
         </Route>
-    </Routes>*/}
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/clients" element={<Clients />}>
+            <Route
+              path="/warehouse/clients/payment-method"
+              element={<PaymentMethod />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/add-payment-method"
+              element={<AddPaymentMethod />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/:id/edit-payment-method"
+              element={<EditPaymentMethod />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/discount-reason"
+              element={<DiscountReason />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/:id/edit-discount-reason"
+              element={<EditDiscountReason />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/add-discount-reason"
+              element={<AddDiscountReason />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/client-type"
+              element={<ClientType />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/:id/edit-client-type"
+              element={<EditClientType />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/add-client-type"
+              element={<AddClientType />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/client"
+              element={<Client />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/add-client"
+              element={<AddClient />}
+            ></Route>
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 }

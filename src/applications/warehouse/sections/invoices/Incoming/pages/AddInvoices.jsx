@@ -70,12 +70,12 @@ const AddInvoices = () => {
 
   const calculateTotalAmount = () => {
     if (lastItem === "in_coming") {
-      return items.reduce(
+      return (items.reduce(
         (total, item) =>
           total +
-          (item.quantity * item.price - parseInt(discount) + parseInt(tax)),
+          (item.quantity * item.price),
         0
-      );
+      )) - (parseInt(discount)) + (parseInt(tax))
     }
     else {
       return items.reduce(

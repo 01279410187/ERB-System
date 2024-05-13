@@ -14,6 +14,8 @@ import {
   FaCalendarXmark,
 } from "react-icons/fa6";
 import { FaUserCircle, FaUser } from "react-icons/fa";
+import { BsCashCoin } from "react-icons/bs";
+
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
@@ -48,7 +50,7 @@ const Sidebar = () => {
   const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
   const checkMenuItemPermission = (requiredPermission) => {
     return user
-      ? user.permissions.some(
+      ? user?.permissions.some(
           (permission) => permission.id === requiredPermission.id
         )
       : false;
@@ -238,20 +240,31 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li
-              className="menu-item"
-              title="الطلبات"
-              style={{
-                display: `${
-                  checkMenuItemPermission({
-                    id: 130,
-                    name: "view requests",
-                  })
-                    ? ""
-                    : "none"
-                }`,
-              }}
-            >
+
+            <li className="menu-item" title="المدفوعات">
+              <Link
+                to="/warehouse/payable/show-payable"
+                className={`menu-link ${
+                  activeLink === "/warehouse/payable/show-payable"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/payable/show-payable")
+                }
+              >
+                <span className="menu-link-icon">
+                  <BsCashCoin size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  المدفوعات
+                </span>
+              </Link>
+            </li>
+            <li className="menu-item" title="الطلبات">
               <Link
                 to="/warehouse/requests/show-requests"
                 className={`menu-link ${
@@ -567,6 +580,152 @@ const Sidebar = () => {
                   style={{ fontSize: "20px" }}
                 >
                   الأدوار
+                </span>
+              </Link>
+            </li>
+            <li
+              className="menu-item"
+              title="طرق الدفع"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
+              <Link
+                to="/warehouse/clients/payment-method"
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/payment-method"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/clients/payment-method");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <MdAssignmentLate size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  طرق الدفع
+                </span>
+              </Link>
+            </li>
+            <li
+              className="menu-item"
+              title="أنواع العملاء"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
+              <Link
+                to="/warehouse/clients/client-type"
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/client-type"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/clients/client-type");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <MdAssignmentLate size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  أنواع العملاء
+                </span>
+              </Link>
+            </li>
+            <li
+              className="menu-item"
+              title="أنواع العملاء"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
+              <Link
+                to="/warehouse/clients/client"
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/client" ? "active" : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/clients/client");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <MdAssignmentLate size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  العملاء
+                </span>
+              </Link>
+            </li>
+            <li
+              className="menu-item"
+              title="طرق الدفع"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
+              <Link
+                to="/warehouse/clients/discount-reason"
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/discount-reason"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() => {
+                  console.log("show-departments");
+                  handleMenuLinkClick("/warehouse/clients/discount-reason");
+                }}
+              >
+                <span className="menu-link-icon">
+                  <MdAssignmentLate size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  أسباب الخصم
                 </span>
               </Link>
             </li>

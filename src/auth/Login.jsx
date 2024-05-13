@@ -141,6 +141,7 @@ const Login = () => {
         <div className="login-image">
           <img src={loginImg} alt="Dar-elmoshaa-logo" />
         </div>
+
       </div>
     </div>
   );

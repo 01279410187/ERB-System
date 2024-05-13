@@ -1,50 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./ShowDataModal.scss";
-import Input from "antd/es/input/Input";
 const ShowDataModal = ({
-  id,
   showFn,
+  id,
   detailsHeaders,
-  header,
-  handleModalVisible,
   updateFn,
   changeStatusFn,
+  handleModalVisible,
 }) => {
-  const [data, setData] = useState(null);
-  const [title, setTitle] = useState(null);
-  const [inputValues, setInputValues] = useState({});
+  const [responseData, setResponseData] = useState(null);
+  const [editedData, setEditedData] = useState({});
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await showFn(id);
-        setData(response.data[header]);
-        console.log(response.data[header]);
-        setTitle(response.data.title || "التفاصيل");
-        const initialInputValues = response.data[header].reduce(
-          (acc, item, index) => {
-            const inputValuesForItem = {};
-            detailsHeaders.forEach((h) => {
-              if (h.isInput) {
-                inputValuesForItem[h.key] = item[h.key];
-              }
-            });
-            acc[item.id] = inputValuesForItem;
-            return acc;
-          },
-          {}
-        );
-        setInputValues(initialInputValues);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [id, showFn, header, detailsHeaders]);
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest(".modal-content")) {
+      const modalContent = document.querySelector(".modal-content");
+      if (modalContent && !modalContent.contains(event.target)) {
         handleModalVisible(false);
       }
     };
@@ -56,96 +26,170 @@ const ShowDataModal = ({
     };
   }, [handleModalVisible]);
 
-  const handleInputChange = (e, itemId, key) => {
-    const newValue = e.target.value;
-    setInputValues((prevInputValues) => ({
-      ...prevInputValues,
-      [itemId]: {
-        ...prevInputValues[itemId],
-        [key]: newValue,
-      },
-    }));
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await showFn(id);
+      setResponseData(response.data);
+      const initialEditedData = {};
+      detailsHeaders.forEach((header) => {
+        if (header.isInput) {
+          initialEditedData[header.key] = response.data[header.key];
+        }
+      });
+      setEditedData(initialEditedData);
+    };
+
+    fetchData();
+
+    return () => {
+      setResponseData(null);
+    };
+  }, [showFn, id, detailsHeaders]);
+
+  const handleInputChange = (header, value, index, subKey) => {
+    if (subKey) {
+      setEditedData((prevState) => ({
+        ...prevState,
+        [header]: {
+          ...prevState[header],
+          [index]: {
+            ...prevState[header][index],
+            [subKey]: value,
+          },
+        },
+      }));
+    } else {
+      setEditedData((prevState) => ({
+        ...prevState,
+        [`${header}`]: value,
+      }));
+    }
   };
+
+  const handleEditClick = () => {
+    updateFn(id, editedData);
+    handleModalVisible(false);
+  };
+
+  const handleRejectClick = () => {
+    changeStatusFn("rejected");
+    handleModalVisible(false);
+  };
+
+  const handleAcceptClick = () => {
+    changeStatusFn("approved");
+    handleModalVisible(false);
+  };
+
+  const renderInputField = (header, value, index, subKey) => {
+    const inputValue = subKey
+      ? editedData[header][index][subKey]
+      : editedData[header];
+
+    return (
+      <input
+        className="form-input"
+        type="text"
+        value={inputValue}
+        onChange={(e) => {
+          handleInputChange(header, e.target.value, index, subKey);
+        }}
+      />
+    );
+  };
+
+  if (!responseData) {
+    return <div>Loading...</div>;
+  }
+
+  const nonArrayHeaders = detailsHeaders.filter((header) => !header.isArray);
+  const arrayHeaders = detailsHeaders.filter((header) => header.isArray);
 
   return (
     <div className="show-data-modal">
-      {data && (
-        <div className="data-table-diagram">
-          <div className="modal-content">
-            <h2>{title}</h2>
+      <div className="modal-content">
+        <table className="data-table">
+          <thead>
+            <tr>
+              {nonArrayHeaders.map((header) => (
+                <th key={header.key}>{header.label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {nonArrayHeaders.map((header, index) => {
+                return (
+                  <td key={index}>
+                    {renderInputField(
+                      header.key,
+                      responseData[header.key],
+                      null,
+                      null
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          </tbody>
+        </table>
+        {arrayHeaders.map((header, index) => (
+          <div key={header.key}>
+            <h2>{header.label}</h2>
             <table className="data-table">
               <thead>
                 <tr>
-                  {detailsHeaders.map((h) => (
-                    <th key={h.key}>{h.label}</th>
+                  {header.details.map((detail) => (
+                    <th key={detail.key}>{detail.label}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    {detailsHeaders.map((h) => (
-                      <td key={h.key}>
-                        {h.isInput ? (
-                          <Input
-                            className="form-input"
-                            style={{ marginBottom: "0px" }}
-                            type="number"
-                            disabled={updateFn ? false : true}
-                            value={inputValues[item.id][h.key] || ""}
-                            onChange={(e) =>
-                              handleInputChange(e, item.id, h.key)
-                            }
-                          />
-                        ) : h.key === "image" ? (
-                          <img
-                            src={item[h.key]}
-                            width={"70px"}
-                            height={"70px"}
-                          />
-                        ) : (
-                          item[h.key]
-                        )}
+                {responseData[header.key]?.map((item, itemIndex) => (
+                  <tr key={itemIndex}>
+                    {header.details.map((detail, detailIndex) => (
+                      <td key={detail.key}>
+                        {detail.isInput
+                          ? renderInputField(
+                              header.key,
+                              item[detail.key],
+                              itemIndex,
+                              detail.key
+                            )
+                          : item[detail.key]}
                       </td>
                     ))}
                   </tr>
                 ))}
-                {(!data || data?.length === 0) && (
-                  <tr>
-                    <td colSpan={detailsHeaders.length + 1}>'لا يوجد نتائج'</td>
-                  </tr>
-                )}
               </tbody>
             </table>
-            <div className="button-container">
-              {changeStatusFn && (
-                <button
-                  className="data-modal-btn delete"
-                  onClick={() => {
-                    changeStatusFn(id, "rejected");
-                    handleModalVisible(false);
-                  }}
-                >
-                  رفض
-                </button>
-              )}
-              {updateFn && changeStatusFn && (
-                <button
-                  className="data-modal-btn show"
-                  onClick={() => {
-                    console.log(inputValues);
-                    updateFn({ inputValues }, id);
-                    changeStatusFn(id, "approved");
-                    handleModalVisible(false);
-                  }}
-                >
-                  قبول
-                </button>
-              )}
-            </div>
           </div>
+        ))}
+
+        <div className="button-container">
+          {updateFn && (
+            <button className="data-modal-btn edit" onClick={handleEditClick}>
+              تعديل
+            </button>
+          )}
+          {changeStatusFn && updateFn && (
+            <>
+              <button
+                className="data-modal-btn delete"
+                onClick={handleRejectClick}
+              >
+                رفض
+              </button>
+              <button
+                className="data-modal-btn show"
+                onClick={handleAcceptClick}
+              >
+                قبول
+              </button>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

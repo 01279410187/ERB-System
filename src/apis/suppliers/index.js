@@ -2,12 +2,11 @@ import axios from "axios";
 import { API_ENDPOINT, Token } from "../../../config";
 import { message } from "antd";
 // const Token = localStorage.getItem('token')
-const domain = API_ENDPOINT;
 export async function getSuppliers(filteredValues, id, setIsLoading) {
   try {
     setIsLoading(true);
     const { name, phone, page, type } = filteredValues;
-    const res = await axios.get(`${domain}/api/v1/store/supplier`, {
+    const res = await axios.get(`${API_ENDPOINT}/api/v1/store/supplier`, {
       params: {
         name,
         phone,

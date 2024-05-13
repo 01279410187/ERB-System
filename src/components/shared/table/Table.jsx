@@ -136,6 +136,30 @@ const Table = ({
         return <p>متعاقد</p>;
       case "local":
         return <p>سوق محلى</p>;
+      case "invoices":
+        return <p> الفواتير</p>;
+      case "expenses":
+        return <p> نثريات</p>;
+      case "incentives":
+        return <p> الحوافز</p>;
+      case "salaries":
+        return <p> مرتبات</p>;
+    }
+  };
+  const renderClient = (type) => {
+    switch (type) {
+      case 0:
+        return <p> جديد</p>;
+      case 1:
+        return <p> قديم</p>;
+    }
+  };
+  const renderWorker = (type) => {
+    switch (type) {
+      case 0:
+        return <p> عامل بالدار</p>;
+      case 1:
+        return <p> غير عامل بالدار</p>;
     }
   };
   const renderFilterInput = (filter) => {
@@ -241,11 +265,15 @@ const Table = ({
                           style={{ width: "50px", height: "50px" }}
                         />
                       ) : header.nestedKey ? (
-                        item[header.key][header.nestedKey]
+                        item[header.key][header.nestedKey] || "لا يوجد"
                       ) : header.key === "status" ? (
                         renderStatus(item[header.key])
                       ) : header.key === "type" ? (
                         renderType(item[header.key])
+                      ) : header.key === "new_client" ? (
+                        renderClient(item[header.key])
+                      ) : header.key === "is_worker" ? (
+                        renderWorker(item[header.key])
                       ) : (
                         item[header.key] || "لا يوجد"
                       )}

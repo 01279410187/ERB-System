@@ -1,6 +1,7 @@
 import Table from "../../../../../../components/shared/table/Table";
 import { getOrders } from "../../../../../../apis/orders";
 import { getOrderById, deleteOrder } from "../../../../../../apis/orders";
+import { getAllUsers } from "../../../../../../apis/users";
 import { getAllDepartments } from "../../../../../../apis/departments";
 import "../../../../../../components/shared/table/Table.scss";
 import { useEffect, useState } from "react";
@@ -117,24 +118,25 @@ const KitchenRequests = () => {
   ];
   const detailsHeaders = [
     {
-      key: "id",
+      key: "casher",
+      label: "الكاشير",
+      isInput: true,
+    },
+    {
+      key: "code",
       label: "الكود",
+      isInput: true,
     },
+
     {
-      key: "name",
-      label: "الإسم",
-    },
-    {
-      key: "quantity",
-      label: "الكمية",
-    },
-    {
-      key: "price",
-      label: "السعر",
-    },
-    {
-      key: "image",
-      label: "الصورة",
+      key: "products",
+      label: "المنتجات",
+      isArray: true,
+      isInput: true,
+      details: [
+        { key: "price", label: "السعر", isInput: true },
+        { key: "quantity", label: "الكمية", isInput: true },
+      ],
     },
   ];
 
