@@ -36,18 +36,32 @@ const EditSuppliers = () => {
       type: "text",
       name: "name",
       placeholder: "يجب عليك ادخال الاسم",
+      labelName: "الاسم",
       required: true,
     },
     {
       type: "text",
       name: "phone",
       placeholder: "يجب عليك ادخال رقم الموبايل",
+      labelName: "الموبايل",
       required: true,
     },
     {
       type: "text",
       name: "address",
       placeholder: "يجب عليك ادخال العنوان",
+      labelName: "العنوان",
+      required: true,
+    },
+    {
+      type: "select",
+      name: "type",
+      placeholder: "يجب عليك ادخال نوع التوريد",
+      labelName: "نوع التوريد",
+      options: [
+        { value: "contracted", label: "متعاقد" },
+        { value: "local", label: "سوق محلى" },
+      ],
       required: true,
     },
   ];
