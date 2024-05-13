@@ -75,6 +75,8 @@ import { AddDepartments, EditDepartment, ShowProductDepartment } from "./applica
 import Unit from "./applications/warehouse/sections/unit/Unit";
 import { AddUnits, EditUnits, ShowUnits } from "./applications/warehouse/sections/unit/pages";
 import Login from "./auth/Login";
+import Payables from "./applications/warehouse/sections/payble/Payables";
+import { AddPayable, ShowPayables } from "./applications/warehouse/sections/payble/pages";
 
 function App() {
   return (
@@ -384,6 +386,21 @@ function App() {
               path="/warehouse/units/:id/edit-units"
               element={<EditUnits />}
             ></Route>
+
+          </Route>
+        </Route>
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/payable" element={<Payables />}>
+            <Route
+              path="/warehouse/payable/show-payable"
+              element={<ShowPayables />}
+            ></Route>
+            <Route
+              path="/warehouse/payable/add-payable"
+              element={<AddPayable />}
+            ></Route>
+
 
           </Route>
         </Route>
