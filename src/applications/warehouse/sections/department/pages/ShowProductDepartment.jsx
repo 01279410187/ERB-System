@@ -25,6 +25,10 @@ const ShowProductDepartment = () => {
       type: "delete",
       label: "حذف",
     },
+    {
+      type: "show",
+      label: "تعديل",
+    },
 
     {
       type: "add",
@@ -32,7 +36,13 @@ const ShowProductDepartment = () => {
       route: `/warehouse/departments/add-product-to-department/${id}`,
     },
   ];
-
+  const detailsHeaders = [
+    {
+      key: "quantity",
+      label: "الكمية",
+      isInput: true,
+    },
+  ];
   return (
     <div>
       <Table
@@ -45,6 +55,8 @@ const ShowProductDepartment = () => {
         }
         actions={actions}
         deleteFn={deleteProductDeaprtment}
+        detailsHeaders={detailsHeaders}
+        updateFn={() => {}}
       />
     </div>
   );

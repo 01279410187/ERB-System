@@ -135,7 +135,7 @@ const KitchenRequests = () => {
       isInput: true,
       details: [
         { key: "price", label: "السعر", isInput: true },
-        { key: "quantity", label: "الكمية", isInput: true },
+        { key: "quantity", label: "الكمية", isInput: false },
       ],
     },
   ];

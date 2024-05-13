@@ -34,22 +34,26 @@ const EditPaymentMethod = () => {
     {
       type: "text",
       name: "name",
+      labelName: "إسم طريقة الدفع",
       placeholder: "يجب عليك ادخال الاسم",
       required: true,
     },
     {
       type: "text",
       name: "label",
+      labelName: "وصف طريقة الدفع",
       placeholder: "إدخل عنوان",
     },
     {
       type: "image",
       name: "image",
+      labelName: "الصورة",
       placeholder: "إدخل صورة",
     },
     {
       type: "select",
       name: "status",
+      labelName: "الحالة",
       placeholder: "يجب عليك إدخال حالة",
       required: true,
       options: [
@@ -60,6 +64,7 @@ const EditPaymentMethod = () => {
     {
       type: "select",
       name: "type",
+      labelName: "النوع",
       placeholder: "يجب عليك إدخال نوع",
       required: true,
       options: [

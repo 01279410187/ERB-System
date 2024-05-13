@@ -113,6 +113,7 @@ import {
   Client,
   ClientType,
   DiscountReason,
+  EditClient,
   EditDiscountReason,
   EditPaymentMethod,
   PaymentMethod,
@@ -856,6 +857,10 @@ function App() {
             <Route
               path="/warehouse/clients/add-client"
               element={<AddClient />}
+            ></Route>
+            <Route
+              path="/warehouse/clients/:id/edit-client"
+              element={<EditClient />}
             ></Route>
           </Route>
         </Route>

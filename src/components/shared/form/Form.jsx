@@ -18,6 +18,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
   };
 
   const handleSelectChange = (value, field) => {
+    console.log(value);
     if (field.onChange) {
       field.onChange(value);
     }
@@ -35,7 +36,19 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
         <Form.Item
           key={index}
           name={field.name}
-          label={<span style={{ display: 'block', color: '#803D3B', fontSize: "16px", fontWeight: "700", fontFamily: "Cairo" }}>{field.labelName}</span>}
+          label={
+            <span
+              style={{
+                display: "block",
+                color: "#803D3B",
+                fontSize: "16px",
+                fontWeight: "700",
+                fontFamily: "Cairo",
+              }}
+            >
+              {field.labelName}
+            </span>
+          }
           rules={[{ required: field.required, message: field.placeholder }]}
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
@@ -101,7 +114,6 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
               disabled={field.disabled}
               value={field.disabled ? field.value : undefined}
             />
-
           )}
           {field.type === "checkbox" && (
             <div style={{ display: "flex", gap: "0.5rem" }}>

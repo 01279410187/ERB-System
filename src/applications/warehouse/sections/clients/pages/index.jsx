@@ -7,3 +7,4 @@ export { default as EditDiscountReason } from "./EditDiscountReason";
 export { default as ClientType } from "./ClientType";
 export { default as AddClientType } from "./AddClientType";
 export { default as Client } from "./Client";
+export { default as EditClient } from "./EditClient";

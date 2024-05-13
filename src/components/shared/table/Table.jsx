@@ -15,15 +15,13 @@ const Table = ({
   actions,
   id,
   deleteFn,
-  showFn,
   detailsHeaders,
   header,
   updateFn,
   changeStatusFn,
 }) => {
   const [data, setData] = useState([]);
-  const [itemName, setItemName] = useState("");
-  const [itemId, setItemId] = useState(null);
+  const [item, setItem] = useState({});
   const [isDeleteModalVisible, setisDeleteModalVisible] = useState(false);
   const [isShowModalVisible, setisShowModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,49 +63,48 @@ const Table = ({
     }
   };
 
-  const handleAction = (actionType, itemId, itemName) => {
+  const handleAction = (actionType, item) => {
     switch (actionType) {
       case "delete":
-        handleDelete(itemId, itemName);
+        handleDelete(item);
         break;
       case "show":
-        handleShowData(itemId, itemName);
+        handleShowData(item);
         break;
       case "edit":
-        handleEdit(itemId);
+        handleEdit(item);
         break;
       case "navigate":
-        handleNavigate(itemId);
+        handleNavigate(item);
         break;
       default:
         break;
     }
   };
 
-  const handleDelete = (itemId, itemName) => {
-    setItemName(itemName);
-    setItemId(itemId);
+  const handleDelete = (item) => {
+    console.log(item);
+    setItem(item);
     setisDeleteModalVisible(true);
   };
 
-  const handleShowData = (itemId, itemName) => {
-    setItemName(itemName);
-    setItemId(itemId);
+  const handleShowData = (item) => {
+    setItem(item);
     setisShowModalVisible(true);
   };
-  const handleNavigate = (itemId) => {
+  const handleNavigate = (item) => {
     navigate(
       actions
         .find((action) => action.type === "navigate")
-        .route.replace(":id", itemId)
+        .route.replace(":id", item.id)
     );
   };
-  const handleEdit = (itemId) => {
-    setItemId(itemId);
+  const handleEdit = (item) => {
+    setItem(item);
     navigate(
       actions
         .find((action) => action.type === "edit")
-        .route.replace(":id", itemId)
+        .route.replace(":id", item.id)
     );
   };
   const handleAdd = () => {
@@ -290,11 +287,7 @@ const Table = ({
                               className={`button ${action.type}`}
                               key={index}
                               onClick={() => {
-                                handleAction(
-                                  action.type,
-                                  item.id,
-                                  item.name || item.title || ""
-                                );
+                                handleAction(action.type, item);
                               }}
                             >
                               {action.label}
@@ -341,17 +334,14 @@ const Table = ({
       )}
       {isDeleteModalVisible && (
         <DeleteModal
-          name={itemName}
-          id={itemId}
+          item={item}
           onDelete={deleteFn}
           handleModalVisible={setisDeleteModalVisible}
         />
       )}
       {isShowModalVisible && (
         <ShowDataModal
-          id={itemId}
-          name={itemName}
-          showFn={showFn}
+          responseData={item}
           header={header}
           handleModalVisible={setisShowModalVisible}
           detailsHeaders={detailsHeaders}

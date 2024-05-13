@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./ShowDataModal.scss";
 const ShowDataModal = ({
-  showFn,
-  id,
+  responseData,
   detailsHeaders,
   updateFn,
   changeStatusFn,
   handleModalVisible,
 }) => {
-  const [responseData, setResponseData] = useState(null);
-  const [editedData, setEditedData] = useState({});
+  const [editedData, setEditedData] = useState(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -27,26 +25,17 @@ const ShowDataModal = ({
   }, [handleModalVisible]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await showFn(id);
-      setResponseData(response.data);
-      const initialEditedData = {};
-      detailsHeaders.forEach((header) => {
-        if (header.isInput) {
-          initialEditedData[header.key] = response.data[header.key];
-        }
-      });
-      setEditedData(initialEditedData);
-    };
-
-    fetchData();
-
-    return () => {
-      setResponseData(null);
-    };
-  }, [showFn, id, detailsHeaders]);
+    const initialEditedData = {};
+    detailsHeaders.forEach((header) => {
+      if (header.isInput) {
+        initialEditedData[header.key] = responseData[header.key];
+      }
+    });
+    setEditedData(initialEditedData);
+  }, [detailsHeaders]);
 
   const handleInputChange = (header, value, index, subKey) => {
+    console.log(editedData);
     if (subKey) {
       setEditedData((prevState) => ({
         ...prevState,
@@ -67,7 +56,7 @@ const ShowDataModal = ({
   };
 
   const handleEditClick = () => {
-    updateFn(id, editedData);
+    updateFn(responseData.id, editedData);
     handleModalVisible(false);
   };
 
@@ -82,6 +71,7 @@ const ShowDataModal = ({
   };
 
   const renderInputField = (header, value, index, subKey) => {
+    if (!editedData) return;
     const inputValue = subKey
       ? editedData[header][index][subKey]
       : editedData[header];
@@ -97,10 +87,6 @@ const ShowDataModal = ({
       />
     );
   };
-
-  if (!responseData) {
-    return <div>Loading...</div>;
-  }
 
   const nonArrayHeaders = detailsHeaders.filter((header) => !header.isArray);
   const arrayHeaders = detailsHeaders.filter((header) => header.isArray);

@@ -162,3 +162,34 @@ export async function deleteProduct(id) {
         console.log("Error fetching data:", error);
     }
 }
+export async function editProductByDepartment(editValues) {
+    try {
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('image', image[0].originFileObj ? image[0].originFileObj : 0
+        );
+
+        formData.append('category_id', category_id);
+        formData.append('price', price);
+
+        formData.append('sub_category_id', sub_category_id);
+        formData.append('_method', "PUT");
+        const res = await axios.post(
+            `${domain}/api/v1/store/products/update/${id}`,
+            formData,
+            {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }
+        );
+        return res.data;
+    } catch (error) {
+        message.error(error.response.data.error.message);
+
+        console.log("Error fetching data:", error);
+        throw error; // Rethrow the error to handle it in the calling code if necessary
+    }
+}

@@ -43,29 +43,30 @@ export async function deleteClient(id) {
 export async function getClientById(id) {
   const Token = localStorage.getItem("token");
   try {
-    const res = await axios.get(
-      `${API_ENDPOINT}/api/v1/store/client_type/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      }
-    );
+    const res = await axios.get(`${API_ENDPOINT}/api/v1/store/client/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
     message.error("حدث خطأ الرجاء إعادة المحاولة ");
   }
 }
-export async function updateClient(id, editValues) {
+export async function updateClient(editValues, id) {
   const formData = new FormData();
-  formData.append("discount_reason", editValues.discount_reason);
-  formData.append("discount", editValues.discount);
+  formData.append("name", editValues.name);
+  formData.append("phone", editValues.phone);
+  formData.append("military_number", editValues.military_number);
+  formData.append("is_worker", editValues.is_worker);
+  formData.append("sallary", editValues.sallary);
+  formData.append("incentives", editValues.incentives);
   formData.append("_method", "PUT");
   const Token = localStorage.getItem("token");
   try {
     const res = await axios.post(
-      `${API_ENDPOINT}/api/v1/store/discount_reason/update/${id}`,
+      `${API_ENDPOINT}/api/v1/store/client/update/${id}`,
       formData,
       {
         headers: {

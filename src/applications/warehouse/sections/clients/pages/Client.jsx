@@ -21,7 +21,7 @@ const Client = () => {
           : ""
       }`,
       label: "تعديل",
-      route: "/warehouse/clients/:id/edit-client-type",
+      route: "/warehouse/clients/:id/edit-client",
     },
     {
       type: `${
