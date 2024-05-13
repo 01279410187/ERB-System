@@ -18,6 +18,8 @@ export async function getProducts(filteredValues = { name: "", page: "" }, id) {
         console.log(res.data);
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }
@@ -33,6 +35,8 @@ export async function getUnits() {
         console.log(res.data);
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }
@@ -96,6 +100,8 @@ export async function eidtProduct(name, description, image, price, category_id, 
         );
         return res.data;
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
         throw error; // Rethrow the error to handle it in the calling code if necessary
     }
@@ -115,6 +121,8 @@ export async function getProductsById(id) {
         console.log(res.data)
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }
@@ -135,6 +143,8 @@ export async function getProductsFilterById(filteredValues = { name: "", page: "
         console.log(res.data)
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }
@@ -147,6 +157,8 @@ export async function deleteProduct(id) {
         );
         return res.data
     } catch (error) {
+        message.error(error.response.data.error.message);
+
         console.log("Error fetching data:", error);
     }
 }

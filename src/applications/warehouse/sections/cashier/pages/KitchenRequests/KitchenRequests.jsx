@@ -1,6 +1,6 @@
 import Table from "../../../../../../components/shared/table/Table";
 import { getOrders } from "../../../../../../apis/orders";
-import { getOrderById } from "../../../../../../apis/orders";
+import { getOrderById, deleteOrder } from "../../../../../../apis/orders";
 import { getAllDepartments } from "../../../../../../apis/departments";
 import "../../../../../../components/shared/table/Table.scss";
 import { useEffect, useState } from "react";
@@ -114,15 +114,6 @@ const KitchenRequests = () => {
     //   }`,
     //   label: "تعديل",
     // },
-    {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 124)
-          ? "add"
-          : ""
-      }`,
-      label: "إضافة طلبات",
-      route: "/warehouse/cashier/add-orders",
-    },
   ];
   const detailsHeaders = [
     {
@@ -151,14 +142,14 @@ const KitchenRequests = () => {
     <div>
       <Table
         headers={tableHeaders}
-        title="الطلبات"
+        title="الأوردرات"
         filters={filters}
         fetchData={(filterValues, id, setIsLoading) =>
           getOrders(filterValues, id, setIsLoading)
         }
         header={"products"}
         actions={actions}
-        // deleteFn={deleteRequest}
+        deleteFn={deleteOrder}
         showFn={getOrderById}
         // updateFn={updateRequests}
         changeStatusFn={() => {}}

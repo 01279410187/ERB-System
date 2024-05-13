@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from "../../../../config";
 
-const ItemList = ({ items, onDeleteItem }) => {
+const ItemList = ({ items, onDeleteItem, InvoiceType }) => {
   return (
     <div className="item-list">
       <h2>قائمة العناصر</h2>
@@ -15,8 +15,9 @@ const ItemList = ({ items, onDeleteItem }) => {
             />
           </div>
           <div>الكمية: {item.quantity}</div>
-          <div>السعر: &nbsp;{item.price} &nbsp;ج.م </div>
-          <div>تاريخ انتهاء الصلاحية: {item.expireDate}</div>
+          {InvoiceType === "in_coming" || InvoiceType === "returned" ? <div>السعر: &nbsp;{item.price} &nbsp;ج.م </div> : <></>}
+
+          {InvoiceType === "in_coming" ? <div>تاريخ انتهاء الصلاحية: {item.expireDate}</div> : <></>}
           <button className="item-btn" onClick={() => onDeleteItem(index)}>
             حذف
           </button>

@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({
     id: "",
     username: "",
+    name: "",
     phone: "",
     department: "",
     permissions: "",
@@ -21,10 +22,11 @@ export const AuthProvider = ({ children }) => {
   const checkAuthUser = async () => {
     try {
       const profileData = await getProfile();
-      const { id, username, phone, department, permissions, roles } =
+      const { id, username, name, phone, department, permissions, roles } =
         profileData?.data;
       setUser({
         id,
+        name,
         username,
         phone,
         department,

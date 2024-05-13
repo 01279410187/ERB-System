@@ -56,6 +56,8 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
   const handleParentChange = async (parentId) => {
     setSelectedParent(parentId);
     try {
+      const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
         `${API_ENDPOINT}/api/v1/product/subcategory/${parentId}`,
         {
@@ -99,7 +101,6 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
       },
     ]);
   }, [ProductCategoryParents, ProductCategories]);
-  console.log(selectedProduct);
   const onSubmit = (formData) => {
     // Handle form submission here
     console.log("Form data:", formData);

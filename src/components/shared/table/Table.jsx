@@ -46,9 +46,7 @@ const Table = ({
     currentPage,
     isDeleteModalVisible,
     isShowModalVisible,
-    location,
   ]);
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };

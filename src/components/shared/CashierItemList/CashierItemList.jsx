@@ -8,7 +8,7 @@ const CashierItemList = ({ items, onDeleteItem }) => {
                 <div className="item-cashier" key={index}>
                     <div>{item.name}</div>
                     <div>   <img
-                        src={`${API_ENDPOINT}/${item.image}`}
+                        src={`${item.image}`}
                         alt={`alt-${item.name}`}
                         style={{ width: "50px", height: "40px" }}
                     /></div>

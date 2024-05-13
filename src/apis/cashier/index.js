@@ -1,3 +1,4 @@
+import { message } from "antd";
 import axios from "axios";
 import { API_ENDPOINT, Token } from "../../../config";
 
@@ -22,6 +23,8 @@ export async function getAllTables() {
     });
     return res.data;
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -34,6 +37,8 @@ export async function getTableOrderById(id) {
     });
     return res.data;
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }

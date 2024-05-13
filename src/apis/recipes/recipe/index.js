@@ -110,6 +110,8 @@ export async function getUnits() {
     console.log(res.data);
     return res.data;
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -149,6 +151,8 @@ export async function addRecipes(
     return res.data;
   } catch (error) {
     // message.error(error.response.data.error.message)
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
     throw error; // Rethrow the error to handle it in the calling code if necessary
   }
@@ -190,6 +194,8 @@ export async function eidtRecipes(
     );
     return res.data;
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
     throw error;
   }
@@ -205,6 +211,8 @@ export async function getRecipesById(id) {
     console.log(res.data);
     return res.data;
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -227,6 +235,8 @@ export async function getRecipesFilterById(
     console.log(res.data);
     return res.data;
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }
@@ -243,6 +253,8 @@ export async function deleteRecipe(id) {
     );
     return res.data;
   } catch (error) {
+    message.error(error.response.data.error.message);
+
     console.log("Error fetching data:", error);
   }
 }

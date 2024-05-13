@@ -18,7 +18,7 @@ function Categories(props) {
   const { user } = useAuth();
   useEffect(() => {
     const fetchSupplier = async () => {
-      const res = await getSuppliers({}, "", () => {});
+      const res = await getSuppliers({}, "", () => { });
       setAllSupplier(
         [{ label: "", value: "" }].concat(
           res.data.map((item) => {
@@ -135,6 +135,11 @@ function Categories(props) {
       }`,
       label: "مراجعة",
     },
+    {
+      type: "navigate",
+      label: " طباعه",
+      route: "/warehouse/invoices/print/:id"
+    },
   ];
 
   const actionsOutComing = [
@@ -154,6 +159,11 @@ function Categories(props) {
           : ""
       }`,
       label: "مراجعة",
+    },
+    {
+      type: "navigate",
+      label: " طباعه",
+      route: "/warehouse/invoices/print/:id"
     },
   ];
 
