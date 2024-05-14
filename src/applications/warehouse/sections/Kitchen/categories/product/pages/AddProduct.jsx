@@ -57,10 +57,11 @@ const AddProduct = () => {
 
     const fields = [
         { type: 'text', name: 'parent', placeholder: `${data}`, required: false, disabled: true },
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true },
+        { type: 'text', name: 'name', labelName: "الاسم", placeholder: 'يجب عليك ادخال الاسم', required: true },
+
         // { type: 'number', name: 'quantity', placeholder: 'يجب عليك ادخال الكميه', required: true },
-        { type: 'number', name: 'price', placeholder: 'يجب عليك ادخال السعر', required: true },
-        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', required: true },
+        { type: 'number', name: 'price', labelName: "السعر", placeholder: 'يجب عليك ادخال السعر', required: true },
+        { type: 'text', name: 'description', labelName: "الوصف", placeholder: 'يجب عليك ادخال الوصف', required: true },
         // { type: 'number', name: 'day_before_expire', placeholder: 'يجب عليك ادخال تاريح الصلاحيه', required: true },
 
 
