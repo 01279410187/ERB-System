@@ -96,63 +96,71 @@ const ShowDataModal = ({
   return (
     <div className="show-data-modal">
       <div className="modal-content">
-        <table className="data-table">
-          <thead>
-            <tr>
-              {nonArrayHeaders.map((header) => (
-                <th key={header.key}>{header.label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {nonArrayHeaders.map((header, index) => {
-                return (
-                  <td key={index}>
-                    {header.isInput
-                      ? renderInputField(
-                        header.key,
-                        responseData[header.key],
-                        null,
-                        null
-                      )
-                      : responseData[header.key]}
-                  </td>
-                );
-              })}
-            </tr>
-          </tbody>
-        </table>
-        {arrayHeaders.map((header, index) => (
-          <div key={header.key}>
-            <h2>{header.label}</h2>
+        <div className="data-table-container">
+          <div className="data-table-diagram">
             <table className="data-table">
               <thead>
                 <tr>
-                  {header.details.map((detail) => (
-                    <th key={detail.key}>{detail.label}</th>
+                  {nonArrayHeaders.map((header) => (
+                    <th key={header.key}>{header.label}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {responseData[header.key]?.map((item, itemIndex) => (
-                  <tr key={itemIndex}>
-                    {header.details.map((detail, detailIndex) => (
-                      <td key={detail.key}>
-                        {detail.isInput
+                <tr>
+                  {nonArrayHeaders.map((header, index) => {
+                    return (
+                      <td key={index}>
+                        {header.isInput
                           ? renderInputField(
                             header.key,
-                            item[detail.key],
-                            itemIndex,
-                            detail.key
+                            responseData[header.key],
+                            null,
+                            null
                           )
-                          : item[detail.key]}
+                          : responseData[header.key]}
                       </td>
-                    ))}
-                  </tr>
-                ))}
+                    );
+                  })}
+                </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        {arrayHeaders.map((header, index) => (
+          <div key={header.key}>
+            <h4 className="data-table-title">{header.label}</h4>
+            <div className="data-table-container">
+              <div className="data-table-diagram">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      {header.details.map((detail) => (
+                        <th key={detail.key}>{detail.label}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {responseData[header.key]?.map((item, itemIndex) => (
+                      <tr key={itemIndex}>
+                        {header.details.map((detail, detailIndex) => (
+                          <td key={detail.key}>
+                            {detail.isInput
+                              ? renderInputField(
+                                header.key,
+                                item[detail.key],
+                                itemIndex,
+                                detail.key
+                              )
+                              : item[detail.key]}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         ))}
 

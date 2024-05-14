@@ -13,15 +13,16 @@ import {
   FaTruckArrowRight,
   FaCalendarXmark,
 } from "react-icons/fa6";
-import { FaUserCircle, FaUser } from "react-icons/fa";
-import { BsCashCoin } from "react-icons/bs";
+import { FaUserCircle, FaUser, FaUsers } from "react-icons/fa";
+import { BsCashCoin, BsCreditCard2FrontFill } from "react-icons/bs";
 
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { MdDelete, MdLogout } from "react-icons/md";
-
-import { TbReport, TbBrandUnity, TbReportSearch } from "react-icons/tb";
+import { PiUserSwitchThin } from "react-icons/pi";
+import { CiDiscount1 } from "react-icons/ci";
+import { TbReport, TbBrandUnity, TbReportSearch, TbUserSquare } from "react-icons/tb";
 import {
   MdOutlineClose,
   MdOutlineLogout,
@@ -129,9 +130,9 @@ const Sidebar = () => {
       </div>
       <div className="sidebar-body">
         <div className="sidebar-menu">
-          <div>
-            <FaUser size={30} />
-            <span>{user?.name}</span>
+          <div className="current-user">
+            <FaUser size={30} className="user-icon" />
+            <span className="user-rule">{user?.name}</span>
           </div>
           <ul className="menu-list">
             <li
@@ -560,7 +561,7 @@ const Sidebar = () => {
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdAssignmentLate size={30} />
+                  <TbUserSquare size={30} />
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
@@ -630,7 +631,7 @@ const Sidebar = () => {
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdAssignmentLate size={30} />
+                  <BsCreditCard2FrontFill size={30} />
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
@@ -666,7 +667,7 @@ const Sidebar = () => {
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdAssignmentLate size={30} />
+                  <PiUserSwitchThin size={30} />
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
@@ -700,7 +701,7 @@ const Sidebar = () => {
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdAssignmentLate size={30} />
+                  <FaUsers size={30} />
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
@@ -736,7 +737,7 @@ const Sidebar = () => {
                 }}
               >
                 <span className="menu-link-icon">
-                  <MdAssignmentLate size={30} />
+                  <CiDiscount1 size={30} />
                 </span>
                 <span
                   className={`menu-link-text ${display}`}
