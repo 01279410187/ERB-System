@@ -261,7 +261,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
 
       <label className="form-label">الوحده:</label>
       <input className="form-input" type="text" value={uint} disabled={true} style={{ cursor: "not-allowed" }} />
-      {InvoiceType === "in_coming" || InvoiceType === "returned" || InvoiceType === "tainted" ? <> <label className="form-label">تاريخ الصلاحيه:</label>
+      {InvoiceType === "in_coming" || InvoiceType === "returned" || InvoiceType === "tainted" ? <> <label className="form-label"> تاريخ  انتهاء الصلاحيه:</label>
         <input
           className="form-input"
           type="date"

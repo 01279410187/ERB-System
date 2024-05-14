@@ -29,10 +29,10 @@ const EditDepartment = () => {
     };
 
     const fields = [
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true },
-        { type: 'number', name: 'code', placeholder: 'يجب عليك ادخال الكود', required: true },
-        { type: 'number', name: 'phone', placeholder: 'يجب عليك ادخال رقم التيليفون', required: true },
-        { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره' },
+        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', labelName: "الاسم", required: true },
+        { type: 'number', name: 'code', placeholder: 'يجب عليك ادخال الكود', labelName: "الكود", required: true },
+        { type: 'number', name: 'phone', placeholder: 'يجب عليك ادخال رقم التيليفون', labelName: "التيليفون", required: true },
+        { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره', labelName: "الصورة" },
     ];
 
     return (

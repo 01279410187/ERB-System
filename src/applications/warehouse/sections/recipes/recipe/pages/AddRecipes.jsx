@@ -70,6 +70,8 @@ const AddRecipes = () => {
       type: "text",
       name: "name",
       placeholder: "يجب عليك ادخال الاسم",
+      labelName: "الاسم",
+
       required: true,
     },
     // { type: 'number', name: 'quantity', placeholder: 'يجب عليك ادخال الكميه', required: true },
@@ -77,13 +79,15 @@ const AddRecipes = () => {
     {
       type: "number",
       name: "minimum_limt",
-      placeholder: "يجب عليك ادخال حد الامان",
+      placeholder: "يجب عليك ادخال كمية حد الامان",
+      labelName: " كمية حد الامان",
       required: true,
     },
     {
       type: "number",
       name: "day_before_expire",
-      placeholder: "يجب عليك ادخال أيام قبل إنتهاء الصلاحية",
+      placeholder: "يجب عليك ادخال أيام التنبيه قبل انتهاء الصلاحية",
+      labelName: "  أيام التنبيه قبل انتهاء الصلاحية",
       required: true,
     },
 
@@ -91,6 +95,7 @@ const AddRecipes = () => {
       type: "select",
       name: "unit_id",
       placeholder: "اختر  الوحدة",
+      labelName: "الوحدة",
       options: units.map((units) => ({ value: units.id, label: units.name })),
     },
 

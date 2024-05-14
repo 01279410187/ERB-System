@@ -16,10 +16,11 @@
     color: var(--brown-color);
     outline: 0;
     background-color: #ffffff;
-    font-weight: 700;
+    // font-weight: 700;    
+    font-size: 14px !important;
     font-family: "Cairo";
     padding: 10px 5px;
-    margin-top: 20px;
+    // margin-top: 20px;
 
     &:hover,
     &:focus {
@@ -29,9 +30,16 @@
     }
 }
 
+.ant-select-selection-placeholder {
+    color: #999 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
 //upload button
 .ant-upload .ant-btn-default {
     margin-top: 20px;
+    color: #999;
 
     &:hover {
         color: var(--brown-color) !important;
@@ -40,35 +48,15 @@
     }
 }
 
-/*
-// select field
-// .custom-select {
-//     // &:hover {
-//     //     border-color: var(--brown-color);
-//     //     box-shadow: inset 0px 0px 0 2px rgb(255 132 5 / 10%);
-//     // }
+// customize placeholder
+.ant-input::placeholder {
+    color: #999;
+}
 
-//     &:focus {
-//         border-color: var(--brown-color) !important;
-//         box-shadow: inset 0px 0px 0 2px rgb(255 132 5 / 10%) !important;
-//     }
-// }
+.ant-input-disabled::placeholder {
+    color: #898989;
+}
 
-// .custom-select .ant-select-selector {
-//     
-// }
-
-// .custom-select .ant-select-selector:hover {
-//     border-color: var(--brown-color) !important;
-//     box-shadow: inset 0px 0px 0 2px rgb(255 132 5 / 10%) !important;
-// }
-
-// .ant-select-focused:where(.css-dev-only-do-not-override-1okl62o).ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
-//     border-color: var(--brown-color) !important;
-//     box-shadow: inset 0px 0px 0 2px rgb(255 132 5 / 10%) !important;
-//     outline: 0;
-// }
-*/
 
 // select field
 .ant-select.ant-select-outlined.ant-select-in-form-item {
@@ -76,8 +64,8 @@
         .ant-select-selector {
 
             border-color: var(--brown-color) !important;
-            padding: 10px 15px;
-
+            // padding: 10px 15px;
+            padding: 18px;
             // border-color: transparent;
         }
     }
@@ -90,6 +78,8 @@
         border-color: var(--brown-color) !important;
         box-shadow: inset 0px 0px 0 2px rgb(255 132 5 / 10%) !important;
         outline: 0 !important;
+        border-radius: 6px;
+
     }
 
 }
@@ -101,9 +91,20 @@
     outline: 0 !important;
 }
 
+.ant-select-selection-item {
+    color: #656565;
+    font-size: 14px;
+    font-weight: 500 !important;
+}
 
-
-
+.ant-form-item {
+    .ant-select {
+        .ant-select-selector {
+            padding: 18px;
+            border-radius: 6px;
+        }
+    }
+}
 
 
 //button style
@@ -130,9 +131,11 @@
     background-color: var(--light-beige-color);
     color: var(--brown-color);
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    font-size: 16px;
+    font-weight: 700;
+    // padding: 8px 16px;
 
 }
-
 
 .disable-scroll {
 
@@ -140,5 +143,26 @@
     input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+}
+
+//upload button style
+.ant-upload {
+    .ant-btn {
+        span {
+            color: #999;
+            font-size: 14px;
+            font-weight: 700;
+
+            // &:hover {
+            //     color: var(--brown-color);
+            // }
+        }
+
+        &:hover {
+            span {
+                color: var(--brown-color);
+            }
+        }
     }
 }

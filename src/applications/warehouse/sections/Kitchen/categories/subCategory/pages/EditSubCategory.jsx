@@ -37,15 +37,15 @@ const EditSubCategory = () => {
         await navigate(`/warehouse/returants/show-subCategory/${parentId}`);
     };
     const fields = [
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true, disabled: false },
-        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', required: true, disabled: false },
-        { type: 'text', name: 'parentName', placeholder: `${parent}`, required: false, disabled: true },
+        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', labelName: 'الاسم', required: true, disabled: false },
+        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', labelName: 'الوصف', required: true, disabled: false },
+        { type: 'text', name: 'parentName', placeholder: `${parent}`, labelName: 'التصنيف الرئيسي', required: false, disabled: true },
         { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره' },
     ];
 
     return (
         <div className='form-container'>
-            <h1 className='form-title'>تعديل التصنيف الرئيسي</h1>
+            <h1 className='form-title'>تعديل التصنيف فرعي</h1>
             {data && <DynamicForm fields={fields} initialValues={data} onSubmit={handleSubmit} />} {/* Pass initial values if data is available */}
         </div>
     );

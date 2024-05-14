@@ -32,9 +32,9 @@ const AddSubCategory = () => {
 
 
     const fields = [
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true, disabled: false },
-        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', required: true, disabled: false },
-        { type: 'text', name: 'parentName', value: parentName, placeholder: `${parentName}`, required: false, disabled: true },
+        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', labelName: 'الاسم', required: true, disabled: false },
+        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', labelName: 'الوصف', required: true, disabled: false },
+        { type: 'text', name: 'parentName', value: parentName, placeholder: `${parentName}`, labelName: 'التصنيف الرئيسي', required: false, disabled: true },
         { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره' },
     ];
 

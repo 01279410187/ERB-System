@@ -29,8 +29,8 @@ const DeleteModal = ({ name, id, onDelete, handleModalVisible }) => {
           <h2>حذف</h2>
           <p>هل أنت متأكد من حذف {name} ؟</p>
           <div className="modal-buttons">
-            <button onClick={handleDelete}>حذف</button>
-            <button onClick={() => handleModalVisible(false)}>رجوع</button>
+            <button className="btn-return" onClick={() => handleModalVisible(false)}>رجوع</button>
+            <button className="btn-delete" onClick={handleDelete}>حذف</button>
           </div>
         </div>
       </div>
