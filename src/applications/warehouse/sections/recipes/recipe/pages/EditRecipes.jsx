@@ -63,13 +63,14 @@ const EditRecipes = () => {
 
     const fields = [
         { type: 'text', name: 'parent', placeholder: `${parentName}`, required: false, disabled: true },
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: false, disabled: false },
-        { type: 'number', name: 'minimum_limt', placeholder: 'يجب عليك ادخال حد الامان', required: false, disabled: false },
-        { type: 'number', name: 'days_before_expire', placeholder: 'يجب عليك ادخال تاريح الصلاحيه', required: false, disabled: false },
+        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', labelName: "الاسم", required: false, disabled: false },
+        { type: 'number', name: 'minimum_limt', placeholder: 'يجب عليك ادخال كمية حد الامان', labelName: "كمية حد الامان", required: false, disabled: false },
+        { type: 'number', name: 'days_before_expire', placeholder: 'يجب عليك ادخال أيام التنبيه قبل انتهاء الصلاحية', labelName: "أيام التنبيه قبل انتهاء الصلاحية", required: false, disabled: false },
         {
             type: 'select',
             name: 'unit_id',
             placeholder: `${recipeUnit}`,
+            labelName: "الوحدة",
             options: units.map(units => ({ value: units.id, label: units.name }))
         },
         { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره' },

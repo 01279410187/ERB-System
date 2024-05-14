@@ -29,8 +29,10 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
         <Form.Item
           key={index}
           name={field.name}
-          label={field.label}
+          label={<span style={{ display: 'block', color: '#803D3B', fontSize: "16px", fontWeight: "700", fontFamily: "Cairo" }}>{field.labelName}</span>}
           rules={[{ required: field.required, message: field.placeholder }]}
+          labelCol={{ span: 24 }}
+          wrapperCol={{ span: 24 }}
         >
           {field.type === "number" && (
             <Input
@@ -87,6 +89,7 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
               disabled={field.disabled}
               value={field.disabled ? field.value : undefined}
             />
+
           )}
         </Form.Item>
       ))}

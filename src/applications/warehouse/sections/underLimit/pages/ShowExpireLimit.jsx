@@ -7,7 +7,7 @@ const ShowExpireLimit = () => {
         { key: "name", value: "التصنيف الفرعى " },
         { key: "recipe_category", nestedKey: "name", value: " التصنيف الرئيسى " },
         { key: "unit", nestedKey: "name", value: "الوحدة " },
-        { key: "days_before_expire", value: "عدد ايام الصلاحية " },
+        { key: "days_before_expire", value: "أيام التنبيه قبل انتهاء الصلاحية" },
 
         // { key: "quantity", value: "الكمية المتبقية  " },
     ];

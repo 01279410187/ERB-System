@@ -13,8 +13,8 @@ const AddRecipe = () => {
     };
 
     const fields = [
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true },
-        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', required: true },
+        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', labelName: "الاسم", required: true },
+        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', labelName: "الوصف", required: true },
         { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره' },
     ];
 
