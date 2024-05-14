@@ -92,27 +92,33 @@ const KitchenRequests = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 126)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete order"
+        )
           ? "delete"
           : ""
-        }`,
+      }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 127)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "change order status"
+        )
           ? "show"
           : ""
-        }`,
+      }`,
       label: "مراجعة",
     },
-    // {
-    //   type: `${
-    //     user?.permissions.some((permission) => permission.name === 125)
-    //       ? "edit"
-    //       : ""
-    //   }`,
-    //   label: "تعديل",
-    // },
+    {
+      type: `${
+        user?.permissions.some((permission) => permission.name === "edit order")
+          ? "edit"
+          : ""
+      }`,
+      label: "تعديل",
+    },
   ];
   const detailsHeaders = [
     {
@@ -152,7 +158,7 @@ const KitchenRequests = () => {
         deleteFn={deleteOrder}
         showFn={getOrderById}
         // updateFn={updateRequests}
-        changeStatusFn={() => { }}
+        changeStatusFn={() => {}}
         detailsHeaders={detailsHeaders}
       />
     </div>

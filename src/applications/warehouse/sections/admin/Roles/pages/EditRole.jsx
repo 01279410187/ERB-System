@@ -72,7 +72,7 @@ const EditRole = () => {
           initialValue=""
           style={{ marginBottom: "20px" }}
         >
-          <Input placeholder="أضف إسم للدور" value={name} />
+          <Input placeholder="أضف إسم للدور" />
         </Form.Item>
         <Form.Item
           label="الأدوار"

@@ -16,25 +16,16 @@ const DiscountReason = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "edit"
-          : ""
-        }`,
+      type: `edit`,
       label: "تعديل",
       route: "/warehouse/clients/:id/edit-discount-reason",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "delete"
-          : ""
-        }`,
+      type: `delete`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "add"
-          : ""
-        }`,
+      type: `add`,
       label: "إضافة سبب خصم",
       route: "/warehouse/clients/add-discount-reason",
     },

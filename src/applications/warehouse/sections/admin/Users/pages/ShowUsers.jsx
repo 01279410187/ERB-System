@@ -9,7 +9,7 @@ const ShowUsers = () => {
     { key: "phone", value: "الرقم" },
   ];
 
-  const { user } = useAuth()
+  const { user } = useAuth();
   const filters = [
     { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
     {
@@ -21,26 +21,31 @@ const ShowUsers = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 115)
-        ? "edit"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some((permission) => permission.name === "edit user")
+          ? "edit"
+          : ""
+      }`,
       label: "تعديل",
       route: "/warehouse/users/:id/edit-user",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 116)
-        ? "delete"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete user"
+        )
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
 
     {
-      type: `${user?.permissions.some((permission) => permission.name === 114)
-        ? "add"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some((permission) => permission.name === "add user")
+          ? "add"
+          : ""
+      }`,
       label: "إضافة مستخدمين",
       route: "/warehouse/users/add-user",
     },

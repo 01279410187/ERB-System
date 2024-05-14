@@ -22,7 +22,12 @@ import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { MdDelete, MdLogout } from "react-icons/md";
 import { PiUserSwitchThin } from "react-icons/pi";
 import { CiDiscount1 } from "react-icons/ci";
-import { TbReport, TbBrandUnity, TbReportSearch, TbUserSquare } from "react-icons/tb";
+import {
+  TbReport,
+  TbBrandUnity,
+  TbReportSearch,
+  TbUserSquare,
+} from "react-icons/tb";
 import {
   MdOutlineClose,
   MdOutlineLogout,
@@ -319,7 +324,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 124,
-                    name: "add orders",
+                    name: "add order",
                   })
                     ? ""
                     : "none"
@@ -355,7 +360,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 124,
-                    name: "add orders",
+                    name: "add order",
                   })
                     ? ""
                     : "none"
@@ -392,7 +397,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 124,
-                    name: "add orders",
+                    name: "add order",
                   })
                     ? ""
                     : "none"

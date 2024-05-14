@@ -14,7 +14,7 @@ const ShowUsers = () => {
   const actions = [
     {
       type: `${
-        user?.permissions.some((permission) => permission.name === 111)
+        user?.permissions.some((permission) => permission.name === "edit role")
           ? "edit"
           : ""
       }`,
@@ -24,7 +24,7 @@ const ShowUsers = () => {
 
     {
       type: `${
-        user?.permissions.some((permission) => permission.name === 110)
+        user?.permissions.some((permission) => permission.name === "add role")
           ? "add"
           : ""
       }`,

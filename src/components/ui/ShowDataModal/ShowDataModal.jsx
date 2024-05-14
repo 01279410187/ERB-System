@@ -29,7 +29,7 @@ const ShowDataModal = ({
     const initialEditedData = {};
     detailsHeaders.forEach((header) => {
       initialEditedData[header.key] = responseData[header.key];
-      initialEditedData['id'] = responseData['id'];
+      initialEditedData["id"] = responseData["id"];
     });
     console.log(initialEditedData);
     setEditedData(initialEditedData);
@@ -57,9 +57,7 @@ const ShowDataModal = ({
   };
 
   const handleEditClick = () => {
-    console.log(editedData);
     updateFn(editedData, id);
-    handleModalVisible(false);
   };
 
   const handleRejectClick = () => {
@@ -113,11 +111,11 @@ const ShowDataModal = ({
                       <td key={index}>
                         {header.isInput
                           ? renderInputField(
-                            header.key,
-                            responseData[header.key],
-                            null,
-                            null
-                          )
+                              header.key,
+                              responseData[header.key],
+                              null,
+                              null
+                            )
                           : responseData[header.key]}
                       </td>
                     );
@@ -147,11 +145,11 @@ const ShowDataModal = ({
                           <td key={detail.key}>
                             {detail.isInput
                               ? renderInputField(
-                                header.key,
-                                item[detail.key],
-                                itemIndex,
-                                detail.key
-                              )
+                                  header.key,
+                                  item[detail.key],
+                                  itemIndex,
+                                  detail.key
+                                )
                               : item[detail.key]}
                           </td>
                         ))}

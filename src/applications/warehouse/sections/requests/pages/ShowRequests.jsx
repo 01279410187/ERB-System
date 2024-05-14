@@ -96,24 +96,33 @@ const ShowRequests = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 133)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete request"
+        )
           ? "delete"
           : ""
-        }`,
+      }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 132)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit request"
+        )
           ? "show"
           : ""
-        }`,
+      }`,
       label: "مراجعة",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 131)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "add request"
+        )
           ? "add"
           : ""
-        }`,
+      }`,
       label: "إضافة طلبات",
       route: "/warehouse/requests/add-request",
     },
@@ -151,7 +160,7 @@ const ShowRequests = () => {
         deleteFn={deleteRequest}
         showFn={getRequestById}
         updateFn={updateRequests}
-        changeStatusFn={() => { }}
+        changeStatusFn={() => {}}
         detailsHeaders={detailsHeaders}
       />
     </div>
