@@ -78,7 +78,7 @@ const AddPayable = () => {
     if (selectedPayableType === "invoices") {
         const invoiceOptions = InvoiceSupplier.map((invoice) => ({
             value: invoice.id,
-            label: `${invoice.code} - ${invoice.supplier.name}`,
+            label: `${invoice.code} - ${invoice.supplier.name}-${invoice.invoice_date}`,
         }));
 
         fields.push({

@@ -53,9 +53,9 @@ const EditProduct = () => {
 
     const fields = [
         { type: 'text', name: 'parent', placeholder: `${parentName}`, required: false, disabled: true },
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: false, disabled: false },
-        { type: 'number', name: 'price', placeholder: 'يجب عليك ادخال السعر', required: true },
-        { type: 'text', name: 'description', placeholder: 'يجب عليك ادخال الوصف', required: true },
+        { type: 'text', name: 'name', labelName: "الاسم", placeholder: 'يجب عليك ادخال الاسم', required: false, disabled: false },
+        { type: 'number', name: 'price', labelName: "السعر", placeholder: 'يجب عليك ادخال السعر', required: true },
+        { type: 'text', name: 'description', labelName: "الوصف", placeholder: 'يجب عليك ادخال الوصف', required: true },
         { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره' },
 
 

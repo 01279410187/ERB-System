@@ -42,7 +42,12 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
       }
       if (InvoiceType === "returned") {
         setQuantity(oneRecipe.total_quantity);
-        setPrice(oneRecipe.price);
+        setPrice(0);
+        setUnit(oneRecipe.unit.name);
+      }
+      if (InvoiceType === "tainted") {
+        setQuantity(oneRecipe.total_quantity);
+        setPrice(0);
         setUnit(oneRecipe.unit.name);
       }
 
@@ -222,7 +227,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
         </div>
       ))}
 
-      {InvoiceType === "in_coming" ? null : <label className="form-label">{` الكميه المتاحه فى المخزن هى ${quantity}  ${uint}`}</label>}
+      {InvoiceType === "in_coming" || InvoiceType === "returned" || InvoiceType === "tainted" ? null : <label className="form-label">{` الكميه المتاحه فى المخزن هى ${quantity}  ${uint}`}</label>}
       <label className="form-label">الكميه:</label>
       <input
         className="form-input"
@@ -242,7 +247,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
         />
       </> : null}
 
-      {InvoiceType === "returned" ? <>
+      {/* {InvoiceType === "returned" ? <>
         <label className="form-label">السعر:</label>
         <input
           className="form-input"
@@ -251,12 +256,12 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
           onChange={(e) => setPrice(e.target.value)}
           onWheel={(event) => event.currentTarget.blur()}
         />
-      </> : null}
+      </> : null} */}
 
 
       <label className="form-label">الوحده:</label>
       <input className="form-input" type="text" value={uint} disabled={true} style={{ cursor: "not-allowed" }} />
-      {InvoiceType === "in_coming" ? <> <label className="form-label">تاريخ  انتهاء الصلاحيه:</label>
+      {InvoiceType === "in_coming" || InvoiceType === "returned" || InvoiceType === "tainted" ? <> <label className="form-label"> تاريخ  انتهاء الصلاحيه:</label>
         <input
           className="form-input"
           type="date"

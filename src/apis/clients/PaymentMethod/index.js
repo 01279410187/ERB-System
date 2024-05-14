@@ -68,7 +68,7 @@ export async function updatePaymentMethod(id, editValues) {
   const Token = localStorage.getItem("token");
   try {
     const res = await axios.post(
-      `${API_ENDPOINT}/api/v1/store/payment_method/${id}`,
+      `${API_ENDPOINT}/api/v1/store/payment_method/update/${id}`,
       formData,
       {
         headers: {

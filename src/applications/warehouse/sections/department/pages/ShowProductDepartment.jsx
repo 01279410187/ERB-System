@@ -5,6 +5,7 @@ import {
   deleteProductDeaprtment,
   getDeaprtmentsFilterById,
 } from "../../../../../apis/department";
+import { editProductsToDepartment } from "../../../../../apis/product";
 import { useParams } from "react-router-dom";
 const ShowProductDepartment = () => {
   const { id } = useParams();
@@ -38,6 +39,11 @@ const ShowProductDepartment = () => {
   ];
   const detailsHeaders = [
     {
+      key: "id",
+      label: "الكود",
+      isInput: false,
+    },
+    {
       key: "quantity",
       label: "الكمية",
       isInput: true,
@@ -56,7 +62,7 @@ const ShowProductDepartment = () => {
         actions={actions}
         deleteFn={deleteProductDeaprtment}
         detailsHeaders={detailsHeaders}
-        updateFn={() => {}}
+        updateFn={editProductsToDepartment}
       />
     </div>
   );

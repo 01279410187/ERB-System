@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ShowDataModal.scss";
 const ShowDataModal = ({
+  id,
   responseData,
   detailsHeaders,
   updateFn,
@@ -8,7 +9,7 @@ const ShowDataModal = ({
   handleModalVisible,
 }) => {
   const [editedData, setEditedData] = useState(null);
-
+  console.log(id);
   useEffect(() => {
     const handleClickOutside = (event) => {
       const modalContent = document.querySelector(".modal-content");
@@ -27,10 +28,9 @@ const ShowDataModal = ({
   useEffect(() => {
     const initialEditedData = {};
     detailsHeaders.forEach((header) => {
-      if (header.isInput) {
-        initialEditedData[header.key] = responseData[header.key];
-      }
+      initialEditedData[header.key] = responseData[header.key];
     });
+    console.log(initialEditedData);
     setEditedData(initialEditedData);
   }, [detailsHeaders]);
 
@@ -56,7 +56,8 @@ const ShowDataModal = ({
   };
 
   const handleEditClick = () => {
-    updateFn(responseData.id, editedData);
+    console.log(editedData);
+    updateFn(editedData, id);
     handleModalVisible(false);
   };
 
@@ -78,7 +79,7 @@ const ShowDataModal = ({
 
     return (
       <input
-        className="form-input"
+        className="form-input xd"
         type="text"
         value={inputValue}
         onChange={(e) => {
@@ -90,7 +91,7 @@ const ShowDataModal = ({
 
   const nonArrayHeaders = detailsHeaders.filter((header) => !header.isArray);
   const arrayHeaders = detailsHeaders.filter((header) => header.isArray);
-
+  console.log(nonArrayHeaders, arrayHeaders);
   return (
     <div className="show-data-modal">
       <div className="modal-content">
@@ -107,12 +108,14 @@ const ShowDataModal = ({
               {nonArrayHeaders.map((header, index) => {
                 return (
                   <td key={index}>
-                    {renderInputField(
-                      header.key,
-                      responseData[header.key],
-                      null,
-                      null
-                    )}
+                    {header.isInput
+                      ? renderInputField(
+                          header.key,
+                          responseData[header.key],
+                          null,
+                          null
+                        )
+                      : responseData[header.key]}
                   </td>
                 );
               })}

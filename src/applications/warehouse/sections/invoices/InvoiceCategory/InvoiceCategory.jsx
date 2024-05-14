@@ -184,6 +184,12 @@ function Categories(props) {
           : ""
       }`,
       label: "مراجعة",
+
+    },
+    {
+      type: "navigate",
+      label: " طباعه",
+      route: "/warehouse/invoices/print/:id"
     },
   ];
 

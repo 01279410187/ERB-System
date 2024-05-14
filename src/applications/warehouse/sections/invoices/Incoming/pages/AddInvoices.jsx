@@ -94,10 +94,11 @@ const AddInvoices = () => {
 
     items.forEach((item, index) => {
       formData.append(`recipes[${index}][recipe_id]`, item.recipeId);
-      formData.append(`recipes[${index}][price]`, item.price);
+      { { lastItem === "out_going" || lastItem === "returned" ? null : formData.append(`recipes[${index}][price]`, item.price) } }
+      // formData.append(`recipes[${index}][price]`, item.price);
       // Add other fields as needed, for example quantity, expire_date, etc.
       formData.append(`recipes[${index}][quantity]`, item.quantity);
-      { lastItem === "in_coming" ? formData.append(`recipes[${index}][expire_date]`, item.expireDate) : null }
+      { lastItem === "in_coming" || lastItem === "returned" ? formData.append(`recipes[${index}][expire_date]`, item.expireDate) : null }
       // formData.append(`recipes[${index}][expire_date]`, item.expireDate);
     });
 
@@ -112,9 +113,9 @@ const AddInvoices = () => {
       formData.append("supplier_id", selectedSupplier);
     }
 
-    if (lastItem === "returned") {
-      formData.append("supplier_id", selectedSupplier || "");
-    }
+    // if (lastItem === "returned") {
+    //   formData.append("supplier_id", selectedSupplier || "");
+    // }
 
     formData.append("type", lastItem);
     formData.append("invoice_date", invoiceDate);
@@ -162,7 +163,7 @@ const AddInvoices = () => {
             ? "اضافه فاتورة اذن صرف"
             : " اضافة فاتورة مرتجع"}
       </h1>
-      {lastItem === "out_going" ? null : (
+      {lastItem === "out_going" || lastItem === "returned" ? null : (
         <div>
           <label className="form-label" htmlFor="supplierSelect">
             اختر المورد:
@@ -276,8 +277,8 @@ const AddInvoices = () => {
         InvoiceType={lastItem}
       />
       <ItemList items={items} onDeleteItem={handleDeleteItem} InvoiceType={lastItem} />
+      {lastItem === "returned" ? null : <TotalAmount total={calculateTotalAmount()} />}
 
-      <TotalAmount total={calculateTotalAmount()} />
       <button className="form-btn" onClick={handleDownloadPDF}>
         حفظ البيانات
       </button>

@@ -19,9 +19,9 @@ import { BsCashCoin } from "react-icons/bs";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { MdLogout } from "react-icons/md";
+import { MdDelete, MdLogout } from "react-icons/md";
 
-import { TbReport, TbBrandUnity } from "react-icons/tb";
+import { TbReport, TbBrandUnity, TbReportSearch } from "react-icons/tb";
 import {
   MdOutlineClose,
   MdOutlineLogout,
@@ -237,6 +237,30 @@ const Sidebar = () => {
                   style={{ fontSize: "20px" }}
                 >
                   الفواتير
+                </span>
+              </Link>
+            </li>
+
+            <li className="menu-item" title="الهالك">
+              <Link
+                to="/warehouse/invoices/show-tained"
+                className={`menu-link ${
+                  activeLink === "/warehouse/invoices/show-tained"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/invoices/show-tained")
+                }
+              >
+                <span className="menu-link-icon">
+                  <MdDelete size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  الهالك
                 </span>
               </Link>
             </li>
@@ -539,11 +563,6 @@ const Sidebar = () => {
               >
                 <span className="menu-link-icon">
                   <FaUserCircle size={30} />
-                </span>
-                <span
-                  className={`menu-link-text ${display}`}
-                  style={{ fontSize: "20px" }}
-                >
                   المستخدمين
                 </span>
               </Link>
@@ -729,27 +748,14 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="تسجيل خروج">
-              <button
-                className={`menu-link logout ${
-                  activeLink === "/warehouse/*" ? "active" : ""
-                } ${justifyContent}`}
-                onClick={handleLogout}
-              >
-                <span className="menu-link-icon">
-                  <MdLogout size={30} />
-                </span>
-                {/* <button onClick={handleLogout} style={{ fontSize: "20px", }}> */}
-                <span
-                  className={`menu-link-text ${display}`}
-                  style={{ fontSize: "20px" }}
-                >
-                  تسجيل خروج
-                </span>
-                {/* </button> */}
-              </button>
-            </li>
+
             {/* <li className="menu-item" title="المنافذ">
+                  التقارير
+                </span>
+              </Link>
+            </li>
+
+            <li className="menu-item" title="المنافذ">
               <Link
                 to="/warehouse/departments/show-departments"
                 className={`menu-link ${activeLink === "/warehouse/departments/show-departments"
@@ -771,6 +777,49 @@ const Sidebar = () => {
                 </span>
               </Link>
               </li>*/}
+
+            <li className="menu-item" title="الوحدات">
+              <Link
+                to="/warehouse/units/show-units"
+                className={`menu-link ${
+                  activeLink === "/warehouse/units/show-units" ? "active" : ""
+                } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/units/show-units")
+                }
+              >
+                <span className="menu-link-icon">
+                  <TbBrandUnity size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  الوحدات
+                </span>
+              </Link>
+            </li>
+
+            <li className="menu-item" title="تسجيل خروج">
+              <button
+                className={`menu-link logout ${
+                  activeLink === "/warehouse/*" ? "active" : ""
+                } ${justifyContent}`}
+                onClick={handleLogout}
+              >
+                <span className="menu-link-icon">
+                  <MdLogout size={30} />
+                </span>
+                {/* <button onClick={handleLogout} style={{ fontSize: "20px", }}> */}
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  تسجيل خروج
+                </span>
+                {/* </button> */}
+              </button>
+            </li>
           </ul>
         </div>
       </div>
