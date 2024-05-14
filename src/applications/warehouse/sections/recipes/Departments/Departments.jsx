@@ -41,12 +41,16 @@ function Departments() {
     <>
       <h1 className="heading text-center p-3">اقسام المخزن </h1>
       <div className="btn-container">
-        {user?.permissions.some((permission) => permission.name === 136) && (
+        {user?.permissions.some(
+          (permission) => permission.name === "create department"
+        ) && (
           <button className="dept-btn" onClick={handleAddDepartment}>
             +اضافة قسم
           </button>
         )}
-        {user?.permissions.some((permission) => permission.name === 135) && (
+        {user?.permissions.some(
+          (permission) => permission.name === "view departments"
+        ) && (
           <button className="dept-btn" onClick={handleSearchDepartment}>
             +بحث عن قسم
           </button>

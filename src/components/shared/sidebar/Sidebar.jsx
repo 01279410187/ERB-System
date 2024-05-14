@@ -49,10 +49,11 @@ const Sidebar = () => {
   const [justifyContent, setJustifyContent] = useState("d-flex-start");
   const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
   const checkMenuItemPermission = (requiredPermission) => {
+    if (!user?.permissions) return;
     return user
       ? user?.permissions.some(
-        (permission) => permission.name === requiredPermission.name
-      )
+          (permission) => permission.name === requiredPermission.name
+        )
       : false;
   };
   const handleLogout = () => {
@@ -137,21 +138,23 @@ const Sidebar = () => {
               className="menu-item"
               title="الموردين"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 88,
-                  name: "view suppliers",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 88,
+                    name: "view suppliers",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/suppliers/show-suppliers"
-                className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/suppliers/show-suppliers"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-suppliers");
                   handleMenuLinkClick("/warehouse/suppliers/show-suppliers");
@@ -172,23 +175,24 @@ const Sidebar = () => {
               className="menu-item"
               title="اقسام المخزن"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 135,
-                  name: "view departments",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 135,
+                    name: "view departments",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/recipes/show-departments"
-                className={`menu-link ${activeLink === "/warehouse/recipes/show-departments"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/recipes/show-departments"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/recipes/show-departments");
                 }}
               >
@@ -208,19 +212,21 @@ const Sidebar = () => {
               className="menu-item"
               title="الفواتير"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 140,
-                  name: "view invoices",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view invoices",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/invoices/show"
-                className={`menu-link ${activeLink === "/warehouse/invoices/show" ? "active" : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/invoices/show" ? "active" : ""
+                } ${justifyContent}`}
                 onClick={() => handleMenuLinkClick("/warehouse/invoices/show")}
               >
                 <span className="menu-link-icon">
@@ -238,10 +244,11 @@ const Sidebar = () => {
             <li className="menu-item" title="الهالك">
               <Link
                 to="/warehouse/invoices/show-tained"
-                className={`menu-link ${activeLink === "/warehouse/invoices/show-tained"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/invoices/show-tained"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/invoices/show-tained")
                 }
@@ -261,10 +268,11 @@ const Sidebar = () => {
             <li className="menu-item" title="المدفوعات">
               <Link
                 to="/warehouse/payable/show-payable"
-                className={`menu-link ${activeLink === "/warehouse/payable/show-payable"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/payable/show-payable"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/payable/show-payable")
                 }
@@ -283,10 +291,11 @@ const Sidebar = () => {
             <li className="menu-item" title="الطلبات">
               <Link
                 to="/warehouse/requests/show-requests"
-                className={`menu-link ${activeLink === "/warehouse/requests/show-requests"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/requests/show-requests"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/requests/show-requests")
                 }
@@ -306,23 +315,24 @@ const Sidebar = () => {
               className="menu-item"
               title="الكاشير"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 124,
-                  name: "add orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 124,
+                    name: "add orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/cashier/create-order"
-                className={`menu-link ${activeLink === "/warehouse/cashier/create-order"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/create-order"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/cashier/create-order");
                 }}
               >
@@ -341,21 +351,23 @@ const Sidebar = () => {
               className="menu-item"
               title="ترابيزات مفتوحة"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 124,
-                  name: "add orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 124,
+                    name: "add orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/cashier/opened-tables"
-                className={`menu-link ${activeLink === "/warehouse/cashier/opened-tables"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/opened-tables"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/cashier/opened-tables")
                 }
@@ -376,21 +388,23 @@ const Sidebar = () => {
               className="menu-item"
               title="طلبات المطبخ"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 124,
-                  name: "add orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 124,
+                    name: "add orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/cashier/kitchen-requests"
-                className={`menu-link ${activeLink === "/warehouse/cashier/kitchen-requests"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/cashier/kitchen-requests"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/cashier/kitchen-requests")
                 }
@@ -410,21 +424,23 @@ const Sidebar = () => {
               className="menu-item"
               title=" حد الامان"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 85,
-                  name: "safe limit",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 85,
+                    name: "safe limit",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/underLimit/show-under-limit"
-                className={`menu-link ${activeLink === "/warehouse/underLimit/show-under-limit"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/underLimit/show-under-limit"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/underLimit/show-under-limit")
                 }
@@ -446,22 +462,24 @@ const Sidebar = () => {
               className="menu-item"
               title=" حد الامان"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 86,
-                  name: "safe limit",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 86,
+                    name: "safe limit",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/underLimit/show-under-limit/show-expire-limit"
-                className={`menu-link ${activeLink ===
+                className={`menu-link ${
+                  activeLink ===
                   "/warehouse/underLimit/show-under-limit/show-expire-limit"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick(
                     "/warehouse/underLimit/show-under-limit/show-expire-limit"
@@ -485,23 +503,24 @@ const Sidebar = () => {
               className="menu-item"
               title="المنتجات"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 93,
-                  name: "view categories",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 93,
+                    name: "view categories",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/returants/show-resturants"
-                className={`menu-link ${activeLink === "/warehouse/returants/show-resturants"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/returants/show-resturants"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/returants/show-resturants");
                 }}
               >
@@ -521,21 +540,22 @@ const Sidebar = () => {
               className="menu-item"
               title="الأدوار"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 113,
-                  name: "view requests",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 113,
+                    name: "view requests",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/users/show-users"
-                className={`menu-link ${activeLink === "/warehouse/users/show-users" ? "active" : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/users/show-users" ? "active" : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/users/show-users");
                 }}
               >
@@ -554,21 +574,22 @@ const Sidebar = () => {
               className="menu-item"
               title="الأدوار"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 110,
-                  name: "view orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 110,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/roles/show-roles"
-                className={`menu-link ${activeLink === "/warehouse/roles/show-roles" ? "active" : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/roles/show-roles" ? "active" : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/roles/show-roles");
                 }}
               >
@@ -587,23 +608,24 @@ const Sidebar = () => {
               className="menu-item"
               title="طرق الدفع"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 123,
-                  name: "view orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/clients/payment-method"
-                className={`menu-link ${activeLink === "/warehouse/clients/payment-method"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/payment-method"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/clients/payment-method");
                 }}
               >
@@ -622,23 +644,24 @@ const Sidebar = () => {
               className="menu-item"
               title="أنواع العملاء"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 123,
-                  name: "view orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/clients/client-type"
-                className={`menu-link ${activeLink === "/warehouse/clients/client-type"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/client-type"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/clients/client-type");
                 }}
               >
@@ -657,21 +680,22 @@ const Sidebar = () => {
               className="menu-item"
               title="أنواع العملاء"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 123,
-                  name: "view orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/clients/client"
-                className={`menu-link ${activeLink === "/warehouse/clients/client" ? "active" : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/client" ? "active" : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/clients/client");
                 }}
               >
@@ -690,23 +714,24 @@ const Sidebar = () => {
               className="menu-item"
               title="طرق الدفع"
               style={{
-                display: `${checkMenuItemPermission({
-                  id: 123,
-                  name: "view orders",
-                })
-                  ? ""
-                  : "none"
-                  }`,
+                display: `${
+                  checkMenuItemPermission({
+                    id: 123,
+                    name: "view orders",
+                  })
+                    ? ""
+                    : "none"
+                }`,
               }}
             >
               <Link
                 to="/warehouse/clients/discount-reason"
-                className={`menu-link ${activeLink === "/warehouse/clients/discount-reason"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/clients/discount-reason"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() => {
-
                   handleMenuLinkClick("/warehouse/clients/discount-reason");
                 }}
               >
@@ -722,14 +747,14 @@ const Sidebar = () => {
               </Link>
             </li>
 
-
             <li className="menu-item" title="التقارير">
               <Link
                 to="/warehouse/reports/show-reports"
-                className={`menu-link ${activeLink === "/warehouse/reports/show-reports"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/reports/show-reports"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/reports/show-reports")
                 }
@@ -749,10 +774,11 @@ const Sidebar = () => {
             <li className="menu-item" title="المنافذ">
               <Link
                 to="/warehouse/departments/show-departments"
-                className={`menu-link ${activeLink === "/warehouse/departments/show-departments"
-                  ? "active"
-                  : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/departments/show-departments"
+                    ? "active"
+                    : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/departments/show-departments")
                 }
@@ -772,8 +798,9 @@ const Sidebar = () => {
             <li className="menu-item" title="الوحدات">
               <Link
                 to="/warehouse/units/show-units"
-                className={`menu-link ${activeLink === "/warehouse/units/show-units" ? "active" : ""
-                  } ${justifyContent}`}
+                className={`menu-link ${
+                  activeLink === "/warehouse/units/show-units" ? "active" : ""
+                } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/units/show-units")
                 }
@@ -792,8 +819,9 @@ const Sidebar = () => {
 
             <li className="menu-item" title="تسجيل خروج">
               <button
-                className={`menu-link logout ${activeLink === "/warehouse/*" ? "active" : ""
-                  } ${justifyContent}`}
+                className={`menu-link logout ${
+                  activeLink === "/warehouse/*" ? "active" : ""
+                } ${justifyContent}`}
                 onClick={handleLogout}
               >
                 <span className="menu-link-icon">
