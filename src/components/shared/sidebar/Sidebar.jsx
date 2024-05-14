@@ -21,9 +21,9 @@ import { BsCashCoin } from "react-icons/bs";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { GiTomato } from "react-icons/gi";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { MdLogout } from "react-icons/md";
+import { MdDelete, MdLogout } from "react-icons/md";
 
-import { TbReport, TbBrandUnity } from "react-icons/tb";
+import { TbReport, TbBrandUnity, TbReportSearch } from "react-icons/tb";
 import {
   MdOutlineClose,
   MdOutlineLogout,
@@ -192,6 +192,26 @@ const Sidebar = () => {
               </Link>
             </li>
 
+
+            <li className="menu-item" title="الهالك">
+              <Link
+                to="/warehouse/invoices/show-tained"
+                className={`menu-link ${activeLink === "/warehouse/invoices/show-tained" ? "active" : ""
+                  } ${justifyContent}`}
+                onClick={() => handleMenuLinkClick("/warehouse/invoices/show-tained")}
+              >
+                <span className="menu-link-icon">
+                  <MdDelete size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  الهالك
+                </span>
+              </Link>
+            </li>
+
             <li className="menu-item" title="المدفوعات">
               <Link
                 to="/warehouse/payable/show-payable"
@@ -317,7 +337,7 @@ const Sidebar = () => {
                   className={`menu-link-text special-txt ${display}`}
                   style={{ fontSize: "20px" }}
                 >
-                  طلبات المطبخ
+                  الاوردارات
                 </span>
               </Link>
             </li>
@@ -398,6 +418,29 @@ const Sidebar = () => {
               </Link>
             </li>
 
+            <li className="menu-item" title="القارير">
+              <Link
+                to="/warehouse/reports/show-reports"
+                className={`menu-link ${activeLink === "/warehouse/reports/show-reports"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/reports/show-reports")
+                }
+              >
+                <span className="menu-link-icon">
+                  <TbReportSearch size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  التقارير
+                </span>
+              </Link>
+            </li>
+
             <li className="menu-item" title="المنافذ">
               <Link
                 to="/warehouse/departments/show-departments"
@@ -417,6 +460,29 @@ const Sidebar = () => {
                   style={{ fontSize: "20px" }}
                 >
                   المنافذ
+                </span>
+              </Link>
+            </li>
+
+            <li className="menu-item" title="الوحدات">
+              <Link
+                to="/warehouse/units/show-units"
+                className={`menu-link ${activeLink === "/warehouse/units/show-units"
+                  ? "active"
+                  : ""
+                  } ${justifyContent}`}
+                onClick={() =>
+                  handleMenuLinkClick("/warehouse/units/show-units")
+                }
+              >
+                <span className="menu-link-icon">
+                  <TbBrandUnity size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
+                  الوحدات
                 </span>
               </Link>
             </li>

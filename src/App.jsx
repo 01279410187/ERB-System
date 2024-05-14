@@ -36,7 +36,7 @@ import {
 import Invoice from "./applications/warehouse/sections/invoices/Invoice";
 import InvoiceCategories from "./applications/warehouse/sections/invoices/InvoiceCategory/InvoiceCategory";
 import IncomingInvoice from "./applications/warehouse/sections/invoices/Incoming/IncomingInvoice";
-import { AddInvoices, PrintInvoice } from "./applications/warehouse/sections/invoices/Incoming/pages";
+import { AddInvoices, AddTaintedInvoices, PrintInvoice, ShowTaintedInvoices } from "./applications/warehouse/sections/invoices/Incoming/pages";
 import Requests from "./applications/warehouse/sections/requests/Requests";
 import {
   AddRequest,
@@ -77,6 +77,8 @@ import { AddUnits, EditUnits, ShowUnits } from "./applications/warehouse/section
 import Login from "./auth/Login";
 import Payables from "./applications/warehouse/sections/payble/Payables";
 import { AddPayable, ShowPayables } from "./applications/warehouse/sections/payble/pages";
+import Reports from "./applications/warehouse/sections/reports/Reports";
+import { OneRecipeReport, ShowAllDepartment, ShowAllSupplier, ShowOneRecipeReport, ShowRecipeReports, ShowRecipesForSupplier, ShowReports, ShowSupplierInvoicesReport, ShowTotalStores } from "./applications/warehouse/sections/reports/pages";
 
 function App() {
   return (
@@ -248,6 +250,15 @@ function App() {
               path="/warehouse/invoices/show"
               element={<InvoiceCategories />}
             ></Route>
+            <Route
+              path="/warehouse/invoices/show-tained"
+              element={<ShowTaintedInvoices />}
+            ></Route>
+            <Route
+              path="/warehouse/invoices/add-tainted-invoices"
+              element={<AddTaintedInvoices />}
+            ></Route>
+
 
             <Route
               path="/warehouse/invoices/print/:id"
@@ -400,6 +411,66 @@ function App() {
               path="/warehouse/payable/add-payable"
               element={<AddPayable />}
             ></Route>
+
+
+          </Route>
+        </Route>
+
+
+
+
+
+
+
+
+
+        <Route path="/warehouse" element={<Warehouse />}>
+          <Route path="/warehouse/reports" element={<Reports />}>
+            <Route
+              path="/warehouse/reports/show-reports"
+              element={<ShowReports />}
+            ></Route>
+            <Route
+              path="/warehouse/reports/show-reports/department"
+              element={<ShowAllDepartment />}
+            ></Route>
+            <Route
+              path="/warehouse/reports/show-reports/department/recipe/:id"
+              element={<ShowRecipeReports />}
+            ></Route>
+
+            <Route
+              path="/warehouse/reports/show-reports/supplier-invoieces"
+              element={<ShowSupplierInvoicesReport />}
+            ></Route>
+
+
+            <Route
+              path="/warehouse/reports/show-reports/get-allsupllier"
+              element={<ShowAllSupplier />}
+            ></Route>
+
+            <Route
+              path="/warehouse/reports/show-reports/get-total-stores"
+              element={<ShowTotalStores />}
+            ></Route>
+
+            <Route
+              path="/warehouse/reports/show-reports/get-recipe-report"
+              element={<ShowOneRecipeReport />}
+            ></Route>
+            <Route
+              path="/warehouse/reports/show-reports/get-recipe-report/recipe/:id"
+              element={<OneRecipeReport />}
+            ></Route>
+
+
+            <Route
+              path="/warehouse/reports/show-reports/get-allsupllier/recipes/:id"
+              element={<ShowRecipesForSupplier />}
+            ></Route>
+
+
 
 
           </Route>

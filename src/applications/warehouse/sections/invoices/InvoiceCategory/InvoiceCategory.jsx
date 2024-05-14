@@ -160,6 +160,12 @@ function Categories(props) {
     {
       type: "show",
       label: "مراجعة",
+
+    },
+    {
+      type: "navigate",
+      label: " طباعه",
+      route: "/warehouse/invoices/print/:id"
     },
   ];
 

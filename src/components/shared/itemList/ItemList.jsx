@@ -16,9 +16,9 @@ const ItemList = ({ items, onDeleteItem, InvoiceType }) => {
             />
           </div>
           <div>الكمية: {item.quantity}</div>
-          {InvoiceType === "in_coming" || InvoiceType === "returned" ? <div>السعر: &nbsp;{item.price} &nbsp;ج.م </div> : <></>}
+          {InvoiceType === "in_coming" ? <div>السعر: &nbsp;{item.price} &nbsp;ج.م </div> : <></>}
 
-          {InvoiceType === "in_coming" ? <div>تاريخ انتهاء الصلاحية: {item.expireDate}</div> : <></>}
+          {InvoiceType === "in_coming" || InvoiceType === "tainted" ? <div>تاريخ انتهاء الصلاحية: {item.expireDate}</div> : <></>}
           <button className="item-btn" onClick={() => onDeleteItem(index)}>
             حذف
           </button>

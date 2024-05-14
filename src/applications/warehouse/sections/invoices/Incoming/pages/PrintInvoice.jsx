@@ -24,7 +24,7 @@ function PrintInvoice() {
         total_price: "",
         invoice_price: "",
         discount: "",
-        tax: ""
+        tax: "",
     }); // Initialize data as null
 
 
@@ -48,6 +48,8 @@ function PrintInvoice() {
                     invoice_date: InvoiceData.data.invoice_date,
                     supplier: InvoiceData.data.supplier.name,
                     to: InvoiceData.data.to.name,
+                    toPhone: InvoiceData.data.to.phone,
+                    toCode: InvoiceData.data.to.code,
                     recipeData: InvoiceData.data.recipes,
                     total_price: InvoiceData.data.total_price,
                     invoice_price: InvoiceData.data.invoice_price,
@@ -55,7 +57,10 @@ function PrintInvoice() {
                     tax: InvoiceData.data.tax,
                     note: InvoiceData.data.note,
                     from: InvoiceData.data.from.name,
-                    registration_date: InvoiceData.data.registration_date
+                    fromPhone: InvoiceData.data.from.phone,
+                    fromCode: InvoiceData.data.from.code,
+                    registration_date: InvoiceData.data.registration_date,
+
 
                 });
                 console.log(InvoiceData.data)
@@ -132,16 +137,16 @@ function PrintInvoice() {
                         <h2>مـــــــــن</h2>
                         <ul>
                             <li>الاســـــم :  {data.invoiceType === "in_coming" ? data.supplier : data.from}</li>
-                            {/* <li>كــود : A001</li> */}
-                            {/* <li>الهاتــــــف : 123456789</li> */}
+                            <li>كــود : {data.fromCode}</li>
+                            <li>الهاتــــــف : {data.fromPhone}</li>
                         </ul>
                     </div>
                     <div className="invoice-info-item">
                         <h2>الـــــــــي</h2>
                         <ul>
                             <li>الاســـــم :{data.to}</li>
-                            {/* <li>كــود : B001</li>
-                        <li>الهاتــــــف : 987654321</li> */}
+                            <li>كــود : {data.toCode}</li>
+                            <li>الهاتــــــف : {data.toPhone}</li>
                         </ul>
                     </div>
                 </div>
@@ -154,6 +159,7 @@ function PrintInvoice() {
                                 <th className="text-center">اسم العنصر</th>
                                 <th className="text-center">سعر العنصر الواحد</th>
                                 <th className="text-right">الكمية</th>
+                                <th className="text-right">الوحدة</th>
                                 <th className="text-right">تاريخ انتهاء الصلاحية</th>
                                 <th className="text-right">السعر الكلي</th>
                             </tr>
@@ -182,6 +188,7 @@ function PrintInvoice() {
                                     <td className="text-center">{recipe.name}</td>
                                     <td className="text-center">{recipe.price}</td>
                                     <td className="text-right">{recipe.quantity}</td>
+                                    <td className="text-right">{recipe.unit.name}</td>
                                     <td className="text-right">{recipe.expire_date}</td>
                                     <td className="text-right">{recipe.total_price}</td>
                                 </tr>
@@ -190,6 +197,8 @@ function PrintInvoice() {
                         <tfoot>
                             <tr>
                                 <td colSpan="4"></td>
+
+                                <td></td>
                                 <td>السعر الكلي</td>
                                 <td>{data.invoice_price}</td>
                             </tr>

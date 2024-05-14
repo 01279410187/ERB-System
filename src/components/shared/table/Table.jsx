@@ -133,6 +133,7 @@ const Table = ({
     }
   };
   const renderType = (type) => {
+    console.log('test');
     switch (type) {
       case "contracted":
         return <p>متعاقد</p>;
@@ -146,6 +147,12 @@ const Table = ({
         return <p> الحوافز</p>;
       case "salaries":
         return <p> مرتبات</p>;
+      case "out_going":
+        return <p> اذن صرف</p>;
+      case "in_coming":
+        return <p> فاتورة مورد </p>;
+      case "returned":
+        return <p> فاتورة مورد </p>;
     }
   };
   const renderFilterInput = (filter) => {
