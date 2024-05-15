@@ -8,6 +8,7 @@ import {
     getTaintedInvoices,
     getTaintedInvoiceById,
     updateTaintedInvoice,
+    changeInvoiceStatus,
 } from "../../../../../../apis/invoices";
 import Table from "../../../../../../components/shared/table/Table";
 import { getSuppliers } from "../../../../../../apis/suppliers";
@@ -37,14 +38,12 @@ function ShowTaintedInvoices() {
         { value: "rejected", label: "مرفوضة" },
     ];
     const tableHeaders = [
-        { key: "id", value: "الكود" },
         { key: "code", value: "  كود الفاتوره" },
         { key: "invoice_date", value: "تاريخ الإصدار" },
         { key: "registration_date", value: "تاريخ التسجيل" },
         { key: "status", value: "الحالة" },
     ];
     const detailsHeaders = [
-        { key: "id", label: "الكود" },
         { key: "name", label: "الإسم" },
         { key: "quantity", label: "الكمية" },
         { key: "price", label: "السعر", isInput: true },
@@ -113,11 +112,10 @@ function ShowTaintedInvoices() {
                     fetchData={(filters, id, setIsLoading) =>
                         getTaintedInvoices(filters, id, setIsLoading)
                     }
-                    header={"recipes"}
-                    showFn={getTaintedInvoiceById}
+
                     detailsHeaders={detailsHeaders}
                     updateFn={updateTaintedInvoice}
-                //   changeStatusFn={changeInvoiceStatus}
+                    changeStatusFn={changeInvoiceStatus}
                 />
 
 

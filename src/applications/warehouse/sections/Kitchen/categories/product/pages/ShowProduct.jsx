@@ -10,7 +10,7 @@ import { useAuth } from "../../../../../../../context/AuthContext";
 const ShowProduct = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "image", value: "الصوره", type: "image" },
   ];
@@ -21,64 +21,59 @@ const ShowProduct = () => {
 
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit product"
-        )
-          ? "edit"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit product"
+      )
+        ? "edit"
+        : ""
+        }`,
       label: "تعديل",
       route: "/warehouse/returants/subcategory/:id/edit-product",
     },
 
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete product"
-        )
-          ? "delete"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete product"
+      )
+        ? "delete"
+        : ""
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "add product"
-        )
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "add product"
+      )
+        ? "add"
+        : ""
+        }`,
       label: "إضافة منتج",
       route: `/warehouse/returants/subcategory/add-product/${id}`,
     },
 
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit product"
-        )
-          ? "show"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit product"
+      )
+        ? "show"
+        : ""
+        }`,
       label: "تفاصيل",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "add recipes to product"
-        )
-          ? "navigate"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "add recipes to product"
+      )
+        ? "navigate"
+        : ""
+        }`,
       label: "اضافة مكون",
       route: "/warehouse/returants/subcategory/:id/add-rescipes",
     },
   ];
   const detailsHeaders = [
-    { key: "id", label: "الكود" },
-    { key: "quantity", label: "الكمية", isInput: true },
+
+    { key: "quantity", label: "الكمية" },
     { key: "name", label: "الإسم" },
     { key: "type", label: "النوع" },
     { key: "unit", label: "الوحدة" },
@@ -91,7 +86,6 @@ const ShowProduct = () => {
         filters={filters}
         actions={actions}
         deleteFn={deleteProduct}
-        header={"recipes"}
         showFn={getProductsById}
         title="المنتجات"
         id={id}

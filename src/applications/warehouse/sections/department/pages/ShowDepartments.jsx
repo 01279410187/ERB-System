@@ -4,7 +4,10 @@ import {
   deleteDeaprtment,
   getDeaprtments,
 } from "../../../../../apis/department";
+import { useAuth } from "../../../../../context/AuthContext";
 const ShowDepartment = () => {
+
+  const { user } = useAuth()
   const tableHeaders = [
     { key: "code", value: "الكود" },
     {
@@ -20,35 +23,32 @@ const ShowDepartment = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit department"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit department"
+      )
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/departments/:id/edit-departments",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete department"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete department"
+      )
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
 
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "create department"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "create department"
+      )
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة قسم ",
       route: "/warehouse/departments/add-departments",
     },

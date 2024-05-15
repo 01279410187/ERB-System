@@ -7,7 +7,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 const PaymentMethod = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "label", value: "النوع" },
   ];

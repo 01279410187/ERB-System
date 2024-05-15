@@ -7,7 +7,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 const ClientType = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "النوع" },
     { key: "new_client", value: "عميل قديم /جديد" },
   ];

@@ -4,7 +4,9 @@ import {
   getExpireLimit,
   getUnderExiperById,
 } from "../../../../../apis/underLimit";
+import { useAuth } from "../../../../../context/AuthContext";
 const ShowExpireLimit = () => {
+  const { user } = useAuth()
   const tableHeaders = [
     { key: "id", value: "الكود" },
     { key: "name", value: "التصنيف الفرعى " },
@@ -26,13 +28,12 @@ const ShowExpireLimit = () => {
 
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "expire_date limit"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "expire_date limit"
+      )
           ? "show"
           : ""
-      }`,
+        }`,
       label: "التفاصيل",
     },
   ];

@@ -4,7 +4,7 @@ import { getUsers, deleteUser } from "../../../../../../apis/users";
 import { useAuth } from "../../../../../../context/AuthContext";
 const ShowUsers = () => {
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "phone", value: "الرقم" },
   ];
@@ -21,31 +21,28 @@ const ShowUsers = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.name === "edit user")
+      type: `${user?.permissions.some((permission) => permission.name === "edit user")
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/users/:id/edit-user",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete user"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete user"
+      )
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
 
     {
-      type: `${
-        user?.permissions.some((permission) => permission.name === "add user")
+      type: `${user?.permissions.some((permission) => permission.name === "add user")
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة مستخدمين",
       route: "/warehouse/users/add-user",
     },

@@ -8,7 +8,7 @@ import { useAuth } from "../../../../../../../context/AuthContext";
 const ShowSubCategory = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     {
       key: "name",
       value: "الإسم",
@@ -23,34 +23,31 @@ const ShowSubCategory = () => {
   const { id } = useParams();
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit sub_category"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit sub_category"
+      )
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/returants/subCategory/:id/edit-subCategory",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete sub_category"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete sub_category"
+      )
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "add sub_category"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "add sub_category"
+      )
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة قسم فرعى",
       route: `/warehouse/returants/add-subcategory/${id}`,
     },

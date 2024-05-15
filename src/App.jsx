@@ -287,7 +287,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 98,
-                    name: "add sub_categories",
+                    name: "add sub_category",
                   }}
                 >
                   <AddSubCategory />
@@ -301,7 +301,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 99,
-                    name: "edit sub_categories",
+                    name: "edit sub_category",
                   }}
                 >
                   <EditSubCategory />
@@ -333,7 +333,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 102,
-                    name: "add products",
+                    name: "add product",
                   }}
                 >
                   <AddProduct />
@@ -352,7 +352,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 103,
-                    name: "edit products",
+                    name: "edit product",
                   }}
                 >
                   <EditProduct />
@@ -445,7 +445,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 82,
-                    name: "add recipes",
+                    name: "add recipe",
                   }}
                 >
                   <AddRecipes />
@@ -630,7 +630,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 123,
-                    name: "view and add orders",
+                    name: "add order",
                   }}
                 >
                   <AddCashierOrder />
@@ -682,7 +682,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 124,
-                    name: "add orders",
+                    name: "add order",
                   }}
                 >
                   <CashierKitchenRequests />
@@ -726,7 +726,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 114,
-                    name: "add users",
+                    name: "add user",
                   }}
                 >
                   <AddUser />

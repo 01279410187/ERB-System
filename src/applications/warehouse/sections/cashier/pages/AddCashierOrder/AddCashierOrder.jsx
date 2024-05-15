@@ -5,16 +5,19 @@ import TotalAmount from "../../../../../../components/shared/totalAmount/TotalAm
 import "./AddCashierOrder.scss";
 import axios from "axios";
 
-import { API_ENDPOINT, Token } from "../../../../../../../config";
+import { API_ENDPOINT } from "../../../../../../../config";
 import CashierOrderDetailes from "../../../../../../components/shared/CashierOrderDetails/CashierOrderDetailes";
 import CashierItemList from "../../../../../../components/shared/CashierItemList/CashierItemList";
 import { message, Select } from "antd";
 import { useAuth } from "../../../../../../context/AuthContext";
 const AddCashierOrder = () => {
+
+
   const { user } = useAuth();
   const [items, setItems] = useState([]);
   const [discountReasons, setDiscountReasons] = useState([]);
   const [errors, setErrors] = useState({});
+
 
   const [clientTypes, setClientTypes] = useState([]);
   const [selectedClientTypeId, setSelectedClientTypeId] = useState(null);

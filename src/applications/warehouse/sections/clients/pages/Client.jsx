@@ -4,7 +4,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 const Client = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "phone", value: "رقم الموبايل" },
     { key: "military_number", value: "الرقم العسكرى" },

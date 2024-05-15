@@ -7,7 +7,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 const DiscountReason = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "discount_reason", value: "سبب الخصم" },
     { key: "discount", value: "قيمة الخصم ج.م" },
   ];

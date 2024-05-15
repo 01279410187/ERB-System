@@ -4,7 +4,6 @@ import { getAllRicipes } from "../../../../../apis/reports";
 
 const ShowOneRecipeReport = () => {
     const tableHeaders = [
-        { key: "id", value: "الكود" },
         {
             key: "name", value: "الإسم", clickable: true,
             route: "/warehouse/reports/show-reports/get-recipe-report/recipe/:id",
