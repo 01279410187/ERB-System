@@ -21,42 +21,57 @@ const ShowProduct = () => {
 
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 103)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit product"
+        )
           ? "edit"
           : ""
-        }`,
+      }`,
       label: "تعديل",
       route: "/warehouse/returants/subcategory/:id/edit-product",
     },
 
     {
-      type: `${user?.permissions.some((permission) => permission.name === 104)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete product"
+        )
           ? "delete"
           : ""
-        }`,
+      }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 105)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "add product"
+        )
           ? "add"
           : ""
-        }`,
+      }`,
       label: "إضافة منتج",
       route: `/warehouse/returants/subcategory/add-product/${id}`,
     },
 
     {
-      type: `${user?.permissions.some((permission) => permission.name === 103)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit product"
+        )
           ? "show"
           : ""
-        }`,
+      }`,
       label: "تفاصيل",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 108)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "add recipes to product"
+        )
           ? "navigate"
           : ""
-        }`,
+      }`,
       label: "اضافة مكون",
       route: "/warehouse/returants/subcategory/:id/add-rescipes",
     },

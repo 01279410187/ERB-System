@@ -14,7 +14,8 @@ import { message } from "antd";
 import TaintedInvoiceDetailes from "../../../../../../components/shared/InvoiveDetails/TaintedInvoiceDetailes";
 
 const AddTaintedInvoices = () => {
-    const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
+    const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
 
     const [items, setItems] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
@@ -68,18 +69,12 @@ const AddTaintedInvoices = () => {
         setItems(updatedItems);
     };
 
-
-
-
     const calculateTotalAmount = () => {
-
-        return (items.reduce(
-            (total, item) =>
-                total +
-                (item.quantity * item.price),
-            0
-        )) - (parseInt(discount)) + (parseInt(tax))
-
+        return (
+            items.reduce((total, item) => total + item.quantity * item.price, 0) -
+            parseInt(discount) +
+            parseInt(tax)
+        );
     };
     const navigate = useNavigate();
     const handleDownloadPDF = async () => {
@@ -91,7 +86,7 @@ const AddTaintedInvoices = () => {
             formData.append(`recipes[${index}][price]`, item.price);
             // Add other fields as needed, for example quantity, expire_date, etc.
             formData.append(`recipes[${index}][quantity]`, item.quantity);
-            formData.append(`recipes[${index}][expire_date]`, item.expireDate)
+            formData.append(`recipes[${index}][expire_date]`, item.expireDate);
             //   { lastItem === "in_coming" || lastItem === "returned" ? formData.append(`recipes[${index}][expire_date]`, item.expireDate) : null }
             // formData.append(`recipes[${index}][expire_date]`, item.expireDate);
         });
@@ -118,7 +113,6 @@ const AddTaintedInvoices = () => {
         formData.append("note", invoiceNote);
         // Add other fields as needed
 
-
         try {
             const response = await axios.post(
                 `${API_ENDPOINT}/api/v1/store/tainted-invoices/create`,
@@ -133,11 +127,11 @@ const AddTaintedInvoices = () => {
             console.log(response.data);
             await navigate("/warehouse/invoices/show-tained");
             console.log("Invoice created successfully!");
-            message.success("تم اضافة  الفاتوره بنجاح ")
+            message.success("تم اضافة  الفاتوره بنجاح ");
             // Optionally, you can redirect or show a success message here
         } catch (error) {
             console.error("Error creating invoice:", error);
-            message.error(error.response.data.error.message, 10)
+            message.error(error.response.data.error.message, 10);
             // Handle error condition, show error message, etc.
         }
     };
@@ -148,11 +142,7 @@ const AddTaintedInvoices = () => {
 
     return (
         <div className="form-container">
-            <h1 className="form-title">
-                اضافة فاتورة هالك
-            </h1>
-
-
+            <h1 className="form-title">اضافة فاتورة هالك</h1>
 
             <div>
                 <label className="form-label" htmlFor="supplierSelect">
@@ -172,7 +162,6 @@ const AddTaintedInvoices = () => {
                 </select>
             </div>
 
-
             <div>
                 <label className="form-label">اختر تاريخ الفاتورة:</label>
                 <input
@@ -183,7 +172,6 @@ const AddTaintedInvoices = () => {
                 />
             </div>
 
-
             <div>
                 <label className="form-label">صورة الفاتورة:</label>
                 <input
@@ -193,9 +181,6 @@ const AddTaintedInvoices = () => {
                     onChange={handleImageChange}
                 />
             </div>
-
-
-
 
             <div>
                 <label className="form-label"> اضافة تعليق:</label>
@@ -209,17 +194,20 @@ const AddTaintedInvoices = () => {
             <TaintedInvoiceDetailes
                 onAddItem={handleAddItem}
                 selectedSupplier={selectedSupplier}
-
                 InvoiceType={"tainted"}
             />
-            <ItemList items={items} onDeleteItem={handleDeleteItem} InvoiceType={"tainted"} />
+            <ItemList
+                items={items}
+                onDeleteItem={handleDeleteItem}
+                InvoiceType={"tainted"}
+            />
             {/* <TotalAmount total={calculateTotalAmount()} /> */}
 
             <button className="form-btn" onClick={handleDownloadPDF}>
                 حفظ البيانات
             </button>
         </div>
-    )
-}
+    );
+};
 
-export default AddTaintedInvoices
+export default AddTaintedInvoices;

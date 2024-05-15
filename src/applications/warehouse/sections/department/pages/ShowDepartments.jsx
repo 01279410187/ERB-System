@@ -20,17 +20,35 @@ const ShowDepartment = () => {
   ];
   const actions = [
     {
-      type: "edit",
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit department"
+        )
+          ? "edit"
+          : ""
+      }`,
       label: "تعديل",
       route: "/warehouse/departments/:id/edit-departments",
     },
     {
-      type: "delete",
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete department"
+        )
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
 
     {
-      type: "add",
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "create department"
+        )
+          ? "add"
+          : ""
+      }`,
       label: "إضافة قسم ",
       route: "/warehouse/departments/add-departments",
     },

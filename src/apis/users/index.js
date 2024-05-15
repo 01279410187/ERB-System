@@ -1,14 +1,16 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
-const Token =
-  localStorage.getItem("token") || sessionStorage.getItem("token");
+const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getAllUsers(filteredValues = { name: "" }) {
   try {
     const { name } = filteredValues;
     const res = await axios.get(`${domain}/api/v1/store/user/all/users`, {
       params: {
         name,
+      },
+      headers: {
+        Authorization: `Bearer ${Token}`,
       },
     });
     return res.data;
@@ -25,6 +27,9 @@ export async function getUsers(filteredValues, id, setIsLoading) {
         name,
         phone,
       },
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
     });
     setIsLoading(false);
 
@@ -36,7 +41,11 @@ export async function getUsers(filteredValues, id, setIsLoading) {
 }
 export async function deleteUser(id) {
   try {
-    const res = await axios.delete(`${domain}/api/v1/store/user/delete/${id}`);
+    const res = await axios.delete(`${domain}/api/v1/store/user/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
@@ -56,7 +65,12 @@ export async function AddUsers(data) {
   try {
     const res = await axios.post(
       `${domain}/api/v1/store/user/create`,
-      formData
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
     );
 
     return res.data;

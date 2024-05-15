@@ -6,7 +6,9 @@ import {
 import { getInvoiceById } from "../../../../../apis/invoices";
 import Table from "../../../../../components/shared/table/Table";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../../../../context/AuthContext";
 const ShowSupplierInvoices = () => {
+  const { user } = useAuth();
   const [name, setName] = useState("");
   const { id } = useParams();
 
@@ -27,7 +29,13 @@ const ShowSupplierInvoices = () => {
   ];
   const actions = [
     {
-      type: "show",
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "show supplier invoices"
+        )
+          ? "show"
+          : ""
+      }`,
       label: "تفاصيل",
     },
   ];
@@ -63,7 +71,14 @@ const ShowSupplierInvoices = () => {
     },
   ];
   const detailsHeaders = [
-
+    {
+      key: "discount",
+      label: "الخصم",
+    },
+    {
+      key: "invoice_price",
+      label: "سعر الفاتورة",
+    },
     {
       key: "recipes",
       label: "المواد الخام",
@@ -71,7 +86,7 @@ const ShowSupplierInvoices = () => {
       isInput: true,
       details: [
         { key: "name", label: "الإسم", isInput: false },
-        { key: "quantity", label: "الكمية", isInput: false },
+        { key: "quantity", label: "الكمية", isInput: true },
         { key: "price", label: "السعر", isInput: false },
       ],
     },
@@ -88,6 +103,8 @@ const ShowSupplierInvoices = () => {
         filters={filters}
         actions={actions}
         detailsHeaders={detailsHeaders}
+        updateFn={() => {}}
+        changeStatusFn={() => {}}
       />
     </div>
   );

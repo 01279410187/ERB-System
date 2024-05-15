@@ -22,6 +22,17 @@
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: relative;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 700px;
+
+}
+
+.data-table-container {
+  // flex: 1;
+  /* This will make the container grow to fill the remaining space */
+  // overflow-y: auto;
+  /* Add vertical scrollbar if content exceeds container height */
 }
 
 .show-data-modal .modal-content h2 {
@@ -35,10 +46,12 @@
   width: 100%;
   border-collapse: collapse;
 }
-.xd{
+
+.xd {
   margin-bottom: 0;
 
 }
+
 .show-data-modal .modal-content .data-table .info-key,
 .show-data-modal .modal-content .data-table .info-value {
   padding: 8px;

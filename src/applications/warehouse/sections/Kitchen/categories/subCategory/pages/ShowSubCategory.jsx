@@ -23,25 +23,34 @@ const ShowSubCategory = () => {
   const { id } = useParams();
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 99)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit sub_category"
+        )
           ? "edit"
           : ""
-        }`,
+      }`,
       label: "تعديل",
       route: "/warehouse/returants/subCategory/:id/edit-subCategory",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 100)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete sub_category"
+        )
           ? "delete"
           : ""
-        }`,
+      }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 98)
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "add sub_category"
+        )
           ? "add"
           : ""
-        }`,
+      }`,
       label: "إضافة قسم فرعى",
       route: `/warehouse/returants/add-subcategory/${id}`,
     },
