@@ -1,7 +1,10 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT, } from "../../../config";
 const domain = API_ENDPOINT;
+
 import { message } from "antd";
+const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getUnits(
     filteredValues = { name: "", page: "" },
     id,

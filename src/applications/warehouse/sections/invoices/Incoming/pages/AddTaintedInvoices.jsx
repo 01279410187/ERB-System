@@ -8,12 +8,14 @@ import axios from "axios";
 import { getSuppliers } from "../../../../../../apis/suppliers";
 import { getAllDepartments } from "../../../../../../apis/departments";
 
-import { API_ENDPOINT, Token } from "../../../../../../../config";
+import { API_ENDPOINT } from "../../../../../../../config";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import TaintedInvoiceDetailes from "../../../../../../components/shared/InvoiveDetails/TaintedInvoiceDetailes";
 
 const AddTaintedInvoices = () => {
+    const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
+
     const [items, setItems] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
     const [department, setDepartment] = useState([]);

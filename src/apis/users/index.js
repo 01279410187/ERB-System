@@ -1,6 +1,8 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getAllUsers(filteredValues = { name: "" }) {
   try {
     const { name } = filteredValues;

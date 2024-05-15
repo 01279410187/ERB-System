@@ -1,6 +1,8 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
+const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getUderLimit(filteredValues = { name: "", page: "" }) {
     try {
         const { name, page } = filteredValues;

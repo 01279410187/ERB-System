@@ -1,7 +1,8 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 import { message } from "antd";
-const Token = localStorage.getItem('token')
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getSuppliers(filteredValues, id, setIsLoading) {
   try {
     setIsLoading(true);
