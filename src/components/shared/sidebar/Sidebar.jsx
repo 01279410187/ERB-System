@@ -51,7 +51,7 @@ const Sidebar = () => {
   const checkMenuItemPermission = (requiredPermission) => {
     return user
       ? user?.permissions.some(
-        (permission) => permission.id === requiredPermission.id
+        (permission) => permission.name === requiredPermission.name
       )
       : false;
   };
@@ -141,16 +141,16 @@ const Sidebar = () => {
                   id: 88,
                   name: "view suppliers",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/suppliers/show-suppliers"
                 className={`menu-link ${activeLink === "/warehouse/suppliers/show-suppliers"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() => {
                   console.log("show-suppliers");
@@ -176,19 +176,19 @@ const Sidebar = () => {
                   id: 135,
                   name: "view departments",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/recipes/show-departments"
                 className={`menu-link ${activeLink === "/warehouse/recipes/show-departments"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/recipes/show-departments");
                 }}
               >
@@ -212,8 +212,8 @@ const Sidebar = () => {
                   id: 140,
                   name: "view invoices",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
@@ -239,8 +239,8 @@ const Sidebar = () => {
               <Link
                 to="/warehouse/invoices/show-tained"
                 className={`menu-link ${activeLink === "/warehouse/invoices/show-tained"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/invoices/show-tained")
@@ -262,8 +262,8 @@ const Sidebar = () => {
               <Link
                 to="/warehouse/payable/show-payable"
                 className={`menu-link ${activeLink === "/warehouse/payable/show-payable"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/payable/show-payable")
@@ -284,8 +284,8 @@ const Sidebar = () => {
               <Link
                 to="/warehouse/requests/show-requests"
                 className={`menu-link ${activeLink === "/warehouse/requests/show-requests"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/requests/show-requests")
@@ -310,19 +310,19 @@ const Sidebar = () => {
                   id: 124,
                   name: "add orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/cashier/create-order"
                 className={`menu-link ${activeLink === "/warehouse/cashier/create-order"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/cashier/create-order");
                 }}
               >
@@ -345,16 +345,16 @@ const Sidebar = () => {
                   id: 124,
                   name: "add orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/cashier/opened-tables"
                 className={`menu-link ${activeLink === "/warehouse/cashier/opened-tables"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/cashier/opened-tables")
@@ -380,16 +380,16 @@ const Sidebar = () => {
                   id: 124,
                   name: "add orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/cashier/kitchen-requests"
                 className={`menu-link ${activeLink === "/warehouse/cashier/kitchen-requests"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/cashier/kitchen-requests")
@@ -414,16 +414,16 @@ const Sidebar = () => {
                   id: 85,
                   name: "safe limit",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/underLimit/show-under-limit"
                 className={`menu-link ${activeLink === "/warehouse/underLimit/show-under-limit"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick("/warehouse/underLimit/show-under-limit")
@@ -450,17 +450,17 @@ const Sidebar = () => {
                   id: 86,
                   name: "safe limit",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/underLimit/show-under-limit/show-expire-limit"
                 className={`menu-link ${activeLink ===
-                    "/warehouse/underLimit/show-under-limit/show-expire-limit"
-                    ? "active"
-                    : ""
+                  "/warehouse/underLimit/show-under-limit/show-expire-limit"
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() =>
                   handleMenuLinkClick(
@@ -489,19 +489,19 @@ const Sidebar = () => {
                   id: 93,
                   name: "view categories",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/returants/show-resturants"
                 className={`menu-link ${activeLink === "/warehouse/returants/show-resturants"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/returants/show-resturants");
                 }}
               >
@@ -516,16 +516,17 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
+
             <li
               className="menu-item"
-              title="المستخدمين"
+              title="الأدوار"
               style={{
                 display: `${checkMenuItemPermission({
                   id: 113,
                   name: "view requests",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
@@ -534,12 +535,17 @@ const Sidebar = () => {
                 className={`menu-link ${activeLink === "/warehouse/users/show-users" ? "active" : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/users/show-users");
                 }}
               >
                 <span className="menu-link-icon">
-                  <FaUserCircle size={30} />
+                  <MdAssignmentLate size={30} />
+                </span>
+                <span
+                  className={`menu-link-text ${display}`}
+                  style={{ fontSize: "20px" }}
+                >
                   المستخدمين
                 </span>
               </Link>
@@ -552,8 +558,8 @@ const Sidebar = () => {
                   id: 110,
                   name: "view orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
@@ -562,7 +568,7 @@ const Sidebar = () => {
                 className={`menu-link ${activeLink === "/warehouse/roles/show-roles" ? "active" : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/roles/show-roles");
                 }}
               >
@@ -585,19 +591,19 @@ const Sidebar = () => {
                   id: 123,
                   name: "view orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/clients/payment-method"
                 className={`menu-link ${activeLink === "/warehouse/clients/payment-method"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/clients/payment-method");
                 }}
               >
@@ -620,19 +626,19 @@ const Sidebar = () => {
                   id: 123,
                   name: "view orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/clients/client-type"
                 className={`menu-link ${activeLink === "/warehouse/clients/client-type"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/clients/client-type");
                 }}
               >
@@ -655,8 +661,8 @@ const Sidebar = () => {
                   id: 123,
                   name: "view orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
@@ -665,7 +671,7 @@ const Sidebar = () => {
                 className={`menu-link ${activeLink === "/warehouse/clients/client" ? "active" : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/clients/client");
                 }}
               >
@@ -688,19 +694,19 @@ const Sidebar = () => {
                   id: 123,
                   name: "view orders",
                 })
-                    ? ""
-                    : "none"
+                  ? ""
+                  : "none"
                   }`,
               }}
             >
               <Link
                 to="/warehouse/clients/discount-reason"
                 className={`menu-link ${activeLink === "/warehouse/clients/discount-reason"
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   } ${justifyContent}`}
                 onClick={() => {
-                  console.log("show-departments");
+
                   handleMenuLinkClick("/warehouse/clients/discount-reason");
                 }}
               >

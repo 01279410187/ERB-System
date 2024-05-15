@@ -12,6 +12,7 @@ import { API_ENDPOINT, Token } from "../../../../../../../config";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import Invoice from "../../Invoice";
+import TaintedInvoiceDetailes from "../../../../../../components/shared/InvoiveDetails/TaintedInvoiceDetailes";
 
 const AddInvoices = () => {
   const [items, setItems] = useState([]);
@@ -94,7 +95,7 @@ const AddInvoices = () => {
 
     items.forEach((item, index) => {
       formData.append(`recipes[${index}][recipe_id]`, item.recipeId);
-      { { lastItem === "out_going" || lastItem === "returned" ? null : formData.append(`recipes[${index}][price]`, item.price) } }
+      { { lastItem === "out_going" ? null : formData.append(`recipes[${index}][price]`, item.price) } }
       // formData.append(`recipes[${index}][price]`, item.price);
       // Add other fields as needed, for example quantity, expire_date, etc.
       formData.append(`recipes[${index}][quantity]`, item.quantity);
@@ -271,11 +272,19 @@ const AddInvoices = () => {
           onChange={(e) => setInvoiceNote(e.target.value)}
         />
       </div>
-      <InvoiceDetails
-        onAddItem={handleAddItem}
-        selectedSupplier={selectedSupplier}
-        InvoiceType={lastItem}
-      />
+      {
+        lastItem === "in_coming" || lastItem === "out_going" ? <><InvoiceDetails
+          onAddItem={handleAddItem}
+          selectedSupplier={selectedSupplier}
+          InvoiceType={lastItem}
+        /></> : <TaintedInvoiceDetailes
+          onAddItem={handleAddItem}
+          selectedSupplier={selectedSupplier}
+
+          InvoiceType={"tainted"}
+        />
+      }
+
       <ItemList items={items} onDeleteItem={handleDeleteItem} InvoiceType={lastItem} />
       {lastItem === "returned" ? null : <TotalAmount total={calculateTotalAmount()} />}
 

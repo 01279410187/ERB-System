@@ -41,38 +41,34 @@ const ShowSuppliers = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 90)
-          ? "edit"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 'edit supplier')
+        ? "edit"
+        : ""
+        }`,
       label: "تعديل",
       route: "/warehouse/suppliers/:id/edit-supplier",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 91)
-          ? "delete"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 'delete supplier')
+        ? "delete"
+        : ""
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 92)
-          ? "navigate"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 'show supplier invoices')
+        ? "navigate"
+        : ""
+        }`,
       label: "فواتير",
       route: "/warehouse/suppliers/:id/show-invoices",
     },
 
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 89)
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 'add supplier')
+        ? "add"
+        : ""
+        }`,
       label: "إضافة موردين",
       route: "/warehouse/suppliers/add-supplier",
     },

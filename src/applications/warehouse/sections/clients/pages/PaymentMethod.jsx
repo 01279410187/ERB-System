@@ -16,28 +16,25 @@ const PaymentMethod = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 123)
+      type: `${user?.permissions.some((permission) => permission.name === 123)
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/clients/:id/edit-payment-method",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 123)
+      type: `${user?.permissions.some((permission) => permission.name === 123)
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 123)
+      type: `${user?.permissions.some((permission) => permission.name === 123)
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة طرق دفع",
       route: "/warehouse/clients/add-payment-method",
     },

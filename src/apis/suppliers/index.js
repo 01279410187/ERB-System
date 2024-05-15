@@ -1,7 +1,7 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT } from "../../../config";
 import { message } from "antd";
-// const Token = localStorage.getItem('token')
+const Token = localStorage.getItem('token')
 export async function getSuppliers(filteredValues, id, setIsLoading) {
   try {
     setIsLoading(true);
@@ -27,7 +27,11 @@ export async function getSuppliers(filteredValues, id, setIsLoading) {
 }
 export async function getSupplierById(id) {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/supplier/${id}`);
+    const res = await axios.get(`${API_ENDPOINT}/api/v1/store/supplier/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
@@ -36,7 +40,7 @@ export async function getSupplierById(id) {
 export async function editSupplier(name, phoneNumber, address, id) {
   try {
     const res = await axios.post(
-      `${domain}/api/v1/store/supplier/update/${id}`,
+      `${API_ENDPOINT}/api/v1/store/supplier/update/${id}`,
       {
         name: name,
         phone: phoneNumber,
@@ -59,9 +63,10 @@ export async function editSupplier(name, phoneNumber, address, id) {
   }
 }
 export async function deleteSupplier(id) {
+  console.log(`${API_ENDPOINT}/api/v1/store/supplier/delete/${id}`);
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/supplier/delete/${id}`,
+      `${API_ENDPOINT}/api/v1/store/supplier/delete/${id}`,
       {
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -72,10 +77,8 @@ export async function deleteSupplier(id) {
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
-    const errors = error.response.data.error.errors;
-    Object.keys(errors).map((err) => {
-      message.error(errors[err][0] || "حدث خطأ الرجاء المحاولة مرة أخرى");
-    });
+    message.error(error.response.data.error.message)
+
   }
 }
 export async function addSupplier(formData) {
@@ -83,7 +86,7 @@ export async function addSupplier(formData) {
   console.log(type, name, address, phone, formData);
   try {
     const res = await axios.post(
-      `${domain}/api/v1/store/supplier/create`,
+      `${API_ENDPOINT}/api/v1/store/supplier/create`,
       {
         type,
         name,
@@ -113,7 +116,7 @@ export async function getSupplierInvoices(filteredValues, id, setIsLoading) {
     setIsLoading(true);
 
     const res = await axios.get(
-      `${domain}/api/v1/store/supplier/${id}/invoices`,
+      `${API_ENDPOINT}/api/v1/store/supplier/${id}/invoices`,
       {
         params: {
           "date[from]": from_date || default_from,
@@ -121,12 +124,10 @@ export async function getSupplierInvoices(filteredValues, id, setIsLoading) {
           status,
           page,
         },
-      },
-      {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
-      }
+      },
     );
     setIsLoading(false);
     return res.data;

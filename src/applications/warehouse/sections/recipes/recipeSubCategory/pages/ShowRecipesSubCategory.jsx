@@ -5,9 +5,10 @@ import {
   deleteRecipeSubCategory,
   getRecipeSubCategory,
 } from "../../../../../../apis/recipes/recipeSubCategory";
+import { useAuth } from "../../../../../../context/AuthContext";
 const ShowRecipesSubCategory = () => {
+  const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
     {
       key: "name",
       value: "الإسم",
@@ -22,28 +23,25 @@ const ShowRecipesSubCategory = () => {
   const { id } = useParams();
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 75)
-          ? "edit"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === "edit recipe_category_parent")
+        ? "edit"
+        : ""
+        }`,
       label: "تعديل",
       route: "/warehouse/recipes/subCategory/:id/edit-recipes",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 76)
-          ? "delete"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === "delete recipe_category_parent")
+        ? "delete"
+        : ""
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 74)
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === "create recipe_category_parent")
+        ? "add"
+        : ""
+        }`,
       label: "إضافة تصنيف رئيسى",
       route: `/warehouse/recipes/subCategory/add-recipes/${id}`,
     },

@@ -11,21 +11,19 @@ const ShowUsers = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 111)
+      type: `${user?.permissions.some((permission) => permission.name === 111)
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/roles/:id/edit-role",
     },
 
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 110)
+      type: `${user?.permissions.some((permission) => permission.name === 110)
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة أدوار",
       route: "/warehouse/roles/add-role",
     },

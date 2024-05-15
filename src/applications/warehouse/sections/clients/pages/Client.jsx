@@ -15,28 +15,25 @@ const Client = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 123)
+      type: `${user?.permissions.some((permission) => permission.name === 123)
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/clients/:id/edit-client",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 123)
+      type: `${user?.permissions.some((permission) => permission.name === 123)
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 123)
+      type: `${user?.permissions.some((permission) => permission.name === 123)
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة  عميل",
       route: "/warehouse/clients/add-client",
     },

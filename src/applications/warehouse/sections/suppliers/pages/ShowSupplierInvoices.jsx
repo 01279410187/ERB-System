@@ -63,23 +63,17 @@ const ShowSupplierInvoices = () => {
     },
   ];
   const detailsHeaders = [
+
     {
-      key: "id",
-      label: "الكود",
-    },
-    {
-      key: "name",
-      label: "الإسم",
-    },
-    {
-      key: "quantity",
-      label: "الكمية",
+      key: "recipes",
+      label: "المواد الخام",
+      isArray: true,
       isInput: true,
-    },
-    {
-      key: "price",
-      label: "السعر",
-      isInput: true,
+      details: [
+        { key: "name", label: "الإسم", isInput: false },
+        { key: "quantity", label: "الكمية", isInput: false },
+        { key: "price", label: "السعر", isInput: false },
+      ],
     },
   ];
   return (
@@ -93,8 +87,6 @@ const ShowSupplierInvoices = () => {
         }
         filters={filters}
         actions={actions}
-        header={"recipes"}
-        showFn={getInvoiceById}
         detailsHeaders={detailsHeaders}
       />
     </div>

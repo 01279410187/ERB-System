@@ -11,8 +11,8 @@ const ProtectedRoute = ({ children, requiredPermission }) => {
     if (!isLoading) {
       const hasPermission = user
         ? user.permissions.some(
-            (permission) => permission.id === requiredPermission.id
-          )
+          (permission) => permission.name === requiredPermission.name
+        )
         : false;
       if (!hasPermission) {
         navigate("/warehouse/unauthorized");

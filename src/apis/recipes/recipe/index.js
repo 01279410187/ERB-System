@@ -72,7 +72,8 @@
 // }
 
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
+const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
 const domain = API_ENDPOINT;
 import { message } from "antd";
 export async function getRecipes(

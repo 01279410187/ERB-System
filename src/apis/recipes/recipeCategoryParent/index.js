@@ -1,7 +1,8 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import { message } from "antd";
 const domain = API_ENDPOINT;
+const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
 export async function getRecipeCategoryParent(
   filteredValues,
   id,
@@ -49,6 +50,7 @@ export async function addRecipe(name, description, image) {
           Accept: "application/json",
           Authorization: `Bearer ${Token}`,
         },
+
       }
     );
     return res.data;
@@ -111,7 +113,11 @@ export async function getRecipeById(id) {
 export async function deleteRecipeSubCategoryParent(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/recipe_category_parent/delete/${id}`
+      `${domain}/api/v1/store/recipe_category_parent/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
     );
     return res.data;
   } catch (error) {

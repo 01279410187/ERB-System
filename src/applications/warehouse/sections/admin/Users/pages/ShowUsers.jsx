@@ -1,12 +1,15 @@
 import React from "react";
 import Table from "../../../../../../components/shared/table/Table";
 import { getUsers, deleteUser } from "../../../../../../apis/users";
+import { useAuth } from "../../../../../../context/AuthContext";
 const ShowUsers = () => {
   const tableHeaders = [
     { key: "id", value: "الكود" },
     { key: "name", value: "الإسم" },
     { key: "phone", value: "الرقم" },
   ];
+
+  const { user } = useAuth()
   const filters = [
     { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
     {
@@ -18,29 +21,26 @@ const ShowUsers = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 115)
-          ? "edit"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 115)
+        ? "edit"
+        : ""
+        }`,
       label: "تعديل",
       route: "/warehouse/users/:id/edit-user",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 116)
-          ? "delete"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 116)
+        ? "delete"
+        : ""
+        }`,
       label: "حذف",
     },
 
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 114)
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 114)
+        ? "add"
+        : ""
+        }`,
       label: "إضافة مستخدمين",
       route: "/warehouse/users/add-user",
     },

@@ -14,28 +14,25 @@ const ShowRecipesCategoryParent = () => {
 
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 137)
+      type: `${user?.permissions.some((permission) => permission.name === 137)
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/recipes/edit-recipes-parent/:id",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 138)
+      type: `${user?.permissions.some((permission) => permission.name === 138)
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 136)
+      type: `${user?.permissions.some((permission) => permission.name === 136)
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة قسم المخزن",
       route: `/warehouse/recipes/add-recipes-parent`,
     },

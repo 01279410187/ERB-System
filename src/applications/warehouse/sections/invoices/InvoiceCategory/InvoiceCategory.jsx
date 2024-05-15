@@ -119,20 +119,18 @@ function Categories(props) {
 
   const actionsIncoming = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 141)
+      type: `${user?.permissions.some((permission) => permission.name === 141)
           ? "add"
           : ""
-      }`,
+        }`,
       label: "اضافة فاتورة مورد",
       route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 142)
+      type: `${user?.permissions.some((permission) => permission.name === 142)
           ? "show"
           : ""
-      }`,
+        }`,
       label: "مراجعة",
     },
     {
@@ -144,20 +142,18 @@ function Categories(props) {
 
   const actionsOutComing = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 141)
+      type: `${user?.permissions.some((permission) => permission.name === 141)
           ? "add"
           : ""
-      }`,
+        }`,
       label: "اضافة فاتورة صرف القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/out_going",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 142)
+      type: `${user?.permissions.some((permission) => permission.name === 142)
           ? "show"
           : ""
-      }`,
+        }`,
       label: "مراجعة",
     },
     {
@@ -169,20 +165,18 @@ function Categories(props) {
 
   const actionsReturnd = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 141)
+      type: `${user?.permissions.some((permission) => permission.name === 141)
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة   فاتورة مرتجع من القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/returned",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 142)
+      type: `${user?.permissions.some((permission) => permission.name === 142)
           ? "show"
           : ""
-      }`,
+        }`,
       label: "مراجعة",
 
     },

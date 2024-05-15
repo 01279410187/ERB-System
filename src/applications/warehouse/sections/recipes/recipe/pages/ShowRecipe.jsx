@@ -6,7 +6,12 @@ import {
   getRecipesById,
   getRecipes,
 } from "../../../../../../apis/recipes/recipe";
+import { useAuth } from "../../../../../../context/AuthContext";
+
 const ShowRecipe = () => {
+
+  const { user } = useAuth();
+
   const tableHeaders = [
     { key: "id", value: "الكود" },
     { key: "name", value: "الإسم" },
@@ -19,28 +24,25 @@ const ShowRecipe = () => {
 
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 83)
-          ? "edit"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 83)
+        ? "edit"
+        : ""
+        }`,
       label: "تعديل",
       route: "/warehouse/recipes/recipe/:id/edit-recipes",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 84)
-          ? "delete"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 84)
+        ? "delete"
+        : ""
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.id === 82)
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some((permission) => permission.name === 82)
+        ? "add"
+        : ""
+        }`,
       label: "إضافة تصنيف فرعى",
       route: `/warehouse/recipes/recipe/add-recipes/${id}`,
     },
