@@ -29,6 +29,7 @@ const ShowDataModal = ({
     const initialEditedData = {};
     detailsHeaders.forEach((header) => {
       initialEditedData[header.key] = responseData[header.key];
+      initialEditedData['id'] = responseData['id'];
     });
     console.log(initialEditedData);
     setEditedData(initialEditedData);

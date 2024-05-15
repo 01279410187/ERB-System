@@ -1,8 +1,9 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import { message } from "antd";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getClientTypes(filteredValues, id, setIsLoading) {
-  const Token = localStorage.getItem("token");
   try {
     setIsLoading(true);
     const { page } = filteredValues;
@@ -23,7 +24,6 @@ export async function getClientTypes(filteredValues, id, setIsLoading) {
   }
 }
 export async function deleteClientType(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.delete(
       `${API_ENDPOINT}/api/v1/store/client_type/delete/${id}`,
@@ -41,7 +41,6 @@ export async function deleteClientType(id) {
   }
 }
 export async function getClientTypeById(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.get(
       `${API_ENDPOINT}/api/v1/store/client_type/${id}`,
@@ -58,7 +57,6 @@ export async function getClientTypeById(id) {
   }
 }
 export async function updateClientType(id, editValues) {
-  console.log(editValues);
   const formData = new FormData();
   formData.append("name", editValues.name);
   formData.append("new_client", editValues.newClient);

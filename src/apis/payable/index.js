@@ -1,8 +1,9 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 import { message } from "antd";
-import { Token } from "../../../config";
 const domain = API_ENDPOINT;
+const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getPayable(filteredValues, id, setIsLoading) {
     try {
         setIsLoading(true);

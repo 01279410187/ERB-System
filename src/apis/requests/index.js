@@ -1,6 +1,8 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getRequests(filteredValues, id, setIsLoading) {
   try {
     setIsLoading(true);
@@ -17,6 +19,9 @@ export async function getRequests(filteredValues, id, setIsLoading) {
         status,
         page,
       },
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
     });
     setIsLoading(false);
     return res.data;
@@ -29,7 +34,11 @@ export async function getRequests(filteredValues, id, setIsLoading) {
 export async function deleteRequest(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/request/delete/${id}`
+      `${domain}/api/v1/store/request/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
     );
     return res.data;
   } catch (error) {

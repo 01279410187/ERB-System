@@ -1,8 +1,9 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import { message } from "antd";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getClients(filteredValues, id, setIsLoading) {
-  const Token = localStorage.getItem("token");
   try {
     setIsLoading(true);
     const { page } = filteredValues;
@@ -23,7 +24,6 @@ export async function getClients(filteredValues, id, setIsLoading) {
   }
 }
 export async function deleteClient(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.delete(
       `${API_ENDPOINT}/api/v1/store/client/delete/${id}`,
@@ -41,7 +41,6 @@ export async function deleteClient(id) {
   }
 }
 export async function getClientById(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.get(`${API_ENDPOINT}/api/v1/store/client/${id}`, {
       headers: {
@@ -63,7 +62,6 @@ export async function updateClient(editValues, id) {
   formData.append("sallary", editValues.sallary);
   formData.append("incentives", editValues.incentives);
   formData.append("_method", "PUT");
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/store/client/update/${id}`,

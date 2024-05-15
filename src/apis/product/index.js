@@ -1,7 +1,9 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
 import { message } from "antd";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getProducts(filteredValues = { name: "", page: "" }, id) {
   try {
     const { name, page } = filteredValues;
@@ -11,6 +13,9 @@ export async function getProducts(filteredValues = { name: "", page: "" }, id) {
         name: name,
         recipe_category_id: id,
         page,
+      },
+      headers: {
+        Authorization: `Bearer ${Token}`,
       },
     });
     console.log(res.data);
@@ -24,7 +29,11 @@ export async function getProducts(filteredValues = { name: "", page: "" }, id) {
 
 export async function getUnits() {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/unit`);
+    const res = await axios.get(`${domain}/api/v1/store/unit`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     console.log(res.data);
     return res.data;
   } catch (error) {
@@ -63,6 +72,7 @@ export async function addProducts(
       formData,
       {
         headers: {
+          Authorization: `Bearer ${Token}`,
           Accept: "application/json",
         },
       }
@@ -102,6 +112,7 @@ export async function eidtProduct(
       formData,
       {
         headers: {
+          Authorization: `Bearer ${Token}`,
           Accept: "application/json",
         },
       }
@@ -144,6 +155,9 @@ export async function getProductsFilterById(
           name: name,
           page,
         },
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
       }
     );
     console.log(res.data);
@@ -158,7 +172,11 @@ export async function getProductsFilterById(
 export async function deleteProduct(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/products/delete/${id}`
+      `${domain}/api/v1/store/products/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
     );
     return res.data;
   } catch (error) {
@@ -187,6 +205,7 @@ export async function editProductByDepartment(editValues) {
       formData,
       {
         headers: {
+          Authorization: `Bearer ${Token}`,
           Accept: "application/json",
         },
       }
@@ -211,6 +230,7 @@ export async function editProductsToDepartment(editValues, id) {
       formData,
       {
         headers: {
+          Authorization: `Bearer ${Token}`,
           Accept: "application/json",
         },
       }

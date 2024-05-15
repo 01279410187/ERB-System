@@ -107,7 +107,11 @@ export async function getRecipes(
 
 export async function getUnits() {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/unit`);
+    const res = await axios.get(`${domain}/api/v1/store/unit`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     console.log(res.data);
     return res.data;
   } catch (error) {
@@ -230,6 +234,9 @@ export async function getRecipesFilterById(
         params: {
           name: name,
           page,
+        },
+        headers: {
+          Authorization: `Bearer ${Token}`,
         },
       }
     );

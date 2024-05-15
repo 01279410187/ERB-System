@@ -2,10 +2,16 @@ import { message } from "antd";
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getCategories() {
   try {
     const res = await axios.get(
-      `${domain}/api/v1/store/categories`
+      `${domain}/api/v1/store/categories`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
     );
     console.log(res.data)
     return res.data
@@ -19,7 +25,11 @@ export async function getSubCategories({ id }) {
   console.log(id)
   try {
     const res = await axios.get(
-      `${domain}/api/v1/store/sub_categories/filter_by_category/${id}`
+      `${domain}/api/v1/store/sub_categories/filter_by_category/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
     );
     return res.data
   } catch (error) {
@@ -31,7 +41,11 @@ export async function getSubCategories({ id }) {
 export async function getCategoryById(id) {
   try {
     const res = await axios.get(
-      `${domain}/api/v1/store/categories/${id}`
+      `${domain}/api/v1/store/categories/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
     );
     console.log(res.data)
     return res.data
@@ -49,6 +63,10 @@ export async function editCategory(name, phoneNumber, address, id) {
       phone: phoneNumber,
       address: address,
       _method: "PUT"
+      ,
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
     }
     );
     return res.data
@@ -61,7 +79,11 @@ export async function editCategory(name, phoneNumber, address, id) {
 export async function deleteCategory(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/categories/delete/${id}`
+      `${domain}/api/v1/store/categories/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
 
     );
     return res.data
@@ -79,6 +101,9 @@ export async function addCategory(name, description, image) {
       name: name,
       description: description,
       image: image,
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
     }
     );
     return res.data

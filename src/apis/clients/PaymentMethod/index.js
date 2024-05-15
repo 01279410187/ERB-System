@@ -1,8 +1,9 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import { message } from "antd";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getPaymentMethods(filteredValues, id, setIsLoading) {
-  const Token = localStorage.getItem("token");
   try {
     setIsLoading(true);
     const { page } = filteredValues;
@@ -23,7 +24,6 @@ export async function getPaymentMethods(filteredValues, id, setIsLoading) {
   }
 }
 export async function deletePaymentMethod(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.delete(
       `${API_ENDPOINT}/api/v1/store/payment_method/delete/${id}`,
@@ -41,7 +41,6 @@ export async function deletePaymentMethod(id) {
   }
 }
 export async function getPaymentMethodById(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.get(
       `${API_ENDPOINT}/api/v1/store/payment_method/${id}`,
@@ -65,7 +64,6 @@ export async function updatePaymentMethod(id, editValues) {
   formData.append("status", editValues.status);
   formData.append("type", editValues.type);
   formData.append("_method", "PUT");
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/store/payment_method/update/${id}`,
@@ -90,7 +88,6 @@ export async function addPaymentMethod(values) {
   formData.append("image", values.image[0].originFileObj);
   formData.append("status", values.status);
   formData.append("type", values.type);
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/store/payment_method/create`,

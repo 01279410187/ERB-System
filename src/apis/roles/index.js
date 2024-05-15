@@ -1,5 +1,7 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT } from "../../../config";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 const domain = API_ENDPOINT;
 // export async function getAllUsers(filteredValues = { name: "" }) {
 //   try {
@@ -16,7 +18,11 @@ const domain = API_ENDPOINT;
 // }
 export async function getRoles(filteredValues) {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/role`, {});
+    const res = await axios.get(`${domain}/api/v1/store/role`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
 
     return res.data;
   } catch (error) {
@@ -32,7 +38,11 @@ export async function AddRoles(data) {
   try {
     const res = await axios.post(
       `${domain}/api/v1/store/role/create`,
-      formData
+      formData, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    }
     );
 
     return res.data;
@@ -64,7 +74,11 @@ export async function editRoles(data) {
 }
 export async function getRoleById(id) {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/role/${id}`);
+    const res = await axios.get(`${domain}/api/v1/store/role/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     console.log(res.data);
     return res.data;
   } catch (error) {
