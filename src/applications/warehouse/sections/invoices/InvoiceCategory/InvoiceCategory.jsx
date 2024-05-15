@@ -38,17 +38,25 @@ function Categories(props) {
     { value: "rejected", label: "مرفوضة" },
   ];
   const tableHeaders = [
-    { key: "id", value: "الكود" },
     { key: "code", value: "  كود الفاتوره" },
     { key: "invoice_date", value: "تاريخ الإصدار" },
     { key: "registration_date", value: "تاريخ التسجيل" },
     { key: "status", value: "الحالة" },
   ];
   const detailsHeaders = [
-    { key: "id", label: "الكود" },
-    { key: "name", label: "الإسم" },
-    { key: "quantity", label: "الكمية" },
-    { key: "price", label: "السعر", isInput: true },
+
+    {
+      key: "recipes",
+      label: "المواد الخام",
+      isArray: true,
+      isInput: true,
+      details: [
+        { key: "name", label: "الإسم", isInput: false },
+        { key: "quantity", label: "الكمية", isInput: true },
+        { key: "price", label: "السعر", isInput: true },
+      ],
+    },
+
   ];
   const filtersIncoming = [
     {
@@ -119,17 +127,17 @@ function Categories(props) {
 
   const actionsIncoming = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 141)
-          ? "add"
-          : ""
+      type: `${user?.permissions.some((permission) => permission.name === "create invoice")
+        ? "add"
+        : ""
         }`,
       label: "اضافة فاتورة مورد",
       route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 142)
-          ? "show"
-          : ""
+      type: `${user?.permissions.some((permission) => permission.name === "edit invoice")
+        ? "show"
+        : ""
         }`,
       label: "مراجعة",
     },
@@ -142,17 +150,17 @@ function Categories(props) {
 
   const actionsOutComing = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 141)
-          ? "add"
-          : ""
+      type: `${user?.permissions.some((permission) => permission.name === "create invoice")
+        ? "add"
+        : ""
         }`,
       label: "اضافة فاتورة صرف القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/out_going",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 142)
-          ? "show"
-          : ""
+      type: `${user?.permissions.some((permission) => permission.name === "edit invoice")
+        ? "show"
+        : ""
         }`,
       label: "مراجعة",
     },
@@ -165,17 +173,17 @@ function Categories(props) {
 
   const actionsReturnd = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 141)
-          ? "add"
-          : ""
+      type: `${user?.permissions.some((permission) => permission.name === "create invoice")
+        ? "add"
+        : ""
         }`,
       label: "إضافة   فاتورة مرتجع من القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/returned",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 142)
-          ? "show"
-          : ""
+      type: `${user?.permissions.some((permission) => permission.name === "edit invoice")
+        ? "show"
+        : ""
         }`,
       label: "مراجعة",
 
@@ -222,8 +230,6 @@ function Categories(props) {
               fetchData={(filters, id, setIsLoading) =>
                 getIncomingInvoiceByType(filters, id, setIsLoading)
               }
-              header={"recipes"}
-              showFn={getInvoiceById}
               detailsHeaders={detailsHeaders}
               updateFn={updateInvoice}
               changeStatusFn={changeInvoiceStatus}

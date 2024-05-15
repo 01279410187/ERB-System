@@ -1,8 +1,9 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import { message } from "antd";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getDiscountReasons(filteredValues, id, setIsLoading) {
-  const Token = localStorage.getItem("token");
   try {
     setIsLoading(true);
     const { page } = filteredValues;
@@ -26,7 +27,6 @@ export async function getDiscountReasons(filteredValues, id, setIsLoading) {
   }
 }
 export async function deleteDiscountReason(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.delete(
       `${API_ENDPOINT}/api/v1/store/discount_reason/delete/${id}`,
@@ -44,7 +44,6 @@ export async function deleteDiscountReason(id) {
   }
 }
 export async function getDiscountReasonById(id) {
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.get(
       `${API_ENDPOINT}/api/v1/store/discount_reason/${id}`,
@@ -65,7 +64,6 @@ export async function updateDiscountReason(id, editValues) {
   formData.append("discount_reason", editValues.discount_reason);
   formData.append("discount", editValues.discount);
   formData.append("_method", "PUT");
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/store/discount_reason/update/${id}`,
@@ -87,7 +85,6 @@ export async function addDiscountReason(values) {
   const formData = new FormData();
   formData.append("discount_reason", values.discount_reason);
   formData.append("discount", values.discount);
-  const Token = localStorage.getItem("token");
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/store/discount_reason/create`,

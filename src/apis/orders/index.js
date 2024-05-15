@@ -2,10 +2,11 @@ import { message } from "antd";
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getOrders(filteredValues, id, setIsLoading) {
   try {
-    const Token =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
+
     setIsLoading(true);
     const { from_date, to_date, department_id, user_id, page, status } =
       filteredValues;
@@ -33,8 +34,7 @@ export async function getOrders(filteredValues, id, setIsLoading) {
   }
 }
 export async function getOrderById(id) {
-  const Token =
-    localStorage.getItem("token") || sessionStorage.getItem("token");
+
   try {
     const res = await axios.get(`${API_ENDPOINT}/api/v1/orders/${id}`, {
       headers: {
@@ -50,8 +50,7 @@ export async function getOrderById(id) {
 }
 export async function deleteOrder(id) {
   try {
-    const Token =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
+
     const res = await axios.delete(
       `${API_ENDPOINT}/api/v1/orders/delete/${id}`,
       {

@@ -13,7 +13,6 @@ const ShowRecipe = () => {
   const { user } = useAuth();
 
   const tableHeaders = [
-    { key: "id", value: "الكود" },
     { key: "name", value: "الإسم" },
     { key: "image", value: "الصوره", type: "image" },
   ];
@@ -24,7 +23,7 @@ const ShowRecipe = () => {
 
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 83)
+      type: `${user?.permissions.some((permission) => permission.name === "edit recipe")
         ? "edit"
         : ""
         }`,
@@ -32,14 +31,14 @@ const ShowRecipe = () => {
       route: "/warehouse/recipes/recipe/:id/edit-recipes",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 84)
+      type: `${user?.permissions.some((permission) => permission.name === "delete recipe")
         ? "delete"
         : ""
         }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 82)
+      type: `${user?.permissions.some((permission) => permission.name === "add recipe")
         ? "add"
         : ""
         }`,

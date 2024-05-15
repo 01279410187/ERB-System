@@ -5,8 +5,8 @@ import { API_ENDPOINT } from "../../../config";
 import { message } from "antd";
 const domain = API_ENDPOINT;
 
-const Token = localStorage.getItem("token")
-
+const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getRcipeReports(filteredValues, id, setIsLoading) {
     try {
         setIsLoading(true);

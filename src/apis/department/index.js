@@ -1,7 +1,9 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
 import { message } from "antd";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getDeaprtments(
   filteredValues = { name: "", page: "" },
   id,
@@ -33,7 +35,11 @@ export async function getDeaprtments(
 
 export async function getUnits() {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/unit`);
+    const res = await axios.get(`${domain}/api/v1/store/unit`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     console.log(res.data);
     return res.data;
   } catch (error) {

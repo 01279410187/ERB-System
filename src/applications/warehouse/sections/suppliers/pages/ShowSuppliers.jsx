@@ -5,7 +5,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 const ShowSuppliers = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "phone", value: "الرقم" },
     { key: "type", value: "النوع" },

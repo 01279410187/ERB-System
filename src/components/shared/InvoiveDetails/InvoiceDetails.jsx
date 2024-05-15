@@ -1,9 +1,10 @@
 // Import useState and useEffect if not already imported
 import React, { useState, useEffect } from "react";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import { getRecipesById } from "../../../apis/invoices";
 
 const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
+  const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
   const [item, setItem] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);

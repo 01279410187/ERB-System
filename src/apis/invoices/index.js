@@ -3,8 +3,8 @@ import { API_ENDPOINT } from "../../../config";
 import { message } from "antd";
 const domain = API_ENDPOINT;
 
-const Token = localStorage.getItem("token")
-
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getRecipes(filteredValues = { name: "", page: "" }) {
   try {
     const { name, page } = filteredValues;
@@ -13,6 +13,9 @@ export async function getRecipes(filteredValues = { name: "", page: "" }) {
       params: {
         name: name,
         page,
+      },
+      headers: {
+        Authorization: `Bearer ${Token}`,
       },
     });
     console.log(res.data);
@@ -26,7 +29,11 @@ export async function getRecipes(filteredValues = { name: "", page: "" }) {
 
 export async function getUnits() {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/unit`);
+    const res = await axios.get(`${domain}/api/v1/store/unit`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     console.log(res.data);
     return res.data;
   } catch (error) {
@@ -107,6 +114,7 @@ export async function eidtRecipes(
       formData,
       {
         headers: {
+          Authorization: `Bearer ${Token}`,
           Accept: "application/json",
         },
       }
@@ -326,28 +334,26 @@ export async function getTaintedInvoiceById(id) {
   }
 }
 export async function updateInvoice(filteredValues, id) {
-  const { inputValues } = filteredValues;
+  console.log(typeof filteredValues.recipes);
   const formData = new FormData();
-  Object.keys(inputValues).forEach((inputValueID, index) => {
-    formData.append(`recipes[${index}][recipe_id]`, inputValueID);
+  Object.keys(filteredValues.recipes).map((key, index) => {
+    formData.append(`recipes[${index}][recipe_id]`, filteredValues.recipes[key].id);
     formData.append(
       `recipes[${index}][price]`,
-      inputValues[inputValueID].price
+      filteredValues.recipes[key].price
     );
     // Add other fields as needed, for example quantity, expire_date, etc.
-    formData.append(
-      `recipes[${index}][quantity]`,
-      inputValues[inputValueID].quantity
-    );
-    formData.append(
-      `recipes[${index}][expire_date]`,
-      inputValues[inputValueID].expire_date
-    );
+    // formData.append(
+    //   `recipes[${index}][quantity]`,
+    //   filteredValues.recipes[key].quantity);
+    // formData.append(
+    //   `recipes[${index}][expire_date]`,
+    //   filteredValues.recipes[key].expire_date);
   });
   formData.append("_method", "PUT");
   try {
     const res = await axios.post(
-      `${domain}/api/v1/store/invoice/update/${id}`,
+      `${domain}/api/v1/store/invoice/update/${filteredValues.id}`,
       formData,
       {
         headers: {
@@ -355,6 +361,7 @@ export async function updateInvoice(filteredValues, id) {
         },
       }
     );
+    message.success('تم التعديل بنجاح')
     console.log(res);
     return res.data;
   } catch (error) {

@@ -1,7 +1,8 @@
 import { message } from "antd";
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
-
+import { API_ENDPOINT } from "../../../config";
+const Token =
+  localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getProductById(id) {
   try {
     const res = await axios.get(`${API_ENDPOINT}/api/v1/product/show/${id}`, {

@@ -2,6 +2,8 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 import { message } from 'antd'
 const domain = API_ENDPOINT;
+const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getSubCategory(filteredValues = { name: "", page: "" }, id) {
     try {
         const { name, page } = filteredValues;
@@ -12,6 +14,9 @@ export async function getSubCategory(filteredValues = { name: "", page: "" }, id
                 name: name,
                 category_id: id,
                 page,
+            },
+            headers: {
+                Authorization: `Bearer ${Token}`,
             },
         }
         );
@@ -38,8 +43,9 @@ export async function addSubCategory(name, description, image, category_id) {
             formData,
             {
                 headers: {
+                    Authorization: `Bearer ${Token}`,
                     'Accept': 'application/json'
-                }
+                },
             }
         );
         return res.data;
@@ -65,8 +71,9 @@ export async function eidtSubCategory(name, description, image, category_id, id)
             formData,
             {
                 headers: {
+                    Authorization: `Bearer ${Token}`,
                     'Accept': 'application/json'
-                }
+                },
             }
         );
         return res.data;
@@ -79,7 +86,11 @@ export async function eidtSubCategory(name, description, image, category_id, id)
 export async function getSubCategoryById(id) {
     try {
         const res = await axios.get(
-            `${domain}/api/v1/store/sub_categories/${id}`
+            `${domain}/api/v1/store/sub_categories/${id}`, {
+            headers: {
+                Authorization: `Bearer ${Token}`,
+            },
+        }
         );
         console.log(res.data)
         return res.data
@@ -101,6 +112,9 @@ export async function getSubCategoryFilterById(filteredValues = { name: "", page
                 name: name,
                 page,
             },
+            headers: {
+                Authorization: `Bearer ${Token}`,
+            },
         }
         );
         console.log(res.data)
@@ -115,7 +129,11 @@ export async function getSubCategoryFilterById(filteredValues = { name: "", page
 export async function deleteSubCategory(id) {
     try {
         const res = await axios.delete(
-            `${domain}/api/v1/store/sub_categories/delete/${id}`
+            `${domain}/api/v1/store/sub_categories/delete/${id}`, {
+            headers: {
+                Authorization: `Bearer ${Token}`,
+            },
+        }
 
         );
         return res.data
