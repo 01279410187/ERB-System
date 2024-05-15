@@ -86,7 +86,7 @@ const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType }) => {
 
             const expirationOptions = oneRecipe.quantitesDetails.map((detail) => ({
                 value: detail.expire_date,
-                label: detail.expire_date,
+                label: `${"  السعر:   " + `${detail.price}` + "   --   " + "  التاريخ:    " + `${detail.expire_date}`}`,
             }));
             setExpirationOptions(expirationOptions);
 
@@ -146,6 +146,50 @@ const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType }) => {
         ]);
     }, [recipeCategoryParents, recipeCategories, recipes, expirationOptions]);
 
+    // const handleAddItem = async () => {
+    //     if (!selectedRecipe) {
+    //         setErrorMessage(`الرجاء اختيار مكون.`);
+    //         return;
+    //     }
+
+    //     const selectedRecipeObj = await fetchOneRecipe(selectedRecipe);
+    //     console.log(selectedRecipeObj)
+
+    //     if (!selectedRecipeObj) {
+    //         setErrorMessage(`لم يتم العثور على المكون المختارة.`);
+    //         return;
+    //     }
+
+    //     // Additional validation or processing logic
+    //     const newItem = {
+    //         name: selectedRecipeObj.name,
+    //         image: selectedRecipeObj.image,
+    //         recipeId: selectedRecipe,
+    //         quantity: parseInt(newQuantity),
+    //         price: parseFloat(price),
+    //         expireDate: expireDate,
+    //     };
+
+    //     // Check if the selected expiration date matches any entry in quantitesDetails and compare its quantity
+    //     const matchedDetail = selectedRecipeObj.quantitesDetails.find(detail => detail.expire_date === expireDate);
+    //     if (matchedDetail) {
+    //         if (parseInt(newQuantity) <= matchedDetail.quantity) {
+    //             onAddItem(newItem);
+    //             setItem("");
+    //             setQuantity(1);
+    //             setNewPrice(0);
+    //             setPrice(0);
+    //             setErrorMessage("");
+    //         } else {
+    //             setErrorMessage("الكمية المدخلة أكبر من الكمية المتاحة لتاريخ انتهاء الصلاحية المحدد.");
+    //             setQuantity(0);
+    //         }
+    //     } else {
+    //         setErrorMessage("تاريخ انتهاء الصلاحية المحدد غير موجود في التفاصيل المتاحة.");
+    //     }
+    // };
+
+
     const handleAddItem = async () => {
         if (!selectedRecipe) {
             setErrorMessage(`الرجاء اختيار مكون.`);
@@ -166,7 +210,7 @@ const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType }) => {
             image: selectedRecipeObj.image,
             recipeId: selectedRecipe,
             quantity: parseInt(newQuantity),
-            price: InvoiceType === "in_coming" ? parseFloat(price) : parseFloat(newPrice),
+            price: parseFloat(price), // Default price
             expireDate: expireDate,
         };
 
@@ -174,6 +218,7 @@ const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType }) => {
         const matchedDetail = selectedRecipeObj.quantitesDetails.find(detail => detail.expire_date === expireDate);
         if (matchedDetail) {
             if (parseInt(newQuantity) <= matchedDetail.quantity) {
+                newItem.price = matchedDetail.price; // Set price from the selected expiration date details
                 onAddItem(newItem);
                 setItem("");
                 setQuantity(1);
@@ -188,6 +233,7 @@ const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType }) => {
             setErrorMessage("تاريخ انتهاء الصلاحية المحدد غير موجود في التفاصيل المتاحة.");
         }
     };
+
 
 
     return (

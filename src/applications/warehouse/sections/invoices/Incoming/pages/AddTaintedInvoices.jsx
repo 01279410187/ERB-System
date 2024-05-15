@@ -86,7 +86,7 @@ const AddTaintedInvoices = () => {
         items.forEach((item, index) => {
             formData.append(`recipes[${index}][recipe_id]`, item.recipeId);
             //   { { lastItem === "out_going" || lastItem === "returned" ? null : formData.append(`recipes[${index}][price]`, item.price) } }
-            // formData.append(`recipes[${index}][price]`, item.price);
+            formData.append(`recipes[${index}][price]`, item.price);
             // Add other fields as needed, for example quantity, expire_date, etc.
             formData.append(`recipes[${index}][quantity]`, item.quantity);
             formData.append(`recipes[${index}][expire_date]`, item.expireDate)
@@ -178,17 +178,6 @@ const AddTaintedInvoices = () => {
                     type="date"
                     value={invoiceDate}
                     onChange={(e) => setInvoiceDate(e.target.value)}
-                />
-            </div>
-
-            <div>
-                <label className="form-label">كود الفاتورة:</label>
-                <input
-                    className="form-input"
-                    type="number"
-                    value={invoiceCode}
-                    onChange={(e) => setInvoiceCode(e.target.value)}
-                    onWheel={(event) => event.currentTarget.blur()}
                 />
             </div>
 
