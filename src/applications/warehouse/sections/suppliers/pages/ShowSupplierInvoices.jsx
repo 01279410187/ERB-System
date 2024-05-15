@@ -65,13 +65,21 @@ const ShowSupplierInvoices = () => {
   const detailsHeaders = [
 
     {
+      key: "discount",
+      label: "الخصم",
+    },
+    {
+      key: "invoice_price",
+      label: "سعر الفاتورة",
+    },
+    {
       key: "recipes",
       label: "المواد الخام",
       isArray: true,
       isInput: true,
       details: [
         { key: "name", label: "الإسم", isInput: false },
-        { key: "quantity", label: "الكمية", isInput: false },
+        { key: "quantity", label: "الكمية", isInput: true },
         { key: "price", label: "السعر", isInput: false },
       ],
     },
@@ -88,6 +96,8 @@ const ShowSupplierInvoices = () => {
         filters={filters}
         actions={actions}
         detailsHeaders={detailsHeaders}
+        updateFn={() => { }}
+        changeStatusFn={() => { }}
       />
     </div>
   );
