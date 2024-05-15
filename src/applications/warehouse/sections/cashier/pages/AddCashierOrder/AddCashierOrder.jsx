@@ -8,32 +8,47 @@ import axios from "axios";
 import { API_ENDPOINT, Token } from "../../../../../../../config";
 import CashierOrderDetailes from "../../../../../../components/shared/CashierOrderDetails/CashierOrderDetailes";
 import CashierItemList from "../../../../../../components/shared/CashierItemList/CashierItemList";
-import { message } from "antd";
-
+import { message, Select } from "antd";
+import { useAuth } from "../../../../../../context/AuthContext";
 const AddCashierOrder = () => {
+  const { user } = useAuth();
   const [items, setItems] = useState([]);
-  const [tableNumber, setTableNumber] = useState(0);
-  const [discountReason, setDiscountReason] = useState("");
   const [discountReasons, setDiscountReasons] = useState([]);
-  const [CashierName, setCahierName] = useState("احمد بركات");
-  const [customerName, setCustomerName] = useState(" ");
-  const [discount, setDiscount] = useState(0);
-  const [tax, setTx] = useState(0);
-  const [fields, setFields] = useState([]);
-  const [selectedParent, setSelectedParent] = useState("");
   const [errors, setErrors] = useState({});
 
-  const [ProductCategoryParents, setProductCategoryParents] = useState([]);
-  const [ProductCategories, setProductCategories] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState("");
-
+  const [clientTypes, setClientTypes] = useState([]);
+  const [selectedClientTypeId, setSelectedClientTypeId] = useState(null);
+  const [clients, setClients] = useState([]);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+  const [addFormVisible, setAddFormVisible] = useState(false);
+  const [newUserValues, setNewUserValues] = useState({
+    deleviery_type: "kitchen",
+    name: "",
+    phone: "",
+    military_number: "",
+    client_type_id: "",
+    discount_reason_id: "",
+    payment_method_id: "",
+    table_number: "",
+    comment: "",
+    client_id: "",
+  });
   useEffect(() => {
-    fetchCustomerCategoryParents();
-    fetchDiscountReasons();
+    const fetchData = async () => {
+      await fetchClients();
+      await fetchPaymentMethods();
+    };
+    fetchData();
+  }, [selectedClientTypeId]);
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchClientTypes();
+      await fetchDiscountReasons();
+    };
+    fetchData();
   }, []);
-
   const validateTableNumber = (value) => {
-    if (value <= 0) {
+    if (value <= 0 || !value) {
       return "رقم التربيزة يجب أن يكون أكبر من صفر";
     }
     return "";
@@ -54,46 +69,111 @@ const AddCashierOrder = () => {
   };
 
   const validateDiscountReason = (value) => {
-    if (!value.trim()) {
+    if (!value) {
       return "يجب أن تدخل سبب الخصم";
     }
     return "";
   };
 
   const validateSelection = (value) => {
-    if (!value) {
+    if (!value && newUserValues["client_id"] !== "add-new") {
       return "يجب اختيار قيمة";
     }
     return "";
   };
+  const validateUser = () => {
+    if (newUserValues["client_id"] === "add-new") {
+      if (
+        !newUserValues["name"] ||
+        !newUserValues["phone"] ||
+        !newUserValues["military_number"] ||
+        !newUserValues["client_type_id"] ||
+        !newUserValues["discount_reason_id"] ||
+        !newUserValues["payment_method_id"]
+      )
+        return "يجب اختيار قيم للمستخدم الجديد";
+    } else {
+      return "";
+    }
+  };
 
   const validateForm = () => {
     const errors = {};
-    errors.tableNumber = validateTableNumber(tableNumber);
-    errors.customerName = validateCustomerName(customerName);
-    errors.discount = validateDiscount(discount);
-    errors.discountReason = validateDiscountReason(discountReason);
-    errors.selectedProduct = validateSelection(selectedProduct); // Validation for selection field
+    errors.userError = validateUser();
+    errors.tableNumber = validateTableNumber(newUserValues["table_number"]);
+    errors.discountReason = validateDiscountReason(
+      newUserValues["discount_reason_id"]
+    );
+    errors.selectedClient = validateSelection(newUserValues["client_id"]);
+    errors.clientType = validateSelection(newUserValues["client_type_id"]);
+    errors.deliveryType = validateSelection(newUserValues["deleviery_type"]);
+    errors.paymentMethod = validateSelection(
+      newUserValues["payment_method_id"]
+    );
     setErrors(errors);
     return Object.values(errors).every((error) => error === "");
   };
-
-  const selectValues = [
-    { label: "إختر", value: "0" },
-    { label: "10%", value: "10" },
-    { label: "15%", value: "15" },
-    { label: "20%", value: "20" },
-    { label: "25%", value: "25" },
-    { label: "30%", value: "30" },
-    { label: "40%", value: "40" },
-    { label: "50%", value: "50" },
-    { label: "100%", value: "100" },
+  const fields = [
+    {
+      label: "نوع العميل",
+      type: "select",
+      placeholder: "اختر  نوع العميل ",
+      options:
+        clientTypes?.map((category) => ({
+          value: category.id,
+          label: category.name,
+        })) || [],
+      required: true,
+      onChange: async (value) => {
+        setSelectedClientTypeId(value);
+      },
+      error: errors.clientType,
+    },
+    {
+      label: " العميل",
+      type: "select",
+      placeholder: "اختر العميل",
+      options:
+        clients?.map((category) => ({
+          value: category.id,
+          label: category.name,
+        })) || [],
+      required: true,
+      onChange: async (value) => {
+        handleNewUserFormChange("client_id", value);
+      },
+      canAdd: true,
+      error: errors.selectedClient,
+    },
+    {
+      label: "طرق الدفع",
+      type: "select",
+      placeholder: "اختر طريقة دفع ",
+      options:
+        paymentMethods?.map((category) => ({
+          value: category.id,
+          label: category.name,
+        })) || [],
+      required: true,
+      onChange: (value) => handleNewUserFormChange("payment_method_id", value),
+      error: errors.paymentMethod,
+    },
   ];
+  const handleNewUserFormChange = (key, value) => {
+    console.log(newUserValues, key, value);
+    setNewUserValues((prevValues) => ({
+      ...prevValues,
+      [key]: value,
+    }));
+  };
 
-  const fetchCustomerCategoryParents = async () => {
+  const fetchClientTypes = async () => {
+    console.log("smd");
     try {
+      const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/product/customers/parent`,
+        `${API_ENDPOINT}/api/v1/orders/clients/type`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,
@@ -101,14 +181,36 @@ const AddCashierOrder = () => {
         }
       );
       const data = await response.json();
-      setProductCategoryParents(data.data);
-      console.log(data);
+      console.log(data.data);
+      setClientTypes(data.data);
     } catch (error) {
-      console.error("Error fetching Product category parents:", error);
+      console.error("Error fetching Product categories:", error);
+    }
+  };
+  const fetchClients = async () => {
+    try {
+      const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
+      const response = await fetch(
+        `${API_ENDPOINT}/api/v1/orders/clients/${selectedClientTypeId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data.data);
+      handleNewUserFormChange("client_type_id", selectedClientTypeId);
+      setClients(data.data);
+    } catch (error) {
+      console.error("Error fetching Product categories:", error);
     }
   };
   const fetchDiscountReasons = async () => {
     try {
+      const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
         `${API_ENDPOINT}/api/v1/orders/discount/reasons`,
         {
@@ -118,17 +220,18 @@ const AddCashierOrder = () => {
         }
       );
       const data = await response.json();
+      console.log(data.data);
       setDiscountReasons(data.data);
-      console.log(data);
     } catch (error) {
-      console.error("Error fetching Product category parents:", error);
+      console.error("Error fetching Product categories:", error);
     }
   };
-  const handleParentChange = async (parentId) => {
-    setSelectedParent(parentId);
+  const fetchPaymentMethods = async () => {
     try {
+      const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/product/customers/${parentId}`,
+        `${API_ENDPOINT}/api/v1/orders/payment/method/${selectedClientTypeId}`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,
@@ -136,40 +239,12 @@ const AddCashierOrder = () => {
         }
       );
       const data = await response.json();
-      setProductCategories(data.data);
+      console.log(data.data);
+      setPaymentMethods(data.data);
     } catch (error) {
       console.error("Error fetching Product categories:", error);
     }
   };
-
-  useEffect(() => {
-    setFields([
-      {
-        label: "نوع الدفع ",
-        type: "select",
-        placeholder: "اختر نوع الدفع",
-        options:
-          ProductCategoryParents?.map((parent) => ({
-            value: parent.id,
-            label: parent.name,
-          })) || [],
-        required: true,
-        onChange: handleParentChange,
-      },
-      {
-        label: "العميل",
-        type: "select",
-        placeholder: "اختر  نوع العميل ",
-        options:
-          ProductCategories?.map((category) => ({
-            value: category.id,
-            label: category.name,
-          })) || [],
-        required: true,
-        onChange: (value) => setSelectedProduct(value),
-      },
-    ]);
-  }, [ProductCategoryParents, ProductCategories]);
 
   const handleAddItem = (item) => {
     setItems([...items, item]);
@@ -186,9 +261,7 @@ const AddCashierOrder = () => {
   };
 
   const handleSubmit = async () => {
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
     const formData = new FormData();
 
     items.forEach((item, index) => {
@@ -209,15 +282,24 @@ const AddCashierOrder = () => {
 
     formData.append("order_date", formattedDate);
 
-    formData.append("discount_resones", discountReason);
-    formData.append("table_number", tableNumber);
-    formData.append("discount", discount);
-    formData.append("target_customer_name", customerName);
-    formData.append("target_customer_id", selectedProduct);
-
+    formData.append("discount_reason_id", newUserValues["discount_reason_id"]);
+    formData.append("table_number", newUserValues["table_number"]);
+    formData.append("comment", newUserValues["comment"]);
+    formData.append("deleviery_type", newUserValues["deleviery_type"]);
+    formData.append("payment_method_id", newUserValues["payment_method_id"]);
+    formData.append(
+      "client_id",
+      newUserValues["client_id"] === "add-new" ? "" : newUserValues["client_id"]
+    );
+    formData.append("client_type_id", newUserValues["client_type_id"]);
+    formData.append("military_number", newUserValues["military_number"]);
+    formData.append("name", newUserValues["name"]);
+    formData.append("phone", newUserValues["phone"]);
     formData.append("tax", 0);
 
     try {
+      const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await axios.post(
         `${API_ENDPOINT}/api/v1/orders/create`,
         formData,
@@ -232,6 +314,7 @@ const AddCashierOrder = () => {
       message.success("لقد تم اضافة الاوردر بنجاح");
     } catch (error) {
       console.error("Error creating invoice:", error);
+      message.error("حدث خطأ");
     }
   };
 
@@ -243,29 +326,111 @@ const AddCashierOrder = () => {
           {fields.map((field, index) => (
             <div key={index} className="form-cashier-select-wrraper">
               <label className="form-cashier-label">{field.label}</label>
-              <select
+              <Select
+                showSearch
                 className="form-cashier-select"
-                value={field.value}
-                onChange={(e) => field.onChange(e.target.value)}
-                required={field.required}
+                placeholder={field.placeholder}
+                onChange={(value) => field.onChange(value)}
+                filterOption={(input, option) => {
+                  console.log(option, input);
+                  return (option?.children ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase());
+                }}
+                optionFilterProp="children"
+                disabled={field.options.length === 0}
               >
-                <option value="" disabled selected>
-                  {field.placeholder}
-                </option>
-                {field.options.map((option, index) => (
-                  <option key={index} value={option.value}>
+                {field.canAdd && (
+                  <button
+                    onClick={() => setAddFormVisible(true)}
+                    style={{ width: "100%", backgroundColor: "lightgray" }}
+                  >
+                    أضف جديد
+                  </button>
+                )}
+                {field.options.map((option) => (
+                  <Option key={option.value} value={option.value}>
                     {option.label}
-                  </option>
+                  </Option>
                 ))}
-              </select>
-              {errors.selectedProduct && (
-                <span className="error cashier-input-error">
-                  {errors.selectedProduct}
-                </span>
+              </Select>
+
+              {field.error && (
+                <span className="error cashier-input-error">{field.error}</span>
               )}
             </div>
           ))}
         </div>
+        {addFormVisible && (
+          <div className="form-cashier-details-parent">
+            <div>
+              <label className="form-cashier-label">الإسم :</label>
+              <input
+                className="form-cashier-input"
+                type="text"
+                value={newUserValues["name"]}
+                onChange={(e) =>
+                  handleNewUserFormChange("name", e.target.value)
+                }
+              />
+            </div>
+            <div>
+              <label className="form-cashier-label"> رقم الموبايل:</label>
+              <input
+                className="form-cashier-input"
+                type="number"
+                value={newUserValues["phone"]}
+                onChange={(e) =>
+                  handleNewUserFormChange("phone", e.target.value)
+                }
+                onWheel={(event) => event.currentTarget.blur()}
+              />
+            </div>
+            <div>
+              <label className="form-cashier-label"> الرقم العسكرى:</label>
+              <input
+                className="form-cashier-input"
+                type="number"
+                value={newUserValues["military_number"]}
+                onChange={(e) =>
+                  handleNewUserFormChange("military_number", e.target.value)
+                }
+                onWheel={(event) => event.currentTarget.blur()}
+              />
+            </div>
+            <div>
+              <label className="form-cashier-label">سبب الخصم:</label>
+
+              <select
+                className="form-cashier-input"
+                value={newUserValues["discount_reason_id"]}
+                onChange={(e) =>
+                  handleNewUserFormChange("discount_reason_id", e.target.value)
+                }
+                onWheel={(event) => event.currentTarget.blur()}
+              >
+                <option key={0} value={""}>
+                  {""}
+                </option>
+                {discountReasons.map((select) => (
+                  <option key={select.id} value={select.id}>
+                    {select.discount_reason}
+                  </option>
+                ))}
+              </select>
+              {errors.discountReason && (
+                <span className="error cashier-input-error">
+                  {errors.discountReason}
+                </span>
+              )}
+            </div>
+            {errors.userError && (
+              <span className="error cashier-input-error">
+                {errors.userError}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="form-cashier-details-parent">
@@ -276,8 +441,7 @@ const AddCashierOrder = () => {
             type="text"
             disabled={true}
             style={{ cursor: "not-allowed" }}
-            value={CashierName}
-            onChange={(e) => setCahierName(e.target.value)}
+            value={user?.name}
           />
         </div>
         <div>
@@ -285,8 +449,11 @@ const AddCashierOrder = () => {
           <input
             className="form-cashier-input"
             type="number"
-            value={tableNumber}
-            onChange={(e) => setTableNumber(e.target.value)}
+            min={0}
+            value={newUserValues["table_number"]}
+            onChange={(e) =>
+              handleNewUserFormChange("table_number", e.target.value)
+            }
             onWheel={(event) => event.currentTarget.blur()}
           />
           {errors.tableNumber && (
@@ -295,51 +462,23 @@ const AddCashierOrder = () => {
             </span>
           )}
         </div>
-        <div>
-          <label className="form-cashier-label">اسم العميل:</label>
-          <input
-            className="form-cashier-input"
-            type="text"
-            value={customerName}
-            onChange={(e) => setCustomerName(e.target.value)}
-          />
-          {errors.customerName && (
-            <span className="error cashier-input-error">
-              {errors.customerName}
-            </span>
-          )}
-        </div>
-        <div>
-          <label className="form-cashier-label"> نسبة الخصم:</label>
-          <select
-            className="form-cashier-input"
-            value={discount}
-            onChange={(e) => setDiscount(e.target.value)}
-            onWheel={(event) => event.currentTarget.blur()}
-          >
-            {selectValues.map((select) => (
-              <option key={select.value} value={select.value}>
-                {select.label}
-              </option>
-            ))}
-            {errors.discount && (
-              <span className="error cashier-input-error">
-                {errors.discount}
-              </span>
-            )}
-          </select>
-        </div>
+
         <div>
           <label className="form-cashier-label">سبب الخصم:</label>
 
           <select
             className="form-cashier-input"
-            value={discountReason}
-            onChange={(e) => setDiscountReason(e.target.value)}
+            value={newUserValues["discount_reason_id"]}
+            onChange={(e) =>
+              handleNewUserFormChange("discount_reason_id", e.target.value)
+            }
             onWheel={(event) => event.currentTarget.blur()}
           >
+            <option key={0} value={""}>
+              {""}
+            </option>
             {discountReasons.map((select) => (
-              <option key={select.id} value={select.discount_reason}>
+              <option key={select.id} value={select.id}>
                 {select.discount_reason}
               </option>
             ))}
@@ -354,6 +493,43 @@ const AddCashierOrder = () => {
               {errors.discountReason}
             </span>
           )}
+        </div>
+        <div
+          style={{
+            alignSelf: "center",
+            display: "flex",
+            gap: "1rem",
+          }}
+        >
+          <label htmlFor="">نوع الدليفرى:</label>
+          <label>
+            <input
+              type="radio"
+              name="orderType"
+              value="kitchen"
+              checked
+              onChange={() =>
+                handleNewUserFormChange("deleviery_type", "kitchen")
+              }
+            />
+            مطبخ
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="orderType"
+              value="room"
+              onChange={() => handleNewUserFormChange("deleviery_type", "room")}
+            />
+            غرفة
+          </label>
+        </div>
+        <div>
+          <label className="form-cashier-label">ملاحظة : </label>
+          <textarea
+            style={{ width: "300px" }}
+            onChange={(e) => handleNewUserFormChange("comment", e.target.value)}
+          ></textarea>
         </div>
       </div>
       <CashierOrderDetailes onAddItem={handleAddItem} />

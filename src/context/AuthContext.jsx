@@ -8,41 +8,52 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    id: "",
+    username: "",
+    name: "",
+    phone: "",
+    department: "",
+    permissions: "",
+    roles: "",
+  });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const checkAuthUser = async () => {
     try {
       const profileData = await getProfile();
-      const { id, username, phone, department, permissions, roles } =
-        profileData;
+      const { id, username, name, phone, department, permissions, roles } =
+        profileData?.data;
       setUser({
         id,
+        name,
         username,
         phone,
         department,
         permissions,
         roles,
       });
+      setIsLoading(false);
       setIsAuthenticated(true);
     } catch (error) {
-      console.error("Error fetching profile:", error);
+      setIsLoading(false);
       setIsAuthenticated(false);
       navigate("/login");
     }
   };
 
-  // useEffect(() => {
-  //   checkAuthUser();
-  //   console.log(typeof localStorage.getItem("token"));
-  //   if (
-  //     localStorage.getItem("token") === null &&
-  //     sessionStorage.getItem("token") === null
-  //   )
-  //     navigate("/login");
-  // }, []);
+  useEffect(() => {
+    if (
+      localStorage.getItem("token") === null &&
+      sessionStorage.getItem("token") === null
+    )
+      navigate("/login");
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, checkAuthUser }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, checkAuthUser, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

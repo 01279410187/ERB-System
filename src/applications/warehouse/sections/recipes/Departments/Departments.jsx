@@ -5,8 +5,9 @@ import { getRecipeCategoryParent } from "../../../../../apis/recipes/recipeCateg
 import { useNavigate } from "react-router-dom";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-
+import { useAuth } from "../../../../../context/AuthContext";
 function Departments() {
+  const { user } = useAuth();
   const [data, setData] = useState([]); // Initialize data as null
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -40,12 +41,16 @@ function Departments() {
     <>
       <h1 className="heading text-center p-3">اقسام المخزن </h1>
       <div className="btn-container">
-        <button className="dept-btn" onClick={handleAddDepartment}>
-          +اضافة قسم
-        </button>
-        <button className="dept-btn" onClick={handleSearchDepartment}>
-          +بحث عن قسم
-        </button>
+        {user?.permissions.some((permission) => permission.id === 136) && (
+          <button className="dept-btn" onClick={handleAddDepartment}>
+            +اضافة قسم
+          </button>
+        )}
+        {user?.permissions.some((permission) => permission.id === 135) && (
+          <button className="dept-btn" onClick={handleSearchDepartment}>
+            +بحث عن قسم
+          </button>
+        )}
       </div>
       <div className="cards-container">
         <div className="row">

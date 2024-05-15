@@ -15,15 +15,13 @@ const Table = ({
   actions,
   id,
   deleteFn,
-  showFn,
   detailsHeaders,
   header,
   updateFn,
   changeStatusFn,
 }) => {
   const [data, setData] = useState([]);
-  const [itemName, setItemName] = useState("");
-  const [itemId, setItemId] = useState(null);
+  const [item, setItem] = useState({});
   const [isDeleteModalVisible, setisDeleteModalVisible] = useState(false);
   const [isShowModalVisible, setisShowModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,9 +44,7 @@ const Table = ({
     currentPage,
     isDeleteModalVisible,
     isShowModalVisible,
-    location,
   ]);
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -67,49 +63,48 @@ const Table = ({
     }
   };
 
-  const handleAction = (actionType, itemId, itemName) => {
+  const handleAction = (actionType, item) => {
     switch (actionType) {
       case "delete":
-        handleDelete(itemId, itemName);
+        handleDelete(item);
         break;
       case "show":
-        handleShowData(itemId, itemName);
+        handleShowData(item);
         break;
       case "edit":
-        handleEdit(itemId);
+        handleEdit(item);
         break;
       case "navigate":
-        handleNavigate(itemId);
+        handleNavigate(item);
         break;
       default:
         break;
     }
   };
 
-  const handleDelete = (itemId, itemName) => {
-    setItemName(itemName);
-    setItemId(itemId);
+  const handleDelete = (item) => {
+    console.log(item);
+    setItem(item);
     setisDeleteModalVisible(true);
   };
 
-  const handleShowData = (itemId, itemName) => {
-    setItemName(itemName);
-    setItemId(itemId);
+  const handleShowData = (item) => {
+    setItem(item);
     setisShowModalVisible(true);
   };
-  const handleNavigate = (itemId) => {
+  const handleNavigate = (item) => {
     navigate(
       actions
         .find((action) => action.type === "navigate")
-        .route.replace(":id", itemId)
+        .route.replace(":id", item.id)
     );
   };
-  const handleEdit = (itemId) => {
-    setItemId(itemId);
+  const handleEdit = (item) => {
+    setItem(item);
     navigate(
       actions
         .find((action) => action.type === "edit")
-        .route.replace(":id", itemId)
+        .route.replace(":id", item.id)
     );
   };
   const handleAdd = () => {
@@ -133,7 +128,7 @@ const Table = ({
     }
   };
   const renderType = (type) => {
-    console.log('test');
+    console.log("test");
     switch (type) {
       case "contracted":
         return <p>متعاقد</p>;
@@ -153,6 +148,22 @@ const Table = ({
         return <p> فاتورة مورد </p>;
       case "returned":
         return <p> فاتورة مورد </p>;
+    }
+  };
+  const renderClient = (type) => {
+    switch (type) {
+      case 0:
+        return <p> جديد</p>;
+      case 1:
+        return <p> قديم</p>;
+    }
+  };
+  const renderWorker = (type) => {
+    switch (type) {
+      case 0:
+        return <p> عامل بالدار</p>;
+      case 1:
+        return <p> غير عامل بالدار</p>;
     }
   };
   const renderFilterInput = (filter) => {
@@ -263,6 +274,10 @@ const Table = ({
                         renderStatus(item[header.key])
                       ) : header.key === "type" ? (
                         renderType(item[header.key])
+                      ) : header.key === "new_client" ? (
+                        renderClient(item[header.key])
+                      ) : header.key === "is_worker" ? (
+                        renderWorker(item[header.key])
                       ) : (
                         item[header.key] || "لا يوجد"
                       )}
@@ -272,17 +287,14 @@ const Table = ({
                     <td>
                       <div className="buttons">
                         {actions.map((action, index) => {
-                          if (action.type === "add") return;
+                          if (action.type === "add" || action.type === "")
+                            return;
                           return (
                             <button
                               className={`button ${action.type}`}
                               key={index}
                               onClick={() => {
-                                handleAction(
-                                  action.type,
-                                  item.id,
-                                  item.name || item.title || ""
-                                );
+                                handleAction(action.type, item);
                               }}
                             >
                               {action.label}
@@ -329,17 +341,15 @@ const Table = ({
       )}
       {isDeleteModalVisible && (
         <DeleteModal
-          name={itemName}
-          id={itemId}
+          item={item}
           onDelete={deleteFn}
           handleModalVisible={setisDeleteModalVisible}
         />
       )}
       {isShowModalVisible && (
         <ShowDataModal
-          id={itemId}
-          name={itemName}
-          showFn={showFn}
+          id={id}
+          responseData={item}
           header={header}
           handleModalVisible={setisShowModalVisible}
           detailsHeaders={detailsHeaders}

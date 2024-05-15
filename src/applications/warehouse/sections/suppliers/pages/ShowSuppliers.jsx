@@ -1,7 +1,9 @@
 import Table from "../../../../../components/shared/table/Table";
 import { getSuppliers, deleteSupplier } from "../../../../../apis/suppliers";
 import "../../../../../components/shared/table/Table.scss";
+import { useAuth } from "../../../../../context/AuthContext";
 const ShowSuppliers = () => {
+  const { user } = useAuth();
   const tableHeaders = [
     { key: "id", value: "الكود" },
     { key: "name", value: "الإسم" },
@@ -39,22 +41,38 @@ const ShowSuppliers = () => {
   ];
   const actions = [
     {
-      type: "edit",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 90)
+          ? "edit"
+          : ""
+      }`,
       label: "تعديل",
       route: "/warehouse/suppliers/:id/edit-supplier",
     },
     {
-      type: "delete",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 91)
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
     {
-      type: "navigate",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 92)
+          ? "navigate"
+          : ""
+      }`,
       label: "فواتير",
       route: "/warehouse/suppliers/:id/show-invoices",
     },
 
     {
-      type: "add",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 89)
+          ? "add"
+          : ""
+      }`,
       label: "إضافة موردين",
       route: "/warehouse/suppliers/add-supplier",
     },

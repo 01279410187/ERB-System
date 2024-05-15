@@ -255,7 +255,11 @@ ul {
     margin-right: 145px;
   }
 }
-
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 // content
 .content-area {
   &>section {

@@ -1,7 +1,8 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
-
+import { API_ENDPOINT } from "../../../config";
 export async function getProfile() {
+  const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
   try {
     const res = await axios.get(`${API_ENDPOINT}/api/v1/profile`, {
       headers: {
@@ -15,6 +16,9 @@ export async function getProfile() {
 }
 
 export async function login(values) {
+  const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
+
   const { username, password, remember } = values;
   const formData = new FormData();
   formData.append("username", username);
@@ -29,7 +33,6 @@ export async function login(values) {
         },
       }
     );
-    console.log(res);
     return res;
   } catch (error) {
     return error;

@@ -22,16 +22,28 @@ const ShowRecipesSubCategory = () => {
   const { id } = useParams();
   const actions = [
     {
-      type: "edit",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 75)
+          ? "edit"
+          : ""
+      }`,
       label: "تعديل",
       route: "/warehouse/recipes/subCategory/:id/edit-recipes",
     },
     {
-      type: "delete",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 76)
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
     {
-      type: "add",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 74)
+          ? "add"
+          : ""
+      }`,
       label: "إضافة تصنيف رئيسى",
       route: `/warehouse/recipes/subCategory/add-recipes/${id}`,
     },

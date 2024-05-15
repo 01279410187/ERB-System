@@ -1,6 +1,6 @@
 import React from "react";
 import "./Form.scss";
-import { Form, Input, Upload, Button, Select } from "antd";
+import { Form, Input, Upload, Button, Select, Checkbox } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
@@ -18,9 +18,16 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
   };
 
   const handleSelectChange = (value, field) => {
+    console.log(value);
     if (field.onChange) {
       field.onChange(value);
     }
+  };
+
+  const handleCheckboxChange = (e, fieldName) => {
+    const value = e.target.checked ? 1 : 0;
+    form.setFieldValue(fieldName, value);
+    console.log(form.getFieldsValue(), fieldName, value);
   };
 
   return (
@@ -29,7 +36,19 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
         <Form.Item
           key={index}
           name={field.name}
-          label={<span style={{ display: 'block', color: '#803D3B', fontSize: "16px", fontWeight: "700", fontFamily: "Cairo" }}>{field.labelName}</span>}
+          label={
+            <span
+              style={{
+                display: "block",
+                color: "#803D3B",
+                fontSize: "16px",
+                fontWeight: "700",
+                fontFamily: "Cairo",
+              }}
+            >
+              {field.labelName}
+            </span>
+          }
           rules={[{ required: field.required, message: field.placeholder }]}
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
@@ -61,9 +80,15 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
                 name={field.name}
                 valuePropName="file"
                 getValueFromEvent={(e) => e.fileList}
-                rules={[{ required: true, message: "يرجى تحميل الملف" }]}
+                rules={[
+                  { required: field.required, message: "يرجى تحميل الملف" },
+                ]}
               >
-                <Upload name={field.name} listType="text" beforeUpload={() => false}>
+                <Upload
+                  name={field.name}
+                  listType="text"
+                  beforeUpload={() => false}
+                >
                   <Button icon={<UploadOutlined />}>اضغط لرفع الملف</Button>
                 </Upload>
               </Form.Item>
@@ -89,7 +114,17 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
               disabled={field.disabled}
               value={field.disabled ? field.value : undefined}
             />
-
+          )}
+          {field.type === "checkbox" && (
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              <Checkbox
+                id={field.name}
+                placeholder={field.placeholder}
+                disabled={field.disabled}
+                onChange={(e) => handleCheckboxChange(e, field.name)}
+              />
+              <label htmlFor={field.name}>{field.placeholder}</label>
+            </div>
           )}
         </Form.Item>
       ))}

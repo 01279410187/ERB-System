@@ -11,11 +11,11 @@ import {
 } from "../../../../../apis/invoices";
 import Table from "../../../../../components/shared/table/Table";
 import { getSuppliers } from "../../../../../apis/suppliers";
-
+import { useAuth } from "../../../../../context/AuthContext";
 function Categories(props) {
   const [selectedCategory, setSelectedCategory] = useState("inComing"); // Default selected category is "الوارد"
   const [supplier, setAllSupplier] = useState([]);
-
+  const { user } = useAuth();
   useEffect(() => {
     const fetchSupplier = async () => {
       const res = await getSuppliers({}, "", () => { });
@@ -119,12 +119,20 @@ function Categories(props) {
 
   const actionsIncoming = [
     {
-      type: "add",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 141)
+          ? "add"
+          : ""
+      }`,
       label: "اضافة فاتورة مورد",
       route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
     },
     {
-      type: "show",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 142)
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
     },
     {
@@ -136,12 +144,20 @@ function Categories(props) {
 
   const actionsOutComing = [
     {
-      type: "add",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 141)
+          ? "add"
+          : ""
+      }`,
       label: "اضافة فاتورة صرف القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/out_going",
     },
     {
-      type: "show",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 142)
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
     },
     {
@@ -153,12 +169,20 @@ function Categories(props) {
 
   const actionsReturnd = [
     {
-      type: "add",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 141)
+          ? "add"
+          : ""
+      }`,
       label: "إضافة   فاتورة مرتجع من القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/returned",
     },
     {
-      type: "show",
+      type: `${
+        user?.permissions.some((permission) => permission.id === 142)
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
 
     },
