@@ -12,13 +12,16 @@ import {
 import Table from "../../../../../components/shared/table/Table";
 import { getSuppliers } from "../../../../../apis/suppliers";
 import { useAuth } from "../../../../../context/AuthContext";
+import { getAllDeaprtments } from "../../../../../apis/department";
 function Categories(props) {
   const [selectedCategory, setSelectedCategory] = useState("inComing"); // Default selected category is "الوارد"
   const [supplier, setAllSupplier] = useState([]);
+  const [departments, setDepartments] = useState([]);
+
   const { user } = useAuth();
   useEffect(() => {
     const fetchSupplier = async () => {
-      const res = await getSuppliers({}, "", () => { });
+      const res = await getSuppliers({}, "", () => {});
       setAllSupplier(
         [{ label: "", value: "" }].concat(
           res.data.map((item) => {
@@ -30,6 +33,11 @@ function Categories(props) {
     };
 
     fetchSupplier();
+    const fetchDepartments = async () => {
+      const res = await getAllDeaprtments();
+      setDepartments(res.data);
+    };
+    fetchDepartments();
   }, []);
   const statusOptions = [
     { value: "", label: "" },
@@ -44,7 +52,6 @@ function Categories(props) {
     { key: "status", value: "الحالة" },
   ];
   const detailsHeaders = [
-
     {
       key: "recipes",
       label: "المواد الخام",
@@ -56,7 +63,6 @@ function Categories(props) {
         { key: "price", label: "السعر", isInput: true },
       ],
     },
-
   ];
   const filtersIncoming = [
     {
@@ -78,6 +84,17 @@ function Categories(props) {
       placeholder: "المورد",
       options: supplier,
     },
+    user?.department.type === "master"
+      ? {
+          key: "department_id",
+          type: "selection",
+          id: "نوع القسم",
+          placeholder: "إختار قسم لإظهار نتائج",
+          options: departments.map((department) => {
+            return { value: department.id, label: department.name };
+          }),
+        }
+      : null,
     {
       key: "status",
       type: "selection",
@@ -103,6 +120,17 @@ function Categories(props) {
       placeholder: "الحالة",
       options: statusOptions,
     },
+    user?.department.type === "master"
+      ? {
+          key: "department_id",
+          type: "selection",
+          id: "نوع القسم",
+          placeholder: "إختار قسم لإظهار نتائج",
+          options: departments.map((department) => {
+            return { value: department.id, label: department.name };
+          }),
+        }
+      : null,
     { key: "from_date", type: "date", id: "من تاريخ" },
     { key: "to_date", type: "date", id: "إلى تاريخ" },
   ];
@@ -114,6 +142,17 @@ function Categories(props) {
       placeholder: "إبحث بسعر الفاتورة",
       id: "سعر الفاتورة",
     },
+    user?.department.type === "master"
+      ? {
+          key: "department_id",
+          type: "selection",
+          id: "نوع القسم",
+          placeholder: "إختار قسم لإظهار نتائج",
+          options: departments.map((department) => {
+            return { value: department.id, label: department.name };
+          }),
+        }
+      : null,
     {
       key: "status",
       type: "selection",
@@ -127,71 +166,88 @@ function Categories(props) {
 
   const actionsIncoming = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === "create invoice")
-        ? "add"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "create invoice"
+        )
+          ? "add"
+          : ""
+      }`,
       label: "اضافة فاتورة مورد",
       route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === "edit invoice")
-        ? "show"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit invoice"
+        )
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
     },
     {
       type: "navigate",
       label: " طباعه",
-      route: "/warehouse/invoices/print/:id"
+      route: "/warehouse/invoices/print/:id",
     },
   ];
 
   const actionsOutComing = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === "create invoice")
-        ? "add"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "create invoice"
+        )
+          ? "add"
+          : ""
+      }`,
       label: "اضافة فاتورة صرف القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/out_going",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === "edit invoice")
-        ? "show"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit invoice"
+        )
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
     },
     {
       type: "navigate",
       label: " طباعه",
-      route: "/warehouse/invoices/print/:id"
+      route: "/warehouse/invoices/print/:id",
     },
   ];
 
   const actionsReturnd = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === "create invoice")
-        ? "add"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "create invoice"
+        )
+          ? "add"
+          : ""
+      }`,
       label: "إضافة   فاتورة مرتجع من القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/returned",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === "edit invoice")
-        ? "show"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit invoice"
+        )
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
-
     },
     {
       type: "navigate",
       label: " طباعه",
-      route: "/warehouse/invoices/print/:id"
+      route: "/warehouse/invoices/print/:id",
     },
   ];
 

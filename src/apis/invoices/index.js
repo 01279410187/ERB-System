@@ -147,8 +147,16 @@ export async function getIncomingInvoiceByType(
   id,
   setIsLoading
 ) {
-  const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
-    filteredValues;
+  const {
+    from_date,
+    to_date,
+    supplier_id,
+    invoice_price,
+    page,
+    code,
+    status,
+    department_id,
+  } = filteredValues;
   const default_from = "1970-01-01";
   const default_to = new Date().toISOString().split("T")[0];
   try {
@@ -163,6 +171,7 @@ export async function getIncomingInvoiceByType(
           invoice_price,
           supplier_id,
           status,
+          department_id,
           page,
         },
         headers: {
@@ -185,8 +194,16 @@ export async function getOutgoingInvoiceByType(
   id,
   setIsLoading
 ) {
-  const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
-    filteredValues;
+  const {
+    from_date,
+    to_date,
+    supplier_id,
+    invoice_price,
+    page,
+    code,
+    status,
+    department_id,
+  } = filteredValues;
   // const default_from = "1970-01-01";
   // const default_to = new Date().toISOString().split("T")[0];
   try {
@@ -201,6 +218,7 @@ export async function getOutgoingInvoiceByType(
           invoice_price,
           supplier_id,
           status,
+          department_id,
           page,
         },
         headers: {
@@ -223,8 +241,16 @@ export async function getReturndInvoiceByType(
   id,
   setIsLoading
 ) {
-  const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
-    filteredValues;
+  const {
+    from_date,
+    to_date,
+    supplier_id,
+    invoice_price,
+    page,
+    code,
+    status,
+    department_id,
+  } = filteredValues;
 
   try {
     setIsLoading(true);
@@ -238,6 +264,7 @@ export async function getReturndInvoiceByType(
           invoice_price,
           supplier_id,
           status,
+          department_id,
           page,
         },
         headers: {

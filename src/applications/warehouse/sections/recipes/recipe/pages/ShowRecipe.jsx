@@ -7,41 +7,65 @@ import {
   getRecipes,
 } from "../../../../../../apis/recipes/recipe";
 import { useAuth } from "../../../../../../context/AuthContext";
-
+import { getAllDeaprtments } from "../../../../../../apis/department";
 const ShowRecipe = () => {
-
   const { user } = useAuth();
-
+  const [departments, setDepartments] = useState([]);
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      const res = await getAllDeaprtments();
+      setDepartments(res.data);
+    };
+    fetchDepartments();
+  }, []);
   const tableHeaders = [
     { key: "name", value: "الإسم" },
     { key: "image", value: "الصوره", type: "image" },
   ];
   const filters = [
     { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+    user?.department.type === "master"
+      ? {
+          key: "department_id",
+          type: "selection",
+          id: "نوع القسم",
+          placeholder: "إختار قسم لإظهار نتائج",
+          options: departments.map((department) => {
+            return { value: department.id, label: department.name };
+          }),
+        }
+      : null,
   ];
   const { id } = useParams();
 
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === "edit recipe")
-        ? "edit"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit recipe"
+        )
+          ? "edit"
+          : ""
+      }`,
       label: "تعديل",
       route: "/warehouse/recipes/recipe/:id/edit-recipes",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === "delete recipe")
-        ? "delete"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete recipe"
+        )
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === "add recipe")
-        ? "add"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some((permission) => permission.name === "add recipe")
+          ? "add"
+          : ""
+      }`,
       label: "إضافة تصنيف فرعى",
       route: `/warehouse/recipes/recipe/add-recipes/${id}`,
     },

@@ -4,13 +4,14 @@ const domain = API_ENDPOINT;
 const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getUderLimit(filteredValues = { name: "", page: "" }) {
   try {
-    const { name, page } = filteredValues;
+    const { name, page, department_id } = filteredValues;
     const res = await axios.get(
       `${domain}/api/v1/store/recipe/get_repices/under_limt`,
       {
         params: {
           name,
           page,
+          department_id,
         },
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -26,15 +27,16 @@ export async function getUderLimit(filteredValues = { name: "", page: "" }) {
   }
 }
 
-export async function getExpireLimit(filteredValues = { name: "", page: "" }) {
+export async function getExpireLimit(filteredValues) {
   try {
-    const { name, page } = filteredValues;
+    const { name, page, department_id } = filteredValues;
     const res = await axios.get(
       `${domain}/api/v1/store/recipe/expire-limit/expire_date_before_days`,
       {
         params: {
           name,
           page,
+          department_id,
         },
         headers: {
           Authorization: `Bearer ${Token}`,
