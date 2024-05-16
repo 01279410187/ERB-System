@@ -134,6 +134,8 @@ import {
   ShowSupplierInvoicesReport,
   ShowTotalStores,
 } from "./applications/warehouse/sections/reports/pages";
+import Home from "./applications/warehouse/sections/home/Home";
+
 
 function App() {
   return (
@@ -145,6 +147,11 @@ function App() {
             path="/warehouse/unauthorized"
             element={<Unauthorized />}
           ></Route>
+          <Route
+            path="/warehouse/home" element={<Home />}
+          >
+
+          </Route>
         </Route>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/suppliers" element={<Suppliers />}>
@@ -735,6 +742,7 @@ function App() {
             ></Route>
           </Route>
         </Route>
+
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/roles" element={<Roles />}>
             <Route
@@ -834,6 +842,7 @@ function App() {
             ></Route>
           </Route>
         </Route>
+
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/clients" element={<Clients />}>
             <Route

@@ -76,7 +76,7 @@
       transition: transform 0.5s;
       animation: arow-move 1s ease-in-out infinite;
 
-      ؟ &:hover {
+      &:hover {
         color: var(--beige-color);
         filter: drop-shadow(-9px 8px 5px rgba(0 0 0 / 0.5));
         font-size: 26px;

@@ -60,7 +60,7 @@ export async function updatePaymentMethod(id, editValues) {
   const formData = new FormData();
   formData.append("name", editValues.name);
   formData.append("label", editValues.label);
-  formData.append("image", editValues.image);
+  formData.append("image", editValues.image[0].originFileObj ? editValues.image[0].originFileObj : 0);
   formData.append("status", editValues.status);
   formData.append("type", editValues.type);
   formData.append("_method", "PUT");

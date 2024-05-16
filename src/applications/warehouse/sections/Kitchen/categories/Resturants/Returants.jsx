@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Resturants.scss";
-import Cards from "./cards/Cards";
+import Cards from "../../../../../../components/ui/cards/Cards";
 
 import { useNavigate } from "react-router-dom";
 import { getCategories } from "../../../../../../apis/categories";

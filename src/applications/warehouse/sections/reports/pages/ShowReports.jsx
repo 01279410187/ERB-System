@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import "./Departments.scss";
-import Cards from "../../../../../components/ui/cards/Cards";
+import ReportCards from "../../../../../components/ui/ReportCards/ReportCards";
 import { useNavigate } from "react-router-dom";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -42,7 +42,7 @@ function ShowReports() {
             <div className="cards-container">
                 <div className="row">
                     {reportData.map((department, index) => (
-                        <Cards
+                        <ReportCards
                             key={index}
                             img={department.image}
                             department={department.name}
