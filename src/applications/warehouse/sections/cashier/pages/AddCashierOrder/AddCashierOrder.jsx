@@ -496,8 +496,8 @@ const AddCashierOrder = () => {
 
         <div>
           <label className="form-cashier-label">ملاحظة : </label>
-          <textarea
-            style={{ width: "300px" }}
+          <textarea className="form-cashier-txt-area"
+
             onChange={(e) => handleNewUserFormChange("comment", e.target.value)}
           ></textarea>
         </div>
