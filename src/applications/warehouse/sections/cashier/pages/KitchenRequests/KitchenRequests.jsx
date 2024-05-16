@@ -1,5 +1,5 @@
 import Table from "../../../../../../components/shared/table/Table";
-import { getOrders } from "../../../../../../apis/orders";
+import { changeOrderStatus, getOrders } from "../../../../../../apis/orders";
 import { getOrderById, deleteOrder } from "../../../../../../apis/orders";
 import { getAllUsers } from "../../../../../../apis/users";
 import { getAllDepartments } from "../../../../../../apis/departments";
@@ -108,36 +108,18 @@ const KitchenRequests = () => {
           ? "show"
           : ""
       }`,
-      label: "مراجعة",
-    },
-    {
-      type: `${
-        user?.permissions.some((permission) => permission.name === "edit order")
-          ? "edit"
-          : ""
-      }`,
-      label: "تعديل",
+      label: "تفاصيل",
     },
   ];
   const detailsHeaders = [
-    {
-      key: "casher",
-      label: "الكاشير",
-      isInput: true,
-    },
-    {
-      key: "code",
-      label: "الكود",
-      isInput: true,
-    },
-
     {
       key: "products",
       label: "المنتجات",
       isArray: true,
       isInput: true,
       details: [
-        { key: "price", label: "السعر", isInput: true },
+        { key: "name", label: "الإسم", isInput: false },
+        { key: "price", label: "السعر", isInput: false },
         { key: "quantity", label: "الكمية", isInput: false },
       ],
     },
@@ -157,8 +139,9 @@ const KitchenRequests = () => {
         deleteFn={deleteOrder}
         showFn={getOrderById}
         // updateFn={updateRequests}
-        changeStatusFn={() => {}}
+        changeStatusFn={changeOrderStatus}
         detailsHeaders={detailsHeaders}
+        acceptTitle={"processing"}
       />
     </div>
   );

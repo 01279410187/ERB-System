@@ -8,6 +8,8 @@ const ShowDataModal = ({
   changeStatusFn,
   handleModalVisible,
   closeAfterEdit,
+  acceptTitle,
+  rejectTitle,
 }) => {
   const [editedData, setEditedData] = useState(null);
   console.log(id);
@@ -67,14 +69,13 @@ const ShowDataModal = ({
     }
   };
 
-  const handleRejectClick = () => {
-    changeStatusFn(responseData.id, "rejected");
+  const handleRejectClick = async () => {
+    await changeStatusFn(responseData.id, rejectTitle);
     handleModalVisible(false);
   };
 
-  const handleAcceptClick = () => {
-    console.log(id);
-    changeStatusFn(responseData.id, "approved");
+  const handleAcceptClick = async () => {
+    await changeStatusFn(responseData.id, acceptTitle);
     handleModalVisible(false);
   };
 
@@ -176,7 +177,7 @@ const ShowDataModal = ({
               تعديل
             </button>
           )}
-          {changeStatusFn && updateFn && (
+          {changeStatusFn && (
             <>
               <button
                 className="data-modal-btn delete"
