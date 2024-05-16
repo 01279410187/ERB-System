@@ -3,7 +3,6 @@ import { getSuppliers, deleteSupplier } from "../../../../../apis/suppliers";
 import "../../../../../components/shared/table/Table.scss";
 const ShowAllSupplier = () => {
     const tableHeaders = [
-        { key: "id", value: "الكود" },
         {
             key: "name", value: "الإسم", clickable: true,
             route: "/warehouse/reports/show-reports/get-allsupllier/recipes/:id",

@@ -35,18 +35,21 @@ const EditRequest = () => {
     {
       type: "text",
       name: "name",
+      labelName: "الاسم",
       placeholder: "يجب عليك ادخال الاسم",
       required: true,
     },
     {
       type: "text",
       name: "phone",
+      labelName: "الرقم التيليفون",
       placeholder: "يجب عليك ادخال رقم الموبايل",
       required: true,
     },
     {
       type: "text",
       name: "address",
+      labelName: "العنوان",
       placeholder: "يجب عليك ادخال العنوان",
       required: true,
     },

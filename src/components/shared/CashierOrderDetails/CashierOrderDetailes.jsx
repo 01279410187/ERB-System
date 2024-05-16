@@ -1,9 +1,11 @@
 // Import useState and useEffect if not already imported
 import React, { useState, useEffect } from "react";
-import { API_ENDPOINT, Token } from "../../../../config";
+import { API_ENDPOINT } from "../../../../config";
 import { getProductById } from "../../../apis/cashier";
 
 const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
+  const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
+
   const [item, setItem] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
@@ -43,7 +45,11 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
   const fetchProductCategoryParents = async () => {
     try {
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/store/sub_categories`
+        `${API_ENDPOINT}/api/v1/store/sub_categories`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
       );
       const data = await response.json();
       setProductCategoryParents(data.data);

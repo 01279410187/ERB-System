@@ -185,7 +185,7 @@ function App() {
               path="/warehouse/suppliers/:id/edit-supplier"
               element={
                 <ProtectedRoute
-                  requiredPermission={{ id: 90, name: "edit suppliers" }}
+                  requiredPermission={{ id: 90, name: "edit supplier" }}
                 >
                   <EditSuppliers />
                 </ProtectedRoute>
@@ -214,8 +214,8 @@ function App() {
               element={
                 <ProtectedRoute
                   requiredPermission={{
-                    id: 135,
-                    name: "view departments",
+                    id: 73,
+                    name: "view recipe_category_parents",
                   }}
                 >
                   <Departments />
@@ -241,7 +241,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 74,
-                    name: "create recipe_category_parents",
+                    name: "create recipe_category_parent",
                   }}
                 >
                   <AddRecipeCategoryParent />
@@ -254,7 +254,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 75,
-                    name: "edit recipe_category_parents",
+                    name: "edit recipe_category_parent",
                   }}
                 >
                   <EditRecipeCategoryParent />
@@ -300,7 +300,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 98,
-                    name: "add sub_categories",
+                    name: "add sub_category",
                   }}
                 >
                   <AddSubCategory />
@@ -314,7 +314,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 99,
-                    name: "edit sub_categories",
+                    name: "edit sub_category",
                   }}
                 >
                   <EditSubCategory />
@@ -346,7 +346,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 102,
-                    name: "add products",
+                    name: "add product",
                   }}
                 >
                   <AddProduct />
@@ -365,7 +365,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 103,
-                    name: "edit products",
+                    name: "edit product",
                   }}
                 >
                   <EditProduct />
@@ -414,7 +414,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 78,
-                    name: "add recipe_categories",
+                    name: "add recipe_category",
                   }}
                 >
                   <AddRecipeSubCategory />
@@ -427,7 +427,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 79,
-                    name: "edit recipe_categories",
+                    name: "edit recipe_category",
                   }}
                 >
                   <EditRecipeSubCategory />
@@ -458,7 +458,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 82,
-                    name: "add recipes",
+                    name: "add recipe",
                   }}
                 >
                   <AddRecipes />
@@ -471,7 +471,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 83,
-                    name: "edit recipes",
+                    name: "edit recipe",
                   }}
                 >
                   <EditRecipes />
@@ -576,7 +576,7 @@ function App() {
                   name: "safe limit",
                 }}
               >
-                <UnderLimit />
+                <ShowUnderLimit />
               </ProtectedRoute>
             }
           ></Route>
@@ -643,7 +643,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 123,
-                    name: "view and add orders",
+                    name: "add order",
                   }}
                 >
                   <AddCashierOrder />
@@ -695,7 +695,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 124,
-                    name: "add orders",
+                    name: "add order",
                   }}
                 >
                   <CashierKitchenRequests />
@@ -739,7 +739,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 114,
-                    name: "add users",
+                    name: "add user",
                   }}
                 >
                   <AddUser />

@@ -29,7 +29,7 @@ const ShowDataModal = ({
     const initialEditedData = {};
     detailsHeaders.forEach((header) => {
       initialEditedData[header.key] = responseData[header.key];
-      initialEditedData['id'] = responseData['id'];
+      initialEditedData["id"] = responseData["id"];
     });
     console.log(initialEditedData);
     setEditedData(initialEditedData);
@@ -57,18 +57,17 @@ const ShowDataModal = ({
   };
 
   const handleEditClick = () => {
-    console.log(editedData);
     updateFn(editedData, id);
-    handleModalVisible(false);
   };
 
   const handleRejectClick = () => {
-    changeStatusFn("rejected");
+    changeStatusFn(responseData.id, "rejected");
     handleModalVisible(false);
   };
 
   const handleAcceptClick = () => {
-    changeStatusFn("approved");
+    console.log(id)
+    changeStatusFn(responseData.id, "approved");
     handleModalVisible(false);
   };
 

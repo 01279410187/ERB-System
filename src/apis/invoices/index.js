@@ -3,8 +3,7 @@ import { API_ENDPOINT } from "../../../config";
 import { message } from "antd";
 const domain = API_ENDPOINT;
 
-const Token =
-  localStorage.getItem("token") || sessionStorage.getItem("token");
+const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getRecipes(filteredValues = { name: "", page: "" }) {
   try {
     const { name, page } = filteredValues;
@@ -150,16 +149,16 @@ export async function getIncomingInvoiceByType(
 ) {
   const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
     filteredValues;
-  // const default_from = "1970-01-01";
-  // const default_to = new Date().toISOString().split("T")[0];
+  const default_from = "1970-01-01";
+  const default_to = new Date().toISOString().split("T")[0];
   try {
     setIsLoading(true);
     const res = await axios.get(
       `${domain}/api/v1/store/invoice/get_invoices_based_on_type/in_coming`,
       {
         params: {
-          "date[from]": from_date,
-          "date[to]": to_date,
+          "date[from]": from_date || default_from,
+          "date[to]": to_date || default_to,
           code,
           invoice_price,
           supplier_id,
@@ -256,33 +255,26 @@ export async function getReturndInvoiceByType(
   }
 }
 
-
-export async function getTaintedInvoices(
-  filteredValues,
-  id,
-  setIsLoading
-) {
-  const { from_date, to_date, supplier_id, invoice_price, page, code, status } = filteredValues;
+export async function getTaintedInvoices(filteredValues, id, setIsLoading) {
+  const { from_date, to_date, supplier_id, invoice_price, page, code, status } =
+    filteredValues;
 
   try {
     setIsLoading(true);
-    const res = await axios.get(
-      `${domain}/api/v1/store/tainted-invoices`,
-      {
-        params: {
-          "date[from]": from_date,
-          "date[to]": to_date,
-          code,
-          invoice_price,
-          supplier_id,
-          status,
-          page,
-        },
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      }
-    );
+    const res = await axios.get(`${domain}/api/v1/store/tainted-invoices`, {
+      params: {
+        "date[from]": from_date,
+        "date[to]": to_date,
+        code,
+        invoice_price,
+        supplier_id,
+        status,
+        page,
+      },
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
     setIsLoading(false);
     console.log(res);
     return res.data;
@@ -318,14 +310,16 @@ export async function getInvoiceById(id) {
   }
 }
 
-
 export async function getTaintedInvoiceById(id) {
   try {
-    const res = await axios.get(`${domain}/api/v1/store/tainted-invoices/${id}`, {
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
-    });
+    const res = await axios.get(
+      `${domain}/api/v1/store/tainted-invoices/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
     return res.data;
   } catch (error) {
     message.error(error.response.data.error.message);
@@ -337,7 +331,10 @@ export async function updateInvoice(filteredValues, id) {
   console.log(typeof filteredValues.recipes);
   const formData = new FormData();
   Object.keys(filteredValues.recipes).map((key, index) => {
-    formData.append(`recipes[${index}][recipe_id]`, filteredValues.recipes[key].id);
+    formData.append(
+      `recipes[${index}][recipe_id]`,
+      filteredValues.recipes[key].id
+    );
     formData.append(
       `recipes[${index}][price]`,
       filteredValues.recipes[key].price
@@ -361,7 +358,7 @@ export async function updateInvoice(filteredValues, id) {
         },
       }
     );
-    message.success('تم التعديل بنجاح')
+    message.success("تم التعديل بنجاح");
     console.log(res);
     return res.data;
   } catch (error) {

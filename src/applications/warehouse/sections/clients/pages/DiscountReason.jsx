@@ -7,7 +7,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 const DiscountReason = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "discount_reason", value: "سبب الخصم" },
     { key: "discount", value: "قيمة الخصم ج.م" },
   ];
@@ -16,25 +16,16 @@ const DiscountReason = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "edit"
-          : ""
-        }`,
+      type: `edit`,
       label: "تعديل",
       route: "/warehouse/clients/:id/edit-discount-reason",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "delete"
-          : ""
-        }`,
+      type: `delete`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "add"
-          : ""
-        }`,
+      type: `add`,
       label: "إضافة سبب خصم",
       route: "/warehouse/clients/add-discount-reason",
     },

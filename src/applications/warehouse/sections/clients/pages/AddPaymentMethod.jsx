@@ -16,23 +16,29 @@ const AddPaymentMethod = () => {
     {
       type: "text",
       name: "name",
+
+
+      labelName: " الاسم",
       placeholder: "يجب عليك ادخال الاسم",
       required: true,
     },
     {
       type: "text",
       name: "label",
+      labelName: "إدخل عنوان",
       placeholder: "إدخل عنوان",
     },
     {
       type: "image",
       name: "image",
+      labelName: "إدخل صورة",
       placeholder: "إدخل صورة",
       required: true,
     },
     {
       type: "select",
       name: "status",
+      labelName: "إدخال حالة",
       placeholder: "يجب عليك إدخال حالة",
       required: true,
       options: [
@@ -43,6 +49,7 @@ const AddPaymentMethod = () => {
     {
       type: "select",
       name: "type",
+      labelName: "إدخال نوع",
       placeholder: "يجب عليك إدخال نوع",
       required: true,
       options: [

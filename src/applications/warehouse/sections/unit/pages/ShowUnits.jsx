@@ -4,7 +4,7 @@ import { deleteDeaprtment, getDeaprtments } from "../../../../../apis/department
 import { deleteUint, getUnits } from "../../../../../apis/unit";
 const ShowUnits = () => {
     const tableHeaders = [
-        { key: "id", value: "الكود" },
+
         { key: "name", value: " الاسم " },
         // { key: "image", value: "الصوره", type: "image" },
 

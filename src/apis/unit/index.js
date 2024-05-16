@@ -1,7 +1,9 @@
 import axios from "axios";
-import { API_ENDPOINT, Token } from "../../../config";
+import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
+
 import { message } from "antd";
+const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getUnits(
     filteredValues = { name: "", page: "" },
     id,
@@ -41,10 +43,7 @@ export async function getUnits(
 //     }
 // }
 
-export async function addUnits(
-    name,
-
-) {
+export async function addUnits(name) {
     try {
         const formData = new FormData();
         formData.append("name", name);
@@ -81,7 +80,6 @@ export async function eidtUnits(
     try {
         const formData = new FormData();
         formData.append("name", name);
-
 
         const res = await axios.post(
             `${domain}/api/v1/store/unit/update/${id}`,
@@ -131,6 +129,9 @@ export async function getUnitsFilterById(
                     name: name,
                     page,
                 },
+                headers: {
+                    Authorization: `Bearer ${Token}`,
+                },
             }
         );
         console.log(res.data);
@@ -144,14 +145,11 @@ export async function getUnitsFilterById(
 
 export async function deleteUint(id) {
     try {
-        const res = await axios.delete(
-            `${domain}/api/v1/store/unit/delete/${id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${Token}`,
-                },
-            }
-        );
+        const res = await axios.delete(`${domain}/api/v1/store/unit/delete/${id}`, {
+            headers: {
+                Authorization: `Bearer ${Token}`,
+            },
+        });
         return res.data;
     } catch (error) {
         message.error(error.response.data.error.message);

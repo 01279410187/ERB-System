@@ -4,7 +4,7 @@ import { deletePayable, getPayable } from "../../../../../apis/payable";
 
 const ShowPayables = () => {
     const tableHeaders = [
-        { key: "id", value: "الكود" },
+
         { key: "amount", value: "القيمه بالجنية" },
         { key: "invoice", value: "القيمه الفعليه", nestedKey: "total_price" },
         { key: "type", value: "النوع" },

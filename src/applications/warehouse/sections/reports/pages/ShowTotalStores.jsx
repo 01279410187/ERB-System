@@ -3,7 +3,7 @@ import { getTotalStores } from "../../../../../apis/reports";
 
 const ShowTotalStores = () => {
     const tableHeaders = [
-        { key: "id", value: "الكود" },
+
         { key: "name", value: "الإسم" },
         { key: "quantity", value: "الكميه الموجوده" },
         { key: "unit", value: "الوحده", nestedKey: "name" },

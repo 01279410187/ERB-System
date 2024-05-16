@@ -4,17 +4,20 @@ import {
   getRecipeCategoryParent,
 } from "../../../../../../apis/recipes/recipeCategoryParent";
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../../../../../../context/AuthContext";
 const ShowRecipesCategoryParent = () => {
+  const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "image", value: "الصوره", type: "image" },
   ];
 
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 137)
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit recipe_category_parent"
+      )
           ? "edit"
           : ""
         }`,
@@ -22,14 +25,18 @@ const ShowRecipesCategoryParent = () => {
       route: "/warehouse/recipes/edit-recipes-parent/:id",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 138)
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete recipe_category_parent"
+      )
           ? "delete"
           : ""
         }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 136)
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "create recipe_category_parent"
+      )
           ? "add"
           : ""
         }`,

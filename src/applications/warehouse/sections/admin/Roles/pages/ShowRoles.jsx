@@ -1,9 +1,11 @@
 import React from "react";
 import Table from "../../../../../../components/shared/table/Table";
 import { getRoles } from "../../../../../../apis/roles";
+import { useAuth } from "../../../../../../context/AuthContext";
 const ShowUsers = () => {
+  const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
   ];
   const filters = [
@@ -11,7 +13,7 @@ const ShowUsers = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 111)
+      type: `${user?.permissions.some((permission) => permission.name === "edit role")
           ? "edit"
           : ""
         }`,
@@ -20,7 +22,7 @@ const ShowUsers = () => {
     },
 
     {
-      type: `${user?.permissions.some((permission) => permission.name === 110)
+      type: `${user?.permissions.some((permission) => permission.name === "add role")
           ? "add"
           : ""
         }`,

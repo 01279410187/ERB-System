@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
-const Token =
-  localStorage.getItem("token") || sessionStorage.getItem("token");
+const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 const domain = API_ENDPOINT;
 // export async function getAllUsers(filteredValues = { name: "" }) {
 //   try {
@@ -38,11 +37,12 @@ export async function AddRoles(data) {
   try {
     const res = await axios.post(
       `${domain}/api/v1/store/role/create`,
-      formData, {
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
-    }
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
     );
 
     return res.data;

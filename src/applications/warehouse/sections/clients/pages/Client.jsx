@@ -4,7 +4,7 @@ import { useAuth } from "../../../../../context/AuthContext";
 const Client = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "phone", value: "رقم الموبايل" },
     { key: "military_number", value: "الرقم العسكرى" },
@@ -15,25 +15,16 @@ const Client = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "edit"
-          : ""
-        }`,
+      type: `edit`,
       label: "تعديل",
       route: "/warehouse/clients/:id/edit-client",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "delete"
-          : ""
-        }`,
+      type: `delete`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some((permission) => permission.name === 123)
-          ? "add"
-          : ""
-        }`,
+      type: `add`,
       label: "إضافة  عميل",
       route: "/warehouse/clients/add-client",
     },
