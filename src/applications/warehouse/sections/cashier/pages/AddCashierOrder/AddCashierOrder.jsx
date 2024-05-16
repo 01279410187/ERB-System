@@ -355,11 +355,12 @@ const AddCashierOrder = () => {
               </Select>
               {field.canAdd && (
                 <button
+                  className="form-cashier-btn"
                   onClick={() => setAddFormVisible(!addFormVisible)}
                   style={{
                     width: "100%",
-                    backgroundColor: "lightgray",
-                    color: "black",
+                    // backgroundColor: "lightgray",
+                    // color: "black",
                   }}
                 >
                   أضف جديد
