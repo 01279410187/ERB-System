@@ -195,6 +195,7 @@ const AddTaintedInvoices = () => {
                 onAddItem={handleAddItem}
                 selectedSupplier={selectedSupplier}
                 InvoiceType={"tainted"}
+            // departmentId={selectedDepartment}
             />
             <ItemList
                 items={items}

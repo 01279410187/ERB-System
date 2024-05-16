@@ -2,7 +2,8 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
 const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
-export async function getUderLimit(filteredValues = { name: "", page: "" }) {
+export async function getUderLimit(filteredValues = { name: "", page: "" }, department_id) {
+
     try {
         const { name, page } = filteredValues;
         const res = await axios.get(
@@ -11,6 +12,9 @@ export async function getUderLimit(filteredValues = { name: "", page: "" }) {
                 params: {
                     name,
                     page,
+                    department_id: department_id,
+
+
                 },
                 headers: {
                     Authorization: `Bearer ${Token}`,
@@ -26,7 +30,7 @@ export async function getUderLimit(filteredValues = { name: "", page: "" }) {
     }
 }
 
-export async function getExpireLimit(filteredValues = { name: "", page: "" }) {
+export async function getExpireLimit(filteredValues = { name: "", page: "" }, department_id) {
     try {
         const { name, page } = filteredValues;
         const res = await axios.get(
@@ -35,6 +39,7 @@ export async function getExpireLimit(filteredValues = { name: "", page: "" }) {
                 params: {
                     name,
                     page,
+                    department_id: department_id,
                 },
                 headers: {
                     Authorization: `Bearer ${Token}`,
@@ -50,11 +55,16 @@ export async function getExpireLimit(filteredValues = { name: "", page: "" }) {
     }
 }
 
-export async function getUnderExiperById(id) {
+export async function getUnderExiperById(id, department_id) {
+    console.log(id)
+    console.log(department_id)
     try {
         const res = await axios.get(
             `${domain}/api/v1/store/recipe/expire-limit/expire_date_before_days/${id}`,
             {
+                params: {
+                    department_id: department_id
+                },
                 headers: {
                     Authorization: `Bearer ${Token}`,
                 },

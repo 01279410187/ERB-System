@@ -126,9 +126,12 @@ export async function eidtRecipes(
     throw error; // Rethrow the error to handle it in the calling code if necessary
   }
 }
-export async function getRecipesById(id) {
+export async function getRecipesById(id, departmentId) {
   try {
     const res = await axios.get(`${domain}/api/v1/store/recipe/${id}`, {
+      params: {
+        department_id: departmentId
+      },
       headers: {
         Authorization: `Bearer ${Token}`,
       },

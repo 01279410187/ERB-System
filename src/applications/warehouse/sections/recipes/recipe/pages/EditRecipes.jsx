@@ -7,12 +7,18 @@ import {
   getUnits,
 } from "../../../../../../apis/recipes/recipe";
 import DynamicForm from "../../../../../../components/shared/form/Form";
+import { useAuth } from "../../../../../../context/AuthContext";
 
 const EditRecipes = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(); // Initialize data as null
 
   const { id } = useParams();
+
+  const { user } = useAuth()
+
+  // const [departmentId, setDepartmentId] = useState(user.department.id); // Initialize data as null
+  // console.log("id", departmentId)
   const handleSubmit = async (formData) => {
     console.log("=================>" + formData.name);
 
@@ -35,7 +41,7 @@ const EditRecipes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const recipeData = await getRecipesById(id);
+        const recipeData = await getRecipesById(id, user.department.id);
         console.log("================>" + recipeData.data.name);
         setData(recipeData.data);
         setParentName(recipeData.data.recipe_category.name);

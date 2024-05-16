@@ -8,7 +8,6 @@ import { useAuth } from "../../../../../context/AuthContext";
 const ShowExpireLimit = () => {
   const { user } = useAuth()
   const tableHeaders = [
-    { key: "id", value: "الكود" },
     { key: "name", value: "التصنيف الفرعى " },
     { key: "recipe_category", nestedKey: "name", value: " التصنيف الرئيسى " },
     { key: "unit", nestedKey: "name", value: "الوحدة " },
@@ -18,21 +17,25 @@ const ShowExpireLimit = () => {
   ];
 
   const tableHeadersDetailes = [
-    { key: "expire_date", label: "تاريخ انتهاء الصلاحيه" },
-    { key: "quantity", label: "الكميه" },
-  ];
-  // const filters = [
-  //     { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
-
-  // ];
+    {
+      key: "quantities",
+      label: "الكميات",
+      isArray: true,
+      isInput: false,
+      details: [
+        { key: "quantity", label: "الكمية", isInput: false },
+        { key: "expire_date", label: "تاريخ الصلاحية", isInput: false },
+      ],
+    },
+  ]
 
   const actions = [
     {
       type: `${user?.permissions.some(
         (permission) => permission.name === "expire_date limit"
       )
-          ? "show"
-          : ""
+        ? "show"
+        : ""
         }`,
       label: "التفاصيل",
     },
@@ -47,10 +50,10 @@ const ShowExpireLimit = () => {
         detailsHeaders={tableHeadersDetailes}
         // filters={filters}
         actions={actions}
-        fetchData={(filterValues, currentPage) =>
-          getExpireLimit(filterValues, currentPage, "")
+        fetchData={(filterValues, id) =>
+          getExpireLimit(filterValues, user.department.id)
         }
-        showFn={getUnderExiperById}
+        updateFn={() => getUnderExiperById(user.department.id)}
       />
     </div>
   );

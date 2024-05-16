@@ -37,7 +37,7 @@ export async function getSupplierById(id) {
     console.log("Error fetching data:", error);
   }
 }
-export async function editSupplier(name, phoneNumber, address, id) {
+export async function editSupplier(name, phoneNumber, address, type, id) {
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/store/supplier/update/${id}`,
@@ -45,6 +45,7 @@ export async function editSupplier(name, phoneNumber, address, id) {
         name: name,
         phone: phoneNumber,
         address: address,
+        type: type,
         _method: "PUT",
       },
       {

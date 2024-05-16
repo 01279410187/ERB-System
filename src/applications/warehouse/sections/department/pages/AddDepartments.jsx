@@ -16,6 +16,18 @@ const AddDepartments = () => {
         { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', labelName: "الاسم", required: true },
         { type: 'number', name: 'code', placeholder: 'يجب عليك ادخال الكود', labelName: "الكود", required: true },
         { type: 'number', name: 'phone', placeholder: 'يجب عليك ادخال رقم التيليفون', labelName: "التيليفون", required: true },
+        // {
+        //     type: "select",
+        //     name: "type",
+        //     placeholder: "يجب عليك ادخال نوع ",
+        //     labelName: "نوع ",
+        //     options: [
+        //         { value: "reciver", label: "منافذ" },
+        //         { value: "source", label: "مخازن" },
+        //         { value: "both", label: "مطابخ" },
+        //     ],
+        //     required: true,
+        // },
         { type: 'image', name: 'image', placeholder: 'يجب عليك ادخال الصوره', labelName: "الصورة", required: true },
     ];
 

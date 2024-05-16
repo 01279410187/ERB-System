@@ -86,7 +86,7 @@ export async function getTotalForSupplierReports(filteredValues, id, setIsLoadin
 
 
 
-export async function getReportOfRecipe(filteredValues, id, setIsLoading) {
+export async function getReportOfRecipe(filteredValues, id, setIsLoading, department_id) {
     try {
         setIsLoading(true);
         const { name, page, from_date, to_date, } = filteredValues;
@@ -97,6 +97,7 @@ export async function getReportOfRecipe(filteredValues, id, setIsLoading) {
             params: {
                 "date[from]": from_date || default_from,
                 "date[to]": to_date || default_to,
+                department_id: department_id,
                 page,
             },
             headers: {

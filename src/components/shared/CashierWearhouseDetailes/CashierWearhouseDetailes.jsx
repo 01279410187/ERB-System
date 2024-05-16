@@ -1,9 +1,12 @@
 // Import useState and useEffect if not already imported
 import React, { useState, useEffect } from 'react';
-import { API_ENDPOINT, Token } from '../../../../config';
+import { API_ENDPOINT } from '../../../../config';
 import { getRecipesById } from '../../../apis/invoices';
+import { useAuth } from '../../../context/AuthContext';
 
 const CahierWearhouseDetailes = ({ onAddItem, }) => {
+    const Token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
     const [item, setItem] = useState('');
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
@@ -23,10 +26,10 @@ const CahierWearhouseDetailes = ({ onAddItem, }) => {
     useEffect(() => {
         fetchRecipeCategoryParents();
     }, []);
-
+    const { user } = useAuth()
     const fetchOneRecipe = async (id) => {
         try {
-            const oneRecipe = await getRecipesById(id);
+            const oneRecipe = await getRecipesById(id, user.department.id);
             console.log("===================>price" + oneRecipe.price)
 
             console.log("==================>" + oneRecipe.data);
@@ -155,7 +158,7 @@ const CahierWearhouseDetailes = ({ onAddItem, }) => {
 
         // Logging for troubleshooting
         console.log('recipeName:', recipeName);
-        console.log('recipeName:', recipeImage);
+        console.log('recipeImage:', recipeImage);
         console.log('recipeprice:', recipePrice);
 
         // Additional validation or processing logic

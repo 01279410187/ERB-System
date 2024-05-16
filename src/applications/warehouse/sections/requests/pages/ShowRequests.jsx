@@ -96,42 +96,35 @@ const ShowRequests = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete request"
-        )
-          ? "delete"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete request"
+      )
+        ? "delete"
+        : ""
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit request"
-        )
-          ? "show"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit request"
+      )
+        ? "show"
+        : ""
+        }`,
       label: "مراجعة",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "add request"
-        )
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "add request"
+      )
+        ? "add"
+        : ""
+        }`,
       label: "إضافة طلبات",
       route: "/warehouse/requests/add-request",
     },
   ];
   const detailsHeaders = [
-    {
-      key: "id",
-      label: "الكود",
-    },
     {
       key: "name",
       label: "الإسم",
@@ -155,12 +148,11 @@ const ShowRequests = () => {
         fetchData={(filterValues, id, setIsLoading) =>
           getRequests(filterValues, id, setIsLoading)
         }
-        header={"recipes"}
+
         actions={actions}
         deleteFn={deleteRequest}
-        showFn={getRequestById}
         updateFn={updateRequests}
-        changeStatusFn={() => {}}
+        changeStatusFn={() => { }}
         detailsHeaders={detailsHeaders}
       />
     </div>
