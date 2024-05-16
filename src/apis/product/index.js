@@ -2,8 +2,7 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
 import { message } from "antd";
-const Token =
-  localStorage.getItem("token") || sessionStorage.getItem("token");
+const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getProducts(filteredValues = { name: "", page: "" }, id) {
   try {
     const { name, page } = filteredValues;
@@ -172,11 +171,12 @@ export async function getProductsFilterById(
 export async function deleteProduct(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/products/delete/${id}`, {
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
-    }
+      `${domain}/api/v1/store/products/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
     );
     return res.data;
   } catch (error) {
@@ -243,5 +243,25 @@ export async function editProductsToDepartment(editValues, id) {
 
     console.log("Error fetching data:", error);
     throw error; // Rethrow the error to handle it in the calling code if necessary
+  }
+}
+export async function getSubCategoriesForDepartment(id) {
+  try {
+    const res = await axios.get(
+      `${domain}/api/v1/store/products/subcategories/department`,
+      {
+        params: {
+          department_id: id,
+        },
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    message.error(error.response.data.error.message);
+    console.log("Error fetching data:", error);
   }
 }

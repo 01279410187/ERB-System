@@ -38,7 +38,6 @@ const KitchenRequests = () => {
     fetchUsers();
   }, []);
   const tableHeaders = [
-    { key: "discount", value: "قيمة الخصم" },
     { key: "discount_resones", value: "سبب الخصم" },
     // { key: "id", value: "كود الأوردر" },
     { key: "status", value: "الحالة" },

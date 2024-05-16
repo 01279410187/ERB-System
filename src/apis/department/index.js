@@ -2,8 +2,7 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
 import { message } from "antd";
-const Token =
-  localStorage.getItem("token") || sessionStorage.getItem("token");
+const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getDeaprtments(
   filteredValues = { name: "", page: "" },
   id,
@@ -136,13 +135,13 @@ export async function getDeaprtmentsById(id) {
 }
 
 export async function getDeaprtmentsFilterById(
-  filteredValues = { name: "", page: "" },
+  filteredValues,
   id,
   setIsLoading
 ) {
   try {
     setIsLoading(true);
-    const { name, page } = filteredValues;
+    const { name, page, sub_category_id } = filteredValues;
 
     const res = await axios.get(
       `${domain}/api/v1/store/products/department/${id}`,
@@ -150,6 +149,7 @@ export async function getDeaprtmentsFilterById(
         params: {
           name: name,
           page,
+          sub_category_id,
         },
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -199,6 +199,19 @@ export async function deleteProductDeaprtment(id) {
   } catch (error) {
     message.error(error.response.data.error.message);
 
+    console.log("Error fetching data:", error);
+  }
+}
+export async function getAllDeaprtments() {
+  try {
+    const res = await axios.get(`${domain}/api/v1/store/department/all`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
     console.log("Error fetching data:", error);
   }
 }

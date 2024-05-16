@@ -220,12 +220,15 @@ const Table = ({
         <h4 className="data-table-title">{title}</h4>
         {filters && (
           <div className="data-table-filters">
-            {filters?.map((filter) => (
-              <span key={filter.id}>
-                <label htmlFor="">{filter.id}</label>
-                {renderFilterInput(filter)}
-              </span>
-            ))}
+            {filters?.map((filter) => {
+              if (!filter) return;
+              return (
+                <span key={filter.id}>
+                  <label htmlFor="">{filter.id}</label>
+                  {renderFilterInput(filter)}
+                </span>
+              );
+            })}
           </div>
         )}
         {actions && actions.some((action) => action.type === "add") && (

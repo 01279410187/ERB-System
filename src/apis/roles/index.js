@@ -32,7 +32,7 @@ export async function AddRoles(data) {
   const formData = new FormData();
   formData.append("role", data.name);
   data.permissions.map((permission, index) => {
-    formData.append(`permissions[ids][${index}]`, permission.id);
+    formData.append(`permissions[ids][${index}]`, permission.value);
   });
   try {
     const res = await axios.post(
@@ -50,16 +50,19 @@ export async function AddRoles(data) {
     console.log("Error fetching data:", error);
   }
 }
-export async function editRoles(data) {
+export async function editRoles(data, id) {
+  console.log(data);
   const formData = new FormData();
   formData.append("role", data.name);
-  data.permissions.map((permission, index) => {
-    formData.append(`permissions[ids][${index}]`, permission.id);
+
+  data.type.map((permission, index) => {
+    console.log(permission);
+    formData.append(`permissions[ids][${index}]`, permission);
   });
   formData.append("_method", "PUT");
   try {
     const res = await axios.post(
-      `${domain}/api/v1/store/role/update/${data.id}`,
+      `${domain}/api/v1/store/role/update/${id}`,
       formData,
       {
         headers: {

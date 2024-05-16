@@ -19,12 +19,12 @@ const ShowExpireLimit = () => {
   const tableHeadersDetailes = [
     {
       key: "quantities",
-      label: "الكميات",
+      label: "المنتجات",
       isArray: true,
-      isInput: false,
+      isInput: true,
       details: [
+        { key: "price", label: "السعر", isInput: false },
         { key: "quantity", label: "الكمية", isInput: false },
-        { key: "expire_date", label: "تاريخ الصلاحية", isInput: false },
       ],
     },
   ]

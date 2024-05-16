@@ -1,104 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { editRoles, getRoleById } from "../../../../../../apis/roles";
-import { Form, Input, Button, Select, message } from "antd";
-const { Option } = Select;
-
+import { getRoleById, editRoles } from "../../../../../../apis/roles";
+import DynamicForm from "../../../../../../components/shared/form/Form";
+import { getPermissions } from "../../../../../../apis/permissions";
 const EditRole = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
-  const [permissions, setPermissions] = useState([]);
-  const [name, setName] = useState("");
-  const [selectedPermissions, setSelectedPermissions] = useState([]);
-  const [form] = Form.useForm();
+  const [data, setData] = useState(null);
+  const [permissions, setPermissions] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
-    const fetchRole = async () => {
-      const res = await getRoleById(id);
-      console.log(res.data);
-      setSelectedPermissions(res.data?.permission);
-      setName(res.data.name);
+    const fetchData = async () => {
+      try {
+        const recipeData = await getRoleById(id);
+        setData(recipeData?.data);
+        console.log(recipeData.data);
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
     };
-    fetchRole();
+    fetchData();
     const fetchPermissions = async () => {
-      const res = await fetch("/src/apis/permissions/permissions.json");
-      const data = await res.json();
-      setPermissions(data);
+      const res = await getPermissions();
+      setPermissions(res.data);
     };
     fetchPermissions();
-  }, []);
+  }, [id]);
 
-  const onFinish = async (values) => {
-    console.log(selectedPermissions);
-
-    const formData = {
-      id: id,
-      name: values.name,
-      permissions: selectedPermissions,
-    };
+  const handleSubmit = async (formData) => {
     console.log(formData);
-    const res = await editRoles(formData);
-    if (res instanceof Error) message.error(res.message);
-    else {
-      navigate(`/warehouse/roles/show-roles`);
-    }
+    await editRoles(formData, id);
+    navigate(`/warehouse/roles/show-roles`);
   };
 
-  const handlePermissionSelect = (values, options) => {
-    const selectedPermissions = values.map((value) =>
-      permissions.find((permission) => permission.value === value)
-    );
-    console.log(selectedPermissions);
-    setSelectedPermissions(selectedPermissions);
-  };
+  const fields = [
+    {
+      type: "text",
+      name: "name",
+      placeholder: "يجب عليك ادخال الاسم",
+      labelName: "الاسم",
+      required: true,
+    },
 
-  const validatePermissions = (_, value) => {
-    if (!value || value.length === 0) {
-      return Promise.reject(new Error("يرجى اختيار صلاحية واحدة على الأقل!"));
-    }
-    return Promise.resolve();
-  };
+    {
+      type: "multi-select",
+      name: "type",
+      placeholder: "يجب عليك ادخال الصلاحيات",
+      labelName: "الصلاحيات",
+      options: permissions?.map((permission) => {
+        return { value: permission.id, label: permission.display_name };
+      }),
+      required: true,
+    },
+  ];
 
   return (
     <div className="form-container">
-      <h1 className="form-title" style={{ marginBottom: "20px" }}>
-        عدل الدور
-      </h1>
-      <Form layout="vertical" form={form} onFinish={onFinish}>
-        <Form.Item
-          label="إسم الدور"
-          name="name"
-          rules={[{ required: true, message: "من فضلك أضف إسم" }]}
-          initialValue=""
-          style={{ marginBottom: "20px" }}
-        >
-          <Input placeholder="أضف إسم للدور" />
-        </Form.Item>
-        <Form.Item
-          label="الأدوار"
-          name="permissions"
-          rules={[{ validator: validatePermissions }]}
-          style={{ marginBottom: "20px" }}
-        >
-          <Select
-            options={selectedPermissions}
-            fieldNames={{ label: "name", value: "id" }}
-            mode="multiple"
-            placeholder="اختر الصلاحيات"
-            onChange={handlePermissionSelect}
-            style={{ width: "100%" }}
-          >
-            {permissions.map((permission) => (
-              <Option key={permission.value}>{permission.label}</Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            تعديل
-          </Button>
-        </Form.Item>
-      </Form>
+      <h1 className="form-title">تعديل دور</h1>
+      {data && (
+        <DynamicForm
+          fields={fields}
+          initialValues={data}
+          onSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 };

@@ -17,8 +17,9 @@ const Login = () => {
         : sessionStorage.setItem("token", res.data.data.token);
     } else {
       message.error(res.response.data.error.message);
+      return;
     }
-    navigate("/warehouse/home");
+    window.location.href = "/warehouse";
   };
 
   return (
@@ -141,7 +142,6 @@ const Login = () => {
         <div className="login-image">
           <img src={loginImg} alt="Dar-elmoshaa-logo" />
         </div>
-
       </div>
     </div>
   );

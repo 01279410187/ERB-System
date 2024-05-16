@@ -8,13 +8,16 @@ import axios from "axios";
 import { getSuppliers } from "../../../../../../apis/suppliers";
 import { getAllDepartments } from "../../../../../../apis/departments";
 
-import { API_ENDPOINT, Token } from "../../../../../../../config";
+import { API_ENDPOINT } from "../../../../../../../config";
 import { useNavigate } from "react-router-dom";
 import CahierWearhouseDetailes from "../../../../../../components/shared/CashierWearhouseDetailes/CashierWearhouseDetailes";
 import ItemCashierWearhouse from "../../../../../../components/shared/CashierWearhouseDetailes/ItemCashierWearhouse";
 import { message } from "antd";
 
 const CashierWarehouseRequests = () => {
+  const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
+
   const [suppliers, setSuppliers] = useState([]);
   const [department, setDepartment] = useState([]);
 
@@ -63,12 +66,7 @@ const CashierWarehouseRequests = () => {
   };
 
   const calculateTotalAmount = () => {
-    return items.reduce(
-      (total, item) =>
-        total +
-        (item.quantity * item.price),
-      0
-    );
+    return items.reduce((total, item) => total + item.quantity * item.price, 0);
   };
 
   const navigate = useNavigate();
@@ -80,7 +78,6 @@ const CashierWarehouseRequests = () => {
       formData.append(`recipes[${index}][quantity]`, item.quantity);
       formData.append(`recipes[${index}][expire_date]`, item.expireDate);
     });
-
 
     // formData.append("type", lastItem);
     // formData.append("invoice_date", invoiceDate);
@@ -107,7 +104,7 @@ const CashierWarehouseRequests = () => {
       console.log(response.data);
       // navigate("/warehouse/invoices/show");
       console.log("Invoice created successfully!");
-      message.success("تم اضافة طلب بنجاح")
+      message.success("تم اضافة طلب بنجاح");
       // Optionally, you can redirect or show a success message here
     } catch (error) {
       console.error("Error creating invoice:", error);
@@ -115,12 +112,9 @@ const CashierWarehouseRequests = () => {
     }
   };
 
-
   return (
     <div className="form-container">
-      <h1 className="form-title">
-        اضافة طلب من  المخزن
-      </h1>
+      <h1 className="form-title">اضافة طلب من المخزن</h1>
 
       <div>
         <label className="form-label" htmlFor="supplierSelect">
@@ -131,14 +125,17 @@ const CashierWarehouseRequests = () => {
           id="supplierSelect"
           onChange={(e) => setSelectedDepartment(e.target.value)}
         >
-          <option value="" selected disabled>اختر قسم</option>
-          {department.map((supplier) => (
-            supplier.name !== "مخزن" && (
-              <option key={supplier.id} value={supplier.id}>
-                {supplier.name}
-              </option>
-            )
-          ))}
+          <option value="" selected disabled>
+            اختر قسم
+          </option>
+          {department.map(
+            (supplier) =>
+              supplier.name !== "مخزن" && (
+                <option key={supplier.id} value={supplier.id}>
+                  {supplier.name}
+                </option>
+              )
+          )}
         </select>
       </div>
       <div>
@@ -154,7 +151,7 @@ const CashierWarehouseRequests = () => {
       <CahierWearhouseDetailes
         onAddItem={handleAddItem}
         selectedSupplier={selectedSupplier}
-      // InvoiceType={lastItem}
+        // InvoiceType={lastItem}
       />
       <ItemCashierWearhouse items={items} onDeleteItem={handleDeleteItem} />
       <TotalAmount total={calculateTotalAmount()} />

@@ -54,6 +54,8 @@ const Sidebar = () => {
   const [arrowDirection, setArrowDirection] = useState("");
   const [justifyContent, setJustifyContent] = useState("d-flex-start");
   const { wrapperMargin, toggleWrapperMargin } = useContext(SidebarContext);
+  const [key, setKey] = useState(0); // Added state to force rerender
+
   const checkMenuItemPermission = (requiredPermission) => {
     if (!user?.permissions) return;
     return user
@@ -62,6 +64,10 @@ const Sidebar = () => {
         )
       : false;
   };
+  useEffect(() => {
+    console.log("Location changed, triggering rerender");
+    setKey((prevKey) => prevKey + 1);
+  }, [location]);
   const handleLogout = () => {
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
@@ -247,7 +253,20 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item" title="الهالك">
+            <li
+              className="menu-item"
+              title="الهالك"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view tainted",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/invoices/show-tained"
                 className={`menu-link ${
@@ -271,7 +290,20 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item" title="المدفوعات">
+            <li
+              className="menu-item"
+              title="المدفوعات"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view payable",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/payable/show-payable"
                 className={`menu-link ${
@@ -294,7 +326,20 @@ const Sidebar = () => {
                 </span>
               </Link>
             </li>
-            <li className="menu-item" title="الطلبات">
+            <li
+              className="menu-item"
+              title="الطلبات"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view requests",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/requests/show-requests"
                 className={`menu-link ${
@@ -360,7 +405,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 124,
-                    name: "add order",
+                    name: "view orders",
                   })
                     ? ""
                     : "none"
@@ -397,7 +442,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 124,
-                    name: "add order",
+                    name: "view orders",
                   })
                     ? ""
                     : "none"
@@ -471,7 +516,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 86,
-                    name: "safe limit",
+                    name: "expire_date limit",
                   })
                     ? ""
                     : "none"
@@ -549,7 +594,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 113,
-                    name: "view requests",
+                    name: "view users",
                   })
                     ? ""
                     : "none"
@@ -583,7 +628,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 110,
-                    name: "view orders",
+                    name: "add role",
                   })
                     ? ""
                     : "none"
@@ -617,7 +662,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 123,
-                    name: "view orders",
+                    name: "view payment methods",
                   })
                     ? ""
                     : "none"
@@ -653,7 +698,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 123,
-                    name: "view orders",
+                    name: "view client types",
                   })
                     ? ""
                     : "none"
@@ -689,7 +734,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 123,
-                    name: "view orders",
+                    name: "view clients",
                   })
                     ? ""
                     : "none"
@@ -723,7 +768,7 @@ const Sidebar = () => {
                 display: `${
                   checkMenuItemPermission({
                     id: 123,
-                    name: "view orders",
+                    name: "view discount reasons",
                   })
                     ? ""
                     : "none"
@@ -753,7 +798,20 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item" title="التقارير">
+            <li
+              className="menu-item"
+              title="التقارير"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view reports",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/reports/show-reports"
                 className={`menu-link ${
@@ -777,7 +835,20 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item" title="المنافذ">
+            <li
+              className="menu-item"
+              title="المنافذ"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view departments",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/departments/show-departments"
                 className={`menu-link ${
@@ -801,7 +872,20 @@ const Sidebar = () => {
               </Link>
             </li>
 
-            <li className="menu-item" title="الوحدات">
+            <li
+              className="menu-item"
+              title="الوحدات"
+              style={{
+                display: `${
+                  checkMenuItemPermission({
+                    id: 140,
+                    name: "view units",
+                  })
+                    ? ""
+                    : "none"
+                }`,
+              }}
+            >
               <Link
                 to="/warehouse/units/show-units"
                 className={`menu-link ${

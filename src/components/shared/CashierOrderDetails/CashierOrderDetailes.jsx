@@ -4,7 +4,8 @@ import { API_ENDPOINT } from "../../../../config";
 import { getProductById } from "../../../apis/cashier";
 
 const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
-  const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
+  const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 
   const [item, setItem] = useState("");
   const [quantity, setQuantity] = useState(0);
@@ -21,7 +22,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
   const [selectedOneProduct, setSelectedOneProduct] = useState("");
-
+  const [productType, setProductType] = useState("");
   useEffect(() => {
     fetchProductCategoryParents();
   }, []);
@@ -45,11 +46,12 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
   const fetchProductCategoryParents = async () => {
     try {
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/store/sub_categories`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      }
+        `${API_ENDPOINT}/api/v1/store/sub_categories`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
       );
       const data = await response.json();
       setProductCategoryParents(data.data);
@@ -113,6 +115,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
   };
 
   const handleAddItem = () => {
+    console.log(productType);
     if (!selectedProduct.trim()) {
       setErrorMessage(`الرجاء اختيار منتج`);
       return;
@@ -148,6 +151,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
       quantity: parseInt(quantity),
       price: parseFloat(ProductPrice),
       expireDate: epireDate,
+      productType: productType,
     };
 
     onAddItem(newItem);
@@ -181,14 +185,45 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
           </div>
         ))}
       </div>
-      <label className="form-label">الكميه:</label>
-      <input
-        className="form-input"
-        type="number"
-        value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
-        onWheel={(event) => event.currentTarget.blur()}
-      />
+      <div>
+        <label className="form-label">الكميه:</label>
+        <input
+          className="form-input"
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          onWheel={(event) => event.currentTarget.blur()}
+        />
+      </div>
+      <div
+        style={{
+          alignSelf: "center",
+          display: "flex",
+          gap: "1rem",
+        }}
+      >
+        <label htmlFor="">نوع المنتج:</label>
+        <label>
+          <input
+            type="radio"
+            name="orderType"
+            value="kitchen"
+            checked={productType === "department"}
+            onChange={() => setProductType("department")}
+          />
+          من المنفذ
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="orderType"
+            value="department"
+            checked={productType === "kitchen"}
+            onChange={() => setProductType("kitchen")}
+          />
+          من المطبخ
+        </label>
+      </div>
       <button className="form-cashier-btn" onClick={handleAddItem}>
         اضافة عنصر
       </button>
