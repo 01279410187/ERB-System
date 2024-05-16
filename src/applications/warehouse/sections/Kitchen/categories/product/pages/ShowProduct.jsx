@@ -73,10 +73,10 @@ const ShowProduct = () => {
   ];
   const detailsHeaders = [
 
-    { key: "quantity", label: "الكمية" },
+
     { key: "name", label: "الإسم" },
-    { key: "type", label: "النوع" },
-    { key: "unit", label: "الوحدة" },
+    { key: "price", label: "السعر" },
+    // { key: "image", value: "الصوره", type: "image" },
   ];
   return (
     <div>

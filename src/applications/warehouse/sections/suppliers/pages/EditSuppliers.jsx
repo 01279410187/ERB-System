@@ -27,7 +27,7 @@ const EditSuppliers = () => {
 
   const handleSubmit = async (formData) => {
     console.log(formData);
-    await editSupplier(formData.name, formData.phone, formData.address, id);
+    await editSupplier(formData.name, formData.phone, formData.address, formData.type, id);
     navigate(`/warehouse/suppliers/show-suppliers`);
   };
 
@@ -66,13 +66,22 @@ const EditSuppliers = () => {
     },
   ];
 
+  const initialValues = {
+    name: data?.name || "",
+    phone: data?.phone || "",
+    address: data?.address || "",
+    type: data?.type || "",
+  };
+
+  console.log("values:", initialValues)
+
   return (
     <div className="form-container">
       <h1 className="form-title">تعديل مورد</h1>
       {data && (
         <DynamicForm
           fields={fields}
-          initialValues={data}
+          initialValues={initialValues}
           onSubmit={handleSubmit}
         />
       )}

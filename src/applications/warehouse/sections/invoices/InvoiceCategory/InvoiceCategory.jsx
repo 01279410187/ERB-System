@@ -8,6 +8,7 @@ import {
   getInvoiceById,
   updateInvoice,
   changeInvoiceStatus,
+  updateInvoiceQuintity,
 } from "../../../../../apis/invoices";
 import Table from "../../../../../components/shared/table/Table";
 import { getSuppliers } from "../../../../../apis/suppliers";
@@ -21,7 +22,7 @@ function Categories(props) {
   const { user } = useAuth();
   useEffect(() => {
     const fetchSupplier = async () => {
-      const res = await getSuppliers({}, "", () => {});
+      const res = await getSuppliers({}, "", () => { });
       setAllSupplier(
         [{ label: "", value: "" }].concat(
           res.data.map((item) => {
@@ -60,7 +61,8 @@ function Categories(props) {
       details: [
         { key: "name", label: "الإسم", isInput: false },
         { key: "quantity", label: "الكمية", isInput: true },
-        { key: "price", label: "السعر", isInput: true },
+        { key: "price", label: "السعر", isInput: false },
+        { key: "expire_date", label: "تاريخ الصلاحية", isInput: false },
       ],
     },
   ];
@@ -86,14 +88,14 @@ function Categories(props) {
     },
     user?.department.type === "master"
       ? {
-          key: "department_id",
-          type: "selection",
-          id: "نوع القسم",
-          placeholder: "إختار قسم لإظهار نتائج",
-          options: departments.map((department) => {
-            return { value: department.id, label: department.name };
-          }),
-        }
+        key: "department_id",
+        type: "selection",
+        id: "نوع القسم",
+        placeholder: "إختار قسم لإظهار نتائج",
+        options: departments.map((department) => {
+          return { value: department.id, label: department.name };
+        }),
+      }
       : null,
     {
       key: "status",
@@ -122,14 +124,14 @@ function Categories(props) {
     },
     user?.department.type === "master"
       ? {
-          key: "department_id",
-          type: "selection",
-          id: "نوع القسم",
-          placeholder: "إختار قسم لإظهار نتائج",
-          options: departments.map((department) => {
-            return { value: department.id, label: department.name };
-          }),
-        }
+        key: "department_id",
+        type: "selection",
+        id: "نوع القسم",
+        placeholder: "إختار قسم لإظهار نتائج",
+        options: departments.map((department) => {
+          return { value: department.id, label: department.name };
+        }),
+      }
       : null,
     { key: "from_date", type: "date", id: "من تاريخ" },
     { key: "to_date", type: "date", id: "إلى تاريخ" },
@@ -144,14 +146,14 @@ function Categories(props) {
     },
     user?.department.type === "master"
       ? {
-          key: "department_id",
-          type: "selection",
-          id: "نوع القسم",
-          placeholder: "إختار قسم لإظهار نتائج",
-          options: departments.map((department) => {
-            return { value: department.id, label: department.name };
-          }),
-        }
+        key: "department_id",
+        type: "selection",
+        id: "نوع القسم",
+        placeholder: "إختار قسم لإظهار نتائج",
+        options: departments.map((department) => {
+          return { value: department.id, label: department.name };
+        }),
+      }
       : null,
     {
       key: "status",
@@ -166,24 +168,22 @@ function Categories(props) {
 
   const actionsIncoming = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "create invoice"
-        )
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "create invoice"
+      )
+        ? "add"
+        : ""
+        }`,
       label: "اضافة فاتورة مورد",
       route: "/warehouse/invoices/incoming/add-Invoices/in_coming",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit invoice"
-        )
-          ? "show"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit invoice"
+      )
+        ? "show"
+        : ""
+        }`,
       label: "مراجعة",
     },
     {
@@ -195,24 +195,22 @@ function Categories(props) {
 
   const actionsOutComing = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "create invoice"
-        )
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "create invoice"
+      )
+        ? "add"
+        : ""
+        }`,
       label: "اضافة فاتورة صرف القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/out_going",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit invoice"
-        )
-          ? "show"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit invoice"
+      )
+        ? "show"
+        : ""
+        }`,
       label: "مراجعة",
     },
     {
@@ -224,24 +222,22 @@ function Categories(props) {
 
   const actionsReturnd = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "create invoice"
-        )
-          ? "add"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "create invoice"
+      )
+        ? "add"
+        : ""
+        }`,
       label: "إضافة   فاتورة مرتجع من القسم",
       route: "/warehouse/invoices/incoming/add-Invoices/returned",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit invoice"
-        )
-          ? "show"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit invoice"
+      )
+        ? "show"
+        : ""
+        }`,
       label: "مراجعة",
     },
     {
@@ -287,8 +283,9 @@ function Categories(props) {
                 getIncomingInvoiceByType(filters, id, setIsLoading)
               }
               detailsHeaders={detailsHeaders}
-              updateFn={updateInvoice}
-              changeStatusFn={changeInvoiceStatus}
+              updateFn={updateInvoiceQuintity}
+
+              changeStatusFn={user.permissions.some((permission) => permission.name === "change invoice status") ? changeInvoiceStatus : null}
             />
           )}
           {selectedCategory === "outGoing" && (
@@ -301,8 +298,8 @@ function Categories(props) {
                 getOutgoingInvoiceByType(filters, id, setIsLoading)
               }
               detailsHeaders={detailsHeaders}
-              updateFn={updateInvoice}
-              changeStatusFn={changeInvoiceStatus}
+              updateFn={updateInvoiceQuintity}
+              changeStatusFn={user.permissions.some((permission) => permission.name === "change invoice status") ? changeInvoiceStatus : null}
             />
           )}
           {selectedCategory === "returnd" && (
@@ -317,8 +314,8 @@ function Categories(props) {
               header={"recipes"}
               showFn={getInvoiceById}
               detailsHeaders={detailsHeaders}
-              updateFn={updateInvoice}
-              changeStatusFn={changeInvoiceStatus}
+              updateFn={updateInvoiceQuintity}
+              changeStatusFn={user.permissions.some((permission) => permission.name === "change invoice status") ? changeInvoiceStatus : null}
             />
           )}
         </div>

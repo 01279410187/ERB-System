@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { API_ENDPOINT } from "../../../../config";
 import { getRecipesById } from "../../../apis/invoices";
+import { useAuth } from "../../../context/AuthContext";
 
-const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType }) => {
+const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType, departmentId }) => {
     const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
 
     const [item, setItem] = useState("");
@@ -78,10 +79,11 @@ const TaintedInvoiceDetailes = ({ onAddItem, onDeleteItem, InvoiceType }) => {
             console.error("Error fetching recipes:", error);
         }
     };
+    const { user } = useAuth()
 
     const fetchOneRecipe = async (id) => {
         try {
-            const oneRecipe = await getRecipesById(id);
+            const oneRecipe = await getRecipesById(id, user.department.id);
             setSelectedRecipe(oneRecipe.id);
             setQuantity(oneRecipe.total_quantity);
             setUnit(oneRecipe.unit.name);

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { API_ENDPOINT } from "../../../../config";
 import { getRecipesById } from "../../../apis/invoices";
+import { useAuth } from "../../../context/AuthContext";
 
 const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
   const Token = localStorage.getItem('token') || sessionStorage.getItem('token')
@@ -15,22 +16,22 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
   const [recipeCategoryParents, setRecipeCategoryParents] = useState([]);
   const [recipeCategories, setRecipeCategories] = useState([]);
   const [recipes, setRecipes] = useState([]);
-  const [fields, setFields] = useState([]);
+  // const [fields, setFields] = useState([]);
   const [selectedParent, setSelectedParent] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedRecipe, setSelectedRecipe] = useState("");
   const [selectedOneRecipe, setSelectedOneRecipe] = useState("");
   const [newQuantity, setNewQuantity] = useState()
   const [newPrice, setNewPrice] = useState()
-
+  const { user } = useAuth()
 
   useEffect(() => {
     fetchRecipeCategoryParents();
   }, []);
 
-  const fetchOneRecipe = async (id) => {
+  const fetchOneRecipe = async (id, departmentId) => {
     try {
-      const oneRecipe = await getRecipesById(id);
+      const oneRecipe = await getRecipesById(id, departmentId);
       setSelectedOneRecipe(oneRecipe);
       if (InvoiceType === "out_going") {
         setQuantity(oneRecipe.total_quantity);
@@ -59,7 +60,7 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
   };
 
   useEffect(() => {
-    fetchOneRecipe(selectedRecipe);
+    fetchOneRecipe(selectedRecipe, user.department.id);
   }, [selectedRecipe, quantity]);
 
   const fetchRecipeCategoryParents = async () => {
@@ -116,47 +117,46 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
     }
   };
 
-  useEffect(() => {
-    setFields([
-      {
-        label: "اقسام المخزن",
-        type: "select",
-        placeholder: "اختر منتج من المخزن",
-        options:
-          recipeCategoryParents?.map((parent) => ({
-            value: parent.id,
-            label: parent.name,
-          })) || [],
-        required: true,
-        onChange: handleParentChange,
-      },
-      {
-        label: "التصنيف الرئيسى",
-        type: "select",
-        placeholder: "اختر تصنيف رئيسى ",
-        options:
-          recipeCategories?.map((category) => ({
-            value: category.id,
-            label: category.name,
-          })) || [],
-        required: true,
-        onChange: handleCategoryChange,
-      },
-      {
-        label: "التصنيف الفرعى",
-        type: "select",
-        placeholder: "اختر تصنيف فرعى",
-        options:
-          recipes?.map((recipe) => ({
-            value: recipe.id,
-            label: recipe.name,
-          })) || [],
-        required: true,
-        onChange: (value) => setSelectedRecipe(value), // Update selectedRecipe state with selected recipe value
-      },
-    ]);
-  }, [recipeCategoryParents, recipeCategories, recipes]);
-  console.log(selectedRecipe);
+  const fileds = [
+    {
+      label: "اقسام المخزن",
+      type: "select",
+      placeholder: "اختر منتج من المخزن",
+      options:
+        recipeCategoryParents?.map((parent) => ({
+          value: parent.id,
+          label: parent.name,
+        })),
+      required: true,
+      onChange: handleParentChange,
+    },
+    {
+      label: "التصنيف الرئيسى",
+      type: "select",
+      placeholder: "اختر تصنيف رئيسى ",
+      options:
+        recipeCategories?.map((category) => ({
+          value: category.id,
+          label: category.name,
+        })),
+      required: true,
+      onChange: handleCategoryChange,
+    },
+    {
+      label: "التصنيف الفرعى",
+      type: "select",
+      placeholder: "اختر تصنيف فرعى",
+      options:
+        recipes?.map((recipe) => ({
+          value: recipe.id,
+          label: recipe.name,
+        })),
+      required: true,
+      onChange: (value) => setSelectedRecipe(value), // Update selectedRecipe state with selected recipe value
+    },
+  ]
+
+
   const onSubmit = (formData) => {
     // Handle form submission here
     console.log("Form data:", formData);
@@ -171,9 +171,12 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
     console.log("recipes:", recipes);
     console.log("selectedRecipe:", selectedRecipe);
 
+
+
     // Find the selected recipe object from the recipes array
     const selectedRecipeObj = recipes.find(
       (recipe) => String(recipe.id) === selectedRecipe
+
     );
 
     // Logging for troubleshooting
@@ -201,15 +204,16 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
 
     onAddItem(newItem);
     setItem("");
-    setQuantity(1);
+    setNewQuantity(1);
     setNewPrice(0)
     setPrice(0);
+
     setErrorMessage("");
   };
 
   return (
     <div>
-      {fields.map((field, index) => (
+      {fileds.map((field, index) => (
         <div key={index}>
           <label className="form-label">{field.label}</label>
           <select
@@ -217,10 +221,11 @@ const InvoiceDetails = ({ onAddItem, onDeleteItem, InvoiceType }) => {
             value={field.value}
             onChange={(e) => field.onChange(e.target.value)}
             required={field.required}
+
           >
-            <option value="">{field.placeholder}</option>
+            <option value=""  >{field.placeholder}</option>
             {field.options.map((option, index) => (
-              <option key={index} value={option.value}>
+              <option key={index} value={option.value} >
                 {option.label}
               </option>
             ))}
