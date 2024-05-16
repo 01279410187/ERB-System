@@ -67,7 +67,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
       const Token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/product/subcategory/${parentId}`,
+        `${API_ENDPOINT}/api/v1/store/products/subcategory/${parentId}`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,
