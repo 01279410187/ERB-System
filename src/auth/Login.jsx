@@ -19,7 +19,7 @@ const Login = () => {
       message.error(res.response.data.error.message);
       return;
     }
-    window.location.href = "/warehouse";
+    window.location.href = "/warehouse/home";
   };
 
   return (

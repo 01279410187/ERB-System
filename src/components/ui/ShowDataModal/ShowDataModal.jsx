@@ -7,6 +7,7 @@ const ShowDataModal = ({
   updateFn,
   changeStatusFn,
   handleModalVisible,
+  closeAfterEdit,
 }) => {
   const [editedData, setEditedData] = useState(null);
   console.log(id);
@@ -30,8 +31,10 @@ const ShowDataModal = ({
     detailsHeaders.forEach((header) => {
       initialEditedData[header.key] = responseData[header.key];
       initialEditedData["id"] = responseData["id"];
+      initialEditedData["product_id_in_order"] =
+        responseData["product_id_in_order"];
     });
-    console.log(initialEditedData);
+    console.log(responseData);
     setEditedData(initialEditedData);
   }, [detailsHeaders]);
 
@@ -56,8 +59,12 @@ const ShowDataModal = ({
     }
   };
 
-  const handleEditClick = () => {
-    updateFn(editedData, id);
+  const handleEditClick = async () => {
+    await updateFn(editedData, id);
+    if (closeAfterEdit) {
+      handleModalVisible(false);
+      window.location.reload();
+    }
   };
 
   const handleRejectClick = () => {
@@ -66,7 +73,7 @@ const ShowDataModal = ({
   };
 
   const handleAcceptClick = () => {
-    console.log(id)
+    console.log(id);
     changeStatusFn(responseData.id, "approved");
     handleModalVisible(false);
   };
@@ -112,11 +119,11 @@ const ShowDataModal = ({
                       <td key={index}>
                         {header.isInput
                           ? renderInputField(
-                            header.key,
-                            responseData[header.key],
-                            null,
-                            null
-                          )
+                              header.key,
+                              responseData[header.key],
+                              null,
+                              null
+                            )
                           : responseData[header.key]}
                       </td>
                     );
@@ -146,11 +153,11 @@ const ShowDataModal = ({
                           <td key={detail.key}>
                             {detail.isInput
                               ? renderInputField(
-                                header.key,
-                                item[detail.key],
-                                itemIndex,
-                                detail.key
-                              )
+                                  header.key,
+                                  item[detail.key],
+                                  itemIndex,
+                                  detail.key
+                                )
                               : item[detail.key]}
                           </td>
                         ))}
