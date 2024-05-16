@@ -196,14 +196,15 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
         />
       </div>
       <div
-        style={{
-          alignSelf: "center",
-          display: "flex",
-          gap: "1rem",
-        }}
+        className="form-radio-cont"
+      // style={{
+      //   alignSelf: "center",
+      //   display: "flex",
+      //   gap: "1rem",
+      // }}
       >
         <label htmlFor="">نوع المنتج:</label>
-        <label>
+        <label className="form-radio-btn">
           <input
             type="radio"
             name="orderType"
@@ -213,7 +214,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
           />
           من المنفذ
         </label>
-        <label>
+        <label className="form-radio-btn">
           <input
             type="radio"
             name="orderType"
