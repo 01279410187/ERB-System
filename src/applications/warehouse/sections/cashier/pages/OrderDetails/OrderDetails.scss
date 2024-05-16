@@ -29,6 +29,7 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-around;
+    margin-block: 20px;
 }
 
 .order {
@@ -55,5 +56,43 @@
 
     p {
         margin-bottom: 3px;
+    }
+}
+
+.product-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 10px;
+
+    .product-button {
+        // background-color: var(--beige-color);
+        color: white;
+        padding: 5px 10px;
+        font-weight: 700;
+        font-size: 14px;
+        border-radius: 5px;
+
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        }
+
+        &.edit {
+            background-color: #3498db;
+        }
+
+        &.delete {
+            background-color: #e74c3c;
+        }
+
+        &.show {
+            background-color: #53a86e;
+        }
+
+        &.navigate {
+            background-color: rgba(255, 208, 0, 0.555);
+            color: black;
+        }
     }
 }
