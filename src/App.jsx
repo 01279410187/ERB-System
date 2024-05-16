@@ -71,6 +71,7 @@ import {
   AddProduct,
   AddProductRecipe,
   AddProductToDepartment,
+  AddProductToOrder,
   EditProduct,
   ShowProduct,
 } from "./applications/warehouse/sections/Kitchen/categories/product/pages";
@@ -137,7 +138,6 @@ import {
 } from "./applications/warehouse/sections/reports/pages";
 import Home from "./applications/warehouse/sections/home/Home";
 
-
 function App() {
   return (
     <div className="page-wrapper">
@@ -148,11 +148,7 @@ function App() {
             path="/warehouse/unauthorized"
             element={<Unauthorized />}
           ></Route>
-          <Route
-            path="/warehouse/home" element={<Home />}
-          >
-
-          </Route>
+          <Route path="/warehouse/home" element={<Home />}></Route>
         </Route>
         <Route path="/warehouse" element={<Warehouse />}>
           <Route path="/warehouse/suppliers" element={<Suppliers />}>
@@ -748,6 +744,19 @@ function App() {
                   }}
                 >
                   <KitchenRequests />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/warehouse/cashier/:id/add-products-to-order"
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 105,
+                    name: "view orders",
+                  }}
+                >
+                  <AddProductToOrder />
                 </ProtectedRoute>
               }
             ></Route>

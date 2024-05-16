@@ -46,7 +46,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
   const fetchProductCategoryParents = async () => {
     try {
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/store/sub_categories`,
+        `${API_ENDPOINT}/api/v1/store/sub_categories/mobile`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,

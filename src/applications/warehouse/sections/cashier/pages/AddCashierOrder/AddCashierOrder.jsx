@@ -4,12 +4,12 @@ import TotalAmount from "../../../../../../components/shared/totalAmount/TotalAm
 
 import "./AddCashierOrder.scss";
 import axios from "axios";
-
 import { API_ENDPOINT } from "../../../../../../../config";
 import CashierOrderDetailes from "../../../../../../components/shared/CashierOrderDetails/CashierOrderDetailes";
 import CashierItemList from "../../../../../../components/shared/CashierItemList/CashierItemList";
 import { message, Select } from "antd";
 import { useAuth } from "../../../../../../context/AuthContext";
+import { checkTableNumber } from "../../../../../../apis/orders";
 const AddCashierOrder = () => {
   const { user } = useAuth();
   const [items, setItems] = useState([]);
@@ -76,9 +76,10 @@ const AddCashierOrder = () => {
   };
 
   const validateSelection = (value) => {
-    if (!value && newUserValues["client_id"] !== "add-new") {
+    if (!value && newUserValues["client_id"] !== "") {
       return "يجب اختيار قيمة";
     }
+
     return "";
   };
   const validateUser = () => {
@@ -261,6 +262,12 @@ const AddCashierOrder = () => {
   };
 
   const handleSubmit = async () => {
+    const resMessage = await checkTableNumber(newUserValues["table_number"]);
+    console.log(resMessage);
+    if (resMessage === false) {
+      message.error("هذه الترابيزة مشغولة");
+      return;
+    }
     if (!validateForm()) return;
     const formData = new FormData();
 
@@ -348,8 +355,12 @@ const AddCashierOrder = () => {
               </Select>
               {field.canAdd && (
                 <button
-                  onClick={() => setAddFormVisible(true)}
-                  style={{ width: "100%", height: "100%" }}
+                  onClick={() => setAddFormVisible(!addFormVisible)}
+                  style={{
+                    width: "100%",
+                    backgroundColor: "lightgray",
+                    color: "black",
+                  }}
                 >
                   أضف جديد
                 </button>
@@ -408,12 +419,10 @@ const AddCashierOrder = () => {
                 }
                 onWheel={(event) => event.currentTarget.blur()}
               >
-                <option key={0} value={""}>
-                  {""}
-                </option>
+                <option key={0} value={""}></option>
                 {discountReasons.map((select) => (
                   <option key={select.id} value={select.id}>
-                    {select.discount_reason}
+                    {select.discount_name}
                   </option>
                 ))}
               </select>
@@ -478,7 +487,7 @@ const AddCashierOrder = () => {
             </option>
             {discountReasons.map((select) => (
               <option key={select.id} value={select.id}>
-                {select.discount_reason}
+                {select.discount_name}
               </option>
             ))}
             {errors.discount && (

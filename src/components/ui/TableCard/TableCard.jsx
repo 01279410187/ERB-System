@@ -20,7 +20,7 @@ const TableCard = ({ id, number }) => {
       <div className="table-number">
         <p className="table-number-title">{number}</p>
       </div>
-
+    
     </button>
   );
 };
