@@ -18,7 +18,7 @@ const Login = () => {
     } else {
       message.error(res.response.data.error.message);
     }
-    navigate("/warehouse");
+    navigate("/warehouse/home/show-home");
   };
 
   return (
