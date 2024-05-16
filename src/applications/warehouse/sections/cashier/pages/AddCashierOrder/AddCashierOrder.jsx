@@ -5,7 +5,7 @@ import TotalAmount from "../../../../../../components/shared/totalAmount/TotalAm
 import "./AddCashierOrder.scss";
 import axios from "axios";
 
-import { API_ENDPOINT, Token } from "../../../../../../../config";
+import { API_ENDPOINT } from "../../../../../../../config";
 import CashierOrderDetailes from "../../../../../../components/shared/CashierOrderDetails/CashierOrderDetailes";
 import CashierItemList from "../../../../../../components/shared/CashierItemList/CashierItemList";
 import { message, Select } from "antd";
@@ -266,7 +266,7 @@ const AddCashierOrder = () => {
 
     items.forEach((item, index) => {
       formData.append(`products[${index}][product_id]`, item.ProductId);
-
+      formData.append(`products[${index}][product_type]`, item.productType);
       formData.append(`products[${index}][quantity]`, item.quantity);
     });
     const date = new Date();
@@ -340,21 +340,20 @@ const AddCashierOrder = () => {
                 optionFilterProp="children"
                 disabled={field.options.length === 0}
               >
-                {field.canAdd && (
-                  <button
-                    onClick={() => setAddFormVisible(true)}
-                    style={{ width: "100%", backgroundColor: "lightgray" }}
-                  >
-                    أضف جديد
-                  </button>
-                )}
                 {field.options.map((option) => (
                   <Option key={option.value} value={option.value}>
                     {option.label}
                   </Option>
                 ))}
               </Select>
-
+              {field.canAdd && (
+                <button
+                  onClick={() => setAddFormVisible(true)}
+                  style={{ width: "100%", height: "100%" }}
+                >
+                  أضف جديد
+                </button>
+              )}
               {field.error && (
                 <span className="error cashier-input-error">{field.error}</span>
               )}
@@ -494,36 +493,7 @@ const AddCashierOrder = () => {
             </span>
           )}
         </div>
-        <div
-          style={{
-            alignSelf: "center",
-            display: "flex",
-            gap: "1rem",
-          }}
-        >
-          <label htmlFor="">نوع الدليفرى:</label>
-          <label>
-            <input
-              type="radio"
-              name="orderType"
-              value="kitchen"
-              checked
-              onChange={() =>
-                handleNewUserFormChange("deleviery_type", "kitchen")
-              }
-            />
-            مطبخ
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="orderType"
-              value="room"
-              onChange={() => handleNewUserFormChange("deleviery_type", "room")}
-            />
-            غرفة
-          </label>
-        </div>
+
         <div>
           <label className="form-cashier-label">ملاحظة : </label>
           <textarea

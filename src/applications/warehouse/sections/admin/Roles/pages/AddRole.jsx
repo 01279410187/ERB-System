@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AddRoles } from "../../../../../../apis/roles";
 import { Form, Input, Button, Select } from "antd";
+import { getPermissions } from "../../../../../../apis/permissions";
 const { Option } = Select;
 
 const AddRole = () => {
@@ -12,9 +13,12 @@ const AddRole = () => {
 
   useEffect(() => {
     const fetchPermissions = async () => {
-      const res = await fetch("/src/apis/permissions/permissions.json");
-      const data = await res.json();
-      setPermissions(data);
+      const res = await getPermissions();
+      setPermissions(
+        res.data.map((permission) => {
+          return { value: permission.id, label: permission.display_name };
+        })
+      );
     };
     fetchPermissions();
   }, []);
@@ -31,14 +35,14 @@ const AddRole = () => {
     navigate(`/warehouse/roles/show-roles`);
   };
 
-  const handlePermissionSelect = (values, options) => {
+  const handlePermissionSelect = (values) => {
+    console.log(permissions);
     const selectedPermissions = values.map((value) =>
       permissions.find((permission) => permission.label === value)
     );
     console.log(selectedPermissions);
     setSelectedPermissions(selectedPermissions);
   };
-
   const validatePermissions = (_, value) => {
     if (!value || value.length === 0) {
       return Promise.reject(new Error("يرجى اختيار صلاحية واحدة على الأقل!"));

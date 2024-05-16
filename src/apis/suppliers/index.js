@@ -2,29 +2,29 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 import { message } from "antd";
 const Token =
-    localStorage.getItem("token") || sessionStorage.getItem("token");export async function getSuppliers(filteredValues, id, setIsLoading) {
-  try {
-    setIsLoading(true);
-    const { name, phone, page, type } = filteredValues;
-    const res = await axios.get(`${API_ENDPOINT}/api/v1/store/supplier`, {
-      params: {
-        name,
-        phone,
-        page,
-        type,
-      },
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
-    });
-    setIsLoading(false);
-    return res.data;
-  } catch (error) {
-    console.log("Error fetching data:", error);
-    setIsLoading(false);
-    message.error("حدث خطأ الرجاء إعادة المحاولة ");
+  localStorage.getItem("token") || sessionStorage.getItem("token"); export async function getSuppliers(filteredValues, id, setIsLoading) {
+    try {
+      setIsLoading(true);
+      const { name, phone, page, type } = filteredValues;
+      const res = await axios.get(`${API_ENDPOINT}/api/v1/store/supplier`, {
+        params: {
+          name,
+          phone,
+          page,
+          type,
+        },
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      });
+      setIsLoading(false);
+      return res.data;
+    } catch (error) {
+      console.log("Error fetching data:", error);
+      setIsLoading(false);
+      message.error("حدث خطأ الرجاء إعادة المحاولة ");
+    }
   }
-}
 export async function getSupplierById(id) {
   try {
     const res = await axios.get(`${API_ENDPOINT}/api/v1/store/supplier/${id}`, {

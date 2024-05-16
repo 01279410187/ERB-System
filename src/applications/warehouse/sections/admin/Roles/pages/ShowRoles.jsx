@@ -5,7 +5,7 @@ import { useAuth } from "../../../../../../context/AuthContext";
 const ShowUsers = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
   ];
   const filters = [
@@ -13,21 +13,19 @@ const ShowUsers = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some((permission) => permission.name === "edit role")
+      type: `${user?.permissions.some((permission) => permission.name === "edit role")
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/roles/:id/edit-role",
     },
 
     {
-      type: `${
-        user?.permissions.some((permission) => permission.name === "add role")
+      type: `${user?.permissions.some((permission) => permission.name === "add role")
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة أدوار",
       route: "/warehouse/roles/add-role",
     },

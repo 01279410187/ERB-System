@@ -135,13 +135,13 @@ export async function getDeaprtmentsById(id) {
 }
 
 export async function getDeaprtmentsFilterById(
-  filteredValues = { name: "", page: "" },
+  filteredValues,
   id,
   setIsLoading
 ) {
   try {
     setIsLoading(true);
-    const { name, page } = filteredValues;
+    const { name, page, sub_category_id } = filteredValues;
 
     const res = await axios.get(
       `${domain}/api/v1/store/products/department/${id}`,
@@ -149,6 +149,7 @@ export async function getDeaprtmentsFilterById(
         params: {
           name: name,
           page,
+          sub_category_id,
         },
         headers: {
           Authorization: `Bearer ${Token}`,

@@ -13,7 +13,7 @@ const AddUnits = () => {
     };
 
     const fields = [
-        { type: 'text', name: 'name', placeholder: 'يجب عليك ادخال الاسم', required: true },
+        { type: 'text', name: 'name', labelName: "الوحده", placeholder: 'يجب عليك ادخال الاسم', required: true },
 
     ];
 

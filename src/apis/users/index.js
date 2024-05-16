@@ -39,6 +39,19 @@ export async function getUsers(filteredValues, id, setIsLoading) {
     setIsLoading(false);
   }
 }
+export async function getUserById(id) {
+  try {
+    const res = await axios.get(`${domain}/api/v1/store/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+  }
+}
 export async function deleteUser(id) {
   try {
     const res = await axios.delete(`${domain}/api/v1/store/user/delete/${id}`, {
@@ -65,6 +78,29 @@ export async function AddUsers(data) {
   try {
     const res = await axios.post(
       `${domain}/api/v1/store/user/create`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    return error;
+  }
+}
+export async function updateUser(data, id) {
+  const formData = new FormData();
+  formData.append("role", data.role);
+  data.permissions.map((permission, index) => {
+    formData.append(`permissions[ids][${index}]`, permission.id);
+  });
+  try {
+    const res = await axios.post(
+      `${domain}/api/v1/store/user/${id}/update_role`,
       formData,
       {
         headers: {

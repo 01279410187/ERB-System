@@ -23,6 +23,12 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
       field.onChange(value);
     }
   };
+  const handleMultiSelectChange = (value, field) => {
+    console.log(value);
+    if (field.onChange) {
+      field.onChange(value);
+    }
+  };
 
   const handleCheckboxChange = (e, fieldName) => {
     const value = e.target.checked ? 1 : 0;
@@ -101,7 +107,20 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
               optionFilterProp="children" // Search by children (option label)
               onChange={(value) => handleSelectChange(value, field)}
             >
-              {field.options.map((option) => (
+              {field.options?.map((option) => (
+                <Option key={option.value} value={option.value}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
+          )}
+          {field.type === "multi-select" && (
+            <Select
+              mode="multiple"
+              placeholder={field.placeholder}
+              onChange={(value) => handleMultiSelectChange(value, field)}
+            >
+              {field.options?.map((option) => (
                 <Option key={option.value} value={option.value}>
                   {option.label}
                 </Option>

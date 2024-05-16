@@ -16,12 +16,14 @@ const AddDiscountReason = () => {
     {
       type: "text",
       name: "discount_reason",
+      labelName: " سبب الخصم",
       placeholder: "يجب عليك ادخال سبب الخصم",
       required: true,
     },
     {
       type: "number",
       name: "discount",
+      labelName: " قيمة الخصم",
       placeholder: "يجب عليك ادخال قيمة الخصم",
       required: true,
     },

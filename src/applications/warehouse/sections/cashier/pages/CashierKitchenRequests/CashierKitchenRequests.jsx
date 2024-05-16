@@ -3,12 +3,14 @@ import CashierOrderDetailes from "../../../../../../components/shared/CashierOrd
 import CashierItemList from "../../../../../../components/shared/CashierItemList/CashierItemList";
 import TotalAmount from "../../../../../../components/shared/totalAmount/TotalAmount";
 import { message } from "antd";
-import { API_ENDPOINT, Token } from "../../../../../../../config";
+import { API_ENDPOINT } from "../../../../../../../config";
 import axios from "axios";
 const CashierKitchenRequests = () => {
   const [items, setItems] = useState([]);
   const [errors, setErrors] = useState({});
   const [comment, setComment] = useState(" ");
+  const Token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 
   const handleAddItem = (item) => {
     setItems([...items, item]);

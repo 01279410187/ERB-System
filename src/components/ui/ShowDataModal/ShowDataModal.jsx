@@ -61,12 +61,13 @@ const ShowDataModal = ({
   };
 
   const handleRejectClick = () => {
-    changeStatusFn("rejected");
+    changeStatusFn(responseData.id, "rejected");
     handleModalVisible(false);
   };
 
   const handleAcceptClick = () => {
-    changeStatusFn("approved");
+    console.log(id)
+    changeStatusFn(responseData.id, "approved");
     handleModalVisible(false);
   };
 
@@ -111,11 +112,11 @@ const ShowDataModal = ({
                       <td key={index}>
                         {header.isInput
                           ? renderInputField(
-                              header.key,
-                              responseData[header.key],
-                              null,
-                              null
-                            )
+                            header.key,
+                            responseData[header.key],
+                            null,
+                            null
+                          )
                           : responseData[header.key]}
                       </td>
                     );
@@ -145,11 +146,11 @@ const ShowDataModal = ({
                           <td key={detail.key}>
                             {detail.isInput
                               ? renderInputField(
-                                  header.key,
-                                  item[detail.key],
-                                  itemIndex,
-                                  detail.key
-                                )
+                                header.key,
+                                item[detail.key],
+                                itemIndex,
+                                detail.key
+                              )
                               : item[detail.key]}
                           </td>
                         ))}

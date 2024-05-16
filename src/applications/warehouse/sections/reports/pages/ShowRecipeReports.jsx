@@ -4,7 +4,7 @@ import { getRcipeReports } from "../../../../../apis/reports";
 
 const ShowRecipeReports = () => {
     const tableHeaders = [
-        { key: "id", value: "الكود" },
+
         { key: "name", value: "الإسم" },
         { key: "total_quantity", value: "الكميه الموجوده" },
         // { key: "minimum_limt", value: "حد الامان" },

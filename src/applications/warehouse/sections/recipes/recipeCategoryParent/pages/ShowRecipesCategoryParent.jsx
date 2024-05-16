@@ -8,41 +8,38 @@ import { useAuth } from "../../../../../../context/AuthContext";
 const ShowRecipesCategoryParent = () => {
   const { user } = useAuth();
   const tableHeaders = [
-    { key: "id", value: "الكود" },
+
     { key: "name", value: "الإسم" },
     { key: "image", value: "الصوره", type: "image" },
   ];
 
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "edit recipe_category_parent"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "edit recipe_category_parent"
+      )
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
       route: "/warehouse/recipes/edit-recipes-parent/:id",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete recipe_category_parent"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete recipe_category_parent"
+      )
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "create recipe_category_parent"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "create recipe_category_parent"
+      )
           ? "add"
           : ""
-      }`,
+        }`,
       label: "إضافة قسم المخزن",
       route: `/warehouse/recipes/add-recipes-parent`,
     },

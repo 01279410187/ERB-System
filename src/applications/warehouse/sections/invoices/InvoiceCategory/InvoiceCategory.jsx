@@ -300,8 +300,6 @@ function Categories(props) {
               fetchData={(filters, id, setIsLoading) =>
                 getOutgoingInvoiceByType(filters, id, setIsLoading)
               }
-              header={"recipes"}
-              showFn={getInvoiceById}
               detailsHeaders={detailsHeaders}
               updateFn={updateInvoice}
               changeStatusFn={changeInvoiceStatus}
