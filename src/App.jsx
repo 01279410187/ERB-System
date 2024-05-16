@@ -135,7 +135,7 @@ import {
   ShowTotalStores,
 } from "./applications/warehouse/sections/reports/pages";
 import Home from "./applications/warehouse/sections/home/Home";
-import ShowHome from "./applications/warehouse/sections/home/pages/ShowHome";
+
 
 function App() {
   return (
@@ -150,13 +150,7 @@ function App() {
           <Route
             path="/warehouse/home" element={<Home />}
           >
-            <Route
-              path="/warehouse/home/show-home"
-              element={
 
-                <ShowHome />
-              }
-            ></Route>
           </Route>
         </Route>
         <Route path="/warehouse" element={<Warehouse />}>

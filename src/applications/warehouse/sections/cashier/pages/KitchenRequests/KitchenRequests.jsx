@@ -40,7 +40,7 @@ const KitchenRequests = () => {
   const tableHeaders = [
     { key: "discount", value: "قيمة الخصم" },
     { key: "discount_resones", value: "سبب الخصم" },
-    { key: "id", value: "كود الأوردر" },
+    // { key: "id", value: "كود الأوردر" },
     { key: "status", value: "الحالة" },
     { key: "order_date", value: "التاريخ" },
   ];
@@ -92,31 +92,28 @@ const KitchenRequests = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete order"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete order"
+      )
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "change order status"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "change order status"
+      )
           ? "show"
           : ""
-      }`,
+        }`,
       label: "مراجعة",
     },
     {
-      type: `${
-        user?.permissions.some((permission) => permission.name === "edit order")
+      type: `${user?.permissions.some((permission) => permission.name === "edit order")
           ? "edit"
           : ""
-      }`,
+        }`,
       label: "تعديل",
     },
   ];
@@ -158,7 +155,7 @@ const KitchenRequests = () => {
         deleteFn={deleteOrder}
         showFn={getOrderById}
         // updateFn={updateRequests}
-        changeStatusFn={() => {}}
+        changeStatusFn={() => { }}
         detailsHeaders={detailsHeaders}
       />
     </div>
