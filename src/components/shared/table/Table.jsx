@@ -253,39 +253,36 @@ const Table = ({
                 <tr key={item.id}>
                   <td>{index + 1 + (currentPage - 1) * 10}</td>
 
-                  {headers.map((header) => {
-                    console.log(item[header.key], header.key, header.nestedKey, item[header.key][header.nestedKey]);
-                    return (
-                      <td
-                        key={header.key}
-                        onClick={() =>
-                          header.clickable &&
-                          handleItemClick(item.id, header.route)
-                        }
-                        className={header.clickable ? "clickable-cell" : ""}
-                      >
-                        {header.type === "image" ? (
-                          <img
-                            src={`${item.image}`}
-                            alt={`alt-${item.name}`}
-                            style={{ width: "50px", height: "50px" }}
-                          />
-                        ) : header.nestedKey ? (
-                          item[header.key][header.nestedKey] || "لا يوجد"
-                        ) : header.key === "status" ? (
-                          renderStatus(item[header.key])
-                        ) : header.key === "type" ? (
-                          renderType(item[header.key])
-                        ) : header.key === "new_client" ? (
-                          renderClient(item[header.key])
-                        ) : header.key === "is_worker" ? (
-                          renderWorker(item[header.key])
-                        ) : (
-                          item[header.key] || "لا يوجد"
-                        )}
-                      </td>
-                    )
-                  })}
+                  {headers.map((header) => (
+                    <td
+                      key={header.key}
+                      onClick={() =>
+                        header.clickable &&
+                        handleItemClick(item.id, header.route)
+                      }
+                      className={header.clickable ? "clickable-cell" : ""}
+                    >
+                      {header.type === "image" ? (
+                        <img
+                          src={`${item.image}`}
+                          alt={`alt-${item.name}`}
+                          style={{ width: "50px", height: "50px" }}
+                        />
+                      ) : header.nestedKey ? (
+                        item[header.key][header.nestedKey] || "لا يوجد"
+                      ) : header.key === "status" ? (
+                        renderStatus(item[header.key])
+                      ) : header.key === "type" ? (
+                        renderType(item[header.key])
+                      ) : header.key === "new_client" ? (
+                        renderClient(item[header.key])
+                      ) : header.key === "is_worker" ? (
+                        renderWorker(item[header.key])
+                      ) : (
+                        item[header.key] || "لا يوجد"
+                      )}
+                    </td>
+                  ))}
                   {actions && (
                     <td>
                       <div className="buttons">

@@ -13,8 +13,8 @@ export async function getPayable(filteredValues, id, setIsLoading) {
 
         const res = await axios.get(`${domain}/api/v1/store/payable`, {
             params: {
-                "date[from]": from_date || default_from,
-                "date[to]": to_date || default_to,
+                "date[from]": from_date,
+                "date[to]": to_date,
                 type,
                 page,
             },
