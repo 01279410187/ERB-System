@@ -206,9 +206,12 @@ export async function eidtRecipes(
   }
 }
 
-export async function getRecipesById(id) {
+export async function getRecipesById(id, department_id) {
   try {
     const res = await axios.get(`${domain}/api/v1/store/recipe/${id}`, {
+      params: {
+        department_id: department_id
+      },
       headers: {
         Authorization: `Bearer ${Token}`,
       },

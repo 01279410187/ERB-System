@@ -141,7 +141,7 @@ const AddRequest = () => {
       <CahierWearhouseDetailes
         onAddItem={handleAddItem}
         selectedSupplier={selectedSupplier}
-        // InvoiceType={lastItem}
+      // InvoiceType={lastItem}
       />
       <ItemCashierWearhouse items={items} onDeleteItem={handleDeleteItem} />
       <TotalAmount total={calculateTotalAmount()} />

@@ -126,9 +126,12 @@ export async function eidtRecipes(
     throw error; // Rethrow the error to handle it in the calling code if necessary
   }
 }
-export async function getRecipesById(id) {
+export async function getRecipesById(id, departmentId) {
   try {
     const res = await axios.get(`${domain}/api/v1/store/recipe/${id}`, {
+      params: {
+        department_id: departmentId
+      },
       headers: {
         Authorization: `Bearer ${Token}`,
       },
@@ -378,6 +381,45 @@ export async function updateInvoice(filteredValues, id) {
   try {
     const res = await axios.post(
       `${domain}/api/v1/store/invoice/update/${filteredValues.id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
+    message.success("تم التعديل بنجاح");
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.log("Error fetching data:", error);
+  }
+}
+
+export async function updateInvoiceQuintity(filteredValues, id) {
+  console.log(typeof filteredValues.recipes);
+  const formData = new FormData();
+  Object.keys(filteredValues.recipes).map((key, index) => {
+    formData.append(
+      `recipes[${index}][recipe_id]`,
+      filteredValues.recipes[key].id
+    );
+    formData.append(
+      `recipes[${index}][price]`,
+      filteredValues.recipes[key].price
+    );
+    // Add other fields as needed, for example quantity, expire_date, etc.
+    formData.append(
+      `recipes[${index}][quantity]`,
+      filteredValues.recipes[key].quantity);
+    formData.append(
+      `recipes[${index}][expire_date]`,
+      filteredValues.recipes[key].expire_date);
+  });
+  formData.append("_method", "PUT");
+  try {
+    const res = await axios.post(
+      `${domain}/api/v1/store/invoice/update_quantity/${filteredValues.id}`,
       formData,
       {
         headers: {

@@ -5,20 +5,9 @@ import {
   getUnderExiperById,
 } from "../../../../../apis/underLimit";
 import { useAuth } from "../../../../../context/AuthContext";
-import { getAllDeaprtments } from "../../../../../apis/department";
-import { useEffect, useState } from "react";
 const ShowExpireLimit = () => {
-  const { user } = useAuth();
-  const [departments, setDepartments] = useState([]);
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      const res = await getAllDeaprtments();
-      setDepartments(res.data);
-    };
-    fetchDepartments();
-  }, []);
+  const { user } = useAuth()
   const tableHeaders = [
-    { key: "id", value: "الكود" },
     { key: "name", value: "التصنيف الفرعى " },
     { key: "recipe_category", nestedKey: "name", value: " التصنيف الرئيسى " },
     { key: "unit", nestedKey: "name", value: "الوحدة " },
@@ -28,36 +17,26 @@ const ShowExpireLimit = () => {
   ];
 
   const tableHeadersDetailes = [
-    { key: "expire_date", label: "تاريخ انتهاء الصلاحيه" },
-    { key: "quantity", label: "الكميه" },
-  ];
-  // const filters = [
-  //     { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
-
-  // ];
-  const filters = [
-    user?.department.type === "master"
-      ? {
-          key: "department_id",
-          type: "selection",
-          id: "نوع القسم",
-          placeholder: "إختار قسم لإظهار نتائج",
-          options: departments.map((department) => {
-            return { value: department.id, label: department.name };
-          }),
-        }
-      : null,
-  ];
+    {
+      key: "quantities",
+      label: "المنتجات",
+      isArray: true,
+      isInput: true,
+      details: [
+        { key: "price", label: "السعر", isInput: false },
+        { key: "quantity", label: "الكمية", isInput: false },
+      ],
+    },
+  ]
 
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "expire_date limit"
-        )
-          ? "show"
-          : ""
-      }`,
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "expire_date limit"
+      )
+        ? "show"
+        : ""
+        }`,
       label: "التفاصيل",
     },
   ];
@@ -67,12 +46,14 @@ const ShowExpireLimit = () => {
       <Table
         headers={tableHeaders}
         title="حد الصلاحية"
+        header={"quantities"}
         detailsHeaders={tableHeadersDetailes}
-        filters={filters}
+        // filters={filters}
         actions={actions}
-        fetchData={(filterValues, currentPage) =>
-          getExpireLimit(filterValues, currentPage, "")
+        fetchData={(filterValues, id) =>
+          getExpireLimit(filterValues, user.department.id)
         }
+        updateFn={() => getUnderExiperById(user.department.id)}
       />
     </div>
   );

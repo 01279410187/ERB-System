@@ -2,53 +2,35 @@ import Table from "../../../../../components/shared/table/Table";
 import "../../../../../components/shared/table/Table.scss";
 import { getUderLimit } from "../../../../../apis/underLimit";
 import { useAuth } from "../../../../../context/AuthContext";
-import { useState, useEffect } from "react";
-import { getAllDeaprtments } from "../../../../../apis/department";
 const ShowUnderLimit = () => {
-  const { user } = useAuth();
-  const [departments, setDepartments] = useState([]);
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      const res = await getAllDeaprtments();
-      setDepartments(res.data);
-    };
-    fetchDepartments();
-  }, []);
-  const tableHeaders = [
-    { key: "id", value: "الكود" },
-    { key: "name", value: "التصنيف الفرعى " },
-    { key: "recipe_category", nestedKey: "name", value: " التصنيف الرئيسى " },
-    { key: "unit", nestedKey: "name", value: "الوحدة " },
+    const { user } = useAuth()
+    const tableHeaders = [
 
-    { key: "quantity", value: "الكمية المتبقية  " },
-  ];
-  const filters = [
-    { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
-    user?.department.type === "master"
-      ? {
-          key: "department_id",
-          type: "selection",
-          id: "نوع القسم",
-          placeholder: "إختار قسم لإظهار نتائج",
-          options: departments.map((department) => {
-            return { value: department.id, label: department.name };
-          }),
-        }
-      : null,
-  ];
+        { key: "name", value: "التصنيف الفرعى " },
+        { key: "recipe_category", nestedKey: "name", value: " التصنيف الرئيسى " },
+        { key: "unit", nestedKey: "name", value: "الوحدة " },
 
-  return (
-    <div>
-      <Table
-        headers={tableHeaders}
-        title="حد الامان"
-        filters={filters}
-        fetchData={(filterValues, currentPage) =>
-          getUderLimit(filterValues, currentPage, "")
-        }
-      />
-    </div>
-  );
+        { key: "quantity", value: "الكمية المتبقية  " },
+    ];
+    const filters = [
+        { key: "name", type: "text", placeholder: "إبحث باللإسم", id: "الإسم" },
+
+    ];
+
+
+
+    return (
+        <div>
+            <Table
+                headers={tableHeaders}
+                title="حد الامان"
+                filters={filters}
+                fetchData={(filterValues, id) =>
+                    getUderLimit(filterValues, user.department.id)
+                }
+            />
+        </div>
+    );
 };
 
 export default ShowUnderLimit;

@@ -2,6 +2,7 @@ import Table from "../../../../../components/shared/table/Table";
 import { useParams } from "react-router-dom";
 import { getReportOfRecipe } from "../../../../../apis/reports";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../../../../context/AuthContext";
 
 const OneRecipeReport = () => {
     const [reportData, setReportData] = useState({ quintity: "", totalPrice: "" })
@@ -32,7 +33,7 @@ const OneRecipeReport = () => {
     useEffect(() => {
         const fetchDataSuppliers = async () => {
             try {
-                const data = await getReportOfRecipe({}, id, () => { });
+                const data = await getReportOfRecipe({}, id, () => { }, user.department.id);
                 setReportData({ quintity: data.data[0].totalQuantity, totalPrice: data.data[0].total });
 
             } catch (error) {
@@ -43,6 +44,7 @@ const OneRecipeReport = () => {
         fetchDataSuppliers();
     }, []);
 
+    const { user } = useAuth()
 
     return (
         <div>
@@ -61,7 +63,7 @@ const OneRecipeReport = () => {
 
                 filters={filters}
                 fetchData={(filters, id, setIsLoading) =>
-                    getReportOfRecipe(filters, id, setIsLoading)
+                    getReportOfRecipe(filters, id, setIsLoading, user.department.id)
                 }
             />
             {/* {reportData.quintity}

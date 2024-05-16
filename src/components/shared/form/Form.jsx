@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Form.scss";
-import { Form, Input, Upload, Button, Select, Checkbox } from "antd";
+import { Form, Input, Upload, Button, Select, Checkbox, Spin } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
 const DynamicForm = ({ fields, onSubmit, initialValues }) => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false); // State to track loading status
+
 
   const handleFormSubmit = async () => {
     try {
+      setLoading(true); // Start loading
       const formData = await form.validateFields();
       onSubmit(formData);
     } catch (error) {
       console.error("Validation failed:", error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -148,9 +153,13 @@ const DynamicForm = ({ fields, onSubmit, initialValues }) => {
         </Form.Item>
       ))}
       <Form.Item>
-        <Button type="primary" htmlType="submit">
-          اضافة
-        </Button>
+        {loading ? ( // Render Spin component if loading
+          <Spin size="large" />
+        ) : (
+          <Button type="primary" htmlType="submit">
+            اضافة
+          </Button>
+        )}
       </Form.Item>
     </Form>
   );
