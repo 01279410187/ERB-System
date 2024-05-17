@@ -127,16 +127,6 @@ const ShowRequests = () => {
       label: "إضافة طلبات",
       route: "/warehouse/requests/add-request",
     },
-    {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "expire_date limit"
-        )
-          ? "show"
-          : ""
-      }`,
-      label: "التفاصيل",
-    },
   ];
 
   const tableHeadersDetailes = [
@@ -167,14 +157,13 @@ const ShowRequests = () => {
         headers={tableHeaders}
         title="الطلبات"
         filters={filters}
-        header={"recipes"}
         fetchData={(filterValues, id, setIsLoading) =>
           getRequests(filterValues, id, setIsLoading)
         }
         actions={actions}
         deleteFn={deleteRequest}
-        acceptTitle={"approved"}
-        rejectTitle={"rejected"}
+        acceptTitle={{ value: "approved", label: "قبول" }}
+        rejectTitle={{ value: "rejected", label: "رفض" }}
         updateFn={
           user.permissions.some(
             (permission) => permission.name === "edit request"
@@ -189,6 +178,7 @@ const ShowRequests = () => {
             ? changeRequestStatus
             : null
         }
+        isRequests={true}
         detailsHeaders={tableHeadersDetailes}
       />
     </div>

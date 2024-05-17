@@ -8,48 +8,45 @@ window.Pusher = Pusher;
 // Configure Laravel Echo
 export const echo = new Echo({
   broadcaster: "pusher",
-  key: process.env.REACT_APP_PUSHER_APP_KEY || "your-app-key", // Fallback to 'your-app-key' if env var is not set
+  key: "pusherKey", // Fallback to 'your-app-key' if env var is not set
+  cluster: "mt1", // Fallback to 'your-app-key' if env var is not set
   wsHost: "192.168.0.111", // WebSocket server host
   wsPort: 6001, // WebSocket server port
   forceTLS: false, // Disable TLS for local development
   disableStats: true, // Disable stats to reduce load
   enabledTransports: ["ws", "wss"], // Enable WebSocket and Secure WebSocket
 });
-
 const WebSocketComponent = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const url = "ws://192.168.0.111:6001";
-    const ws = new WebSocket(url);
+    // Handle connection events
+    echo.connector.pusher.connection.bind("connected", () => {
+      console.log("Successfully connected to the WebSocket server.");
+    });
 
-    ws.onopen = () => {
-      console.log("Connected to WebSocket");
-    };
+    echo.connector.pusher.connection.bind("disconnected", () => {
+      console.log("Disconnected from the WebSocket server.");
+    });
 
-    ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      console.log("Received:", message);
-      setMessages((prevMessages) => [...prevMessages, message]);
-    };
+    echo.connector.pusher.connection.bind("error", (err) => {
+      console.error("Error connecting to the WebSocket server:", err);
+    });
 
-    ws.onerror = (error) => {
-      console.error("WebSocket Error:", error);
-    };
+    // Listen to the 'orders' channel
+    const channel = echo.channel("orders");
 
-    ws.onclose = (event) => {
-      if (event.wasClean) {
-        console.log(
-          `Closed cleanly, code=${event.code} reason=${event.reason}`
-        );
-      } else {
-        console.error("WebSocket closed unexpectedly");
-      }
-    };
-
-    // Cleanup function to close the WebSocket connection when the component unmounts
+    // Listen for the event on the channel
+    channel.listen(".App\\Events\\OrderEvent", (event) => {
+      console.log("Received event:", event);
+      // Handle the received event
+    });
+    // Cleanup the subscription on component unmount
     return () => {
-      ws.close();
+      echo.leave("orders");
+      echo.connector.pusher.connection.unbind("connected");
+      echo.connector.pusher.connection.unbind("disconnected");
+      echo.connector.pusher.connection.unbind("error");
     };
   }, []);
 
