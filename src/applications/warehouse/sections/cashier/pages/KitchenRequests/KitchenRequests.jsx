@@ -37,6 +37,7 @@ const KitchenRequests = () => {
     fetchDepartments();
     fetchUsers();
   }, []);
+
   const tableHeaders = [
     { key: "discount_name", value: "سبب الخصم" },
     { key: "table_number", value: "رقم الترابيزة" },

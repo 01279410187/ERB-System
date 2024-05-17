@@ -23,7 +23,7 @@ const Warehouse = () => {
   }, []);
   return (
     <>
-      <WebSocketComponent />
+      {/* <WebSocketComponent /> */}
       {!isLoading && (
         <>
           <Sidebar />

@@ -22,7 +22,8 @@ const Table = ({
   changeStatusFn,
   rejectTitle,
   acceptTitle,
-  closeAfterEdit
+  closeAfterEdit,
+  isRequests,
 }) => {
   const { user } = useAuth();
   const [data, setData] = useState([]);
@@ -50,6 +51,20 @@ const Table = ({
     isDeleteModalVisible,
     isShowModalVisible,
   ]);
+  useEffect(() => {
+    if (isRequests) {
+      setInterval(() => {
+        fetchData(
+          { ...filterValues, page: currentPage },
+          id,
+          setIsLoading
+        ).then((result) => {
+          setData(result);
+          console.log(result);
+        });
+      }, 20000);
+    }
+  }, []);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
