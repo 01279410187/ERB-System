@@ -61,10 +61,8 @@ const ShowDataModal = ({
 
   const handleEditClick = async () => {
     await updateFn(editedData, id);
-    if (closeAfterEdit) {
-      handleModalVisible(false);
-      window.location.reload();
-    }
+    handleModalVisible(false);
+
   };
 
   const handleRejectClick = () => {
@@ -119,11 +117,11 @@ const ShowDataModal = ({
                       <td key={index}>
                         {header.isInput
                           ? renderInputField(
-                              header.key,
-                              responseData[header.key],
-                              null,
-                              null
-                            )
+                            header.key,
+                            responseData[header.key],
+                            null,
+                            null
+                          )
                           : responseData[header.key]}
                       </td>
                     );
@@ -153,11 +151,11 @@ const ShowDataModal = ({
                           <td key={detail.key}>
                             {detail.isInput
                               ? renderInputField(
-                                  header.key,
-                                  item[detail.key],
-                                  itemIndex,
-                                  detail.key
-                                )
+                                header.key,
+                                item[detail.key],
+                                itemIndex,
+                                detail.key
+                              )
                               : item[detail.key]}
                           </td>
                         ))}

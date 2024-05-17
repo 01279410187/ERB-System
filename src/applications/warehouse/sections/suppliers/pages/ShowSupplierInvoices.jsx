@@ -29,13 +29,12 @@ const ShowSupplierInvoices = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "show supplier invoices"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "show supplier invoices"
+      )
           ? "show"
           : ""
-      }`,
+        }`,
       label: "تفاصيل",
     },
   ];
@@ -103,8 +102,8 @@ const ShowSupplierInvoices = () => {
         filters={filters}
         actions={actions}
         detailsHeaders={detailsHeaders}
-        updateFn={() => {}}
-        changeStatusFn={() => {}}
+      // updateFn={() => {}}
+      // changeStatusFn={() => {}}
       />
     </div>
   );
