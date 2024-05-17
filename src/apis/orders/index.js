@@ -83,6 +83,7 @@ export async function updateProductQuantityInOrder(editedData, id) {
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/orders/product/update/${editedData["product_id_in_order"]}`,
+      { quantity: editedData.quantity },
       {
         headers: {
           Authorization: `Bearer ${Token}`,

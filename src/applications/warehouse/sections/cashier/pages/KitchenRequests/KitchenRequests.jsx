@@ -42,24 +42,26 @@ const KitchenRequests = () => {
     // { key: "id", value: "كود الأوردر" },
     { key: "status", value: "الحالة" },
     { key: "order_date", value: "التاريخ" },
+    { key: "client", value: "إسم العميل" },
+    { key: "client_type", value: "نوع العميل" },
   ];
   const filters = [
     { key: "from_date", type: "date", id: "من تاريخ" },
     { key: "to_date", type: "date", id: "إلى تاريخ" },
-    {
-      key: "user_id",
-      type: "selection",
-      id: "من",
-      placeholder: "المستخدمين",
-      options: users,
-    },
-    {
-      key: "department_id",
-      type: "selection",
-      id: "إلى",
-      placeholder: "الأقسام",
-      options: departments,
-    },
+    // {
+    //   key: "user_id",
+    //   type: "selection",
+    //   id: "من",
+    //   placeholder: "المستخدمين",
+    //   options: users,
+    // },
+    // {
+    //   key: "department_id",
+    //   type: "selection",
+    //   id: "إلى",
+    //   placeholder: "الأقسام",
+    //   options: departments,
+    // },
     {
       key: "status",
       type: "selection",
@@ -71,20 +73,16 @@ const KitchenRequests = () => {
           label: "",
         },
         {
-          value: "pending",
-          label: "تحت المراجعة",
+          value: "processing",
+          label: "تحت التجهيز",
         },
         {
-          value: "approved",
-          label: "تم المراجعة",
+          value: "completed",
+          label: "تم التجهيز",
         },
         {
           value: "done",
-          label: "تم الصرف",
-        },
-        {
-          value: "rejected",
-          label: "مرفوض",
+          label: "تم الدفع",
         },
       ],
     },
@@ -138,10 +136,10 @@ const KitchenRequests = () => {
         actions={actions}
         deleteFn={deleteOrder}
         showFn={getOrderById}
-        // updateFn={updateRequests}
         changeStatusFn={changeOrderStatus}
         detailsHeaders={detailsHeaders}
-        acceptTitle={"processing"}
+        acceptTitle={{ value: "completed", label: "جهز" }}
+        rejectTitle={{ value: "closed", label: "إغلاق" }}
       />
     </div>
   );

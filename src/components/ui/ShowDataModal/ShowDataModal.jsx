@@ -70,12 +70,12 @@ const ShowDataModal = ({
   };
 
   const handleRejectClick = async () => {
-    await changeStatusFn(responseData.id, rejectTitle);
+    await changeStatusFn(responseData.id, rejectTitle.value);
     handleModalVisible(false);
   };
 
   const handleAcceptClick = async () => {
-    await changeStatusFn(responseData.id, acceptTitle);
+    await changeStatusFn(responseData.id, acceptTitle.value);
     handleModalVisible(false);
   };
 
@@ -177,21 +177,18 @@ const ShowDataModal = ({
               تعديل
             </button>
           )}
-          {changeStatusFn && (
-            <>
-              <button
-                className="data-modal-btn delete"
-                onClick={handleRejectClick}
-              >
-                رفض
-              </button>
-              <button
-                className="data-modal-btn show"
-                onClick={handleAcceptClick}
-              >
-                قبول
-              </button>
-            </>
+          {changeStatusFn && acceptTitle && (
+            <button className="data-modal-btn show" onClick={handleRejectClick}>
+              {rejectTitle.label}
+            </button>
+          )}
+          {changeStatusFn && rejectTitle && (
+            <button
+              onClick={handleAcceptClick}
+              className="data-modal-btn delete"
+            >
+              {acceptTitle.label}
+            </button>
           )}
         </div>
       </div>
