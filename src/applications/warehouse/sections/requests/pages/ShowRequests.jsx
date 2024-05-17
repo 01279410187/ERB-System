@@ -4,6 +4,7 @@ import {
   deleteRequest,
   getRequestById,
   updateRequests,
+  changeRequestStatus,
 } from "../../../../../apis/requests";
 import { getAllUsers } from "../../../../../apis/users";
 import { getAllDepartments } from "../../../../../apis/departments";
@@ -123,21 +124,31 @@ const ShowRequests = () => {
       label: "إضافة طلبات",
       route: "/warehouse/requests/add-request",
     },
-  ];
-  const detailsHeaders = [
     {
-      key: "name",
-      label: "الإسم",
-    },
-    {
-      key: "quantity",
-      label: "الكمية",
-    },
-    {
-      key: "image",
-      label: "الصورة",
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "expire_date limit"
+      )
+        ? "show"
+        : ""
+        }`,
+      label: "التفاصيل",
     },
   ];
+
+  const tableHeadersDetailes = [
+    {
+      key: "recipes",
+      label: "المكونات",
+      isArray: true,
+      isInput: true,
+      details: [
+        { key: "name", label: "الاسم", isInput: false },
+        // { key: "price", label: "السعر", isInput: false },
+        { key: "quantity", label: "الكمية", isInput: false },
+      ],
+    },
+  ]
+
 
   return (
     <div>
@@ -145,15 +156,16 @@ const ShowRequests = () => {
         headers={tableHeaders}
         title="الطلبات"
         filters={filters}
+        header={"recipes"}
         fetchData={(filterValues, id, setIsLoading) =>
           getRequests(filterValues, id, setIsLoading)
         }
 
         actions={actions}
         deleteFn={deleteRequest}
-        updateFn={updateRequests}
-        changeStatusFn={() => { }}
-        detailsHeaders={detailsHeaders}
+        updateFn={user.permissions.some((permission) => permission.name === "edit request") ? updateRequests : null}
+        changeStatusFn={user.permissions.some((permission) => permission.name === "change request status") ? changeRequestStatus : null}
+        detailsHeaders={tableHeadersDetailes}
       />
     </div>
   );

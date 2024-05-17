@@ -89,23 +89,21 @@ const KitchenRequests = () => {
   ];
   const actions = [
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "delete order"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "delete order"
+      )
           ? "delete"
           : ""
-      }`,
+        }`,
       label: "حذف",
     },
     {
-      type: `${
-        user?.permissions.some(
-          (permission) => permission.name === "change order status"
-        )
+      type: `${user?.permissions.some(
+        (permission) => permission.name === "change order status kitchen"
+      )
           ? "show"
           : ""
-      }`,
+        }`,
       label: "تفاصيل",
     },
   ];

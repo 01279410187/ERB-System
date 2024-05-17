@@ -247,11 +247,28 @@ function Categories(props) {
     },
   ];
 
+  // const CategoriesData = [
+  //   {
+  //     cat: `${user?.department.type === "master"
+  //       ? "فاتورة مورد"
+  //       : ""
+  //       }`, type: `${user?.department.type === "master"
+  //         ? "inComing"
+  //         : ""
+  //         }`
+  //   },
+  //   { cat: "فاتورة صرف القسم", type: "outGoing" },
+  //   { cat: "فاتورة مرتجع من القسم", type: "returnd" },
+  // ];
+
   const CategoriesData = [
-    { cat: "فاتورة مورد", type: "inComing" },
+    ...(user?.department.type === "source" || user?.department.type === "master"
+      ? [{ cat: "فاتورة مورد", type: "inComing" }]
+      : []),
     { cat: "فاتورة صرف القسم", type: "outGoing" },
     { cat: "فاتورة مرتجع من القسم", type: "returnd" },
   ];
+
 
   const handleCategoryClick = (type) => {
     setSelectedCategory(type);
@@ -273,23 +290,26 @@ function Categories(props) {
           ))}
         </div>
         <div className="invoice-table">
-          {selectedCategory === "inComing" && (
-            <Table
-              headers={tableHeaders}
-              filters={filtersIncoming}
-              title="فاتورة مورد"
-              actions={actionsIncoming}
-              fetchData={(filters, id, setIsLoading) =>
-                getIncomingInvoiceByType(filters, id, setIsLoading)
-              }
-              detailsHeaders={detailsHeaders}
-              updateFn={updateInvoiceQuintity}
-              // closeAfterEdit={true}
-              // acceptTitle={{ value: 'approved', label: 'قبول' }}
-              // rejectTitle={{ value: 'rejected', label: 'رفض' }}
-              changeStatusFn={user.permissions.some((permission) => permission.name === "change invoice status") ? changeInvoiceStatus : null}
-            />
-          )}
+          {user?.department.type === "source" || user?.department.type === "master" ? <>
+            {selectedCategory === "inComing" && (
+              <Table
+                headers={tableHeaders}
+                filters={filtersIncoming}
+                title="فاتورة مورد"
+                actions={actionsIncoming}
+                fetchData={(filters, id, setIsLoading) =>
+                  getIncomingInvoiceByType(filters, id, setIsLoading)
+                }
+                detailsHeaders={detailsHeaders}
+                updateFn={updateInvoiceQuintity}
+                // closeAfterEdit={true}
+                // acceptTitle={{ value: 'approved', label: 'قبول' }}
+                // rejectTitle={{ value: 'rejected', label: 'رفض' }}
+                changeStatusFn={user.permissions.some((permission) => permission.name === "change invoice status") ? changeInvoiceStatus : null}
+              />
+            )}
+          </> : null}
+
           {selectedCategory === "outGoing" && (
             <Table
               headers={tableHeaders}
