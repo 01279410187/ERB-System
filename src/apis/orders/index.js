@@ -83,7 +83,6 @@ export async function updateProductQuantityInOrder(editedData, id) {
   try {
     const res = await axios.post(
       `${API_ENDPOINT}/api/v1/orders/product/update/${editedData["product_id_in_order"]}`,
-      // Pass editedData as the request body directly
       { quantity: editedData.quantity },
       {
         headers: {
@@ -101,6 +100,7 @@ export async function deleteProductQuantityInOrder(id) {
   try {
     const res = await axios.delete(
       `${API_ENDPOINT}/api/v1/orders/product/delete/${id}`,
+
       {
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -108,6 +108,23 @@ export async function deleteProductQuantityInOrder(id) {
       }
     );
     message.success("تم حذف المنتج بنجاح");
+    return res.data;
+  } catch (error) {
+    message.error(error.response.data.error.message);
+    console.log("Error fetching data:", error);
+  }
+}
+export async function changeOrderStatus(id, status) {
+  try {
+    const res = await axios.post(
+      `${API_ENDPOINT}/api/v1/orders/update/status/${id}`,
+      { status },
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
     return res.data;
   } catch (error) {
     message.error(error.response.data.error.message);

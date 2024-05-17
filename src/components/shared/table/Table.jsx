@@ -19,6 +19,8 @@ const Table = ({
   header,
   updateFn,
   changeStatusFn,
+  rejectTitle,
+  acceptTitle,
 }) => {
   const [data, setData] = useState([]);
   const [item, setItem] = useState({});
@@ -123,6 +125,12 @@ const Table = ({
         return <p className="status rejected">مرفوض</p>;
       case "done":
         return <p className="status done">تم الصرف</p>;
+      case "processing":
+        return <p className="status pending">تحت التجهيز</p>;
+      case "completed":
+        return <p className="status approved">تم التجهيز</p>;
+      case "closed":
+        return <p className="status done">تم الدفع</p>;
       default:
         break;
     }
@@ -352,6 +360,8 @@ const Table = ({
       {isShowModalVisible && (
         <ShowDataModal
           id={id}
+          acceptTitle={acceptTitle}
+          rejectTitle={rejectTitle}
           responseData={item}
           header={header}
           handleModalVisible={setisShowModalVisible}

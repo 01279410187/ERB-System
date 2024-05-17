@@ -53,6 +53,14 @@ const OrderDetails = () => {
             )}
           </div>
           <h2>المنتجات:</h2>
+          <button
+            className="add-btn"
+            onClick={() => {
+              navigate(`/warehouse/cashier/${id}/add-products-to-order`);
+            }}
+          >
+            إضافة منتجات
+          </button>
           <ul className="order-details-container">
             {order.products &&
               order.products.map((product, index) => {
@@ -71,37 +79,33 @@ const OrderDetails = () => {
                       <p>السعر: {product.price} جم</p>
                       <p>الكمية: {product.quantity}</p>
                     </div>
-                    <button
-                      onClick={async () => {
-                        setCurrentProductId(product.id);
-                        setCurrentProduct(product);
-                        setisModalVisible(true);
-                      }}
-                    >
-                      تعديل
-                    </button>
-                    <button
-                      onClick={async () => {
-                        await deleteProductQuantityInOrder(
-                          product.product_id_in_order
-                        );
-                        window.location.reload();
-                      }}
-                    >
-                      حذف
-                    </button>
+                    <div className="product-buttons">
+
+                      <button
+                        className="product-button edit"
+                        onClick={async () => {
+                          setCurrentProductId(product.id);
+                          setCurrentProduct(product);
+                          setisModalVisible(true);
+                        }}
+                      >
+                        تعديل
+                      </button>
+                      <button
+                        className="product-button delete"
+                        onClick={async () => {
+                          await deleteProductQuantityInOrder(
+                            product.product_id_in_order
+                          );
+                          window.location.reload();
+                        }}
+                      >
+                        حذف
+                      </button>
+                    </div>
                   </li>
                 );
               })}
-            <li className="order">
-              <button
-                onClick={() => {
-                  navigate(`/warehouse/cashier/${id}/add-products-to-order`);
-                }}
-              >
-                إضافة
-              </button>
-            </li>
           </ul>
         </div>
       )}

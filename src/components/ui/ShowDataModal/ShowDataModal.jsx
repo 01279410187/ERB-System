@@ -8,6 +8,8 @@ const ShowDataModal = ({
   changeStatusFn,
   handleModalVisible,
   closeAfterEdit,
+  acceptTitle,
+  rejectTitle,
 }) => {
   const [editedData, setEditedData] = useState(null);
   console.log(id);
@@ -67,14 +69,13 @@ const ShowDataModal = ({
     }
   };
 
-  const handleRejectClick = () => {
-    changeStatusFn(responseData.id, "rejected");
+  const handleRejectClick = async () => {
+    await changeStatusFn(responseData.id, rejectTitle.value);
     handleModalVisible(false);
   };
 
-  const handleAcceptClick = () => {
-    console.log(id);
-    changeStatusFn(responseData.id, "approved");
+  const handleAcceptClick = async () => {
+    await changeStatusFn(responseData.id, acceptTitle.value);
     handleModalVisible(false);
   };
 
@@ -176,21 +177,18 @@ const ShowDataModal = ({
               تعديل
             </button>
           )}
-          {changeStatusFn && updateFn && (
-            <>
-              <button
-                className="data-modal-btn delete"
-                onClick={handleRejectClick}
-              >
-                رفض
-              </button>
-              <button
-                className="data-modal-btn show"
-                onClick={handleAcceptClick}
-              >
-                قبول
-              </button>
-            </>
+          {changeStatusFn && acceptTitle && (
+            <button className="data-modal-btn show" onClick={handleRejectClick}>
+              {rejectTitle.label}
+            </button>
+          )}
+          {changeStatusFn && rejectTitle && (
+            <button
+              onClick={handleAcceptClick}
+              className="data-modal-btn delete"
+            >
+              {acceptTitle.label}
+            </button>
           )}
         </div>
       </div>
