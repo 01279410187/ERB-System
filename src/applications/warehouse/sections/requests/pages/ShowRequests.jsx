@@ -100,8 +100,8 @@ const ShowRequests = () => {
       type: `${user?.permissions.some(
         (permission) => permission.name === "delete request"
       )
-        ? "delete"
-        : ""
+          ? "delete"
+          : ""
         }`,
       label: "حذف",
     },
@@ -109,8 +109,8 @@ const ShowRequests = () => {
       type: `${user?.permissions.some(
         (permission) => permission.name === "edit request"
       )
-        ? "show"
-        : ""
+          ? "show"
+          : ""
         }`,
       label: "مراجعة",
     },
@@ -118,8 +118,8 @@ const ShowRequests = () => {
       type: `${user?.permissions.some(
         (permission) => permission.name === "add request"
       )
-        ? "add"
-        : ""
+          ? "add"
+          : ""
         }`,
       label: "إضافة طلبات",
       route: "/warehouse/requests/add-request",
@@ -128,8 +128,8 @@ const ShowRequests = () => {
       type: `${user?.permissions.some(
         (permission) => permission.name === "expire_date limit"
       )
-        ? "show"
-        : ""
+          ? "show"
+          : ""
         }`,
       label: "التفاصيل",
     },
@@ -144,11 +144,18 @@ const ShowRequests = () => {
       details: [
         { key: "name", label: "الاسم", isInput: false },
         // { key: "price", label: "السعر", isInput: false },
-        { key: "quantity", label: "الكمية", isInput: user.permissions.some((permission) => permission.name === "edit request") ? true : false },
+        {
+          key: "quantity",
+          label: "الكمية",
+          isInput: user.permissions.some(
+            (permission) => permission.name === "edit request"
+          )
+            ? true
+            : false,
+        },
       ],
     },
-  ]
-
+  ];
 
   return (
     <div>
@@ -160,11 +167,24 @@ const ShowRequests = () => {
         fetchData={(filterValues, id, setIsLoading) =>
           getRequests(filterValues, id, setIsLoading)
         }
-
         actions={actions}
         deleteFn={deleteRequest}
-        updateFn={user.permissions.some((permission) => permission.name === "edit request") ? updateRequests : null}
-        changeStatusFn={user.permissions.some((permission) => permission.name === "change request status") ? changeRequestStatus : null}
+        acceptTitle={"approved"}
+        rejectTitle={"rejected"}
+        updateFn={
+          user.permissions.some(
+            (permission) => permission.name === "edit request"
+          )
+            ? updateRequests
+            : null
+        }
+        changeStatusFn={
+          user.permissions.some(
+            (permission) => permission.name === "change request status"
+          )
+            ? changeRequestStatus
+            : null
+        }
         detailsHeaders={tableHeadersDetailes}
       />
     </div>

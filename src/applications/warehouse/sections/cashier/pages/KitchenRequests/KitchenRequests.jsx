@@ -39,15 +39,17 @@ const KitchenRequests = () => {
   }, []);
   const tableHeaders = [
     { key: "discount_name", value: "سبب الخصم" },
-    // { key: "id", value: "كود الأوردر" },
+    { key: "table_number", value: "رقم الترابيزة" },
     { key: "status", value: "الحالة" },
+    { key: "code", value: "كود الأوردر" },
     { key: "order_date", value: "التاريخ" },
     { key: "client", value: "إسم العميل" },
     { key: "client_type", value: "نوع العميل" },
   ];
   const filters = [
-    { key: "from_date", type: "date", id: "من تاريخ" },
-    { key: "to_date", type: "date", id: "إلى تاريخ" },
+    // { key: "from_date", type: "date", id: "من تاريخ" },
+    // { key: "to_date", type: "date", id: "إلى تاريخ" },
+    { key: "code", type: "text", id: "كود الفاتورة" },
     // {
     //   key: "user_id",
     //   type: "selection",
@@ -81,30 +83,39 @@ const KitchenRequests = () => {
           label: "تم التجهيز",
         },
         {
-          value: "done",
+          value: "closed",
           label: "تم الدفع",
         },
       ],
     },
   ];
   const actions = [
+    // {
+    //   type: `${
+    //     user?.permissions.some(
+    //       (permission) => permission.name === "delete order"
+    //     )
+    //       ? "delete"
+    //       : ""
+    //   }`,
+    //   label: "حذف",
+    // },
     {
-      type: `${user?.permissions.some(
-        (permission) => permission.name === "delete order"
-      )
-          ? "delete"
-          : ""
-        }`,
-      label: "حذف",
-    },
-    {
-      type: `${user?.permissions.some(
-        (permission) => permission.name === "change order status kitchen"
-      )
+      type: `${
+        user?.permissions.some(
+          (permission) =>
+            permission.name === "add order" ||
+            permission.name === "change order status cashier"
+        )
           ? "show"
           : ""
-        }`,
-      label: "تفاصيل",
+      }`,
+      label: "تعديل الحالة",
+    },
+    {
+      type: `${"navigate"}`,
+      label: "طباعة",
+      route: "/warehouse/cashier/print-order/:id",
     },
   ];
   const detailsHeaders = [
@@ -128,16 +139,30 @@ const KitchenRequests = () => {
         title="الأوردرات"
         filters={filters}
         fetchData={(filterValues, id, setIsLoading) =>
-          getOrders(filterValues, id, setIsLoading)
+          getOrders(
+            filterValues,
+            user?.department.type === "reciver" ? user?.department.id : null,
+            setIsLoading
+          )
         }
-        header={"products"}
         actions={actions}
         deleteFn={deleteOrder}
-        showFn={getOrderById}
         changeStatusFn={changeOrderStatus}
         detailsHeaders={detailsHeaders}
-        acceptTitle={{ value: "completed", label: "جهز" }}
-        rejectTitle={{ value: "closed", label: "إغلاق" }}
+        acceptTitle={
+          user?.permissions.some(
+            (permission) => permission.name === "change order status kitchen"
+          )
+            ? { value: "completed", label: "جهز" }
+            : null
+        }
+        rejectTitle={
+          user?.permissions.some(
+            (permission) => permission.name === "change order status cashier"
+          )
+            ? { value: "closed", label: "إنهاء الأوردر" }
+            : null
+        }
       />
     </div>
   );

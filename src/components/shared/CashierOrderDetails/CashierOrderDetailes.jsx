@@ -46,7 +46,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
   const fetchProductCategoryParents = async () => {
     try {
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/store/sub_categories/mobile`,
+        `${API_ENDPOINT}/api/v1/product/subcategories/department`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,
@@ -67,7 +67,7 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
       const Token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
       const response = await fetch(
-        `${API_ENDPOINT}/api/v1/store/products/subcategory/${parentId}`,
+        `${API_ENDPOINT}/api/v1/product/subcategory/${parentId}`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,
@@ -197,11 +197,11 @@ const CashierOrderDetailes = ({ onAddItem, onDeleteItem }) => {
       </div>
       <div
         className="form-radio-cont"
-      // style={{
-      //   alignSelf: "center",
-      //   display: "flex",
-      //   gap: "1rem",
-      // }}
+        // style={{
+        //   alignSelf: "center",
+        //   display: "flex",
+        //   gap: "1rem",
+        // }}
       >
         <label htmlFor="">نوع المنتج:</label>
         <label className="form-radio-btn">

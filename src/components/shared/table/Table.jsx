@@ -7,6 +7,7 @@ import DeleteModal from "../../ui/DeleteModal/DeleteModal";
 import ShowDataModal from "../../ui/ShowDataModal/ShowDataModal";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import { useAuth } from "../../../context/AuthContext";
 const Table = ({
   headers,
   title,
@@ -23,6 +24,7 @@ const Table = ({
   acceptTitle,
   closeAfterEdit
 }) => {
+  const { user } = useAuth();
   const [data, setData] = useState([]);
   const [item, setItem] = useState({});
   const [isDeleteModalVisible, setisDeleteModalVisible] = useState(false);
@@ -92,6 +94,7 @@ const Table = ({
   };
 
   const handleShowData = (item) => {
+    console.log(item);
     setItem(item);
     setisShowModalVisible(true);
   };
@@ -103,6 +106,7 @@ const Table = ({
     );
   };
   const handleEdit = (item) => {
+    console.log(item);
     setItem(item);
     navigate(
       actions

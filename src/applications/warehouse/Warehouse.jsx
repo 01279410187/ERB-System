@@ -6,6 +6,7 @@ import { SidebarContext } from "../../context/SidebarContext";
 import { useAuth } from "../../context/AuthContext";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import WebSocketComponent from "./sections/WebSocket";
 const Warehouse = () => {
   const { checkAuthUser, isLoading } = useAuth();
   const location = useLocation();
@@ -22,6 +23,7 @@ const Warehouse = () => {
   }, []);
   return (
     <>
+      <WebSocketComponent />
       {!isLoading && (
         <>
           <Sidebar />

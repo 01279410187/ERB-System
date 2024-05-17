@@ -300,6 +300,7 @@ const AddCashierOrder = () => {
     );
     formData.append("client_type_id", newUserValues["client_type_id"]);
     formData.append("military_number", newUserValues["military_number"]);
+    formData.append("department_id", user?.department.id);
     formData.append("name", newUserValues["name"]);
     formData.append("phone", newUserValues["phone"]);
     formData.append("tax", 0);
@@ -506,8 +507,8 @@ const AddCashierOrder = () => {
 
         <div>
           <label className="form-cashier-label">ملاحظة : </label>
-          <textarea className="form-cashier-txt-area"
-
+          <textarea
+            className="form-cashier-txt-area"
             onChange={(e) => handleNewUserFormChange("comment", e.target.value)}
           ></textarea>
         </div>

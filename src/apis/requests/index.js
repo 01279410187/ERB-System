@@ -1,8 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
 const domain = API_ENDPOINT;
-const Token =
-  localStorage.getItem("token") || sessionStorage.getItem("token");
+const Token = localStorage.getItem("token") || sessionStorage.getItem("token");
 export async function getRequests(filteredValues, id, setIsLoading) {
   try {
     setIsLoading(true);
@@ -34,11 +33,12 @@ export async function getRequests(filteredValues, id, setIsLoading) {
 export async function deleteRequest(id) {
   try {
     const res = await axios.delete(
-      `${domain}/api/v1/store/request/delete/${id}`, {
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
-    }
+      `${domain}/api/v1/store/request/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
     );
     return res.data;
   } catch (error) {
@@ -78,32 +78,27 @@ export async function getRequestById(id) {
     console.log("Error fetching data:", error);
   }
 }
-export async function updateRequests(filteredValues, id) {
+export async function updateRequests(filteredValues, itemId, parentId) {
   try {
-    const { title, date, status, inputValues, page } = filteredValues;
-    console.log(inputValues);
-    const recipesParams = Object.keys(inputValues).map((recipe, index) => ({
-      [`recipes[${index}][price]`]: inputValues[recipe].price,
-    }));
-    const flattenedParams = recipesParams.reduce(
-      (acc, curr) => ({ ...acc, ...curr }),
-      {}
-    );
-    console.log(flattenedParams);
-    const res = await axios.get(`${domain}/api/v1/store/request`, {
-      params: {
-        title,
-        date,
-        ...flattenedParams,
-        user_id: id,
-        status,
-        page,
-        _method: "PUT",
-      },
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
+    const formData = new FormData();
+    Object.keys(filteredValues.recipes).forEach((key, index) => {
+      formData.append(`recipes[${index}][id]`, filteredValues.recipes[key].id);
+      formData.append(
+        `recipes[${index}][quantity]`,
+        filteredValues.recipes[key].quantity
+      );
     });
+    formData.append("_method", "PUT");
+
+    const res = await axios.post(
+      `${domain}/api/v1/store/request/update/${itemId}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }
+    );
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
