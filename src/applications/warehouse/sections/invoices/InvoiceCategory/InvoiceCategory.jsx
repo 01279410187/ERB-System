@@ -284,6 +284,7 @@ function Categories(props) {
               }
               detailsHeaders={detailsHeaders}
               updateFn={updateInvoiceQuintity}
+              // closeAfterEdit={true}
 
               changeStatusFn={user.permissions.some((permission) => permission.name === "change invoice status") ? changeInvoiceStatus : null}
             />
