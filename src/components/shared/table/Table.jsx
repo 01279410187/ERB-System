@@ -22,6 +22,7 @@ const Table = ({
   changeStatusFn,
   rejectTitle,
   acceptTitle,
+  closeAfterEdit
 }) => {
   const { user } = useAuth();
   const [data, setData] = useState([]);
@@ -372,6 +373,7 @@ const Table = ({
           detailsHeaders={detailsHeaders}
           updateFn={updateFn}
           changeStatusFn={changeStatusFn}
+          closeAfterEdit={closeAfterEdit}
         />
       )}
     </section>

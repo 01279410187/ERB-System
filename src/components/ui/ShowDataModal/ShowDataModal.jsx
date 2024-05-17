@@ -8,8 +8,6 @@ const ShowDataModal = ({
   changeStatusFn,
   handleModalVisible,
   closeAfterEdit,
-  acceptTitle,
-  rejectTitle,
 }) => {
   const [editedData, setEditedData] = useState(null);
   console.log(id);
@@ -63,19 +61,18 @@ const ShowDataModal = ({
 
   const handleEditClick = async () => {
     await updateFn(editedData, id);
-    if (closeAfterEdit) {
-      handleModalVisible(false);
-      window.location.reload();
-    }
+    handleModalVisible(false);
+    if (closeAfterEdit) window.location.reload();
   };
 
-  const handleRejectClick = async () => {
-    await changeStatusFn(responseData.id, rejectTitle.value);
+  const handleRejectClick = () => {
+    changeStatusFn(responseData.id, "rejected");
     handleModalVisible(false);
   };
 
-  const handleAcceptClick = async () => {
-    await changeStatusFn(responseData.id, acceptTitle.value);
+  const handleAcceptClick = () => {
+    console.log(id);
+    changeStatusFn(responseData.id, "approved");
     handleModalVisible(false);
   };
 
