@@ -8,8 +8,6 @@ const ShowDataModal = ({
   changeStatusFn,
   handleModalVisible,
   closeAfterEdit,
-  acceptTitle,
-  rejectTitle,
 }) => {
   const [editedData, setEditedData] = useState(null);
   console.log(id);
@@ -63,19 +61,18 @@ const ShowDataModal = ({
 
   const handleEditClick = async () => {
     await updateFn(editedData, id);
-    if (closeAfterEdit) {
-      handleModalVisible(false);
-      window.location.reload();
-    }
+    handleModalVisible(false);
+
   };
 
-  const handleRejectClick = async () => {
-    await changeStatusFn(responseData.id, rejectTitle.value);
+  const handleRejectClick = () => {
+    changeStatusFn(responseData.id, "rejected");
     handleModalVisible(false);
   };
 
-  const handleAcceptClick = async () => {
-    await changeStatusFn(responseData.id, acceptTitle.value);
+  const handleAcceptClick = () => {
+    console.log(id);
+    changeStatusFn(responseData.id, "approved");
     handleModalVisible(false);
   };
 
@@ -120,11 +117,11 @@ const ShowDataModal = ({
                       <td key={index}>
                         {header.isInput
                           ? renderInputField(
-                              header.key,
-                              responseData[header.key],
-                              null,
-                              null
-                            )
+                            header.key,
+                            responseData[header.key],
+                            null,
+                            null
+                          )
                           : responseData[header.key]}
                       </td>
                     );
@@ -154,11 +151,11 @@ const ShowDataModal = ({
                           <td key={detail.key}>
                             {detail.isInput
                               ? renderInputField(
-                                  header.key,
-                                  item[detail.key],
-                                  itemIndex,
-                                  detail.key
-                                )
+                                header.key,
+                                item[detail.key],
+                                itemIndex,
+                                detail.key
+                              )
                               : item[detail.key]}
                           </td>
                         ))}
@@ -177,18 +174,21 @@ const ShowDataModal = ({
               تعديل
             </button>
           )}
-          {changeStatusFn && acceptTitle && (
-            <button className="data-modal-btn show" onClick={handleRejectClick}>
-              {rejectTitle.label}
-            </button>
-          )}
-          {changeStatusFn && rejectTitle && (
-            <button
-              onClick={handleAcceptClick}
-              className="data-modal-btn delete"
-            >
-              {acceptTitle.label}
-            </button>
+          {changeStatusFn && updateFn && (
+            <>
+              <button
+                className="data-modal-btn delete"
+                onClick={handleRejectClick}
+              >
+                رفض
+              </button>
+              <button
+                className="data-modal-btn show"
+                onClick={handleAcceptClick}
+              >
+                قبول
+              </button>
+            </>
           )}
         </div>
       </div>

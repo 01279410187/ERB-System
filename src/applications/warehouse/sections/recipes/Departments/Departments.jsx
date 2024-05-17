@@ -42,19 +42,19 @@ function Departments() {
       <h1 className="heading text-center p-3">اقسام المخزن </h1>
       <div className="btn-container">
         {user?.permissions.some(
-          (permission) => permission.name === "create department"
+          (permission) => permission.name === "create recipe_category_parent"
         ) && (
-          <button className="dept-btn" onClick={handleAddDepartment}>
-            +اضافة قسم
-          </button>
-        )}
+            <button className="dept-btn" onClick={handleAddDepartment}>
+              +اضافة قسم
+            </button>
+          )}
         {user?.permissions.some(
-          (permission) => permission.name === "view departments"
+          (permission) => permission.name === "view recipe_categories"
         ) && (
-          <button className="dept-btn" onClick={handleSearchDepartment}>
-            +بحث عن قسم
-          </button>
-        )}
+            <button className="dept-btn" onClick={handleSearchDepartment}>
+              +بحث عن قسم
+            </button>
+          )}
       </div>
       <div className="cards-container">
         <div className="row">
