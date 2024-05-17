@@ -97,40 +97,44 @@ const ShowRequests = () => {
   ];
   const actions = [
     {
-      type: `${user?.permissions.some(
-        (permission) => permission.name === "delete request"
-      )
-        ? "delete"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "delete request"
+        )
+          ? "delete"
+          : ""
+      }`,
       label: "حذف",
     },
     {
-      type: `${user?.permissions.some(
-        (permission) => permission.name === "edit request"
-      )
-        ? "show"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "edit request"
+        )
+          ? "show"
+          : ""
+      }`,
       label: "مراجعة",
     },
     {
-      type: `${user?.permissions.some(
-        (permission) => permission.name === "add request"
-      )
-        ? "add"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "add request"
+        )
+          ? "add"
+          : ""
+      }`,
       label: "إضافة طلبات",
       route: "/warehouse/requests/add-request",
     },
     {
-      type: `${user?.permissions.some(
-        (permission) => permission.name === "expire_date limit"
-      )
-        ? "show"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "expire_date limit"
+        )
+          ? "show"
+          : ""
+      }`,
       label: "التفاصيل",
     },
   ];
@@ -144,11 +148,18 @@ const ShowRequests = () => {
       details: [
         { key: "name", label: "الاسم", isInput: false },
         // { key: "price", label: "السعر", isInput: false },
-        { key: "quantity", label: "الكمية", isInput: false },
+        {
+          key: "quantity",
+          label: "الكمية",
+          isInput: user.permissions.some(
+            (permission) => permission.name === "edit request"
+          )
+            ? true
+            : false,
+        },
       ],
     },
-  ]
-
+  ];
 
   return (
     <div>
@@ -160,11 +171,24 @@ const ShowRequests = () => {
         fetchData={(filterValues, id, setIsLoading) =>
           getRequests(filterValues, id, setIsLoading)
         }
-
         actions={actions}
         deleteFn={deleteRequest}
-        updateFn={user.permissions.some((permission) => permission.name === "edit request") ? updateRequests : null}
-        changeStatusFn={user.permissions.some((permission) => permission.name === "change request status") ? changeRequestStatus : null}
+        acceptTitle={"approved"}
+        rejectTitle={"rejected"}
+        updateFn={
+          user.permissions.some(
+            (permission) => permission.name === "edit request"
+          )
+            ? updateRequests
+            : null
+        }
+        changeStatusFn={
+          user.permissions.some(
+            (permission) => permission.name === "change request status"
+          )
+            ? changeRequestStatus
+            : null
+        }
         detailsHeaders={tableHeadersDetailes}
       />
     </div>

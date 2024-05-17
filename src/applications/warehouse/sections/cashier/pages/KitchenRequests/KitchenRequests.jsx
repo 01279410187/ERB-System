@@ -39,6 +39,7 @@ const KitchenRequests = () => {
   }, []);
   const tableHeaders = [
     { key: "discount_name", value: "سبب الخصم" },
+    { key: "table_number", value: "رقم الترابيزة" },
     { key: "status", value: "الحالة" },
     { key: "code", value: "كود الأوردر" },
     { key: "order_date", value: "التاريخ" },
@@ -103,7 +104,7 @@ const KitchenRequests = () => {
       type: `${
         user?.permissions.some(
           (permission) =>
-            permission.name === "change order status kitchen" ||
+            permission.name === "add order" ||
             permission.name === "change order status cashier"
         )
           ? "show"

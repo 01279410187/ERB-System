@@ -754,7 +754,7 @@ function App() {
                 <ProtectedRoute
                   requiredPermission={{
                     id: 123,
-                    name: "edit order",
+                    name: "add order",
                   }}
                 >
                   <PrintOrder />

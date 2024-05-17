@@ -130,7 +130,7 @@ export async function getRecipesById(id, departmentId) {
   try {
     const res = await axios.get(`${domain}/api/v1/store/recipe/${id}`, {
       params: {
-        department_id: departmentId
+        department_id: departmentId,
       },
       headers: {
         Authorization: `Bearer ${Token}`,
@@ -411,10 +411,12 @@ export async function updateInvoiceQuintity(filteredValues, id) {
     // Add other fields as needed, for example quantity, expire_date, etc.
     formData.append(
       `recipes[${index}][quantity]`,
-      filteredValues.recipes[key].quantity);
+      filteredValues.recipes[key].quantity
+    );
     formData.append(
       `recipes[${index}][expire_date]`,
-      filteredValues.recipes[key].expire_date);
+      filteredValues.recipes[key].expire_date
+    );
   });
   formData.append("_method", "PUT");
   try {
@@ -432,6 +434,7 @@ export async function updateInvoiceQuintity(filteredValues, id) {
     return res.data;
   } catch (error) {
     console.log("Error fetching data:", error);
+    message.error(error.response.data.error.message);
   }
 }
 

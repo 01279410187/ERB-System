@@ -95,6 +95,7 @@ export async function AddUsers(data) {
 export async function updateUser(data, id) {
   const formData = new FormData();
   formData.append("role", data.role);
+  formData.append("_method", "PUT");
   data.permissions.map((permission, index) => {
     formData.append(`permissions[ids][${index}]`, permission.id);
   });

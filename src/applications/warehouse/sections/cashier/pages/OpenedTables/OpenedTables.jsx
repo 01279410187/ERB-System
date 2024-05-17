@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { getAllTables } from "../../../../../../apis/cashier";
 import TableCard from "../../../../../../components/ui/TableCard/TableCard";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import "./OpenedTables.scss";
 const OpenedTables = () => {
   const [tables, setTables] = useState([]);
   const [order, setOrder] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const getTables = async () => {
-      const res = await getAllTables();
+      const res = await getAllTables(setIsLoading);
       setTables(res.data);
       console.log(res.data);
     };
@@ -29,7 +32,10 @@ const OpenedTables = () => {
               />
             );
           })}
-        {tables.length === 0 && <p>لا يوجد نتائج</p>}
+        {tables.length === 0 && !isLoading && <p>لا يوجد نتائج</p>}
+        {isLoading && tables.length === 0 && (
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 56 }} spin />} />
+        )}
       </div>
     </div>
   );

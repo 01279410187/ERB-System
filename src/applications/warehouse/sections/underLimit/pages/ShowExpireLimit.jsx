@@ -6,11 +6,9 @@ import {
 } from "../../../../../apis/underLimit";
 import { useAuth } from "../../../../../context/AuthContext";
 const ShowExpireLimit = () => {
-  const { user } = useAuth()
+  const { user } = useAuth();
   const tableHeaders = [
     { key: "name", value: "التصنيف الفرعى " },
-    { key: "recipe_category", nestedKey: "name", value: " التصنيف الرئيسى " },
-    { key: "unit", nestedKey: "name", value: "الوحدة " },
     { key: "days_before_expire", value: "أيام التنبيه قبل انتهاء الصلاحية" },
 
     // { key: "quantity", value: "الكمية المتبقية  " },
@@ -27,16 +25,17 @@ const ShowExpireLimit = () => {
         { key: "quantity", label: "الكمية", isInput: false },
       ],
     },
-  ]
+  ];
 
   const actions = [
     {
-      type: `${user?.permissions.some(
-        (permission) => permission.name === "expire_date limit"
-      )
-        ? "show"
-        : ""
-        }`,
+      type: `${
+        user?.permissions.some(
+          (permission) => permission.name === "expire_date limit"
+        )
+          ? "show"
+          : ""
+      }`,
       label: "التفاصيل",
     },
   ];
