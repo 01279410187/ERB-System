@@ -52,6 +52,7 @@ import {
   OrderDetails,
   CashierWarehouseRequests,
   CashierKitchenRequests,
+  PrintOrder,
 } from "./applications/warehouse/sections/cashier/pages";
 import UnderLimit from "./applications/warehouse/sections/underLimit/UnderLimit";
 import {
@@ -744,6 +745,19 @@ function App() {
                   }}
                 >
                   <KitchenRequests />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/warehouse/cashier/print-order/:id"
+              element={
+                <ProtectedRoute
+                  requiredPermission={{
+                    id: 123,
+                    name: "edit order",
+                  }}
+                >
+                  <PrintOrder />
                 </ProtectedRoute>
               }
             ></Route>

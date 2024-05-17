@@ -177,16 +177,16 @@ const ShowDataModal = ({
               تعديل
             </button>
           )}
-          {changeStatusFn && acceptTitle && (
-            <button className="data-modal-btn show" onClick={handleRejectClick}>
+          {changeStatusFn && rejectTitle && (
+            <button
+              className="data-modal-btn delete"
+              onClick={handleRejectClick}
+            >
               {rejectTitle.label}
             </button>
           )}
-          {changeStatusFn && rejectTitle && (
-            <button
-              onClick={handleAcceptClick}
-              className="data-modal-btn delete"
-            >
+          {changeStatusFn && acceptTitle && (
+            <button onClick={handleAcceptClick} className="data-modal-btn show">
               {acceptTitle.label}
             </button>
           )}
