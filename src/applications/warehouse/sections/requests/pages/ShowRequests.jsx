@@ -144,7 +144,7 @@ const ShowRequests = () => {
       details: [
         { key: "name", label: "الاسم", isInput: false },
         // { key: "price", label: "السعر", isInput: false },
-        { key: "quantity", label: "الكمية", isInput: false },
+        { key: "quantity", label: "الكمية", isInput: user.permissions.some((permission) => permission.name === "edit request") ? true : false },
       ],
     },
   ]
